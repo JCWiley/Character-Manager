@@ -1,0 +1,90 @@
+ Tabs
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <TextBox x:Name="Description_Text_Box"
+                     HorizontalAlignment="Left" 
+                     Text="{Binding ElementName=Character_List, Path=SelectedItem.Description}" 
+                     Height="158" 
+                     Margin="115,54,0,0" 
+                     TextWrapping="Wrap" 
+                     VerticalAlignment="Top" 
+                     Width="354" 
+                     RenderTransformOrigin="0.492,0.522"/>
+
+
+
+                     "{StaticResource Characters}"
+
+
+
+
+                                     <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Margin" Value="0,0,0,5"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                                            <Expander IsExpanded="True" Background="#FF112255" BorderBrush="#FF002255" Foreground="#FFEEEEEE" BorderThickness="1,1,1,5">
+                                                <Expander.Header>
+                                                    <DockPanel>
+                                                        <TextBlock FontWeight="Bold" Text="{Binding Path=Location}" Margin="5,0,0,0" Width="100"/>
+                                                    </DockPanel>
+                                                </Expander.Header>
+                                                <Expander.Content>
+                                                    <ItemsPresenter />
+                                                </Expander.Content>
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+
+
+                            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Location"/>
+            </CollectionViewSource.GroupDescriptions>
+
+
+
+            
+                              Filter="cvsCharacters_Filter"
+
+
+                              Text="{Binding Path=Location}"
+
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Margin" Value="0,0,0,5"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                                            <Expander IsExpanded="True" BorderThickness="1,1,1,5">
+                                                <Expander.Header>
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Location}" Width="100"/>
+                                                </Expander.Header>
+                                                <Expander.Content>
+                                                    <ItemsPresenter/>
+                                                </Expander.Content>
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+
+
+                {Binding CurrentDay}

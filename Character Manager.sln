@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character Manager", "Character Manager.csproj", "{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38E84C1A-9137-4776-B494-AB1F241F8B96}"
+	ProjectSection(SolutionItems) = preProject
+		CodeStore.txt = CodeStore.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6CEC469-36E5-4A0F-B0EE-4E5389F1DAE9}
+	EndGlobalSection
+EndGlobal

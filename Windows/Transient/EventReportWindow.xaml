@@ -1,0 +1,23 @@
+﻿<Window x:Class="Character_Manager.EventReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Character_Manager"
+        mc:Ignorable="d"
+        Title="Event Summary" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="EventDisplayDataGrid" 
+                  HorizontalAlignment="Left" 
+                  Height="373" 
+                  VerticalAlignment="Top" 
+                  Width="772" 
+                  Margin="10,10,0,0" 
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="True"/>
+        <Button x:Name="Close_Button" Content="Close" HorizontalAlignment="Left" Margin="669,388,0,0" VerticalAlignment="Top" Width="113" Click="Close_Button_Click" />
+
+    </Grid>
+</Window>
