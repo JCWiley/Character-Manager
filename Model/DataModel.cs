@@ -273,12 +273,12 @@ namespace Character_Manager
                             string value = (string)E.GetType().GetProperty(type).GetValue(E, null);
                             if (value.Contains(text))
                             {
-                                E.Visible = "Black";
+                                E.Visible = true;
                                 SetVisible(E);
                             }
                             else
                             {
-                                E.Visible = "Red";
+                                E.Visible = false;
                             }
                         }
                         catch
@@ -297,12 +297,12 @@ namespace Character_Manager
         {
             foreach(Entity E in Entities.Values)
             {
-                E.Visible = "Black";
+                E.Visible = true;
             }
         }
         private void SetVisible(Entity Parent)
         {
-            Parent.Visible = "Black";
+            Parent.Visible = true;
             foreach(Entity E in Parent.ParentEntities)
             {
                 SetVisible(E);

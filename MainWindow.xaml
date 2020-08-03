@@ -92,6 +92,21 @@
                             </StackPanel>
                         </DataTemplate>
                     </TreeView.Resources>
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                            <Setter Property="Visibility">
+                                <Setter.Value>
+                                    <Binding Path="Visible">
+                                        <Binding.Converter>
+                                            <BooleanToVisibilityConverter/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
                 </TreeView>
                 <Border BorderBrush="Gray" BorderThickness="1,0,1,1" VerticalAlignment="Bottom">
                     <Grid Height="85">

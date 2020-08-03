@@ -26,7 +26,9 @@ namespace Character_Manager
             description = "{}";
             location = "";
             race = "";
-            visible = "Black";
+            visible = true;
+            IsSelected = false;
+            IsExpanded = false;
 
             treeheadflag = false;
 
@@ -39,7 +41,9 @@ namespace Character_Manager
             description = "{}";
             location = "";
             race = "";
-            visible = "Black";
+            visible = true;
+            IsSelected = false;
+            IsExpanded = false;
 
            
 
@@ -330,8 +334,9 @@ namespace Character_Manager
             }
         }
 
-        private string visible;
-        public string Visible
+        private bool visible;
+        [XmlIgnoreAttribute]
+        public bool Visible
         {
             get
             {
@@ -342,11 +347,42 @@ namespace Character_Manager
                 if (this.visible != value)
                 {
                     this.visible = value;
-                    //if(this is Organization O)
-                    //{
-                    //    O.NotifyPropertyChanged("Entities");
-                    //}
                     this.NotifyPropertyChanged("Visible");
+                }
+            }
+        }
+
+        private bool isselected;
+        [XmlIgnoreAttribute]
+        public bool IsSelected
+        {
+            get
+            {
+                return this.isselected;
+            }
+            set
+            {
+                if (this.isselected != value)
+                {
+                    this.isselected = value;
+                    this.NotifyPropertyChanged("IsSelected");
+                }
+            }
+        }
+        private bool isexpanded;
+        [XmlIgnoreAttribute]
+        public bool IsExpanded
+        {
+            get
+            {
+                return this.isexpanded;
+            }
+            set
+            {
+                if (this.isexpanded != value)
+                {
+                    this.isexpanded = value;
+                    this.NotifyPropertyChanged("IsExpanded");
                 }
             }
         }

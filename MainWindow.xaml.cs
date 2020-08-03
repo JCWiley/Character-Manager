@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -277,12 +278,14 @@ namespace Character_Manager
             Button B = sender as Button;
             Organization O = B.DataContext as Organization;
             O.Add_Character();
+            O.IsExpanded = true;
         }
         private void Add_Organization_Button_Click(object sender, RoutedEventArgs e)
         {
             Button B = sender as Button;
             Organization O = B.DataContext as Organization;
             O.Add_Organization();
+            O.IsExpanded = true;
         }
         private void ClearFilterButton_Click(object sender, RoutedEventArgs e)
         {
