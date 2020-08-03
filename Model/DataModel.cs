@@ -95,6 +95,7 @@ namespace Character_Manager
                 {
                     DataModel.currentday = value;
                     this.NotifyPropertyChanged("CurrentDay");
+                    this.NotifyPropertyChanged("SerializeCurrentDay");
                 }
             }
         }

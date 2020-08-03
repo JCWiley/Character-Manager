@@ -325,10 +325,11 @@ namespace Character_Manager
         }
         private void Character_List_Datasource_Changed(object sender, EventArgs e)
         {
-            if(((TreeViewItem)Character_Tree.SelectedItem) is TreeViewItem TVI)
-            {
-                TVI.IsSelected = false;
-            }
+            //if(((TreeViewItem)Character_Tree.SelectedItem) is TreeViewItem TVI)
+            //{
+            //    TVI.IsSelected = false;
+            //}
+            //Character_Tree.SelectedItem;
 
         }
         //Focus Changed Handlers

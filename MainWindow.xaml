@@ -132,7 +132,18 @@
             </Templates:OrganizationDisplay>
 
 
-            <Label x:Name="CurrentDayTextBlock" HorizontalAlignment="Right" Margin="0,0,58,0" Content="{Binding SerializeCurrentDay}" VerticalAlignment="Top" Height="35" Width="64" HorizontalContentAlignment="Right" FontSize="22" Background="#FFF9F9F9" BorderThickness="1,0,0,1" BorderBrush="Black" Grid.Column="1"/>
+            <Label x:Name="CurrentDayTextBlock" 
+                   HorizontalAlignment="Right" 
+                   Margin="0,0,58,0" 
+                   Content="{Binding SerializeCurrentDay}" 
+                   VerticalAlignment="Top" 
+                   Height="35" Width="64" 
+                   HorizontalContentAlignment="Right" 
+                   FontSize="22" 
+                   Background="#FFF9F9F9" 
+                   BorderThickness="1,0,0,1" 
+                   BorderBrush="Black" 
+                   Grid.Column="1"/>
             <Button x:Name="AdvanceDayButton" 
                     Content="+" 
                     Click="AdvanceDayButton_Click" 
