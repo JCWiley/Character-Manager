@@ -229,8 +229,10 @@ namespace Character_Manager
                 {
                     case MessageBoxResult.Yes:
                         FM.Save(DM);
+                        Change_View_Source(FM.New_Initialized());
                         break;
                     case MessageBoxResult.No:
+                        Change_View_Source(FM.New_Initialized());
                         break;
                     case MessageBoxResult.Cancel:
                         //abort new document
@@ -240,7 +242,7 @@ namespace Character_Manager
             }
             if (!abort_flag)
             {
-                Change_View_Source(FM.New());
+                Change_View_Source(FM.New_Initialized());
                 DM.IsDirty = false;
             }
         }
@@ -288,7 +290,6 @@ namespace Character_Manager
             FilterContentTextBox.Text = "";
             DM.FilterTree("Clear", "");
         }
-
         private void ApplyFilterButton_Click(object sender, RoutedEventArgs e)
         {
             if(FilterSelectionComboBox.SelectedItem is ComboBoxItem C)

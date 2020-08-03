@@ -128,6 +128,13 @@ namespace Character_Manager
             Properties.Settings.Default.Save();
         }
 
+        public DataModel New_Initialized()
+        {
+            Filepath = "";
+            LocalCollection = new DataModel();
+            LocalCollection.InitializeDataModel();
+            return LocalCollection;
+        }
         public DataModel New()
         {
             Filepath = "";
