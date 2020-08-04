@@ -111,15 +111,17 @@ namespace Character_Manager
         public void Add_Character()
         {
             Character NewChar = new Character(Gid);
+            NewChar.IsSelected = true;
             ChildGuids.Add(NewChar.Gid);
             DataModel.Entities.Add(NewChar.Gid, NewChar);
             this.NotifyPropertyChanged("Entities");
         }
         public void Add_Organization()
         {
-            Organization NewChar = new Organization(Gid);
-            ChildGuids.Add(NewChar.Gid);
-            DataModel.Entities.Add(NewChar.Gid, NewChar);
+            Organization NewOrg = new Organization(Gid);
+            NewOrg.IsSelected = true;
+            ChildGuids.Add(NewOrg.Gid);
+            DataModel.Entities.Add(NewOrg.Gid, NewOrg);
             this.NotifyPropertyChanged("Entities");
         }
         public void Add_Existing_Entity(Guid inc)

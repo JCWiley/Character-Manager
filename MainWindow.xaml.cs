@@ -160,6 +160,14 @@ namespace Character_Manager
             }
             return result;
         }
+
+        public void ClearSelection()
+        {
+            if(Character_Tree.SelectedItem is Entity E)
+            {
+                E.IsSelected = false;
+            }
+        }
         //*************************Handlers*************************//
         // Window Handlers
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -277,6 +285,7 @@ namespace Character_Manager
         {
             Button B = sender as Button;
             Organization O = B.DataContext as Organization;
+            this.ClearSelection();
             O.Add_Character();
             O.IsExpanded = true;
         }
@@ -284,6 +293,7 @@ namespace Character_Manager
         {
             Button B = sender as Button;
             Organization O = B.DataContext as Organization;
+            this.ClearSelection();
             O.Add_Organization();
             O.IsExpanded = true;
         }
@@ -328,12 +338,10 @@ namespace Character_Manager
         }
         private void Character_List_Datasource_Changed(object sender, EventArgs e)
         {
-            //if(((TreeViewItem)Character_Tree.SelectedItem) is TreeViewItem TVI)
-            //{
-            //    TVI.IsSelected = false;
-            //}
-            //Character_Tree.SelectedItem;
-
+            if(Character_Tree.SelectedItem is Entity E)
+            {
+                E.IsSelected = false;
+            }
         }
         //Focus Changed Handlers
         private void LoseFocusOnEnter_TextBlock_KeyDown(object sender, KeyEventArgs e)
