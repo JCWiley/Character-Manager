@@ -58,7 +58,6 @@ namespace Character_Manager.Templates
             Job_List.IsEnabled = true;
             Job_History_DataGrid.IsEnabled = true;
             Inventory_DataGrid.IsEnabled = true;
-            StartDayTextBlock.IsEnabled = true;
         }
         public void Disable()
         {
@@ -76,7 +75,6 @@ namespace Character_Manager.Templates
             Job_List.IsEnabled = false;
             Job_History_DataGrid.IsEnabled = false;
             Inventory_DataGrid.IsEnabled = false;
-            StartDayTextBlock.IsEnabled = false;
         }
 
         //Utilities
@@ -177,26 +175,28 @@ namespace Character_Manager.Templates
                 SetRTFFromString(Local_Job.Description, Job_Details_RTB);
 
                 //enable editing
-                Job_Details_RTB.IsEnabled = true;
-                ExpectedDurationTextBox.IsEnabled = true;
-                Job_Items_Datagrid.IsEnabled = true;
-                Add_Custom_Event_Button.IsEnabled = true;
-                Repeating_Combo_Box.IsEnabled = true;
-                FailureChanceTextBox.IsEnabled = true;
-                SuccessChanceTextBox.IsEnabled = true;
+                JobControlsGrid.IsEnabled = true;
+                //Job_Details_RTB.IsEnabled = true;
+                //ExpectedDurationTextBox.IsEnabled = true;
+                //Job_Items_Datagrid.IsEnabled = true;
+                //Add_Custom_Event_Button.IsEnabled = true;
+                //Repeating_Combo_Box.IsEnabled = true;
+                //FailureChanceTextBox.IsEnabled = true;
+                //SuccessChanceTextBox.IsEnabled = true;
             }
             else
             {
                 Job_Details_RTB.Document.Blocks.Clear();
 
                 //no valid selected job, disable editing
-                Job_Details_RTB.IsEnabled = false;
-                ExpectedDurationTextBox.IsEnabled = false;
-                Job_Items_Datagrid.IsEnabled = false;
-                Add_Custom_Event_Button.IsEnabled = false;
-                Repeating_Combo_Box.IsEnabled = false;
-                FailureChanceTextBox.IsEnabled = false;
-                SuccessChanceTextBox.IsEnabled = false;
+                JobControlsGrid.IsEnabled = false;
+                //Job_Details_RTB.IsEnabled = false;
+                //ExpectedDurationTextBox.IsEnabled = false;
+                //Job_Items_Datagrid.IsEnabled = false;
+                //Add_Custom_Event_Button.IsEnabled = false;
+                //Repeating_Combo_Box.IsEnabled = false;
+                //FailureChanceTextBox.IsEnabled = false;
+                //SuccessChanceTextBox.IsEnabled = false;
             }
         }
 

@@ -59,7 +59,7 @@ namespace Character_Manager.Templates
             Job_History_DataGrid.IsEnabled = true;
             Member_Job_Datagrid.IsEnabled = true;
             SizeComboBox.IsEnabled = true;
-            StartDayTextBlock.IsEnabled = true;
+            Inventory_DataGrid.IsEnabled = true;
         }
         public void Disable()
         {
@@ -78,7 +78,7 @@ namespace Character_Manager.Templates
             Job_History_DataGrid.IsEnabled = false;
             Member_Job_Datagrid.IsEnabled = false;
             SizeComboBox.IsEnabled = false;
-            StartDayTextBlock.IsEnabled = false;
+            Inventory_DataGrid.IsEnabled = false;
         }
 
         //Utilities
@@ -186,28 +186,32 @@ namespace Character_Manager.Templates
                 SetRTFFromString(Local_Job.Description, Job_Details_RTB);
 
                 //enable editing
-                Job_Details_RTB.IsEnabled = true;
-                ExpectedDurationTextBox.IsEnabled = true;
-                Member_Job_Datagrid.IsEnabled = true;
-                Add_Custom_Event_Button.IsEnabled = true;
-                Repeating_Combo_Box.IsEnabled = true;
-                FailureChanceTextBox.IsEnabled = true;
-                SuccessChanceTextBox.IsEnabled = true;
-                Add_Subtask_Button.IsEnabled = true;
+                JobControlsGrid.IsEnabled = true;
+
+                //Job_Details_RTB.IsEnabled = true;
+                //ExpectedDurationTextBox.IsEnabled = true;
+                //Member_Job_Datagrid.IsEnabled = true;
+                //Add_Custom_Event_Button.IsEnabled = true;
+                //Repeating_Combo_Box.IsEnabled = true;
+                //FailureChanceTextBox.IsEnabled = true;
+                //SuccessChanceTextBox.IsEnabled = true;
+                //Add_Subtask_Button.IsEnabled = true;
             }
             else
             {
                 Job_Details_RTB.Document.Blocks.Clear();
 
                 //no valid selected job, disable editing
-                Job_Details_RTB.IsEnabled = false;
-                ExpectedDurationTextBox.IsEnabled = false;
-                Member_Job_Datagrid.IsEnabled = false;
-                Add_Custom_Event_Button.IsEnabled = false;
-                Repeating_Combo_Box.IsEnabled = false;
-                FailureChanceTextBox.IsEnabled = false;
-                SuccessChanceTextBox.IsEnabled = false;
-                Add_Subtask_Button.IsEnabled = false;
+                JobControlsGrid.IsEnabled = false;
+
+                //Job_Details_RTB.IsEnabled = false;
+                //ExpectedDurationTextBox.IsEnabled = false;
+                //Member_Job_Datagrid.IsEnabled = false;
+                //Add_Custom_Event_Button.IsEnabled = false;
+                //Repeating_Combo_Box.IsEnabled = false;
+                //FailureChanceTextBox.IsEnabled = false;
+                //SuccessChanceTextBox.IsEnabled = false;
+                //Add_Subtask_Button.IsEnabled = false;
             }
         }
         private void OwnerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

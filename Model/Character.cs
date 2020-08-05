@@ -19,7 +19,7 @@ namespace Character_Manager
             alias = "";
             occupation = "";
             birthplace = "";
-            inventory = new Item_Collection();
+            
         }
         public Character(Guid creatorguid) : base(creatorguid)
         {
@@ -27,7 +27,6 @@ namespace Character_Manager
             alias = "";
             occupation = "";
             birthplace = "";
-            inventory = new Item_Collection();
         }
 
         private string alias;
@@ -81,22 +80,7 @@ namespace Character_Manager
             }
         }
 
-        private Item_Collection inventory;
-        public Item_Collection Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-            set
-            {
-                if (this.inventory != value)
-                {
-                    this.inventory = value;
-                    this.NotifyPropertyChanged("Inventory");
-                }
-            }
-        }
+
 
     }
 }

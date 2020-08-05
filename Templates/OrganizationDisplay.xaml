@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" SelectionChanged="Character_Tab_Manager_SelectionChanged">
+        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" SelectionChanged="Character_Tab_Manager_SelectionChanged" IsEnabled="True">
             <TabItem Header="Organization">
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
@@ -167,130 +167,145 @@
                             <DataGridCheckBoxColumn Header="Active" Binding="{Binding IsCurrentlyProgressing}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <RichTextBox x:Name="Job_Details_RTB"
-                                     LostFocus="Job_Details_RTB_LostFocus"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Height="106"
-                                     Margin="221,26,0,0" 
-                                     VerticalAlignment="Top"
-                                     TabIndex="7"
-                                     IsEnabled="False"/>
-                    <Grid Margin="221,0,0,2" VerticalAlignment="Bottom" Height="112">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="Add_Custom_Event_Button" 
-                                Content="Add Custom Event" 
-                                Margin="10,0" 
-                                Click="Custom_Event_Button_Click" 
-                                IsEnabled="False" 
-                                Height="22"
-                                VerticalAlignment="Top"
-                                Grid.Column="1"/>
-                        <Button x:Name="Add_Subtask_Button" 
-                                Content="Add Subtask" 
-                                Margin="10,0" 
-                                Click="Add_Subtask_Button_Click" 
-                                IsEnabled="False" 
-                                Height="22"
-                                VerticalAlignment="Top"
-                                Grid.Column="0"/>
-                        <Label Content="Start Day:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Column="0" Height="26" Margin="0,24,0,0"/>
-                        <TextBox x:Name="StartDayTextBlock"
-                                   HorizontalAlignment="Right" 
-                                   TextWrapping="Wrap" 
-                                   Text="{Binding SelectedItem.StartDate, ElementName=Job_List}" 
-                                   KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                   IsEnabled="False"
-                                   VerticalAlignment="Top" Width="40" Height="26"
-                                   Grid.Column="0" Margin="0,24,0,0"/>
-                        <Label Content="Duration:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="135" Grid.Column="0" Height="26"/>
-                        <TextBox x:Name="ExpectedDurationTextBox" 
-                                 HorizontalAlignment="Right" 
-                                 Margin="0,55,0,0" 
-                                 TextWrapping="Wrap" 
-                                 Text="{Binding SelectedItem.Duration, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
-                                 KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
-                                 VerticalAlignment="Top" Width="40" Height="26"
-                                 Grid.Column="0"/>
-                        <Label Content="Chance of Critical Success: 1/" Margin="0,86,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245"/>
-                        <TextBox x:Name="SuccessChanceTextBox" 
-                                 HorizontalAlignment="Right" 
-                                 Margin="0,86,0,0" 
-                                 TextWrapping="Wrap" 
-                                 Text="{Binding SelectedItem.SuccessChance, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
-                                 KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
-                                 VerticalAlignment="Top" Width="40" Height="26"
-                                 Grid.Column="0"/>
-                        <Label Content="Current Progress:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Column="1" Height="26" Margin="0,24,0,0"/>
-                        <Label Content="Repeating:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="134" Grid.Column="1" Height="26"/>
-                        <TextBlock x:Name="ProgressTextBlock"
-                                    HorizontalAlignment="Right" 
-                                    Margin="0,24,0,0" 
-                                    TextWrapping="Wrap" 
-                                    VerticalAlignment="Top" Width="40" Height="26"
-                                   Grid.Column="1"/>
-                        <ComboBox x:Name="Repeating_Combo_Box" HorizontalAlignment="Right" Margin="0,59,0,0" VerticalAlignment="Top" Width="150" SelectedIndex="{Binding SelectedItem.Recurring, ElementName=Job_List}" Grid.Column="1" Height="22">
-                            <ComboBoxItem Content="Does Not Repeat"/>
-                            <ComboBoxItem Content="Repeats Forever"/>
-                        </ComboBox>
-                        <Label Content="Chance of Critical Failure:   1/" HorizontalAlignment="Left" Margin="0,86,0,0" VerticalAlignment="Top" Width="244" Grid.Column="1" Height="26"/>
-                        <TextBox x:Name="FailureChanceTextBox" 
-                                 HorizontalAlignment="Right" 
-                                 Margin="0,86,0,0" 
-                                 TextWrapping="Wrap" 
-                                 Text="{Binding SelectedItem.FailureChance, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
-                                 KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
-                                 VerticalAlignment="Top" Width="40" Height="26" Grid.Column="1"/>
-                    </Grid>
-                    <Label Content="Job Information" Margin="221,0,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Label Content="Assigned Subtasks:" HorizontalAlignment="Left" Margin="221,137,0,0" VerticalAlignment="Top" Width="111"/>
-                    <DataGrid x:Name="Member_Job_Datagrid"
-                                  Margin="221,163,0,122"
-                                  ItemsSource="{Binding ElementName=Job_List, Path=SelectedItem.Member_Jobs}" 
-                                  CanUserAddRows="False"
-                                  CanUserSortColumns="False"
-                                  CanUserDeleteRows="True"
-                                  IsEnabled="False"
-                                  AutoGenerateColumns="False">
-                        <DataGrid.Resources>
-                            <CollectionViewSource x:Key="Entities" Source="{Binding O.Entities}"/>
-                        </DataGrid.Resources>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Task"
-                                                    Binding="{Binding Summary}"
-                                                    Width="100*"/>
-                            <DataGridTextColumn Header="Progress"
-                                                    Binding="{Binding Progress}"
-                                                    Width="60"/>
-                            <DataGridTextColumn Header="Duration"
-                                                    Binding="{Binding Duration}"
-                                                    Width="60"/>
-                            <DataGridTextColumn Header="End Date"
-                                                    Binding="{Binding EndDate}"
-                                                    Width="60"
-                                                    IsReadOnly="True"/>
-                            <DataGridComboBoxColumn x:Name="OwnerComboBoxColumn"
-                                                    Header="Owner"
-                                                    ItemsSource ="{Binding Source={StaticResource Entities}, UpdateSourceTrigger=PropertyChanged}"
-                                                    SelectedItemBinding="{Binding Owner_Entity_Object}"
-                                                    DisplayMemberPath="Name"
-                                                    Width="150">
-                            </DataGridComboBoxColumn>
-
-                        </DataGrid.Columns>
-
-                    </DataGrid>
-
                     <Button x:Name="Add_Blank_Job_Button"
-                                Content="Add Blank Job"  
-                                Click="Add_Job_Button_Click" 
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom" Width="216" Margin="0,0,0,2"/>
+                                    Content="Add Blank Job"  
+                                    Click="Add_Job_Button_Click" 
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom" Width="216" Margin="0,0,0,2"/>
+                    <Grid x:Name="JobControlsGrid" IsEnabled="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="189*"/>
+                            <ColumnDefinition Width="601*"/>
+                        </Grid.ColumnDefinitions>
+                        <RichTextBox x:Name="Job_Details_RTB"
+                                         LostFocus="Job_Details_RTB_LostFocus"
+                                         VerticalScrollBarVisibility="Auto"
+                                         Height="106"
+                                         Margin="32,26,0,0" 
+                                         VerticalAlignment="Top"
+                                         TabIndex="7"
+                                         IsEnabled="True" Grid.Column="1"/>
+                        <Grid Margin="32,0,0,2" VerticalAlignment="Bottom" Height="112" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="Add_Custom_Event_Button" 
+                                    Content="Add Custom Event" 
+                                    Margin="10,0" 
+                                    Click="Custom_Event_Button_Click" 
+                                    IsEnabled="True" 
+                                    Height="22"
+                                    VerticalAlignment="Top"
+                                    Grid.Column="1"/>
+                            <Button x:Name="Add_Subtask_Button" 
+                                    Content="Add Subtask" 
+                                    Margin="10,0" 
+                                    Click="Add_Subtask_Button_Click" 
+                                    IsEnabled="True" 
+                                    Height="22"
+                                    VerticalAlignment="Top"
+                                    Grid.Column="0"/>
+                            <Label Content="Start Day:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Column="0" Height="26" Margin="0,24,0,0"/>
+                            <TextBox x:Name="StartDayTextBlock"
+                                       HorizontalAlignment="Right" 
+                                       TextWrapping="Wrap" 
+                                       Text="{Binding SelectedItem.StartDate, ElementName=Job_List}" 
+                                       KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                       IsEnabled="True"
+                                       VerticalAlignment="Top" Width="40" Height="26"
+                                       Grid.Column="0" Margin="0,24,0,0"/>
+                            <Label Content="Duration:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="135" Grid.Column="0" Height="26"/>
+                            <TextBox x:Name="ExpectedDurationTextBox" 
+                                     HorizontalAlignment="Right" 
+                                     Margin="0,55,0,0" 
+                                     TextWrapping="Wrap" 
+                                     Text="{Binding SelectedItem.Duration, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
+                                     KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                     IsEnabled="True"
+                                     VerticalAlignment="Top" Width="40" Height="26"
+                                     Grid.Column="0"/>
+                            <Label Content="Chance of Critical Success: 1/" Margin="0,86,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245"/>
+                            <TextBox x:Name="SuccessChanceTextBox" 
+                                     HorizontalAlignment="Right" 
+                                     Margin="0,86,0,0" 
+                                     TextWrapping="Wrap" 
+                                     Text="{Binding SelectedItem.SuccessChance, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
+                                     KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                     IsEnabled="True"
+                                     VerticalAlignment="Top" Width="40" Height="26"
+                                     Grid.Column="0"/>
+                            <Label Content="Current Progress:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Column="1" Height="26" Margin="0,24,0,0"/>
+                            <Label Content="Repeating:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="134" Grid.Column="1" Height="26"/>
+                            <TextBlock x:Name="ProgressTextBlock"
+                                        HorizontalAlignment="Right" 
+                                        Margin="0,24,0,0" 
+                                        TextWrapping="Wrap" 
+                                        VerticalAlignment="Top" Width="40" Height="26"
+                                       Grid.Column="1"/>
+                            <ComboBox x:Name="Repeating_Combo_Box" 
+                                      HorizontalAlignment="Right" 
+                                      Margin="0,59,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="150" 
+                                      IsEnabled="True"
+                                      SelectedIndex="{Binding SelectedItem.Recurring, ElementName=Job_List}" 
+                                      Grid.Column="1" 
+                                      Height="22">
+                                <ComboBoxItem Content="Does Not Repeat"/>
+                                <ComboBoxItem Content="Repeats Forever"/>
+                            </ComboBox>
+                            <Label Content="Chance of Critical Failure:   1/" HorizontalAlignment="Left" Margin="0,86,0,0" VerticalAlignment="Top" Width="244" Grid.Column="1" Height="26"/>
+                            <TextBox x:Name="FailureChanceTextBox" 
+                                     HorizontalAlignment="Right" 
+                                     Margin="0,86,0,0" 
+                                     TextWrapping="Wrap" 
+                                     Text="{Binding SelectedItem.FailureChance, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
+                                     KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                     IsEnabled="True"
+                                     VerticalAlignment="Top" Width="40" Height="26" Grid.Column="1"/>
+                        </Grid>
+                        <Label Content="Job Information" Margin="32,0,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <Label Content="Assigned Subtasks:" HorizontalAlignment="Left" Margin="32,137,0,0" VerticalAlignment="Top" Width="111" Grid.Column="1"/>
+                        <DataGrid x:Name="Member_Job_Datagrid"
+                                      Margin="32,163,0,122"
+                                      ItemsSource="{Binding ElementName=Job_List, Path=SelectedItem.Member_Jobs}" 
+                                      CanUserAddRows="False"
+                                      CanUserSortColumns="False"
+                                      CanUserDeleteRows="True"
+                                      IsEnabled="True"
+                                      AutoGenerateColumns="False" Grid.Column="1">
+                            <DataGrid.Resources>
+                                <CollectionViewSource x:Key="Entities" Source="{Binding O.Entities}"/>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Task"
+                                                        Binding="{Binding Summary}"
+                                                        Width="100*"/>
+                                <DataGridTextColumn Header="Progress"
+                                                        Binding="{Binding Progress}"
+                                                        Width="60"/>
+                                <DataGridTextColumn Header="Duration"
+                                                        Binding="{Binding Duration}"
+                                                        Width="60"/>
+                                <DataGridTextColumn Header="End Date"
+                                                        Binding="{Binding EndDate}"
+                                                        Width="60"
+                                                        IsReadOnly="True"/>
+                                <DataGridComboBoxColumn x:Name="OwnerComboBoxColumn"
+                                                        Header="Owner"
+                                                        ItemsSource ="{Binding Source={StaticResource Entities}, UpdateSourceTrigger=PropertyChanged}"
+                                                        SelectedItemBinding="{Binding Owner_Entity_Object}"
+                                                        DisplayMemberPath="Name"
+                                                        Width="150">
+                                </DataGridComboBoxColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Job History">

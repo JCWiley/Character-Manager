@@ -200,7 +200,7 @@ namespace Character_Manager
             //    Entities.Add(E.Gid,E);
             //}
             EntitiesBind = inc.EntitiesBind;
-
+            SerializeCurrentDay = inc.SerializeCurrentDay;
             IsDirty = false;
             //CurrentDay = DataModel.CurrentDay;
             Worldname = inc.Worldname;

@@ -32,6 +32,8 @@ namespace Character_Manager
 
             treeheadflag = false;
 
+            inventory = new Item_Collection();
+
             gid = Guid.NewGuid();
         }
         public Entity(Guid creatorguid)
@@ -45,7 +47,7 @@ namespace Character_Manager
             IsSelected = false;
             IsExpanded = false;
 
-           
+            inventory = new Item_Collection();
 
             if (creatorguid != Guid.Empty)
             {
@@ -240,6 +242,22 @@ namespace Character_Manager
             }
         }
 
+        private Item_Collection inventory;
+        public Item_Collection Inventory
+        {
+            get
+            {
+                return this.inventory;
+            }
+            set
+            {
+                if (this.inventory != value)
+                {
+                    this.inventory = value;
+                    this.NotifyPropertyChanged("Inventory");
+                }
+            }
+        }
 
         private static ObservableCollection<String> locations;
 
