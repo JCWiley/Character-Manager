@@ -14,16 +14,16 @@ namespace Character_Manager
 {
     class File_Manager
     {
-        private string Filepath = "";
+        private string filepath = "";
         private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private DataModel LocalCollection = new DataModel();
 
         public DataModel Get_Last_File()
         {
-            Filepath = Properties.Settings.Default.LastUsedPath;
-            if (!string.IsNullOrEmpty(Filepath))
+            filepath = Properties.Settings.Default.LastUsedPath;
+            if (!string.IsNullOrEmpty(filepath))
             {
-                TargetDirectory = Path.GetDirectoryName(Filepath);
+                TargetDirectory = Path.GetDirectoryName(filepath);
                 Load_File();
             }
             return LocalCollection;
@@ -31,7 +31,7 @@ namespace Character_Manager
 
         public void Save(DataModel I_Object)
         {
-            if (!string.IsNullOrEmpty(Filepath))
+            if (!string.IsNullOrEmpty(filepath))
             {
                 Save_File(I_Object);
             }
@@ -51,8 +51,8 @@ namespace Character_Manager
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                Filepath = saveFileDialog.FileName;
-                TargetDirectory = Path.GetDirectoryName(Filepath);
+                filepath = saveFileDialog.FileName;
+                TargetDirectory = Path.GetDirectoryName(filepath);
                 Save_File(I_Object);
             }
         }
@@ -60,7 +60,7 @@ namespace Character_Manager
         private void Save_File(DataModel I_Object)
         {
             XmlSerializer xs = new XmlSerializer(typeof(DataModel));
-            using (StreamWriter wr = new StreamWriter(Filepath))
+            using (StreamWriter wr = new StreamWriter(filepath))
             {
                 xs.Serialize(wr, I_Object);
             }
@@ -69,7 +69,7 @@ namespace Character_Manager
             //    WriteIndented = true,
             //};
             //string jsonstring = JsonSerializer.Serialize(I_Object, options);
-            //File.WriteAllText(Filepath, jsonstring);
+            //File.WriteAllText(filepath, jsonstring);
         }
 
         public Tuple<bool, DataModel> Load_With_Dialog()
@@ -82,7 +82,7 @@ namespace Character_Manager
             };
 
             if (openFileDialog.ShowDialog() == true)
-                Filepath = openFileDialog.FileName;
+                filepath = openFileDialog.FileName;
                 Load_Success = Load_File();
             
             if (Load_Success)
@@ -102,14 +102,14 @@ namespace Character_Manager
             XmlSerializer xs = new XmlSerializer(typeof(DataModel));
             try
             {
-                using (StreamReader rd = new StreamReader(Filepath))
+                using (StreamReader rd = new StreamReader(filepath))
                 {
                     DataModel TempLocalCollection = xs.Deserialize(rd) as DataModel;
                     LocalCollection = TempLocalCollection;
                     Load_Success = true;
                 }
 
-                //string jsonString = File.ReadAllText(Filepath);
+                //string jsonString = File.ReadAllText(filepath);
                 //LocalCollection = JsonSerializer.Deserialize<DataModel>(jsonString);
                 //Load_Success = true;
 
@@ -120,7 +120,7 @@ namespace Character_Manager
                 //file could not be opened
 
                 //Set Path as invalid
-                Filepath = "";
+                filepath = "";
 
             }
             return Load_Success;
@@ -128,22 +128,31 @@ namespace Character_Manager
 
         public void Set_Last_File()
         {
-            Properties.Settings.Default.LastUsedPath = Filepath;
+            Properties.Settings.Default.LastUsedPath = filepath;
             Properties.Settings.Default.Save();
         }
 
         public DataModel New_Initialized()
         {
-            Filepath = "";
+            filepath = "";
             LocalCollection = new DataModel();
             LocalCollection.InitializeDataModel();
             return LocalCollection;
         }
         public DataModel New()
         {
-            Filepath = "";
+            filepath = "";
             LocalCollection = new DataModel();
             return LocalCollection;
         }
+
+        public string Filepath
+        {
+            get
+            {
+                return filepath;
+            }
+        }
+
     }
 }

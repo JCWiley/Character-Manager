@@ -101,7 +101,6 @@ namespace Character_Manager
             DM.InitializeDataModel();
 
             this.DataContext = DM;
-            //this.DataContext = dm;
             DM.IsDirty = false;
         }
 
@@ -118,7 +117,7 @@ namespace Character_Manager
                 DM = I_Collection;
             }
 
-            //Search_Text_Box.Text = "";
+            this.Title = FM.Filepath;
 
             return;
         }
@@ -452,7 +451,6 @@ namespace Character_Manager
                 activeparent.Remove_Child(activeitem.Gid);
             }
         }
-
 
         //Handelers that need sorting
 
