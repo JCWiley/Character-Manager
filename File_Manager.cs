@@ -15,6 +15,7 @@ namespace Character_Manager
     class File_Manager
     {
         private string Filepath = "";
+        private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private DataModel LocalCollection = new DataModel();
 
         public DataModel Get_Last_File()
@@ -22,6 +23,7 @@ namespace Character_Manager
             Filepath = Properties.Settings.Default.LastUsedPath;
             if (!string.IsNullOrEmpty(Filepath))
             {
+                TargetDirectory = Path.GetDirectoryName(Filepath);
                 Load_File();
             }
             return LocalCollection;
@@ -44,11 +46,13 @@ namespace Character_Manager
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "Character Manager File (*.cm) |*.cm",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                InitialDirectory = TargetDirectory
             };
+
             if (saveFileDialog.ShowDialog() == true)
             {
                 Filepath = saveFileDialog.FileName;
+                TargetDirectory = Path.GetDirectoryName(Filepath);
                 Save_File(I_Object);
             }
         }
@@ -74,7 +78,7 @@ namespace Character_Manager
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Character Manager File (*.cm) |*.cm",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                InitialDirectory = TargetDirectory
             };
 
             if (openFileDialog.ShowDialog() == true)
