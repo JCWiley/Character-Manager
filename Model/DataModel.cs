@@ -224,16 +224,24 @@ namespace Character_Manager
             }
         }
 
-        public void AdvanceDay()
+        public void AdvanceDay(int DaysToAdvance)
         {
-            currentday += 1;
+            for(int i=0;i<DaysToAdvance;i++)
+            {
+                currentday += 1;
+
+                foreach (Job J in Jobs)
+                {
+                    J.AdvanceDay();
+                }
+                //foreach (Entity E in Entities.Values) //not needed currently, as entities have no day dependant data
+                //{
+                //    E.AdvanceDay();
+                //}
+            }
+
             this.NotifyPropertyChanged("CurrentDay");
             this.NotifyPropertyChanged("SerializeCurrentDay");
-
-            foreach (Entity C in Entities.Values)
-            {
-                C.AdvanceDay();
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

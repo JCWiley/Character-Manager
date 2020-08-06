@@ -151,17 +151,87 @@ namespace Character_Manager
             }
         }
 
-        public void TriggerJobEvent()
+        public bool AddJobEvent(string EventType,string EventNotes,int ProgressImpact)
         {
-            int RE = 0;
-            Job_Event_Window J = new Job_Event_Window(Parent_Name, summary, RE);
-            if (J.ShowDialog() == true)
+            Job_Event JE = new Job_Event();
+            JE.Populate(EventType, EventNotes, startdate + progress, Parent_Name, summary,ProgressImpact);
+            ec.Add(JE);
+            this.NotifyJobEventOccured();
+
+            if (ProgressImpact + progress > duration)
             {
+                Progress = duration;
+            }
+            else
+            {
+                Progress += ProgressImpact;
+            }
+            if (this.duration - this.progress <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void MarkJobAsComplete()
+        {
+            if (recurring == 1)
+            {
+                MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
                 Job_Event JE = new Job_Event();
-                JE.Populate(J.Get_EventType(), J.Get_EventNotes(), startdate + progress, Parent_Name, summary, J.Get_ProgressImpact());
+                JE.Populate("Repeatable Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
                 ec.Add(JE);
-                this.NotifyJobEventOccured();
-                RE = J.Get_ProgressImpact();
+                progress = 0;
+                this.NotifyPropertyChanged("DaysRemaining");
+            }
+            else
+            {
+                MainWindow.Display_Message_Box($"{Parent_Name} has completed work on {summary}", "Job Done.");
+                Job_Event JE = new Job_Event();
+                JE.Populate("Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
+                ec.Add(JE);
+                
+                complete = true;
+            }
+            this.NotifyJobEventOccured();
+        }
+
+        private void HandleJobEventChanged(object sender, EventArgs e)
+        {
+            this.NotifyJobEventOccured();
+        }
+        private bool Progressing()
+        {
+            if(complete)
+            {
+                return false;
+            }
+            if (StartDate >= DataModel.CurrentDay)
+            {
+                return false;
+            }
+            if (IsCurrentlyProgressing)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void AdvanceDay()
+        {
+            days_since_creation += 1;
+            int RE = Random_Event();
+            if (Progressing())
+            {
+                if (RE != 1)
+                {
+                    if (MainWindow.CreateJobEventWindow(Parent_Name, Summary, RE) is Job_Event_Window J)
+                    {
+                        AddJobEvent(J.Get_EventType(), J.Get_EventNotes(), J.Get_ProgressImpact());
+                        RE = J.Get_ProgressImpact();
+                    }
+                }
                 if (RE + progress > duration)
                 {
                     Progress = duration;
@@ -170,76 +240,9 @@ namespace Character_Manager
                 {
                     Progress += RE;
                 }
-                if (this.duration - this.progress == 0)
+                if (this.duration - this.progress <= 0)
                 {
-                    MessageBox.Show($"{Parent_Name} has completed work on {summary}", "Job Done.");
-                    Job_Event JE2 = new Job_Event();
-                    JE2.Populate("Job Completed", "Completed", startdate + progress, Parent_Name, summary, 0);
-                    ec.Add(JE2);
-                    this.NotifyJobEventOccured();
-                    complete = true;
-                }
-            }
-        }
-        private void HandleJobEventChanged(object sender, EventArgs e)
-        {
-            this.NotifyJobEventOccured();
-        }
-        public void AdvanceDay()
-        {
-            days_since_creation += 1;
-            int RE = Random_Event();
-            if (!complete)
-            {
-                if (iscurrentlyprogressing & (StartDate >= DataModel.CurrentDay))
-                {
-                    if (RE != 1)
-                    {
-                        Job_Event_Window J = new Job_Event_Window(Parent_Name, summary, RE);
-                        if (J.ShowDialog() == true)
-                        {
-                            Job_Event JE = new Job_Event();
-                            JE.Populate(J.Get_EventType(), J.Get_EventNotes(), startdate + days_since_creation, Parent_Name, summary, J.Get_ProgressImpact());
-                            ec.Add(JE);
-                            this.NotifyJobEventOccured();
-                            RE = J.Get_ProgressImpact();
-                        }
-                        else
-                        {
-                            RE = 1;
-                        }
-                    }
-                    if (RE + progress > duration)
-                    {
-                        Progress = duration;
-                    }
-                    else
-                    {
-                        Progress += RE;
-                    }
-
-                }
-                if (this.duration - this.progress == 0)
-                {
-                    if (recurring == 1)
-                    {
-                        MessageBox.Show($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
-                        Job_Event JE = new Job_Event();
-                        JE.Populate("Repeatable Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
-                        ec.Add(JE);
-                        this.NotifyJobEventOccured();
-                        progress = 0;
-                        this.NotifyPropertyChanged("DaysRemaining");
-                    }
-                    else
-                    {
-                        MessageBox.Show($"{Parent_Name} has completed work on {summary}", "Job Done.");
-                        Job_Event JE = new Job_Event();
-                        JE.Populate("Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
-                        ec.Add(JE);
-                        this.NotifyJobEventOccured();
-                        complete = true;
-                    }
+                    MarkJobAsComplete();
                 }
             }
         }

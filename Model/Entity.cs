@@ -345,12 +345,7 @@ namespace Character_Manager
             return J;
         }
         public void AdvanceDay()
-        {
-            foreach (Job J in Jobs)
-            {
-                J.AdvanceDay();
-            }
-        }
+        {}
 
         private bool visible;
         [XmlIgnoreAttribute]

@@ -203,6 +203,20 @@ namespace Character_Manager
             UP.Save();
 
         }
+        static public Job_Event_Window CreateJobEventWindow(string ParentName, string Summary,int RE)
+        {
+            Job_Event_Window J = new Job_Event_Window(ParentName, Summary, RE);
+            if (J.ShowDialog() == true)
+            {
+                return J;
+            }
+            return null;
+        }
+        static public void Display_Message_Box(string Text,string Header)
+        {
+            MessageBox.Show(Text, Header);
+        }
+
 
         // Menu Items
         private void Save_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -276,7 +290,7 @@ namespace Character_Manager
             {
                 for (int i = 0; i < AD.Result; i++)
                 {
-                    DM.AdvanceDay();
+                    DM.AdvanceDay(AD.Result);
                 }
             }
         }
