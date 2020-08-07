@@ -9,6 +9,9 @@ using System.IO;
 using Microsoft.Win32;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
+using System.Collections;
+using System.Xml;
 
 namespace Character_Manager
 {
@@ -59,11 +62,25 @@ namespace Character_Manager
 
         private void Save_File(DataModel I_Object)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(DataModel));
-            using (StreamWriter wr = new StreamWriter(filepath))
-            {
-                xs.Serialize(wr, I_Object);
-            }
+            FileStream writer = new FileStream(filepath, FileMode.Create);
+
+            var serializer = new DataContractSerializer(typeof(DataModel), null,
+            0x7FFF /*maxItemsInObjectGraph*/,
+            false /*ignoreExtensionDataObject*/,
+            true /*preserveObjectReferences : this is where the magic happens */,
+            null /*dataContractSurrogate*/);
+
+            serializer.WriteObject(writer, I_Object);
+            writer.Close();
+
+
+
+            //XmlSerializer xs = new XmlSerializer(typeof(DataModel));
+            //using (StreamWriter wr = new StreamWriter(filepath))
+            //{
+            //    xs.Serialize(wr, I_Object);
+            //}
+
             //JsonSerializerOptions options = new JsonSerializerOptions
             //{
             //    WriteIndented = true,
@@ -99,15 +116,28 @@ namespace Character_Manager
         private bool Load_File()
         {
             bool Load_Success = false;
-            XmlSerializer xs = new XmlSerializer(typeof(DataModel));
+            //XmlSerializer xs = new XmlSerializer(typeof(DataModel));
             try
             {
-                using (StreamReader rd = new StreamReader(filepath))
-                {
-                    DataModel TempLocalCollection = xs.Deserialize(rd) as DataModel;
-                    LocalCollection = TempLocalCollection;
-                    Load_Success = true;
-                }
+                FileStream fs = new FileStream(filepath, FileMode.Open);
+                XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+
+                var serializer = new DataContractSerializer(typeof(DataModel), null,
+                0x7FFF /*maxItemsInObjectGraph*/,
+                false /*ignoreExtensionDataObject*/,
+                true /*preserveObjectReferences : this is where the magic happens */,
+                null /*dataContractSurrogate*/);
+
+                LocalCollection = (DataModel)serializer.ReadObject(reader, true);
+                reader.Close();
+                fs.Close();
+
+                //using (StreamReader rd = new StreamReader(filepath))
+                //{
+                //    DataModel TempLocalCollection = xs.Deserialize(rd) as DataModel;
+                //    LocalCollection = TempLocalCollection;
+                //    Load_Success = true;
+                //}
 
                 //string jsonString = File.ReadAllText(filepath);
                 //LocalCollection = JsonSerializer.Deserialize<DataModel>(jsonString);
@@ -136,7 +166,6 @@ namespace Character_Manager
         {
             filepath = "";
             LocalCollection = new DataModel();
-            LocalCollection.InitializeDataModel();
             return LocalCollection;
         }
         public DataModel New()

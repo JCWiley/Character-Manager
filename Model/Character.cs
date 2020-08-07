@@ -8,27 +8,26 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
+
 
 namespace Character_Manager
 {
+    [DataContract(Name = "Character", Namespace = "Character_Manager")]
     public class Character : Entity
     {
-        public Character()
-        {
-            Name = "Default Character";
-            alias = "";
-            occupation = "";
-            birthplace = "";
-            
-        }
-        public Character(Guid creatorguid) : base(creatorguid)
+        #region Constructors
+        public Character(Guid creatorguid, DataModel I_DM) : base(creatorguid, I_DM)
         {
             Name = "Default Character";
             alias = "";
             occupation = "";
             birthplace = "";
         }
+        #endregion
 
+        #region Data_Members
+        [DataMember(Name = "alias")]
         private string alias;
         public string Alias
         {
@@ -46,6 +45,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "occupation")]
         private string occupation;
         public string Occupation
         {
@@ -63,6 +63,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "birthplace")]
         private string birthplace;
         public string BirthPlace
         {
@@ -79,8 +80,31 @@ namespace Character_Manager
                 }
             }
         }
-
-
-
+        #endregion
     }
 }
+
+
+#region Constructors
+
+#endregion
+
+#region Property_Handelers
+
+#endregion
+
+#region Functions
+
+#endregion
+
+#region Tree_Members
+
+#endregion
+
+#region Utility_Members
+
+#endregion
+
+#region Data_Members
+
+#endregion

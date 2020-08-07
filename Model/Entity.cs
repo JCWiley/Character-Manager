@@ -8,18 +8,22 @@ using System.Windows.Data;
 using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using System.Windows.Media;
+using System.Runtime.Serialization;
 
 namespace Character_Manager
 {
-    [XmlInclude(typeof(Organization))]
-    [XmlInclude(typeof(Character))]
+
+    [DataContract(Name = "Entity", Namespace = "Character_Manager")]
+    [KnownType(typeof(Organization))]
+    [KnownType(typeof(Character))]
     public abstract class Entity : INotifyPropertyChanged
     {
+        #region Constructors
         static Entity()
         {
             locations = new ObservableCollection<string>();
         }
-        public Entity()
+        public Entity(Guid creatorguid, DataModel I_DM)
         {
             name = "";
             quirks = "{}";
@@ -30,22 +34,7 @@ namespace Character_Manager
             IsSelected = false;
             IsExpanded = false;
 
-            treeheadflag = false;
-
-            inventory = new Item_Collection();
-
-            gid = Guid.NewGuid();
-        }
-        public Entity(Guid creatorguid)
-        {
-            name = "";
-            quirks = "{}";
-            description = "{}";
-            location = "";
-            race = "";
-            visible = true;
-            IsSelected = false;
-            IsExpanded = false;
+            DM = I_DM;
 
             inventory = new Item_Collection();
 
@@ -53,7 +42,7 @@ namespace Character_Manager
             {
                 ParentGuids.Add(creatorguid);
 
-                location = DataModel.Entities[creatorguid].location;
+                location = DM.Entities[creatorguid].location;
             }
             else
             {
@@ -61,12 +50,14 @@ namespace Character_Manager
             }
             gid = Guid.NewGuid();
         }
+        #endregion
 
+        #region Property_Handelers
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged(string propName)
         {
-            this.NotifyFieldIsDirty();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            DM.IsDirty = true;
         }
 
         public static event EventHandler DMJobEventOccured;
@@ -75,16 +66,49 @@ namespace Character_Manager
             DMJobEventOccured?.Invoke(this, new EventArgs());
             NotifyPropertyChanged("Events_Summary");
         }
-        private void HandleJobNotification(object sender, EventArgs e)
+
+        //private void HandleJobNotification(object sender, EventArgs e)
+        //{
+        //    this.NotifyDMJobEventOccured();
+        //}
+        #endregion
+
+        #region Functions
+        public Job AddJob()
         {
-            this.NotifyDMJobEventOccured();
+            Job J = new Job(DM)
+            {
+                Owner_Entity = gid,
+                StartDate = DM.CurrentDay,
+            };
+            DM.Jobs.Add(J);
+            this.NotifyPropertyChanged("Jobs");
+            return J;
         }
-        public static event EventHandler FieldIsDirty;
-        public void NotifyFieldIsDirty()
+        public void AdvanceDay()
+        { }
+        #endregion
+
+        #region Tree_Members
+        [DataMember(Name = "dm")]
+        private DataModel dm;
+        public DataModel DM
         {
-            FieldIsDirty?.Invoke(this, new EventArgs());
+            get
+            {
+                return dm;
+            }
+            set
+            {
+                if (this.dm != value)
+                {
+                    this.dm = value;
+                    this.NotifyPropertyChanged("DM");
+                }
+            }
         }
 
+        [DataMember(Name = "gid")]
         protected Guid gid;
         public Guid Gid
         {
@@ -102,8 +126,9 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "parentguids")]
         protected List<Guid> parentguids = new List<Guid>();
-        public  List<Guid> ParentGuids
+        public List<Guid> ParentGuids
         {
             get
             {
@@ -120,21 +145,7 @@ namespace Character_Manager
                 }
             }
         }
-
-        [XmlIgnoreAttribute]
-        public Entities_Collection ParentEntities
-        {
-            get
-            {
-                Entities_Collection temp = new Entities_Collection();
-                foreach (Guid x in ParentGuids)
-                {
-                    temp.Add(DataModel.Entities[x]);
-                }
-                return temp;
-            }
-        }
-
+        [DataMember(Name = "treeheadflag")]
         private bool treeheadflag;
         public bool TreeHeadFlag
         {
@@ -151,117 +162,22 @@ namespace Character_Manager
                 }
             }
         }
+        #endregion
 
-        private string name;
-        public string Name
+        #region Utility_Members
+        public Entities_Collection ParentEntities
         {
             get
             {
-                return this.name;
-            }
-            set
-            {
-                if (this.name != value)
+                Entities_Collection temp = new Entities_Collection();
+                foreach (Guid x in ParentGuids)
                 {
-                    this.name = value;
-                    this.NotifyPropertyChanged("Name");
-                    this.NotifyPropertyChanged("Member_List");
+                    temp.Add(DM.Entities[x]);
                 }
+                return temp;
             }
         }
-
-        private string description;
-        public string Description
-        {
-            get
-            {
-                return this.description;
-            }
-            set
-            {
-                if (this.description != value)
-                {
-                    this.description = value;
-                    this.NotifyPropertyChanged("Description");
-                }
-            }
-        }
-
-        private string quirks;
-        public string Quirks
-        {
-            get
-            {
-                return this.quirks;
-            }
-            set
-            {
-                if (this.quirks != value)
-                {
-                    this.quirks = value;
-                    this.NotifyPropertyChanged("Quirks");
-                }
-            }
-        }
-
-        private string location;
-        public string Location
-        {
-            get
-            {
-                return this.location;
-            }
-            set
-            {
-                if (this.location != value)
-                {
-                    this.location = value;
-                    if(!Locations.Contains(value))
-                    {
-                        Locations.Add(value);
-                    }
-                    this.NotifyPropertyChanged("Location");
-                }
-            }
-        }
-
-        private string race;
-        public string Race
-        {
-            get
-            {
-                return this.race;
-            }
-            set
-            {
-                if (this.race != value)
-                {
-                    this.race = value;
-                    this.NotifyPropertyChanged("Race");
-                }
-            }
-        }
-
-        private Item_Collection inventory;
-        public Item_Collection Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-            set
-            {
-                if (this.inventory != value)
-                {
-                    this.inventory = value;
-                    this.NotifyPropertyChanged("Inventory");
-                }
-            }
-        }
-
         private static ObservableCollection<String> locations;
-
-        [XmlIgnoreAttribute]
         public ObservableCollection<String> Locations
         {
             get
@@ -277,8 +193,6 @@ namespace Character_Manager
                 }
             }
         }
-
-        [XmlIgnoreAttribute]
         public Entities_Collection Member_List
         {
 
@@ -303,20 +217,17 @@ namespace Character_Manager
                 return temp;
             }
         }
-
-        [XmlIgnoreAttribute]
         public ListCollectionView Jobs
         {
             get
             {
-                ListCollectionView VS = new ListCollectionView(DataModel.Jobs)
+                ListCollectionView VS = new ListCollectionView(DM.Jobs)
                 {
                     Filter = f => (f as Job).Owner_Entity == gid
                 };
                 return VS;
             }
         }
-        [XmlIgnoreAttribute]
         public Events_Collection Events_Summary
         {
             get
@@ -332,23 +243,11 @@ namespace Character_Manager
                 return summary;
             }
         }
+        #endregion
 
-        public Job AddJob()
-        {
-            Job J = new Job()
-            {
-                Owner_Entity = gid,
-                StartDate = DataModel.CurrentDay, 
-            };
-            DataModel.Jobs.Add(J);
-            this.NotifyPropertyChanged("Jobs");
-            return J;
-        }
-        public void AdvanceDay()
-        {}
-
+        #region Filter_Members
+        [DataMember(Name = "visible")]
         private bool visible;
-        [XmlIgnoreAttribute]
         public bool Visible
         {
             get
@@ -366,7 +265,6 @@ namespace Character_Manager
         }
 
         private bool isselected;
-        [XmlIgnoreAttribute]
         public bool IsSelected
         {
             get
@@ -382,8 +280,9 @@ namespace Character_Manager
                 }
             }
         }
+
+        [DataMember(Name = "isexpanded")]
         private bool isexpanded;
-        [XmlIgnoreAttribute]
         public bool IsExpanded
         {
             get
@@ -399,6 +298,121 @@ namespace Character_Manager
                 }
             }
         }
+        #endregion
 
+        #region Data_Members
+        [DataMember(Name = "inventory")]
+        private Item_Collection inventory;
+        public Item_Collection Inventory
+        {
+            get
+            {
+                return this.inventory;
+            }
+            set
+            {
+                if (this.inventory != value)
+                {
+                    this.inventory = value;
+                    this.NotifyPropertyChanged("Inventory");
+                }
+            }
+        }
+
+        [DataMember(Name = "name")]
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.NotifyPropertyChanged("Name");
+                    this.NotifyPropertyChanged("Member_List");
+                }
+            }
+        }
+
+        [DataMember(Name = "description")]
+        private string description;
+        public string Description
+        {
+            get
+            {
+                return this.description;
+            }
+            set
+            {
+                if (this.description != value)
+                {
+                    this.description = value;
+                    this.NotifyPropertyChanged("Description");
+                }
+            }
+        }
+
+        [DataMember(Name = "quirks")]
+        private string quirks;
+        public string Quirks
+        {
+            get
+            {
+                return this.quirks;
+            }
+            set
+            {
+                if (this.quirks != value)
+                {
+                    this.quirks = value;
+                    this.NotifyPropertyChanged("Quirks");
+                }
+            }
+        }
+
+        [DataMember(Name = "location")]
+        private string location;
+        public string Location
+        {
+            get
+            {
+                return this.location;
+            }
+            set
+            {
+                if (this.location != value)
+                {
+                    this.location = value;
+                    if (!Locations.Contains(value))
+                    {
+                        Locations.Add(value);
+                    }
+                    this.NotifyPropertyChanged("Location");
+                }
+            }
+        }
+
+        [DataMember(Name = "race")]
+        private string race;
+        public string Race
+        {
+            get
+            {
+                return this.race;
+            }
+            set
+            {
+                if (this.race != value)
+                {
+                    this.race = value;
+                    this.NotifyPropertyChanged("Race");
+                }
+            }
+        }
+        #endregion
     }
 }

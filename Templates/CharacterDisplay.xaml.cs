@@ -33,7 +33,7 @@ namespace Character_Manager.Templates
             get { return (Character)GetValue(c); }
             set { SetValue(c, value); }
         }
-        public static readonly DependencyProperty c = DependencyProperty.Register("C", typeof(Character), typeof(CharacterDisplay), new PropertyMetadata(new Character(Guid.Empty)));
+        public static readonly DependencyProperty c = DependencyProperty.Register("C", typeof(Character), typeof(CharacterDisplay), new PropertyMetadata(new Character(Guid.Empty,new DataModel())));
 
         public int Day
         {

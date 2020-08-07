@@ -98,8 +98,6 @@ namespace Character_Manager
 
             Change_View_Source(FM.Get_Last_File());
 
-            DM.InitializeDataModel();
-
             this.DataContext = DM;
             DM.IsDirty = false;
         }
@@ -167,6 +165,12 @@ namespace Character_Manager
                 E.IsSelected = false;
             }
         }
+        public void ClearFilter()
+        {
+            FilterSelectionComboBox.SelectedIndex = -1;
+            FilterContentTextBox.Text = "";
+            DM.FilterTree("Clear", "");
+        }
         //*************************Handlers*************************//
         // Window Handlers
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -188,6 +192,7 @@ namespace Character_Manager
                 }
 
             }
+            ClearFilter();
             FM.Set_Last_File();
 
             UserPreferences UP = new UserPreferences
@@ -279,7 +284,7 @@ namespace Character_Manager
         }
         private void Generate_Job_Report_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            JobSummaryReportWindow JRW = new JobSummaryReportWindow();
+            JobSummaryReportWindow JRW = new JobSummaryReportWindow(DM);
             JRW.Show();
         }
         //Button Handlers
@@ -312,9 +317,7 @@ namespace Character_Manager
         }
         private void ClearFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            FilterSelectionComboBox.SelectedIndex = -1;
-            FilterContentTextBox.Text = "";
-            DM.FilterTree("Clear", "");
+             ClearFilter();
         }
         private void ApplyFilterButton_Click(object sender, RoutedEventArgs e)
         {

@@ -51,7 +51,7 @@
                    FontSize="16"/>
             <Grid Margin="10,40,5,10">
                 <TreeView x:Name="Character_Tree"
-                          ItemsSource="{Binding EntitiesBind}"
+                          ItemsSource="{Binding EntitiesHead}"
                           SelectedItemChanged="Character_Tree_SelectedItemChanged" Padding="0,1,1,1" UseLayoutRounding="True" Margin="0,0,0,86" BorderThickness="1"
                           >
                     <TreeView.Resources>
@@ -154,7 +154,7 @@
             <Label x:Name="CurrentDayTextBlock" 
                    HorizontalAlignment="Right" 
                    Margin="0,0,58,0" 
-                   Content="{Binding SerializeCurrentDay}" 
+                   Content="{Binding CurrentDay}" 
                    VerticalAlignment="Top" 
                    Height="35" Width="64" 
                    HorizontalContentAlignment="Right" 

@@ -5,22 +5,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace Character_Manager
 {
-    
+    [DataContract(Name = "Organization", Namespace = "Character_Manager")]
     public class Organization : Entity
     {
-        public Organization()
+        #region Constructors
+        public Organization(Guid creatorguid, DataModel I_DM) : base(creatorguid, I_DM)
         {
             Name = "Default Organization";
         }
-        public Organization(Guid creatorguid) : base(creatorguid)
+        #endregion
+
+        #region Property_Handelers
+
+        #endregion
+
+        #region Functions
+        public void Add_Character()
         {
-            Name = "Default Organization";
+            Character NewChar = new Character(Gid,DM)
+            {
+                IsSelected = true
+            };
+            ChildGuids.Add(NewChar.Gid);
+            DM.Entities.Add(NewChar.Gid, NewChar);
+            this.NotifyPropertyChanged("Entities");
         }
+        public void Add_Organization()
+        {
+            Organization NewOrg = new Organization(Gid,DM)
+            {
+                IsSelected = true
+            };
+            ChildGuids.Add(NewOrg.Gid);
+            DM.Entities.Add(NewOrg.Gid, NewOrg);
+            this.NotifyPropertyChanged("Entities");
+        }
+        public void Add_Existing_Entity(Guid inc)
+        {
+            if (!ChildGuids.Contains(inc))
+            {
+                DM.Entities[inc].ParentGuids.Add(Gid);
+                ChildGuids.Add(inc);
+            }
 
+            this.NotifyPropertyChanged("Entities");
+            this.NotifyPropertyChanged("Member_List");
+        }
+        public void Remove_Child(Guid inc)
+        {
+            DM.Entities[inc].ParentGuids.Remove(Gid);
+            ChildGuids.Remove(inc);
 
+            this.NotifyPropertyChanged("Entities");
+            this.NotifyPropertyChanged("Member_List");
+        }
+        #endregion
+
+        #region Tree_Members
+        [DataMember(Name = "childguids")]
         protected List<Guid> childguids = new List<Guid>();
         public List<Guid> ChildGuids
         {
@@ -39,7 +85,9 @@ namespace Character_Manager
                 }
             }
         }
-        [XmlIgnoreAttribute]
+        #endregion
+
+        #region Utility_Members
         public Entities_Collection Entities
         {
             get
@@ -47,16 +95,15 @@ namespace Character_Manager
                 Entities_Collection temp = new Entities_Collection();
                 foreach (Guid x in ChildGuids)
                 {
-                    //if(MasterEntityCollection[x].Visible)
-                    //{
-                    //    temp.Add(MasterEntityCollection[x]);
-                    //}
-                    temp.Add(DataModel.Entities[x]);
+                    temp.Add(DM.Entities[x]);
                 }
                 return temp;
             }
         }
+        #endregion
 
+        #region Data_Members
+        [DataMember(Name = "leader")]
         private Entity leader;
         public Entity Leader
         {
@@ -74,6 +121,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "goals")]
         private string goals;
         public string Goals
         {
@@ -91,6 +139,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "selected_size")]
         private int selected_size;
         public int Selected_Size
         {
@@ -107,42 +156,6 @@ namespace Character_Manager
                 }
             }
         }
-
-        public void Add_Character()
-        {
-            Character NewChar = new Character(Gid);
-            NewChar.IsSelected = true;
-            ChildGuids.Add(NewChar.Gid);
-            DataModel.Entities.Add(NewChar.Gid, NewChar);
-            this.NotifyPropertyChanged("Entities");
-        }
-        public void Add_Organization()
-        {
-            Organization NewOrg = new Organization(Gid);
-            NewOrg.IsSelected = true;
-            ChildGuids.Add(NewOrg.Gid);
-            DataModel.Entities.Add(NewOrg.Gid, NewOrg);
-            this.NotifyPropertyChanged("Entities");
-        }
-        public void Add_Existing_Entity(Guid inc)
-        {
-            if(!ChildGuids.Contains(inc))
-            {
-                DataModel.Entities[inc].ParentGuids.Add(Gid);
-                ChildGuids.Add(inc);
-            }
-
-            this.NotifyPropertyChanged("Entities");
-            this.NotifyPropertyChanged("Member_List");
-        }
-
-        public void Remove_Child(Guid inc)
-        {
-            DataModel.Entities[inc].ParentGuids.Remove(Gid);
-            ChildGuids.Remove(inc);
-
-            this.NotifyPropertyChanged("Entities");
-            this.NotifyPropertyChanged("Member_List");
-        }
+        #endregion
     }
 }

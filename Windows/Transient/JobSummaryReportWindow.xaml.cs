@@ -19,11 +19,11 @@ namespace Character_Manager
     /// </summary>
     public partial class JobSummaryReportWindow : Window
     {
-        public JobSummaryReportWindow()
+        public JobSummaryReportWindow(DataModel DM)
         {
             InitializeComponent();
-            JobSummaryDataGrid.ItemsSource = DataModel.Jobs;
-            var E = DataModel.Entities.Values;
+            JobSummaryDataGrid.ItemsSource = DM.Jobs;
+            var E = DM.Entities.Values;
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

@@ -7,19 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace Character_Manager
 {
+    [DataContract(Name = "DataModel", Namespace = "Character_Manager")]
     public class DataModel : INotifyPropertyChanged
     {
-        static SerializableDictionary<Guid, Entity> masterentitycollection;
-        static Job_Collection masterjobcollection;
-        static DataModel()
-        {
-            DataModel.masterentitycollection = new SerializableDictionary<Guid, Entity>();
-            DataModel.masterjobcollection = new Job_Collection();
-        }
-
+        #region Constructors
         public DataModel()
         {
             currentday = 0;
@@ -27,206 +22,47 @@ namespace Character_Manager
 
             Character.DMJobEventOccured += HandleCharacterEventUpdate;
 
-            Character.FieldIsDirty += SetDirty;
-            Job.FieldIsDirty += SetDirty;
-            Item.FieldIsDirty += SetDirty;
-            Job_Event.FieldIsDirty += SetDirty;
-            Location.FieldIsDirty += SetDirty;
             worldname = "Worldname";
-        }
 
-        public void InitializeDataModel()
-        {
-            if(entitiesbind.Count == 0)
-            {
-                Organization O = new Organization(Guid.Empty)
-                {
-                    Name = "Default World Name",
-                };
+            entities = new Dictionary<Guid, Entity>();
+            jobs = new Job_Collection();
+            entitieshead = new Entities_Collection();
 
-                entitiesbind.Add(O);
+            Organization O = new Organization(Guid.Empty,this)
+            {
+                Name = "Default World Name",
+                TreeHeadFlag = true
+            };
+            EntitiesHead.Add(O);
+            Entities.Add(O.Gid, O);
+        }
+        #endregion
 
-                Entities.Add(O.Gid, O);
+        #region Property_Handelers
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                isdirty = true;
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
-        }
 
-        private bool isdirty;
-        [XmlIgnoreAttribute]
-        public bool IsDirty
-        {
-            get
-            {
-                return this.isdirty;
-            }
-            set
-            {
-                if (this.isdirty != value)
-                {
-                    this.isdirty = value;
-                }
-            }
         }
+        private void HandleCharacterEventUpdate(object sender, EventArgs e)
+        {
+            NotifyPropertyChanged("Events_Summary");
+        }
+        #endregion
 
-        static private int currentday;
-        static public int CurrentDay
-        {
-            get
-            {
-                return DataModel.currentday;
-            }
-            set
-            {
-                if (DataModel.currentday != value)
-                {
-                    DataModel.currentday = value;
-                }
-            }
-        }
-
-        public int SerializeCurrentDay
-        {
-            get
-            {
-                return DataModel.currentday;
-            }
-            set
-            {
-                if (DataModel.currentday != value)
-                {
-                    DataModel.currentday = value;
-                    this.NotifyPropertyChanged("CurrentDay");
-                    this.NotifyPropertyChanged("SerializeCurrentDay");
-                }
-            }
-        }
-
-        private string worldname;
-        public string Worldname
-        {
-            get
-            {
-                return this.worldname;
-            }
-            set
-            {
-                if (this.worldname != value)
-                {
-                    this.worldname = value;
-                    this.NotifyPropertyChanged("Worldname");
-                }
-            }
-        }
-        static public Job_Collection Jobs
-        {
-            get
-            {
-                return DataModel.masterjobcollection;
-            }
-            set
-            {
-                if (DataModel.masterjobcollection != value)
-                {
-                    DataModel.masterjobcollection = value;
-                }
-            }
-        }
-        static public SerializableDictionary<Guid, Entity> Entities
-        {
-            get
-            {
-                return DataModel.masterentitycollection;
-            }
-            set
-            {
-                if (DataModel.masterentitycollection != value)
-                {
-                    DataModel.masterentitycollection = value;
-                }
-            }
-        }
-
-        public Job_Collection Jobs_Serialize
-        {
-            get
-            {
-                return DataModel.masterjobcollection;
-            }
-            set
-            {
-                if (DataModel.masterjobcollection != value)
-                {
-                    DataModel.masterjobcollection = value;
-                }
-            }
-        }
-        public SerializableDictionary<Guid, Entity> Entities_Serialize
-        {
-            get
-            {
-                return DataModel.masterentitycollection;
-            }
-            set
-            {
-                if (DataModel.masterentitycollection != value)
-                {
-                    DataModel.masterentitycollection = value;
-                }
-            }
-        }
-
-        private Entities_Collection entitiesbind = new Entities_Collection();
-        public Entities_Collection EntitiesBind
-        {
-            get
-            {
-                return this.entitiesbind;
-            }
-            set
-            {
-                if (this.entitiesbind != value)
-                {
-                    this.entitiesbind = value;
-                    this.NotifyPropertyChanged("Entities");
-                    this.NotifyPropertyChanged("EntitiesBind");
-                }
-            }
-        }
-   
+        #region Functions
         public void SetEqual(DataModel inc)
         {
-            //Entities.Clear();
-            //foreach(Entity E in inc.entities.Values)
-            //{
-            //    Entities.Add(E.Gid,E);
-            //}
-            EntitiesBind = inc.EntitiesBind;
-            SerializeCurrentDay = inc.SerializeCurrentDay;
-            IsDirty = false;
-            //CurrentDay = DataModel.CurrentDay;
-            Worldname = inc.Worldname;
-            //LeadGuid = inc.LeadGuid;
-            this.NotifyPropertyChanged("Characters");
-        }
-        [XmlIgnoreAttribute]
-        public Events_Collection Events_Summary
-        {
-            get
-            {
-                Events_Collection summary = new Events_Collection();
-                foreach(Entity E in Entities.Values)
-                {
-                    foreach(Job_Event JE in E.Events_Summary)
-                    {
-                        summary.Add(JE);
-                    }
-                }
-                return summary;
-            }
-        }
 
+        }
         public void AdvanceDay(int DaysToAdvance)
         {
-            for(int i=0;i<DaysToAdvance;i++)
+            for (int i = 0; i < DaysToAdvance; i++)
             {
                 currentday += 1;
 
@@ -243,28 +79,7 @@ namespace Character_Manager
             this.NotifyPropertyChanged("CurrentDay");
             this.NotifyPropertyChanged("SerializeCurrentDay");
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                isdirty = true;
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-                
-        }
-        private void HandleCharacterEventUpdate(object sender, EventArgs e)
-        {
-            NotifyPropertyChanged("Events_Summary");
-        }
-
-        private void SetDirty(object sender, EventArgs e)
-        {
-            IsDirty = true;
-        }
-
-        public void FilterTree(string type,string text)
+        public void FilterTree(string type, string text)
         {
             switch (type)
             {
@@ -300,10 +115,9 @@ namespace Character_Manager
             this.NotifyPropertyChanged("EntitiesBind");
             //this.NotifyPropertyChanged("Member_List");
         }
-
         private void FilterClear()
         {
-            foreach(Entity E in Entities.Values)
+            foreach (Entity E in Entities.Values)
             {
                 E.Visible = true;
             }
@@ -311,10 +125,139 @@ namespace Character_Manager
         private void SetVisible(Entity Parent)
         {
             Parent.Visible = true;
-            foreach(Entity E in Parent.ParentEntities)
+            foreach (Entity E in Parent.ParentEntities)
             {
                 SetVisible(E);
             }
         }
+        #endregion
+
+        #region Tree_Members
+        [DataMember(Name = "jobs")]
+        private Job_Collection jobs;
+        public Job_Collection Jobs
+        {
+            get
+            {
+                return jobs;
+            }
+            set
+            {
+                if (this.jobs != value)
+                {
+                    this.jobs = value;
+                    this.NotifyPropertyChanged("Jobs");
+                }
+            }
+        }
+
+        [DataMember(Name = "entities")]
+        private Dictionary<Guid, Entity> entities;
+        public Dictionary<Guid, Entity> Entities
+        {
+            get
+            {
+                return entities;
+            }
+            set
+            {
+                if (this.entities != value)
+                {
+                    this.entities = value;
+                    this.NotifyPropertyChanged("Entities");
+                }
+            }
+        }
+
+        [DataMember(Name = "entitieshead")]
+        private Entities_Collection entitieshead;
+        public Entities_Collection EntitiesHead
+        {
+            get
+            {
+                return entitieshead;
+            }
+            set
+            {
+                if (this.entitieshead != value)
+                {
+                    this.entitieshead = value;
+                    this.NotifyPropertyChanged("EntitiesHead");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Utility_Members
+        private bool isdirty;
+        public bool IsDirty
+        {
+            get
+            {
+                return this.isdirty;
+            }
+            set
+            {
+                if (this.isdirty != value)
+                {
+                    this.isdirty = value;
+                }
+            }
+        }
+        public Events_Collection Events_Summary
+        {
+            get
+            {
+                Events_Collection summary = new Events_Collection();
+                foreach (Entity E in Entities.Values)
+                {
+                    foreach (Job_Event JE in E.Events_Summary)
+                    {
+                        summary.Add(JE);
+                    }
+                }
+                return summary;
+            }
+        }
+        #endregion
+
+        #region Data_Members
+        [DataMember(Name = "currentday")]
+        private int currentday;
+        public int CurrentDay
+        {
+            get
+            {
+                return this.currentday;
+            }
+            set
+            {
+                if (this.currentday != value)
+                {
+                    this.currentday = value;
+                    this.NotifyPropertyChanged("currentday");
+                }
+            }
+        }
+
+        [DataMember(Name = "worldname")]
+        private string worldname;
+        public string Worldname
+        {
+            get
+            {
+                return this.worldname;
+            }
+            set
+            {
+                if (this.worldname != value)
+                {
+                    this.worldname = value;
+                    this.NotifyPropertyChanged("Worldname");
+                }
+            }
+        }
+        #endregion
     }
 }

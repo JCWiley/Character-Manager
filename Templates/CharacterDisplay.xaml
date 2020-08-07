@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" SelectionChanged="Character_Tab_Manager_SelectionChanged">
+        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" SelectionChanged="Character_Tab_Manager_SelectionChanged" IsEnabled="True">
             <TabItem Header="Character">
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
@@ -140,7 +140,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Jobs">
-                <Grid Margin="0,0,0,0" HorizontalAlignment="Left">
+                <Grid Margin="0,0,0,0">
                     <DataGrid x:Name="Job_List" 
                           ItemsSource="{Binding C.Jobs}" 
                           HorizontalAlignment="Left" 
