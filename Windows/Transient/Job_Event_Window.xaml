@@ -8,7 +8,8 @@
         Title="An Event Has Occured." SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner"
         ContentRendered="Window_ContentRendered">
     <Grid Margin="15">
-        <TextBlock HorizontalAlignment="Left" 
+        <TextBlock x:Name="JobEventDescriptionTextBlock"
+                   HorizontalAlignment="Left" 
                    Margin="10,10,0,0" 
                    TextWrapping="Wrap" 
                    Text="A character experienced an event which may affect their progress on the current job."

@@ -42,17 +42,21 @@
                                                     IsReadOnly="True"/>
                 <DataGridComboBoxColumn x:Name="OwnerComboBoxColumn"
                                                     Header="Owner"
-                                                    ItemsSource ="{Binding Source={StaticResource Entities}, UpdateSourceTrigger=PropertyChanged}"
+                                                    ItemsSource ="{Binding Source={StaticResource Entities}}"
                                                     SelectedItemBinding="{Binding Owner_Entity_Object}"
                                                     DisplayMemberPath="Name"
-                                                    Width="150">
-                </DataGridComboBoxColumn>
-
+                                                    Width="150"/>
+                <!--, UpdateSourceTrigger=PropertyChanged}"-->
             </DataGrid.Columns>
 
 
         </DataGrid>
-        <Button x:Name="Close_Button" Content="Close" HorizontalAlignment="Left" Margin="669,388,0,0" VerticalAlignment="Top" Width="113" Click="Close_Button_Click" />
-
+        <Button x:Name="Close_Button" 
+                Content="Close" 
+                HorizontalAlignment="Left" 
+                Margin="669,388,0,0" 
+                VerticalAlignment="Top" 
+                Width="113" 
+                Click="Close_Button_Click" />
     </Grid>
 </Window>

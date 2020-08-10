@@ -9,5 +9,12 @@ namespace Character_Manager
 {
     public class Entities_Collection : ObservableCollection<Entity>
     {
+        public Entities_Collection()
+        {
+        }
+
+        public Entities_Collection(IEnumerable<Entity> collection) : base(collection)
+        {
+        }
     }
 }

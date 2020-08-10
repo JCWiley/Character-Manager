@@ -308,7 +308,7 @@ namespace Character_Manager
         {
             get
             {
-                return DM.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);//fix
+                return DM.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);
             }
             set
             {

@@ -23,7 +23,7 @@ namespace Character_Manager
         {
             InitializeComponent();
             JobSummaryDataGrid.ItemsSource = DM.Jobs;
-            var E = DM.Entities.Values;
+            Entities_Collection E = new Entities_Collection(DM.Entities.Values);
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

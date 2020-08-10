@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character Manager", "Character Manager.csproj", "{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38E84C1A-9137-4776-B494-AB1F241F8B96}"
-	ProjectSection(SolutionItems) = preProject
-		CodeStore.txt = CodeStore.txt
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character ManagerTests", "..\Character ManagerTests\Character ManagerTests.csproj", "{3F4820E5-95B9-4173-9619-79B004AD066D}"
 EndProject

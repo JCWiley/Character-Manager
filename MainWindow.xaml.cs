@@ -100,6 +100,8 @@ namespace Character_Manager
 
             this.DataContext = DM;
             DM.IsDirty = false;
+
+            
         }
 
         //*************************Utilities************************//
