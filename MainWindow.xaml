@@ -12,8 +12,8 @@
         ResizeMode="CanResize" 
         Topmost="False" 
         WindowState="Normal" 
-        Width="961" 
-        Height="465"
+        Width="1000" 
+        Height="550"
         MinWidth="645"
         MinHeight="220"
         SizeChanged="Window_SizeChanged">
