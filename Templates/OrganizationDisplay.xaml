@@ -137,7 +137,7 @@
                     <ComboBox x:Name="LeaderComboBox" 
                                  Height="23" 
                                  Margin="90,3,0,0" 
-                                 ItemsSource ="{Binding O.Member_List, UpdateSourceTrigger=PropertyChanged}"
+                                 ItemsSource ="{Binding O.Exclusive_Members_List, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding O.Leader}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  DisplayMemberPath="Name"

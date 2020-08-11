@@ -193,6 +193,15 @@ namespace Character_Manager
                 }
             }
         }
+        public Entities_Collection Exclusive_Members_List
+        {
+            get
+            {
+                Entities_Collection temp = this.Member_List;
+                temp.Remove(this);
+                return temp;
+            }
+        }
         public Entities_Collection Member_List
         {
 
