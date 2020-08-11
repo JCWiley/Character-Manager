@@ -141,7 +141,7 @@ namespace Character_Manager
 
                 //string jsonString = File.ReadAllText(filepath);
                 //LocalCollection = JsonSerializer.Deserialize<DataModel>(jsonString);
-                //Load_Success = true;
+                Load_Success = true;
 
             }
             catch (Exception)

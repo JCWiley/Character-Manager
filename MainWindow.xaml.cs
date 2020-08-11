@@ -107,7 +107,6 @@ namespace Character_Manager
         //*************************Utilities************************//
         private void Change_View_Source(DataModel I_Collection)
         {
-
             if (DM is DataModel)
             {
                 DM.SetEqual(I_Collection);
@@ -115,6 +114,7 @@ namespace Character_Manager
             else
             {
                 DM = I_Collection;
+                this.DataContext = DM;
             }
 
             this.Title = FM.Filepath;

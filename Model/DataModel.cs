@@ -58,7 +58,18 @@ namespace Character_Manager
         #region Functions
         public void SetEqual(DataModel inc)
         {
+            //Tree Members
+            Jobs = inc.Jobs;
+            Entities = inc.Entities;
+            EntitiesHead = inc.EntitiesHead;
 
+            //Data Members
+            CurrentDay = inc.CurrentDay;
+            Worldname = inc.Worldname;
+
+            this.NotifyPropertyChanged("DM");
+
+            IsDirty = false;
         }
         public void AdvanceDay(int DaysToAdvance)
         {
@@ -236,7 +247,7 @@ namespace Character_Manager
                 if (this.currentday != value)
                 {
                     this.currentday = value;
-                    this.NotifyPropertyChanged("currentday");
+                    this.NotifyPropertyChanged("CurrentDay");
                 }
             }
         }
