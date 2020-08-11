@@ -7,18 +7,19 @@
         mc:Ignorable="d"
         Title="Job Summary" Height="450" Width="800">
     <Grid>
+        <Grid.Resources>
+            <CollectionViewSource x:Key="Entities" Source="{Binding Entities.Values}" />
+        </Grid.Resources>
         <DataGrid x:Name="JobSummaryDataGrid" 
                   Height="373" 
                   VerticalAlignment="Top" 
+                  ItemsSource="{Binding Jobs}"
                   Margin="10,10,10,0" 
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserResizeColumns="True"
                   CanUserReorderColumns="True"
                   AutoGenerateColumns="False">
-            <DataGrid.Resources>
-                <CollectionViewSource x:Key="Entities" Source="{Binding E}"/>
-            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Summary"
                                                     Binding="{Binding Summary}"
@@ -46,7 +47,8 @@
                                                     SelectedItemBinding="{Binding Owner_Entity_Object}"
                                                     DisplayMemberPath="Name"
                                                     Width="150"/>
-                <!--, UpdateSourceTrigger=PropertyChanged}"-->
+                    <!--Source={StaticResource Entities}}"-->
+                    <!--, UpdateSourceTrigger=PropertyChanged}"-->
             </DataGrid.Columns>
 
 

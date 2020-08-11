@@ -150,7 +150,6 @@
                                         C ="{Binding ElementName=Character_Tree, Path=SelectedItem}"
                                         Day="{Binding ElementName=MainWindow1, Path=DM.CurrentDay}"
                                         Visibility="Hidden" Grid.Column="1">
-                <InputType
             </Templates:CharacterDisplay>
 
             <Templates:OrganizationDisplay x:Name="OD" 
