@@ -258,10 +258,10 @@ namespace Character_Manager
                 {
                     case MessageBoxResult.Yes:
                         FM.Save(DM);
-                        Change_View_Source(FM.New_Initialized());
+                        Change_View_Source(FM.New());
                         break;
                     case MessageBoxResult.No:
-                        Change_View_Source(FM.New_Initialized());
+                        Change_View_Source(FM.New());
                         break;
                     case MessageBoxResult.Cancel:
                         //abort new document
@@ -271,7 +271,7 @@ namespace Character_Manager
             }
             if (!abort_flag)
             {
-                Change_View_Source(FM.New_Initialized());
+                Change_View_Source(FM.New());
                 DM.IsDirty = false;
             }
         }
@@ -295,10 +295,12 @@ namespace Character_Manager
             Advance_Day_Window AD = new Advance_Day_Window();
             if (AD.ShowDialog() == true)
             {
-                for (int i = 0; i < AD.Result; i++)
-                {
-                    DM.AdvanceDay(AD.Result);
-                }
+                DM.AdvanceDay(AD.Result);
+
+                //for (int i = 0; i < AD.Result; i++)
+                //{
+                //    DM.AdvanceDay(AD.Result);
+                //}
             }
         }
         private void Add_Character_Button_Click(object sender, RoutedEventArgs e)

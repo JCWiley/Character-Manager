@@ -162,12 +162,6 @@ namespace Character_Manager
             Properties.Settings.Default.Save();
         }
 
-        public DataModel New_Initialized()
-        {
-            filepath = "";
-            LocalCollection = new DataModel();
-            return LocalCollection;
-        }
         public DataModel New()
         {
             filepath = "";

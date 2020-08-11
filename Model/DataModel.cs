@@ -60,7 +60,15 @@ namespace Character_Manager
         {
             //Tree Members
             Jobs = inc.Jobs;
+            foreach(Job J in Jobs)
+            {
+                J.DM = this;
+            }
             Entities = inc.Entities;
+            foreach(Entity E in Entities.Values)
+            {
+                E.DM = this;
+            }
             EntitiesHead = inc.EntitiesHead;
 
             //Data Members
@@ -75,7 +83,7 @@ namespace Character_Manager
         {
             for (int i = 0; i < DaysToAdvance; i++)
             {
-                currentday += 1;
+                CurrentDay = CurrentDay + 1;
 
                 foreach (Job J in Jobs)
                 {

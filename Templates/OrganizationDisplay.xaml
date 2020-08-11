@@ -239,9 +239,10 @@
                             <TextBlock x:Name="ProgressTextBlock"
                                         HorizontalAlignment="Right" 
                                         Margin="0,24,0,0" 
+                                        Text="{Binding SelectedItem.DaysRemaining, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
                                         TextWrapping="Wrap" 
                                         VerticalAlignment="Top" Width="40" Height="26"
-                                       Grid.Column="1"/>
+                                        Grid.Column="1"/>
                             <ComboBox x:Name="Repeating_Combo_Box" 
                                       HorizontalAlignment="Right" 
                                       Margin="0,59,0,0" 
