@@ -4,15 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Character_Manager
 {
+    [DataContract(Name = "Job_Event", Namespace = "Character_Manager")]
     public class Job_Event
     {
-        public Job_Event()
-        {
-        }
-        public void Populate(string I_Event_Type, string I_Comment, int I_Day, string I_Character, string I_Job, int I_Progress_Effects)
+        #region Constructors
+        public Job_Event(string I_Event_Type, string I_Comment, int I_Day, string I_Character, string I_Job, int I_Progress_Effects)
         {
             event_type = I_Event_Type;
             comment = I_Comment;
@@ -21,12 +21,13 @@ namespace Character_Manager
             job = I_Job;
             progress_effects = I_Progress_Effects;
         }
+        #endregion
 
+        #region Property_Handelers
         public static event EventHandler JobEventChanged;
         public void NotifyJobEventChanged()
         {
-            if (JobEventChanged != null)
-                JobEventChanged(this, new EventArgs());
+            JobEventChanged?.Invoke(this, new EventArgs());
 
             NotifyFieldIsDirty();
         }
@@ -34,10 +35,24 @@ namespace Character_Manager
         public static event EventHandler FieldIsDirty;
         public void NotifyFieldIsDirty()
         {
-            if (FieldIsDirty != null)
-                FieldIsDirty(this, new EventArgs());
+            FieldIsDirty?.Invoke(this, new EventArgs());
         }
+        #endregion
 
+        #region Functions
+
+        #endregion
+
+        #region Tree_Members
+
+        #endregion
+
+        #region Utility_Members
+
+        #endregion
+
+        #region Data_Members
+        [DataMember(Name = "event_type")]
         private string event_type;
         public string Event_Type
         {
@@ -55,6 +70,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "comment")]
         private string comment;
         public string Comment
         {
@@ -72,6 +88,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "day")]
         private int day;
         public int Day
         {
@@ -89,6 +106,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "character")]
         private string character;
         public string Character
         {
@@ -106,6 +124,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "job")]
         private string job;
         public string Job
         {
@@ -123,6 +142,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "progress_effects")]
         private int progress_effects;
         public int Progress_Effects
         {
@@ -139,5 +159,6 @@ namespace Character_Manager
                 }
             }
         }
+        #endregion
     }
 }

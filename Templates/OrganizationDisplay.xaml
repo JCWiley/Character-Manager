@@ -137,7 +137,7 @@
                     <ComboBox x:Name="LeaderComboBox" 
                                  Height="23" 
                                  Margin="90,3,0,0" 
-                                 ItemsSource ="{Binding O.Member_List, UpdateSourceTrigger=PropertyChanged}"
+                                 ItemsSource ="{Binding O.Exclusive_Members_List, UpdateSourceTrigger=PropertyChanged}"
                                  SelectedItem="{Binding O.Leader}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  DisplayMemberPath="Name"
@@ -150,7 +150,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Jobs">
-                <Grid Margin="0,0,0,0" HorizontalAlignment="Left">
+                <Grid Margin="0,0,0,0">
                     <DataGrid x:Name="Job_List" 
                           ItemsSource="{Binding O.Jobs}" 
                           HorizontalAlignment="Left" 
@@ -174,18 +174,17 @@
                                     VerticalAlignment="Bottom" Width="216" Margin="0,0,0,2"/>
                     <Grid x:Name="JobControlsGrid" IsEnabled="False">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="189*"/>
-                            <ColumnDefinition Width="601*"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <RichTextBox x:Name="Job_Details_RTB"
                                          LostFocus="Job_Details_RTB_LostFocus"
                                          VerticalScrollBarVisibility="Auto"
                                          Height="106"
-                                         Margin="32,26,0,0" 
+                                         Margin="221,26,0,0" 
                                          VerticalAlignment="Top"
                                          TabIndex="7"
-                                         IsEnabled="True" Grid.Column="1"/>
-                        <Grid Margin="32,0,0,2" VerticalAlignment="Bottom" Height="112" Grid.Column="1">
+                                         IsEnabled="True"/>
+                        <Grid Margin="221,0,0,2" VerticalAlignment="Bottom" Height="112">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
@@ -240,9 +239,10 @@
                             <TextBlock x:Name="ProgressTextBlock"
                                         HorizontalAlignment="Right" 
                                         Margin="0,24,0,0" 
+                                        Text="{Binding SelectedItem.DaysRemaining, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
                                         TextWrapping="Wrap" 
                                         VerticalAlignment="Top" Width="40" Height="26"
-                                       Grid.Column="1"/>
+                                        Grid.Column="1"/>
                             <ComboBox x:Name="Repeating_Combo_Box" 
                                       HorizontalAlignment="Right" 
                                       Margin="0,59,0,0" 
@@ -265,16 +265,16 @@
                                      IsEnabled="True"
                                      VerticalAlignment="Top" Width="40" Height="26" Grid.Column="1"/>
                         </Grid>
-                        <Label Content="Job Information" Margin="32,0,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1"/>
-                        <Label Content="Assigned Subtasks:" HorizontalAlignment="Left" Margin="32,137,0,0" VerticalAlignment="Top" Width="111" Grid.Column="1"/>
+                        <Label Content="Job Information" Margin="221,0,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Assigned Subtasks:" HorizontalAlignment="Left" Margin="221,137,0,0" VerticalAlignment="Top" Width="111"/>
                         <DataGrid x:Name="Member_Job_Datagrid"
-                                      Margin="32,163,0,122"
+                                      Margin="221,163,0,122"
                                       ItemsSource="{Binding ElementName=Job_List, Path=SelectedItem.Member_Jobs}" 
                                       CanUserAddRows="False"
                                       CanUserSortColumns="False"
                                       CanUserDeleteRows="True"
                                       IsEnabled="True"
-                                      AutoGenerateColumns="False" Grid.Column="1">
+                                      AutoGenerateColumns="False">
                             <DataGrid.Resources>
                                 <CollectionViewSource x:Key="Entities" Source="{Binding O.Entities}"/>
                             </DataGrid.Resources>

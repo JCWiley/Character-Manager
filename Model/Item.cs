@@ -4,27 +4,43 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Character_Manager
 {
+    [DataContract(Name = "Item", Namespace = "Character_Manager")]
     public class Item : INotifyPropertyChanged
     {
+
+        #region Constructors
+
+        #endregion
+
+        #region Property_Handelers
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-            NotifyFieldIsDirty();
+            //NotifyFieldIsDirty();
         }
+        #endregion
 
-        public static event EventHandler FieldIsDirty;
-        public void NotifyFieldIsDirty()
-        {
-            if (FieldIsDirty != null)
-                FieldIsDirty(this, new EventArgs());
-        }
+        #region Functions
 
+        #endregion
+
+        #region Tree_Members
+
+        #endregion
+
+        #region Utility_Members
+
+        #endregion
+
+        #region Data_Members
+        [DataMember(Name = "aquired")]
         private bool aquired;
         public bool Aquired
         {
@@ -42,6 +58,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "name")]
         private string name;
         public string Name
         {
@@ -59,6 +76,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "location")]
         private string location;
         public string Location
         {
@@ -76,6 +94,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "description")]
         private string description;
         public string Description
         {
@@ -93,6 +112,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "weight")]
         private float weight;
         public float Weight
         {
@@ -109,5 +129,6 @@ namespace Character_Manager
                 }
             }
         }
+        #endregion
     }
 }

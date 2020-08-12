@@ -22,8 +22,7 @@ namespace Character_Manager
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
             NotifyFieldIsDirty();
         }
@@ -31,8 +30,7 @@ namespace Character_Manager
         public static event EventHandler FieldIsDirty;
         public void NotifyFieldIsDirty()
         {
-            if (FieldIsDirty != null)
-                FieldIsDirty(this, new EventArgs());
+            FieldIsDirty?.Invoke(this, new EventArgs());
         }
 
         private string name;

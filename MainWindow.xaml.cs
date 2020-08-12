@@ -98,16 +98,15 @@ namespace Character_Manager
 
             Change_View_Source(FM.Get_Last_File());
 
-            DM.InitializeDataModel();
-
             this.DataContext = DM;
             DM.IsDirty = false;
+
+            
         }
 
         //*************************Utilities************************//
         private void Change_View_Source(DataModel I_Collection)
         {
-
             if (DM is DataModel)
             {
                 DM.SetEqual(I_Collection);
@@ -115,6 +114,7 @@ namespace Character_Manager
             else
             {
                 DM = I_Collection;
+                this.DataContext = DM;
             }
 
             this.Title = FM.Filepath;
@@ -167,6 +167,12 @@ namespace Character_Manager
                 E.IsSelected = false;
             }
         }
+        public void ClearFilter()
+        {
+            FilterSelectionComboBox.SelectedIndex = -1;
+            FilterContentTextBox.Text = "";
+            DM.FilterTree("Clear", "");
+        }
         //*************************Handlers*************************//
         // Window Handlers
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -188,6 +194,7 @@ namespace Character_Manager
                 }
 
             }
+            ClearFilter();
             FM.Set_Last_File();
 
             UserPreferences UP = new UserPreferences
@@ -203,6 +210,20 @@ namespace Character_Manager
             UP.Save();
 
         }
+        static public Job_Event_Window CreateJobEventWindow(string ParentName, string Summary,int RE)
+        {
+            Job_Event_Window J = new Job_Event_Window(ParentName, Summary, RE);
+            if (J.ShowDialog() == true)
+            {
+                return J;
+            }
+            return null;
+        }
+        static public void Display_Message_Box(string Text,string Header)
+        {
+            MessageBox.Show(Text, Header);
+        }
+
 
         // Menu Items
         private void Save_MenuItem_Click(object sender, RoutedEventArgs e)
@@ -237,10 +258,10 @@ namespace Character_Manager
                 {
                     case MessageBoxResult.Yes:
                         FM.Save(DM);
-                        Change_View_Source(FM.New_Initialized());
+                        Change_View_Source(FM.New());
                         break;
                     case MessageBoxResult.No:
-                        Change_View_Source(FM.New_Initialized());
+                        Change_View_Source(FM.New());
                         break;
                     case MessageBoxResult.Cancel:
                         //abort new document
@@ -250,7 +271,7 @@ namespace Character_Manager
             }
             if (!abort_flag)
             {
-                Change_View_Source(FM.New_Initialized());
+                Change_View_Source(FM.New());
                 DM.IsDirty = false;
             }
         }
@@ -265,7 +286,7 @@ namespace Character_Manager
         }
         private void Generate_Job_Report_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            JobSummaryReportWindow JRW = new JobSummaryReportWindow();
+            JobSummaryReportWindow JRW = new JobSummaryReportWindow(DM);
             JRW.Show();
         }
         //Button Handlers
@@ -274,10 +295,12 @@ namespace Character_Manager
             Advance_Day_Window AD = new Advance_Day_Window();
             if (AD.ShowDialog() == true)
             {
-                for (int i = 0; i < AD.Result; i++)
-                {
-                    DM.AdvanceDay();
-                }
+                DM.AdvanceDay(AD.Result);
+
+                //for (int i = 0; i < AD.Result; i++)
+                //{
+                //    DM.AdvanceDay(AD.Result);
+                //}
             }
         }
         private void Add_Character_Button_Click(object sender, RoutedEventArgs e)
@@ -298,9 +321,7 @@ namespace Character_Manager
         }
         private void ClearFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            FilterSelectionComboBox.SelectedIndex = -1;
-            FilterContentTextBox.Text = "";
-            DM.FilterTree("Clear", "");
+             ClearFilter();
         }
         private void ApplyFilterButton_Click(object sender, RoutedEventArgs e)
         {

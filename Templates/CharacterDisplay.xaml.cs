@@ -33,7 +33,7 @@ namespace Character_Manager.Templates
             get { return (Character)GetValue(c); }
             set { SetValue(c, value); }
         }
-        public static readonly DependencyProperty c = DependencyProperty.Register("C", typeof(Character), typeof(CharacterDisplay), new PropertyMetadata(new Character(Guid.Empty)));
+        public static readonly DependencyProperty c = DependencyProperty.Register("C", typeof(Character), typeof(CharacterDisplay), new PropertyMetadata(new Character(Guid.Empty,new DataModel())));
 
         public int Day
         {
@@ -155,7 +155,14 @@ namespace Character_Manager.Templates
         {
             if (Job_List.SelectedItem is Job Local_Job)
             {
-                Local_Job.TriggerJobEvent();
+                if (MainWindow.CreateJobEventWindow(Local_Job.Parent_Name, Local_Job.Summary,0) is Job_Event_Window J)
+                {
+                    if (Local_Job.AddJobEvent(J.Get_EventType(), J.Get_EventNotes(), J.Get_ProgressImpact()))
+                    {
+                        MessageBox.Show($"{Local_Job.Parent_Name} has completed work on {Local_Job.Summary}", "Job Done.");
+                        Local_Job.MarkJobAsComplete();
+                    }
+                }
             }
         }
 

@@ -12,8 +12,8 @@
         ResizeMode="CanResize" 
         Topmost="False" 
         WindowState="Normal" 
-        Width="961" 
-        Height="465"
+        Width="1000" 
+        Height="550"
         MinWidth="645"
         MinHeight="220"
         SizeChanged="Window_SizeChanged">
@@ -51,10 +51,11 @@
                    FontSize="16"/>
             <Grid Margin="10,40,5,10">
                 <TreeView x:Name="Character_Tree"
-                          ItemsSource="{Binding EntitiesBind}"
+                          ItemsSource="{Binding EntitiesHead}"
                           SelectedItemChanged="Character_Tree_SelectedItemChanged" Padding="0,1,1,1" UseLayoutRounding="True" Margin="0,0,0,86" BorderThickness="1"
                           >
                     <TreeView.Resources>
+                        <BooleanToVisibilityConverter x:Key="BoolToVis" />
                         <HierarchicalDataTemplate DataType="{x:Type local:Organization}" ItemsSource="{Binding Entities}">
                             <StackPanel x:Name="TreeElementStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" >
                                 <Button Click="Add_Organization_Button_Click" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Center">
@@ -63,7 +64,13 @@
                                 <Button Click="Add_Character_Button_Click" HorizontalAlignment="Left"  Width="20" Height="20" VerticalAlignment="Center">
                                     <Image Source="/Resources/Character_Icon.bmp" />
                                 </Button>
-                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Foreground="{Binding Visible}" HorizontalAlignment="Left"/>
+                                <TextBlock x:Name="TreeViewOrgNameTextBlock" 
+                                           Text="{Binding Name}" 
+                                           VerticalAlignment="Center" 
+                                           Foreground="{Binding Visible, Converter={StaticResource BoolToVis}}" 
+                                           HorizontalAlignment="Left">
+
+                                </TextBlock>
                                 <StackPanel.ContextMenu>
                                     <ContextMenu x:Name="TreeElementStackPanelContextMenu" >
                                         <MenuItem Header="Add Character" Click="TreeElementStackPanelContextMenu_Add_Character"/>
@@ -80,7 +87,9 @@
                         </HierarchicalDataTemplate>
                         <DataTemplate DataType="{x:Type local:Character}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Name}" Foreground="{Binding Visible}"/>
+                                <TextBlock x:Name="TreeViewCharNameTextBlock" 
+                                           Text="{Binding Name}"
+                                           Foreground="{Binding Visible, Converter={StaticResource BoolToVis}}" />
                                 <StackPanel.ContextMenu>
                                     <ContextMenu x:Name="TreeElementStackPanelContextMenu">
                                         <MenuItem Header="Cut" Click="TreeElementStackPanelContextMenu_Cut"/>
@@ -154,7 +163,7 @@
             <Label x:Name="CurrentDayTextBlock" 
                    HorizontalAlignment="Right" 
                    Margin="0,0,58,0" 
-                   Content="{Binding SerializeCurrentDay}" 
+                   Content="{Binding CurrentDay}" 
                    VerticalAlignment="Top" 
                    Height="35" Width="64" 
                    HorizontalContentAlignment="Right" 
@@ -173,7 +182,14 @@
                     VerticalContentAlignment="Top" 
                     FontWeight="Bold"
                     ToolTip="Advance to next day." Grid.Column="1" HorizontalAlignment="Right" Width="48"/>
-            <TextBlock Grid.Column="1" Margin="0,10,127,0" TextWrapping="Wrap" Text="{Binding ElementName=Character_Tree, Path=SelectedItem.Name}" VerticalAlignment="Top" Height="25" FontSize="16"/>
+            <TextBlock x:Name="SelectedEntityTextBlock"
+                       Grid.Column="1" 
+                       Margin="0,10,127,0" 
+                       TextWrapping="Wrap" 
+                       Text="{Binding ElementName=Character_Tree, Path=SelectedItem.Name}" 
+                       VerticalAlignment="Top" 
+                       Height="25" 
+                       FontSize="16"/>
         </Grid>
     </DockPanel>
 

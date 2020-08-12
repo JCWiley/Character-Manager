@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Xml.Serialization;
-
+using System.Runtime.Serialization;
 namespace Character_Manager
 {
+    [DataContract(Name = "Job", Namespace = "Character_Manager")]
     public class Job : INotifyPropertyChanged
     {
-        public Job() 
+        #region Constructors
+        public Job(DataModel I_DM)
         {
             summary = "";
             description = "{}";
@@ -26,6 +28,8 @@ namespace Character_Manager
             successchance = 20;
             Recurring = 0;
 
+            dm = I_DM;
+
             owner_entity = Guid.Empty;
             owner_job = Guid.Empty;
 
@@ -35,133 +39,109 @@ namespace Character_Manager
 
             required_items = new Item_Collection();
         }
-        
-        //Notification code
-        public static event EventHandler JobEventOccured;
-        public void NotifyJobEventOccured()
-        {
-            JobEventOccured?.Invoke(this, new EventArgs());
+        #endregion
 
-            NotifyPropertyChanged("Events_Collection");
-            NotifyFieldIsDirty();
-        }
+        #region Property_Handelers
+        //public static event EventHandler JobEventOccured;
+        //public void NotifyJobEventOccured()
+        //{
+        //    JobEventOccured?.Invoke(this, new EventArgs());
+
+        //    NotifyPropertyChanged("Events_Collection");
+        //    DM.IsDirty = true;
+        //}
+
+        //public static event EventHandler FieldIsDirty;
+        //public void NotifyFieldIsDirty()
+        //{
+        //    FieldIsDirty?.Invoke(this, new EventArgs());
+        //}
         public event PropertyChangedEventHandler PropertyChanged;
-        public static event EventHandler FieldIsDirty;
-        public void NotifyFieldIsDirty()
-        {
-            FieldIsDirty?.Invoke(this, new EventArgs());
-        }
         public void NotifyPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            DM.IsDirty = true;
         }
+        #endregion
 
-        //Management Code
-        private static readonly Random random = new Random();
-        private static readonly object syncLock = new object();
+        #region Functions
+        public bool AddJobEvent(string EventType, string EventNotes, int ProgressImpact)
+        {
+            Job_Event JE = new Job_Event(EventType, EventNotes, startdate + progress, Parent_Name, summary, ProgressImpact);
+            ec.Add(JE);
+            NotifyPropertyChanged("Events_Collection");
 
-        private Guid gid;
-        public Guid Gid
-        {
-            get
+            if (ProgressImpact + progress > duration)
             {
-                return gid;
+                Progress = duration;
             }
-            set
+            else
             {
-                if (this.gid != value)
-                {
-                    this.gid = value;
-                    this.NotifyPropertyChanged("Gid");
-                }
+                Progress += ProgressImpact;
             }
-        }
-        private Guid owner_entity;
-        public Guid Owner_Entity
-        {
-            get
+            if (this.duration - this.progress <= 0)
             {
-                return owner_entity;
+                return true;
             }
-            set
+            else
             {
-                if (this.owner_entity != value)
-                {
-                    this.owner_entity = value;
-                    this.NotifyPropertyChanged("Owner_Entity_Object");
-                }
+                return false;
             }
         }
-        private Guid owner_job;
-        public Guid Owner_Job
+        public void MarkJobAsComplete()
         {
-            get
+            if (recurring == 1)
             {
-                return owner_job;
-            }
-            set
-            {
-                if (this.owner_job != value)
-                {
-                    this.owner_job = value;
-                    this.NotifyPropertyChanged("Owner_Job_Object");
-                }
-            }
-        }
-        [XmlIgnoreAttribute]
-        public Entity Owner_Entity_Object
-        {
-            get
-            {
-                return DataModel.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);//fix
-            }
-            set
-            {
-                if(Owner_Entity != value.Gid)
-                {
-                    Owner_Entity = value.Gid;
-                }
-            }
-        }
-        [XmlIgnoreAttribute]
-        public Job Owner_Job_Object
-        {
-            get
-            {
-                return DataModel.Jobs.FirstOrDefault(x => x.Gid == Owner_Job);
-            }
-            set
-            {
-                if (this.Owner_Job != value.Gid)
-                {
-                    this.Owner_Job = value.Gid;
-                }
-            }
-        }
-        [XmlIgnoreAttribute]
-        public ListCollectionView Member_Jobs
-        {
-            get
-            {
-                ListCollectionView VS = new ListCollectionView(DataModel.Jobs)
-                {
-                    Filter = f => (f as Job).Owner_Job == gid
-                };
-                return VS;
-            }
-        }
-
-        public void TriggerJobEvent()
-        {
-            int RE = 0;
-            Job_Event_Window J = new Job_Event_Window(Parent_Name, summary, RE);
-            if (J.ShowDialog() == true)
-            {
-                Job_Event JE = new Job_Event();
-                JE.Populate(J.Get_EventType(), J.Get_EventNotes(), startdate + progress, Parent_Name, summary, J.Get_ProgressImpact());
+                MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
+                Job_Event JE = new Job_Event("Repeatable Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
                 ec.Add(JE);
-                this.NotifyJobEventOccured();
-                RE = J.Get_ProgressImpact();
+                progress = 0;
+                this.NotifyPropertyChanged("DaysRemaining");
+            }
+            else
+            {
+                MainWindow.Display_Message_Box($"{Parent_Name} has completed work on {summary}", "Job Done.");
+                Job_Event JE = new Job_Event("Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
+                ec.Add(JE);
+
+                complete = true;
+            }
+            NotifyPropertyChanged("Events_Collection");
+        }
+        private void HandleJobEventChanged(object sender, EventArgs e)
+        {
+            NotifyPropertyChanged("Events_Collection");
+        }
+        private bool Progressing()
+        {
+            if (complete)
+            {
+                return false;
+            }
+            if (StartDate >= DM.CurrentDay)
+            {
+                return false;
+            }
+            if (IsCurrentlyProgressing)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void AdvanceDay()
+        {
+            days_since_creation += 1;
+            int RE = Random_Event();
+            if (Progressing())
+            {
+                if (RE != 1)
+                {
+                    if (MainWindow.CreateJobEventWindow(Parent_Name, Summary, RE) is Job_Event_Window J)
+                    {
+                        AddJobEvent(J.Get_EventType(), J.Get_EventNotes(), J.Get_ProgressImpact());
+                        RE = J.Get_ProgressImpact();
+                    }
+                }
                 if (RE + progress > duration)
                 {
                     Progress = duration;
@@ -170,87 +150,20 @@ namespace Character_Manager
                 {
                     Progress += RE;
                 }
-                if (this.duration - this.progress == 0)
+                if (this.duration - this.progress <= 0)
                 {
-                    MessageBox.Show($"{Parent_Name} has completed work on {summary}", "Job Done.");
-                    Job_Event JE2 = new Job_Event();
-                    JE2.Populate("Job Completed", "Completed", startdate + progress, Parent_Name, summary, 0);
-                    ec.Add(JE2);
-                    this.NotifyJobEventOccured();
-                    complete = true;
-                }
-            }
-        }
-        private void HandleJobEventChanged(object sender, EventArgs e)
-        {
-            this.NotifyJobEventOccured();
-        }
-        public void AdvanceDay()
-        {
-            days_since_creation += 1;
-            int RE = Random_Event();
-            if (!complete)
-            {
-                if (iscurrentlyprogressing & (StartDate >= DataModel.CurrentDay))
-                {
-                    if (RE != 1)
-                    {
-                        Job_Event_Window J = new Job_Event_Window(Parent_Name, summary, RE);
-                        if (J.ShowDialog() == true)
-                        {
-                            Job_Event JE = new Job_Event();
-                            JE.Populate(J.Get_EventType(), J.Get_EventNotes(), startdate + days_since_creation, Parent_Name, summary, J.Get_ProgressImpact());
-                            ec.Add(JE);
-                            this.NotifyJobEventOccured();
-                            RE = J.Get_ProgressImpact();
-                        }
-                        else
-                        {
-                            RE = 1;
-                        }
-                    }
-                    if (RE + progress > duration)
-                    {
-                        Progress = duration;
-                    }
-                    else
-                    {
-                        Progress += RE;
-                    }
-
-                }
-                if (this.duration - this.progress == 0)
-                {
-                    if (recurring == 1)
-                    {
-                        MessageBox.Show($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
-                        Job_Event JE = new Job_Event();
-                        JE.Populate("Repeatable Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
-                        ec.Add(JE);
-                        this.NotifyJobEventOccured();
-                        progress = 0;
-                        this.NotifyPropertyChanged("DaysRemaining");
-                    }
-                    else
-                    {
-                        MessageBox.Show($"{Parent_Name} has completed work on {summary}", "Job Done.");
-                        Job_Event JE = new Job_Event();
-                        JE.Populate("Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
-                        ec.Add(JE);
-                        this.NotifyJobEventOccured();
-                        complete = true;
-                    }
+                    MarkJobAsComplete();
                 }
             }
         }
         //can technicly produce a value between -7 and 7 and be accepted, will confine to smaller increments for now
         public void AddSubtask()
         {
-            Job J = new Job()
+            Job J = new Job(DM)
             {
                 Owner_Job = gid,
             };
-            DataModel.Jobs.Add(J);
+            DM.Jobs.Add(J);
             Member_Jobs.Refresh();
             this.NotifyPropertyChanged("Member_Jobs");
 
@@ -282,8 +195,158 @@ namespace Character_Manager
                 return random.Next(min, max);
             }
         }
+        #endregion
 
-        //Data Code
+        #region Tree_Members
+        [DataMember(Name = "dm")]
+        private DataModel dm;
+        public DataModel DM
+        {
+            get
+            {
+                return dm;
+            }
+            set
+            {
+                if (this.dm != value)
+                {
+                    this.dm = value;
+                    this.NotifyPropertyChanged("DM");
+                }
+            }
+        }
+
+        [DataMember(Name = "gid")]
+        private Guid gid;
+        public Guid Gid
+        {
+            get
+            {
+                return gid;
+            }
+            set
+            {
+                if (this.gid != value)
+                {
+                    this.gid = value;
+                    this.NotifyPropertyChanged("Gid");
+                }
+            }
+        }
+
+        [DataMember(Name = "owner_entity")]
+        private Guid owner_entity;
+        public Guid Owner_Entity
+        {
+            get
+            {
+                return owner_entity;
+            }
+            set
+            {
+                if (this.owner_entity != value)
+                {
+                    this.owner_entity = value;
+                    this.NotifyPropertyChanged("Owner_Entity_Object");
+                }
+            }
+        }
+
+        [DataMember(Name = "owner_job")]
+        private Guid owner_job;
+        public Guid Owner_Job
+        {
+            get
+            {
+                return owner_job;
+            }
+            set
+            {
+                if (this.owner_job != value)
+                {
+                    this.owner_job = value;
+                    this.NotifyPropertyChanged("Owner_Job_Object");
+                }
+            }
+        }
+        #endregion
+
+        #region Utility_Members
+        private static readonly Random random = new Random();
+        private static readonly object syncLock = new object();
+        private int days_since_creation = 0;
+        public int DaysRemaining
+        {
+            get
+            {
+                int val = this.duration - this.progress;
+                if (val > 0)
+                {
+                    return val;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        public int EndDate
+        {
+            get
+            {
+                return this.StartDate + Duration;
+            }
+        }
+        public string Parent_Name
+        {
+            get
+            {
+                return Owner_Entity_Object.Name;
+            }
+        }
+        public Entity Owner_Entity_Object
+        {
+            get
+            {
+                return DM.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);
+            }
+            set
+            {
+                if (Owner_Entity != value.Gid)
+                {
+                    Owner_Entity = value.Gid;
+                }
+            }
+        }
+        public Job Owner_Job_Object
+        {
+            get
+            {
+                return DM.Jobs.FirstOrDefault(x => x.Gid == Owner_Job);
+            }
+            set
+            {
+                if (this.Owner_Job != value.Gid)
+                {
+                    this.Owner_Job = value.Gid;
+                }
+            }
+        }
+        public ListCollectionView Member_Jobs
+        {
+            get
+            {
+                ListCollectionView VS = new ListCollectionView(DM.Jobs)
+                {
+                    Filter = f => (f as Job).Owner_Job == gid
+                };
+                return VS;
+            }
+        }
+        #endregion
+
+        #region Data_Members
+        [DataMember(Name = "required_items")]
         private Item_Collection required_items;
         public Item_Collection Required_Items
         {
@@ -301,6 +364,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "ec")]
         private Events_Collection ec = new Events_Collection();
         public Events_Collection EC
         {
@@ -318,6 +382,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "complete")]
         private bool complete;
         public bool Complete
         {
@@ -335,15 +400,7 @@ namespace Character_Manager
             }
         }
 
-        [XmlIgnoreAttribute]
-        public string Parent_Name
-        {
-            get
-            {
-                return Owner_Entity_Object.Name;
-            }
-        }
-
+        [DataMember(Name = "summary")]
         private string summary;
         public string Summary
         {
@@ -361,6 +418,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "description")]
         private string description;
         public string Description
         {
@@ -378,6 +436,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "iscurrentlyprogressing")]
         private bool iscurrentlyprogressing;
         public bool IsCurrentlyProgressing
         {
@@ -395,6 +454,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "recurring")]
         private int recurring;
         public int Recurring
         {
@@ -412,6 +472,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "duration")]
         private int duration;
         public int Duration
         {
@@ -431,6 +492,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "progress")]
         private int progress;
         public int Progress
         {
@@ -449,6 +511,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "startdate")]
         private int startdate;
         public int StartDate
         {
@@ -467,15 +530,7 @@ namespace Character_Manager
             }
         }
 
-        [XmlIgnoreAttribute]
-        public int EndDate
-        {
-            get
-            {
-                return this.StartDate + Duration;
-            }
-        }
-
+        [DataMember(Name = "successchance")]
         private int successchance;
         public int SuccessChance
         {
@@ -493,6 +548,7 @@ namespace Character_Manager
             }
         }
 
+        [DataMember(Name = "failurechance")]
         private int failurechance;
         public int FailureChance
         {
@@ -509,23 +565,7 @@ namespace Character_Manager
                 }
             }
         }
-        [XmlIgnoreAttribute]
-        public int DaysRemaining
-        {
-            get
-            {
-                int val = this.duration - this.progress;
-                if (val > 0)
-                {
-                    return val;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
 
-        private int days_since_creation = 0;
+        #endregion
     }
 }
