@@ -81,6 +81,12 @@ namespace Character_Manager
             //    xs.Serialize(wr, I_Object);
             //}
 
+            //XmlSerializer xs = new XmlSerializer(typeof(DataModel));
+            //using (StreamWriter wr = new StreamWriter(filepath))
+            // {
+            //    xs.Serialize(wr, I_Object);
+            //}
+          
             //JsonSerializerOptions options = new JsonSerializerOptions
             //{
             //    WriteIndented = true,
@@ -132,6 +138,13 @@ namespace Character_Manager
                 reader.Close();
                 fs.Close();
 
+                //using (StreamReader rd = new StreamReader(filepath))
+                //{
+                //    DataModel TempLocalCollection = xs.Deserialize(rd) as DataModel;
+                //    LocalCollection = TempLocalCollection;
+                //    Load_Success = true;
+                //}
+              
                 //using (StreamReader rd = new StreamReader(filepath))
                 //{
                 //    DataModel TempLocalCollection = xs.Deserialize(rd) as DataModel;
