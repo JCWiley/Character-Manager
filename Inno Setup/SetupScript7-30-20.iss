@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Character Manager"
-#define MyAppVersion "1.5"
+#define MyAppVersion "0.1.0"
 #define MyAppPublisher "JCW Projects"
 #define MyAppURL "http://www.example.com/"
 #define MyAppExeName "Character Manager.exe"
