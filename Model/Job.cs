@@ -56,6 +56,10 @@ namespace Character_Manager
         //{
         //    FieldIsDirty?.Invoke(this, new EventArgs());
         //}
+        private void HandleJobEventChanged(object sender, EventArgs e)
+        {
+            NotifyPropertyChanged("Events_Collection");
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
@@ -108,10 +112,7 @@ namespace Character_Manager
             }
             NotifyPropertyChanged("Events_Collection");
         }
-        private void HandleJobEventChanged(object sender, EventArgs e)
-        {
-            NotifyPropertyChanged("Events_Collection");
-        }
+
         private bool Progressing()
         {
             if (complete)
@@ -308,7 +309,16 @@ namespace Character_Manager
         {
             get
             {
-                return DM.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);
+                Entity Temp = DM.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);
+                if(Temp == null)
+                {
+                    return new Character(Guid.Empty, DM)
+                    {
+                        Name = "Default Entity"
+                    };
+                }
+
+                return Temp;
             }
             set
             {
@@ -322,7 +332,16 @@ namespace Character_Manager
         {
             get
             {
-                return DM.Jobs.FirstOrDefault(x => x.Gid == Owner_Job);
+                Job Temp = DM.Jobs.FirstOrDefault(x => x.Gid == Owner_Job);
+                if (Temp == null)
+                {
+                    return new Job(DM)
+                    {
+                        Summary = "Default Job"
+                    };
+                }
+
+                return Temp;
             }
             set
             {
