@@ -46,14 +46,20 @@ namespace Character_Manager
         }
         public void Add_Existing_Entity(Guid inc)
         {
-            if (!ChildGuids.Contains(inc))
+            if(inc != Guid.Empty)
             {
-                DM.Entities[inc].ParentGuids.Add(Gid);
-                ChildGuids.Add(inc);
-            }
+                if(!this.Cumulative_Parent_List.Contains(inc))
+                {
+                    if (!ChildGuids.Contains(inc))
+                    {
+                        DM.Entities[inc].ParentGuids.Add(Gid);
+                        ChildGuids.Add(inc);
+                    }
 
-            this.NotifyPropertyChanged("Entities");
-            this.NotifyPropertyChanged("Member_List");
+                    this.NotifyPropertyChanged("Entities");
+                    this.NotifyPropertyChanged("Member_List");
+                }
+            }
         }
         public void Remove_Child(Guid inc)
         {
@@ -85,6 +91,8 @@ namespace Character_Manager
                 }
             }
         }
+
+
         #endregion
 
         #region Utility_Members

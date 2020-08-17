@@ -83,7 +83,7 @@ namespace Character_Manager
         {
             for (int i = 0; i < DaysToAdvance; i++)
             {
-                CurrentDay = CurrentDay + 1;
+                CurrentDay += 1;
 
                 foreach (Job J in Jobs)
                 {

@@ -145,6 +145,7 @@ namespace Character_Manager
                 }
             }
         }
+
         [DataMember(Name = "treeheadflag")]
         private bool treeheadflag;
         public bool TreeHeadFlag
@@ -204,7 +205,6 @@ namespace Character_Manager
         }
         public Entities_Collection Member_List
         {
-
             get
             {
                 Entities_Collection temp = new Entities_Collection();
@@ -215,7 +215,10 @@ namespace Character_Manager
                     {
                         foreach (Entity I in E.Member_List)
                         {
-                            temp.Add(I);
+                            if(!temp.Contains(I))
+                            {
+                                temp.Add(I);
+                            }
                         }
                     }
                 }
@@ -250,6 +253,25 @@ namespace Character_Manager
                     }
                 }
                 return summary;
+            }
+        }
+        public List<Guid> Cumulative_Parent_List
+        {
+            get
+            {
+                List<Guid> Temp = new List<Guid>();
+                Temp.Add(Gid);
+                foreach(Entity E in ParentEntities)
+                {
+                    foreach(Guid G in E.Cumulative_Parent_List)
+                    {
+                        if (!Temp.Contains(G))
+                        {
+                            Temp.Add(G);
+                        }
+                    }
+                }
+                return Temp;
             }
         }
         #endregion
