@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>30B1877699FA08BD1B2873C2B5DAEC55E20E85CF</ManifestCertificateThumbprint>
@@ -147,8 +149,13 @@
     </Page>
     <Compile Include="Collection Classes\Entities_Collection.cs" />
     <Compile Include="Collection Classes\SerializableDictionary.cs" />
+    <Compile Include="Factory\IRTreeFactory.cs" />
+    <Compile Include="Factory\RTreeFactory.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\Organization.cs" />
+    <Compile Include="RedundantTree\IRTreeMember.cs" />
+    <Compile Include="RedundantTree\RTree.cs" />
+    <Compile Include="RedundantTree\RTreeMember.cs" />
     <Compile Include="Templates\CharacterDisplay.xaml.cs">
       <DependentUpon>CharacterDisplay.xaml</DependentUpon>
     </Compile>

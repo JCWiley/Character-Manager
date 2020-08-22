@@ -17,7 +17,7 @@ namespace Character_Manager
         {
             Name = "Default Organization";
         }
-        #endregion
+        #endregion 
 
         #region Property_Handelers
 
