@@ -81,6 +81,7 @@ namespace Character_Manager.RedundantTree
             factory = i_factory;
             Parents = i_parents;
             Children = i_children;
+            Gid = factory.CreateGuid();
         }
 
         public void AddChild(Guid i_gid)

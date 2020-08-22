@@ -9,9 +9,9 @@ namespace Character_Manager.RedundantTree
 {
     public class RTree<T>
     {
-        private IRTreeFactory<T> factory;
+        private readonly IRTreeFactory<T> factory;
 
-        private IDictionary<Guid, IRTreeMember<T>> dict;
+        private readonly IDictionary<Guid, IRTreeMember<T>> dict;
 
         public List<IRTreeMember<T>> Heads
         {
@@ -26,20 +26,32 @@ namespace Character_Manager.RedundantTree
             factory = i_factory;
         }
 
-        public void AddItem(T i_item, bool is_head)
+        public int Count
+        {
+            get
+            {
+                return dict.Values.Count();
+            }
+        }
+
+        public IRTreeMember<T> AddItem(T i_item, bool is_head)
         {
             IRTreeMember<T> member = factory.CreateRTreeMember();
             member.Item = i_item;
             member.IsHead = is_head;
             dict.Add(member.Gid, member);
+            return member;
         }
         public void RemoveItem(IRTreeMember<T> i_item)
         {
-            foreach(Guid G in i_item.Parents)
+            List<Guid> P = new List<Guid>(i_item.Parents);
+            List<Guid> C = new List<Guid>(i_item.Children);
+
+            foreach (Guid G in P)
             {
                 RemoveChild(dict[G], i_item);
             }
-            foreach(Guid G in i_item.Children)
+            foreach(Guid G in C)
             {
                 RemoveChild(i_item, dict[G]);
             }
