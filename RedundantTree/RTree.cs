@@ -103,33 +103,36 @@ namespace Character_Manager.RedundantTree
         public List<IRTreeMember<T>> Get_All_Parents(IRTreeMember<T> i_item)
         {
             List<IRTreeMember<T>> Parents = Get_Immidiate_Parents(i_item);
-            foreach(IRTreeMember<T> i in Parents)
+            List<IRTreeMember<T>> Result = factory.CreateMemberList();
+            foreach (IRTreeMember<T> i in Parents)
             {
-                foreach(IRTreeMember<T> j in Get_All_Parents(i))
+                Result.Add(i);
+                foreach (IRTreeMember<T> j in Get_All_Parents(i))
                 {
-                    if(Parents.Contains(j) == false)
+                    if(Result.Contains(j) == false)
                     {
-                        Parents.Add(j);
+                        Result.Add(j);
                     }
                 }
             }
-            return Parents;
+            return Result;
         }
         public List<IRTreeMember<T>> Get_All_Children(IRTreeMember<T> i_item)
         {
             List<IRTreeMember<T>> Children = Get_Immidiate_Children(i_item);
+            List<IRTreeMember<T>> Result = factory.CreateMemberList();
             foreach (IRTreeMember<T> i in Children)
             {
+                Result.Add(i);
                 foreach (IRTreeMember<T> j in Get_All_Children(i))
                 {
-                    if (Children.Contains(j) == false)
+                    if (Result.Contains(j) == false)
                     {
-                        Children.Add(j);
+                        Result.Add(j);
                     }
                 }
             }
-            return Children;
+            return Result;
         }
-
     }
 }
