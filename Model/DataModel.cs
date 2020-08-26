@@ -20,17 +20,19 @@ namespace Character_Manager
     public class DataModel : INotifyPropertyChanged
     {
         #region Constructors
-        public DataModel(IMessageSender i_Messenger)
+        public DataModel(IPrimeFactory IPF)
         {
+            ipf = IPF;
+
             currentday = 0;
             worldname = "Worldname";
 
-            messenger = i_Messenger;
+            messenger = ipf.CreateMessageSender();
 
-            rfact_entity = new RTreeFactory<IEntity>();
+            rfact_entity = ipf.CreateIRTreeFactory_Entity();
             entitytree = rfact_entity.CreateRTree();
 
-            rfact_job = new RTreeFactory<IJob>();
+            rfact_job = ipf.CreateIRTreeFactory_Job();
             jobtree = rfact_job.CreateRTree();
 
             isdirty = false;
@@ -168,7 +170,7 @@ namespace Character_Manager
         //#endregion
 
         #region Tree_Members
-        private RTreeFactory<IEntity> rfact_entity;
+        private IRTreeFactory<IEntity> rfact_entity;
         
         private RTree<IEntity> entitytree;
         public RTree<IEntity> EntityTree
@@ -188,7 +190,7 @@ namespace Character_Manager
             }
         }
 
-        private RTreeFactory<IJob> rfact_job;
+        private IRTreeFactory<IJob> rfact_job;
         private RTree<IJob> jobtree;
         public RTree<IJob> Jobtree
         {
@@ -264,6 +266,7 @@ namespace Character_Manager
         #endregion
 
         #region Utility_Members
+        private IPrimeFactory ipf;
         private bool isdirty;
         public bool IsDirty
         {

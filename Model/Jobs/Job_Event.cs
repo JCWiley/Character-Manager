@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Character_Manager.Model.Jobs
 {
     [DataContract(Name = "Job_Event", Namespace = "Character_Manager")]
-    public class Job_Event
+    public class Job_Event : IJobEvent
     {
         #region Constructors
         public Job_Event(string I_Event_Type, string I_Comment, int I_Day, string I_Character, string I_Job, int I_Progress_Effects)

@@ -13,5 +13,10 @@ namespace Character_Manager.Model.Jobs
         {
             return new Job();
         }
+
+        public IJobEvent CreateJobEvent(string I_Event_Type, string I_Comment, int I_Day, string I_Character, string I_Job, int I_Progress_Effects)
+        {
+            return new Job_Event(I_Event_Type, I_Comment, I_Day, I_Character, I_Job, I_Progress_Effects);
+        }
     }
 }

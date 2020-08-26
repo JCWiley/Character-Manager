@@ -8,5 +8,7 @@ namespace Character_Manager.Model.Entities
 {
     public interface IEntityFactory
     {
+        public IEntity CreateCharacter();
+        public IEntity CreateOrganization();
     }
 }

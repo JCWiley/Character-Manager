@@ -1,4 +1,6 @@
-﻿using Character_Manager.Model.Entities;
+﻿using Character_Manager.GeneralInterfaces;
+using Character_Manager.MessageSenders;
+using Character_Manager.Model.Entities;
 using Character_Manager.Model.Jobs;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Character_Manager.Model.Factory
 {
-    class PrimeFactory<T,K> : IPrimeFactory<T, K>
+    class PrimeFactory : IPrimeFactory
     {
         public IEntityFactory CreateIEntityFactory()
         {
@@ -20,9 +22,18 @@ namespace Character_Manager.Model.Factory
             return new JobFactory();
         }
 
-        public IRTreeFactory<T> CreateIRTreeFactory()
+        public IRTreeFactory<IEntity> CreateIRTreeFactory_Entity()
         {
-            return new RTreeFactory<T>();
+            return new RTreeFactory<IEntity>();
+        }
+        public IRTreeFactory<IJob> CreateIRTreeFactory_Job()
+        {
+            return new RTreeFactory<IJob>();
+        }
+
+        public IMessageSender CreateMessageSender()
+        {
+            return new SendMessageBox();
         }
     }
 }

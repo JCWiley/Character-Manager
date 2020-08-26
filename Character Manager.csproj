@@ -147,8 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="MessageSenders\SendMessageBox.cs" />
     <Compile Include="Model\Collection Classes\Entities_Collection.cs" />
     <Compile Include="Model\Collection Classes\SerializableDictionary.cs" />
+    <Compile Include="Model\Entities\EntityFactory.cs" />
     <Compile Include="Model\Entities\IEntity.cs" />
     <Compile Include="Model\Entities\IEntityFactory.cs" />
     <Compile Include="Model\Factory\IPrimeFactory.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Model\Entities\Entity.cs" />
     <Compile Include="Model\Entities\Organization.cs" />
     <Compile Include="Model\Jobs\IJob.cs" />
+    <Compile Include="Model\Jobs\IJobEvent.cs" />
     <Compile Include="Model\Jobs\IJobFactory.cs" />
     <Compile Include="Model\Jobs\JobFactory.cs" />
     <Compile Include="Model\RedundantTree\IRTreeMember.cs" />

@@ -13,7 +13,7 @@ using System.Runtime.Serialization;
 namespace Character_Manager.Model.Jobs
 {
     [DataContract(Name = "Job", Namespace = "Character_Manager")]
-    public class Job : INotifyPropertyChanged
+    public class Job : IJob
     {
         #region Constructors
         public Job()
