@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace Character_Manager
+namespace Character_Manager.Model.Jobs
 {
     [DataContract(Name = "Job_Event", Namespace = "Character_Manager")]
     public class Job_Event

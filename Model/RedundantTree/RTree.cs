@@ -1,11 +1,11 @@
-﻿using Character_Manager.Factory;
+﻿using Character_Manager.Model.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Character_Manager.RedundantTree
+namespace Character_Manager.Model.RedundantTree
 {
     public class RTree<T>
     {

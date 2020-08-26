@@ -9,13 +9,14 @@ using System.Windows;
 using System.Windows.Data;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
-namespace Character_Manager
+
+namespace Character_Manager.Model.Jobs
 {
     [DataContract(Name = "Job", Namespace = "Character_Manager")]
     public class Job : INotifyPropertyChanged
     {
         #region Constructors
-        public Job(DataModel I_DM)
+        public Job()
         {
             summary = "";
             description = "{}";

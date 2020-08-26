@@ -1,8 +1,8 @@
-﻿using Character_Manager.RedundantTree;
+﻿using Character_Manager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
 
-namespace Character_Manager.Factory
+namespace Character_Manager.Model.Factory
 {
     public interface IRTreeFactory<T>
     {

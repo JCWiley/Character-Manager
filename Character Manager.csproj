@@ -147,15 +147,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Collection Classes\Entities_Collection.cs" />
-    <Compile Include="Collection Classes\SerializableDictionary.cs" />
-    <Compile Include="Factory\IRTreeFactory.cs" />
-    <Compile Include="Factory\RTreeFactory.cs" />
-    <Compile Include="Model\Entity.cs" />
-    <Compile Include="Model\Organization.cs" />
-    <Compile Include="RedundantTree\IRTreeMember.cs" />
-    <Compile Include="RedundantTree\RTree.cs" />
-    <Compile Include="RedundantTree\RTreeMember.cs" />
+    <Compile Include="Model\Collection Classes\Entities_Collection.cs" />
+    <Compile Include="Model\Collection Classes\SerializableDictionary.cs" />
+    <Compile Include="Model\Entities\IEntity.cs" />
+    <Compile Include="Model\Entities\IEntityFactory.cs" />
+    <Compile Include="Model\Factory\IPrimeFactory.cs" />
+    <Compile Include="Model\Factory\IRTreeFactory.cs" />
+    <Compile Include="Model\Factory\PrimeFactory.cs" />
+    <Compile Include="Model\Factory\RTreeFactory.cs" />
+    <Compile Include="GeneralInterfaces\IMessageSender.cs" />
+    <Compile Include="GeneralInterfaces\IVisible.cs" />
+    <Compile Include="Model\Entities\Entity.cs" />
+    <Compile Include="Model\Entities\Organization.cs" />
+    <Compile Include="Model\Jobs\IJob.cs" />
+    <Compile Include="Model\Jobs\IJobFactory.cs" />
+    <Compile Include="Model\Jobs\JobFactory.cs" />
+    <Compile Include="Model\RedundantTree\IRTreeMember.cs" />
+    <Compile Include="Model\RedundantTree\RTree.cs" />
+    <Compile Include="Model\RedundantTree\RTreeMember.cs" />
     <Compile Include="Templates\CharacterDisplay.xaml.cs">
       <DependentUpon>CharacterDisplay.xaml</DependentUpon>
     </Compile>
@@ -170,12 +179,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collection Classes\Job_Collection.cs" />
-    <Compile Include="Collection Classes\Location_Collection.cs" />
-    <Compile Include="Model\Character.cs" />
-    <Compile Include="Collection Classes\Characters.cs" />
+    <Compile Include="Model\Collection Classes\Job_Collection.cs" />
+    <Compile Include="Model\Collection Classes\Location_Collection.cs" />
+    <Compile Include="Model\Entities\Character.cs" />
+    <Compile Include="Model\Collection Classes\Characters.cs" />
     <Compile Include="Model\DataModel.cs" />
-    <Compile Include="Collection Classes\Events_Collection.cs" />
+    <Compile Include="Model\Collection Classes\Events_Collection.cs" />
     <Compile Include="Model\Location.cs" />
     <Compile Include="Windows\Transient\JobSummaryReportWindow.xaml.cs">
       <DependentUpon>JobSummaryReportWindow.xaml</DependentUpon>
@@ -185,9 +194,9 @@
     </Compile>
     <Compile Include="File_Manager.cs" />
     <Compile Include="Model\Item.cs" />
-    <Compile Include="Collection Classes\Item_Collection.cs" />
-    <Compile Include="Model\Job.cs" />
-    <Compile Include="Model\Job_Event.cs" />
+    <Compile Include="Model\Collection Classes\Item_Collection.cs" />
+    <Compile Include="Model\Jobs\Job.cs" />
+    <Compile Include="Model\Jobs\Job_Event.cs" />
     <Compile Include="Windows\Transient\Job_Event_Window.xaml.cs">
       <DependentUpon>Job_Event_Window.xaml</DependentUpon>
     </Compile>

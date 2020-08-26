@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 
-namespace Character_Manager
+namespace Character_Manager.Model.Entities
 {
     [DataContract(Name = "Character", Namespace = "Character_Manager")]
     public class Character : Entity

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Character_Manager
+namespace Character_Manager.Model.Collection_Classes
 {
     public class Job_Collection : ObservableCollection<Job>
     {

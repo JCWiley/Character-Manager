@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-namespace Character_Manager
+namespace Character_Manager.Model.Entities
 {
     [DataContract(Name = "Organization", Namespace = "Character_Manager")]
     public class Organization : Entity

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Character_Manager
+namespace Character_Manager.Model.Collection_Classes
 {
     public class Entities_Collection : ObservableCollection<Entity>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Character_Manager.RedundantTree
+namespace Character_Manager.Model.RedundantTree
 {
     public interface IRTreeMember<T>
     {
