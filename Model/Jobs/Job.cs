@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Data;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using Character_Manager.Model.Entities;
+using Character_Manager.Model.Collection_Classes;
 
 namespace Character_Manager.Model.Jobs
 {
@@ -28,8 +30,6 @@ namespace Character_Manager.Model.Jobs
             failurechance = 20;
             successchance = 20;
             Recurring = 0;
-
-            dm = I_DM;
 
             owner_entity = Guid.Empty;
             owner_job = Guid.Empty;
@@ -161,13 +161,13 @@ namespace Character_Manager.Model.Jobs
         //can technicly produce a value between -7 and 7 and be accepted, will confine to smaller increments for now
         public void AddSubtask()
         {
-            Job J = new Job(DM)
-            {
-                Owner_Job = gid,
-            };
-            DM.Jobs.Add(J);
-            Member_Jobs.Refresh();
-            this.NotifyPropertyChanged("Member_Jobs");
+            //Job J = new Job()
+            //{
+            //    Owner_Job = gid,
+            //};
+            //DM.Jobs.Add(J);
+            //Member_Jobs.Refresh();
+            //this.NotifyPropertyChanged("Member_Jobs");
 
         }
         private int Random_Event()

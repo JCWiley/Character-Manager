@@ -6,109 +6,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using Character_Manager.Model.Collection_Classes;
 
 namespace Character_Manager.Model.Entities
 {
     [DataContract(Name = "Organization", Namespace = "Character_Manager")]
-    public class Organization : Entity
+    public class Organization : Entity, IEntity
     {
         #region Constructors
-        public Organization(Guid creatorguid, DataModel I_DM) : base(creatorguid, I_DM)
+        public Organization()
         {
             Name = "Default Organization";
         }
         #endregion 
 
-        #region Property_Handelers
+        //#region Property_Handelers
 
-        #endregion
+        //#endregion
 
-        #region Functions
-        public void Add_Character()
-        {
-            Character NewChar = new Character(Gid,DM)
-            {
-                IsSelected = true
-            };
-            ChildGuids.Add(NewChar.Gid);
-            DM.Entities.Add(NewChar.Gid, NewChar);
-            this.NotifyPropertyChanged("Entities");
-        }
-        public void Add_Organization()
-        {
-            Organization NewOrg = new Organization(Gid,DM)
-            {
-                IsSelected = true
-            };
-            ChildGuids.Add(NewOrg.Gid);
-            DM.Entities.Add(NewOrg.Gid, NewOrg);
-            this.NotifyPropertyChanged("Entities");
-        }
-        public void Add_Existing_Entity(Guid inc)
-        {
-            if(inc != Guid.Empty)
-            {
-                if(!this.Cumulative_Parent_List.Contains(inc))
-                {
-                    if (!ChildGuids.Contains(inc))
-                    {
-                        DM.Entities[inc].ParentGuids.Add(Gid);
-                        ChildGuids.Add(inc);
-                    }
-
-                    this.NotifyPropertyChanged("Entities");
-                    this.NotifyPropertyChanged("Member_List");
-                }
-            }
-        }
-        public void Remove_Child(Guid inc)
-        {
-            DM.Entities[inc].ParentGuids.Remove(Gid);
-            ChildGuids.Remove(inc);
-
-            this.NotifyPropertyChanged("Entities");
-            this.NotifyPropertyChanged("Member_List");
-        }
-        #endregion
-
-        #region Tree_Members
-        [DataMember(Name = "childguids")]
-        protected List<Guid> childguids = new List<Guid>();
-        public List<Guid> ChildGuids
-        {
-            get
-            {
-                return this.childguids;
-            }
-            set
-            {
-                if (this.childguids != value)
-                {
-                    this.childguids = value;
-                    this.NotifyPropertyChanged("ChildGuids");
-                    this.NotifyPropertyChanged("Entities");
-                    this.NotifyPropertyChanged("EntitiesBind");
-                }
-            }
-        }
+        //#region Functions
 
 
-        #endregion
+        //#endregion
 
-        #region Utility_Members
-        public Entities_Collection Entities
-        {
-            get
-            {
-                Entities_Collection temp = new Entities_Collection();
-                foreach (Guid x in ChildGuids)
-                {
-                    temp.Add(DM.Entities[x]);
-                }
-                return temp;
-            }
-        }
-        #endregion
+        //#region Tree_Members
+
+
+        //#endregion
+
+        //#region Utility_Members
+
+        //#endregion
 
         #region Data_Members
         [DataMember(Name = "leader")]

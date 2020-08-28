@@ -13,6 +13,7 @@ using Character_Manager.Model.Factory;
 using Character_Manager.Model.Entities;
 using Character_Manager.Model.RedundantTree;
 using Character_Manager.GeneralInterfaces;
+using Character_Manager.Model.Collection_Classes;
 
 namespace Character_Manager
 {
@@ -73,103 +74,98 @@ namespace Character_Manager
         //}
         #endregion
 
-        //#region Functions
-        //public void SetEqual(DataModel inc)
-        //{
-        //    //Tree Members
-        //    Jobs = inc.Jobs;
-        //    foreach(Job J in Jobs)
-        //    {
-        //        J.DM = this;
-        //    }
-        //    Entities = inc.Entities;
-        //    foreach(Entity E in Entities.Values)
-        //    {
-        //        E.DM = this;
-        //    }
-        //    EntitiesHead = inc.EntitiesHead;
+        #region Intermediaries
 
-        //    //Data Members
-        //    CurrentDay = inc.CurrentDay;
-        //    Worldname = inc.Worldname;
 
-        //    this.NotifyPropertyChanged("DM");
 
-        //    IsDirty = false;
-        //}
-        //public void AdvanceDay(int DaysToAdvance)
-        //{
-        //    for (int i = 0; i < DaysToAdvance; i++)
-        //    {
-        //        CurrentDay += 1;
+        #endregion
 
-        //        foreach (Job J in Jobs)
-        //        {
-        //            J.AdvanceDay();
-        //        }
-        //        //foreach (Entity E in Entities.Values) //not needed currently, as entities have no day dependant data
-        //        //{
-        //        //    E.AdvanceDay();
-        //        //}
-        //    }
 
-        //    this.NotifyPropertyChanged("CurrentDay");
-        //    this.NotifyPropertyChanged("SerializeCurrentDay");
-        //}
-        //public void FilterTree(string type, string text)
-        //{
-        //    switch (type)
-        //    {
-        //        case "Clear":
-        //            FilterClear();
-        //            this.NotifyPropertyChanged("EntitiesBind");
-        //            break;
-        //        default:
-        //            FilterClear();
-        //            foreach (Entity E in Entities.Values)
-        //            {
-        //                try
-        //                {
-        //                    string value = (string)E.GetType().GetProperty(type).GetValue(E, null);
-        //                    if (value.Contains(text))
-        //                    {
-        //                        E.Visible = true;
-        //                        SetVisible(E);
-        //                    }
-        //                    else
-        //                    {
-        //                        E.Visible = false;
-        //                    }
-        //                }
-        //                catch
-        //                {
 
-        //                }
-        //            }
-        //            break;
-        //    }
-        //    //this.NotifyPropertyChanged("Entities");
-        //    this.NotifyPropertyChanged("EntitiesBind");
-        //    //this.NotifyPropertyChanged("Member_List");
-        //}
-        //private void FilterClear()
-        //{
-        //    foreach (Entity E in Entities.Values)
-        //    {
-        //        E.Visible = true;
-        //    }
-        //}
-        //private void SetVisible(Entity Parent)
-        //{
-        //    Parent.Visible = true;
-        //    foreach (Entity E in Parent.ParentEntities)
-        //    {
-        //        SetVisible(E);
-        //    }
-        //}
-        //#endregion
 
-        #region Tree_Members
+
+        #region Functions
+        public void SetEqual(DataModel inc)
+        {
+            throw new NotImplementedException();
+        }
+        public void AdvanceDay(int DaysToAdvance)
+        {
+            throw new NotImplementedException();
+            //for (int i = 0; i < DaysToAdvance; i++)
+            //{
+            //    CurrentDay += 1;
+
+            //    foreach (Job J in Jobs)
+            //    {
+            //        J.AdvanceDay();
+            //    }
+            //    //foreach (Entity E in Entities.Values) //not needed currently, as entities have no day dependant data
+            //    //{
+            //    //    E.AdvanceDay();
+            //    //}
+            //}
+
+            //this.NotifyPropertyChanged("CurrentDay");
+            //this.NotifyPropertyChanged("SerializeCurrentDay");
+        }
+        public void FilterTree(string type, string text)
+        {
+            throw new NotImplementedException();
+            //    switch (type)
+            //    {
+            //        case "Clear":
+            //            FilterClear();
+            //            this.NotifyPropertyChanged("EntitiesBind");
+            //            break;
+            //        default:
+            //            FilterClear();
+            //            foreach (Entity E in Entities.Values)
+            //            {
+            //                try
+            //                {
+            //                    string value = (string)E.GetType().GetProperty(type).GetValue(E, null);
+            //                    if (value.Contains(text))
+            //                    {
+            //                        E.Visible = true;
+            //                        SetVisible(E);
+            //                    }
+            //                    else
+            //                    {
+            //                        E.Visible = false;
+            //                    }
+            //                }
+            //                catch
+            //                {
+
+            //                }
+            //            }
+            //            break;
+            //    }
+            //    //this.NotifyPropertyChanged("Entities");
+            //    this.NotifyPropertyChanged("EntitiesBind");
+            //    //this.NotifyPropertyChanged("Member_List");
+        }
+        private void FilterClear()
+        {
+            throw new NotImplementedException();
+            //    foreach (Entity E in Entities.Values)
+            //    {
+            //        E.Visible = true;
+            //    }
+        }
+        private void SetVisible(Entity Parent)
+        {
+            throw new NotImplementedException();
+            //    Parent.Visible = true;
+            //    foreach (Entity E in Parent.ParentEntities)
+            //    {
+            //        SetVisible(E);
+            //    }
+        }
+            #endregion
+
+            #region Tree_Members
         private IRTreeFactory<IEntity> rfact_entity;
         
         private RTree<IEntity> entitytree;
@@ -208,60 +204,6 @@ namespace Character_Manager
                 }
             }
         }
-
-        //[DataMember(Name = "jobs")]
-        //private Job_Collection jobs;
-        //public Job_Collection Jobs
-        //{
-        //    get
-        //    {
-        //        return jobs;
-        //    }
-        //    set
-        //    {
-        //        if (this.jobs != value)
-        //        {
-        //            this.jobs = value;
-        //            this.NotifyPropertyChanged("Jobs");
-        //        }
-        //    }
-        //}
-
-        //[DataMember(Name = "entities")]
-        //private Dictionary<Guid, Entity> entities;
-        //public Dictionary<Guid, Entity> Entities
-        //{
-        //    get
-        //    {
-        //        return entities;
-        //    }
-        //    set
-        //    {
-        //        if (this.entities != value)
-        //        {
-        //            this.entities = value;
-        //            this.NotifyPropertyChanged("Entities");
-        //        }
-        //    }
-        //}
-
-        //[DataMember(Name = "entitieshead")]
-        //private Entities_Collection entitieshead;
-        //public Entities_Collection EntitiesHead
-        //{
-        //    get
-        //    {
-        //        return entitieshead;
-        //    }
-        //    set
-        //    {
-        //        if (this.entitieshead != value)
-        //        {
-        //            this.entitieshead = value;
-        //            this.NotifyPropertyChanged("EntitiesHead");
-        //        }
-        //    }
-        //}
 
         #endregion
 

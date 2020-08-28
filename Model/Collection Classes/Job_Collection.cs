@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Character_Manager.Model.Jobs;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

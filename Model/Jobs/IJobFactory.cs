@@ -8,6 +8,6 @@ namespace Character_Manager.Model.Jobs
 {
     public interface IJobFactory
     {
-        IJob CreateJob();
+        public IJob CreateJob();
     }
 }

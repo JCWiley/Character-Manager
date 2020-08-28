@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using System.Windows.Data;
-using System.Collections.ObjectModel;
-using System.Xml.Serialization;
-using System.Windows.Media;
 using System.Runtime.Serialization;
-using Character_Manager.Entities;
+using Character_Manager.Model.Collection_Classes;
 
 namespace Character_Manager.Model.Entities
 {
@@ -41,20 +34,8 @@ namespace Character_Manager.Model.Entities
         protected void NotifyPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-            DM.IsDirty = true;
+            //DM.IsDirty = true;
         }
-
-        //public static event EventHandler DMJobEventOccured;
-        //public void NotifyDMJobEventOccured()
-        //{
-        //    DMJobEventOccured?.Invoke(this, new EventArgs());
-        //    NotifyPropertyChanged("Events_Summary");
-        //}
-
-        //private void HandleJobNotification(object sender, EventArgs e)
-        //{
-        //    this.NotifyDMJobEventOccured();
-        //}
         #endregion
 
         //#region Functions
@@ -335,10 +316,10 @@ namespace Character_Manager.Model.Entities
                 if (this.location != value)
                 {
                     this.location = value;
-                    if (!Locations.Contains(value))
-                    {
-                        Locations.Add(value);
-                    }
+                    //if (!Locations.Contains(value))
+                    //{
+                    //    Locations.Add(value);
+                    //}
                     this.NotifyPropertyChanged("Location");
                 }
             }

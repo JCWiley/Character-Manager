@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Character_Manager.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -63,31 +64,31 @@ namespace Character_Manager
 
             // sender is the TreeView itself. Just iterate through the items
             // and retrieve the first one where IsMouseOver returns true.
-            Character_Tree.ContextMenuOpening += (sender, e) =>
-            {
-                //activeitem = ((TreeView)sender).Items.OfType<TreeViewItem>().FirstOrDefault(item => item.IsMouseOver);
-                activetree = null;
-                activetree = (FindTreeViewItems((TreeView)sender));
-                activetree.Reverse();
+            //Character_Tree.ContextMenuOpening += (sender, e) =>
+            //{
+            //    //activeitem = ((TreeView)sender).Items.OfType<TreeViewItem>().FirstOrDefault(item => item.IsMouseOver);
+            //    activetree = null;
+            //    activetree = (FindTreeViewItems((TreeView)sender));
+            //    activetree.Reverse();
                 
-                if(activetree.Count > 0)
-                {
-                    activeitem = (Entity)(activetree[0].DataContext);
+            //    if(activetree.Count > 0)
+            //    {
+            //        activeitem = (Entity)(activetree[0].DataContext);
 
-                    foreach(TreeViewItem item in activetree)
-                    {
-                        if (item.DataContext is Organization O)
-                        {
-                            if (O.ChildGuids.Contains(activeitem.Gid))
-                            {
-                                activeparent = O;
-                                break;
-                            }
-                        }
+            //        foreach(TreeViewItem item in activetree)
+            //        {
+            //            if (item.DataContext is Organization O)
+            //            {
+            //                if (O.ChildGuids.Contains(activeitem.Gid))
+            //                {
+            //                    activeparent = O;
+            //                    break;
+            //                }
+            //            }
 
-                    }
-                }
-            };
+            //        }
+            //    }
+            //};
 
             Character_Tree.ContextMenuClosing += (o, e) =>
             {
@@ -281,8 +282,8 @@ namespace Character_Manager
         }
         private void Generate_Event_Report_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            EventReportWindow ERW = new EventReportWindow(DM.Events_Summary);
-            ERW.Show();
+            //EventReportWindow ERW = new EventReportWindow(DMEvents_Summary);
+            //ERW.Show();
         }
         private void Generate_Job_Report_MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -305,19 +306,21 @@ namespace Character_Manager
         }
         private void Add_Character_Button_Click(object sender, RoutedEventArgs e)
         {
-            Button B = sender as Button;
-            Organization O = B.DataContext as Organization;
-            this.ClearSelection();
-            O.Add_Character();
-            O.IsExpanded = true;
+            throw new NotImplementedException();
+            //Button B = sender as Button;
+            //Organization O = B.DataContext as Organization;
+            //this.ClearSelection();
+            //O.Add_Character();
+            //O.IsExpanded = true;
         }
         private void Add_Organization_Button_Click(object sender, RoutedEventArgs e)
         {
-            Button B = sender as Button;
-            Organization O = B.DataContext as Organization;
-            this.ClearSelection();
-            O.Add_Organization();
-            O.IsExpanded = true;
+            throw new NotImplementedException();
+            //Button B = sender as Button;
+            //Organization O = B.DataContext as Organization;
+            //this.ClearSelection();
+            //O.Add_Organization();
+            //O.IsExpanded = true;
         }
         private void ClearFilterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -420,57 +423,60 @@ namespace Character_Manager
 
         private void TreeElementStackPanelContextMenu_Add_Character(object sender, RoutedEventArgs e)
         {
-            if(((MenuItem)sender).DataContext is Organization O)
-            {
-                O.Add_Character();
-            }
-            else
-            {
-                throw new System.ArgumentException("Attempted to add character to non organization via context menu", "original");
-            }
+            throw new NotImplementedException();
+            //if(((MenuItem)sender).DataContext is Organization O)
+            //{
+            //    O.Add_Character();
+            //}
+            //else
+            //{
+            //    throw new System.ArgumentException("Attempted to add character to non organization via context menu", "original");
+            //}
         }
         private void TreeElementStackPanelContextMenu_Add_Organization(object sender, RoutedEventArgs e)
         {
-            if (((MenuItem)sender).DataContext is Organization O)
-            {
-                O.Add_Organization();
-            }
-            else
-            {
-                throw new System.ArgumentException("Attempted to add organization to non organization viw context menu", "original");
-            }
+            throw new NotImplementedException();
+            //if (((MenuItem)sender).DataContext is Organization O)
+            //{
+            //    O.Add_Organization();
+            //}
+            //else
+            //{
+            //    throw new System.ArgumentException("Attempted to add organization to non organization viw context menu", "original");
+            //}
         }
         private void TreeElementStackPanelContextMenu_Cut(object sender, RoutedEventArgs e)
         {
-            if(activeparent != null & activeitem != null)
-            {
-                entitybuffer = activeitem.Gid;
-                activeparent.Remove_Child(entitybuffer);
-            }
+            //if(activeparent != null & activeitem != null)
+            //{
+            //    entitybuffer = activeitem.Gid;
+            //    activeparent.Remove_Child(entitybuffer);
+            //}
         }
         private void TreeElementStackPanelContextMenu_Copy(object sender, RoutedEventArgs e)
         {
-            if(activeitem != null)
-            {
-                entitybuffer = activeitem.Gid;
-            }
+            //if(activeitem != null)
+            //{
+            //    entitybuffer = activeitem.Gid;
+            //}
         }
         private void TreeElementStackPanelContextMenu_Paste(object sender, RoutedEventArgs e)
         {
-            if(activeitem is Organization item)
-            {
-                if(entitybuffer != null)
-                {
-                    item.Add_Existing_Entity(entitybuffer);
-                }
-            }
+            throw new NotImplementedException();
+            //if(activeitem is Organization item)
+            //{
+            //    if(entitybuffer != null)
+            //    {
+            //        item.Add_Existing_Entity(entitybuffer);
+            //    }
+            //}
         }
         private void TreeElementStackPanelContextMenu_Delete(object sender, RoutedEventArgs e)
         {
-            if (activeparent != null & activeitem != null)
-            {
-                activeparent.Remove_Child(activeitem.Gid);
-            }
+            //if (activeparent != null & activeitem != null)
+            //{
+            //    activeparent.Remove_Child(activeitem.Gid);
+            //}
         }
 
         //Handelers that need sorting

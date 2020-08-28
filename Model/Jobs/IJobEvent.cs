@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Character_Manager.Model.Jobs
 {
-    interface IJobEvent
+    public interface IJobEvent
     {
     }
 }

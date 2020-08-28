@@ -1,4 +1,5 @@
 ﻿using Character_Manager.GeneralInterfaces;
+using Character_Manager.Model.Collection_Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,8 +11,6 @@ namespace Character_Manager.Model.Entities
 {
     public interface IEntity : INotifyPropertyChanged, IVisible
     {
-
-
         #region Data_Members
         public Item_Collection Inventory { get; set; }
         public string Name { get; set; }

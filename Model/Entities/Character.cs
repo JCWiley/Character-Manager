@@ -14,10 +14,10 @@ using System.Runtime.Serialization;
 namespace Character_Manager.Model.Entities
 {
     [DataContract(Name = "Character", Namespace = "Character_Manager")]
-    public class Character : Entity
+    public class Character : Entity,IEntity
     {
         #region Constructors
-        public Character(Guid creatorguid, DataModel I_DM) : base(creatorguid, I_DM)
+        public Character()
         {
             Name = "Default Character";
             alias = "";

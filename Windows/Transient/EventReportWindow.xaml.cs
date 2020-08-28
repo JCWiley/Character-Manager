@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Character_Manager.Model.Collection_Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
