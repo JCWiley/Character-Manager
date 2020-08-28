@@ -42,57 +42,30 @@ namespace Character_Manager.Model.Jobs
         }
         #endregion
 
-        #region Property_Handelers
-        //public static event EventHandler JobEventOccured;
-        //public void NotifyJobEventOccured()
-        //{
-        //    JobEventOccured?.Invoke(this, new EventArgs());
-
-        //    NotifyPropertyChanged("Events_Collection");
-        //    DM.IsDirty = true;
-        //}
-
-        //public static event EventHandler FieldIsDirty;
-        //public void NotifyFieldIsDirty()
-        //{
-        //    FieldIsDirty?.Invoke(this, new EventArgs());
-        //}
-        private void HandleJobEventChanged(object sender, EventArgs e)
-        {
-            NotifyPropertyChanged("Events_Collection");
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-            DM.IsDirty = true;
-        }
-        #endregion
-
         #region Functions
-        public bool AddJobEvent(string EventType, string EventNotes, int ProgressImpact)
-        {
-            Job_Event JE = new Job_Event(EventType, EventNotes, startdate + progress, Parent_Name, summary, ProgressImpact);
-            ec.Add(JE);
-            NotifyPropertyChanged("Events_Collection");
+        //public bool AddJobEvent(string EventType, string EventNotes, int ProgressImpact)
+        //{
+        //    Job_Event JE = new Job_Event(EventType, EventNotes, startdate + progress, Parent_Name, summary, ProgressImpact);
+        //    ec.Add(JE);
+        //    NotifyPropertyChanged("Events_Collection");
 
-            if (ProgressImpact + progress > duration)
-            {
-                Progress = duration;
-            }
-            else
-            {
-                Progress += ProgressImpact;
-            }
-            if (this.duration - this.progress <= 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //    if (ProgressImpact + progress > duration)
+        //    {
+        //        Progress = duration;
+        //    }
+        //    else
+        //    {
+        //        Progress += ProgressImpact;
+        //    }
+        //    if (this.duration - this.progress <= 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
         public void MarkJobAsComplete()
         {
             if (recurring == 1)
@@ -199,80 +172,6 @@ namespace Character_Manager.Model.Jobs
         }
         #endregion
 
-        #region Tree_Members
-        [DataMember(Name = "dm")]
-        private DataModel dm;
-        public DataModel DM
-        {
-            get
-            {
-                return dm;
-            }
-            set
-            {
-                if (this.dm != value)
-                {
-                    this.dm = value;
-                    this.NotifyPropertyChanged("DM");
-                }
-            }
-        }
-
-        [DataMember(Name = "gid")]
-        private Guid gid;
-        public Guid Gid
-        {
-            get
-            {
-                return gid;
-            }
-            set
-            {
-                if (this.gid != value)
-                {
-                    this.gid = value;
-                    this.NotifyPropertyChanged("Gid");
-                }
-            }
-        }
-
-        [DataMember(Name = "owner_entity")]
-        private Guid owner_entity;
-        public Guid Owner_Entity
-        {
-            get
-            {
-                return owner_entity;
-            }
-            set
-            {
-                if (this.owner_entity != value)
-                {
-                    this.owner_entity = value;
-                    this.NotifyPropertyChanged("Owner_Entity_Object");
-                }
-            }
-        }
-
-        [DataMember(Name = "owner_job")]
-        private Guid owner_job;
-        public Guid Owner_Job
-        {
-            get
-            {
-                return owner_job;
-            }
-            set
-            {
-                if (this.owner_job != value)
-                {
-                    this.owner_job = value;
-                    this.NotifyPropertyChanged("Owner_Job_Object");
-                }
-            }
-        }
-        #endregion
-
         #region Utility_Members
         private static readonly Random random = new Random();
         private static readonly object syncLock = new object();
@@ -299,70 +198,7 @@ namespace Character_Manager.Model.Jobs
                 return this.StartDate + Duration;
             }
         }
-        public string Parent_Name
-        {
-            get
-            {
-                return Owner_Entity_Object.Name;
-            }
-        }
-        public Entity Owner_Entity_Object
-        {
-            get
-            {
-                Entity Temp = DM.Entities.Values.FirstOrDefault(x => x.Gid == Owner_Entity);
-                if(Temp == null)
-                {
-                    return new Character(Guid.Empty, DM)
-                    {
-                        Name = "Default Entity"
-                    };
-                }
 
-                return Temp;
-            }
-            set
-            {
-                if (Owner_Entity != value.Gid)
-                {
-                    Owner_Entity = value.Gid;
-                }
-            }
-        }
-        public Job Owner_Job_Object
-        {
-            get
-            {
-                Job Temp = DM.Jobs.FirstOrDefault(x => x.Gid == Owner_Job);
-                if (Temp == null)
-                {
-                    return new Job(DM)
-                    {
-                        Summary = "Default Job"
-                    };
-                }
-
-                return Temp;
-            }
-            set
-            {
-                if (this.Owner_Job != value.Gid)
-                {
-                    this.Owner_Job = value.Gid;
-                }
-            }
-        }
-        public ListCollectionView Member_Jobs
-        {
-            get
-            {
-                ListCollectionView VS = new ListCollectionView(DM.Jobs)
-                {
-                    Filter = f => (f as Job).Owner_Job == gid
-                };
-                return VS;
-            }
-        }
         #endregion
 
         #region Data_Members
@@ -380,24 +216,6 @@ namespace Character_Manager.Model.Jobs
                 {
                     this.required_items = value;
                     this.NotifyPropertyChanged("Required_Items");
-                }
-            }
-        }
-
-        [DataMember(Name = "ec")]
-        private Events_Collection ec = new Events_Collection();
-        public Events_Collection EC
-        {
-            get
-            {
-                return ec;
-            }
-            set
-            {
-                if (this.ec != value)
-                {
-                    this.ec = value;
-                    this.NotifyPropertyChanged("EC");
                 }
             }
         }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Character_Manager.Model.Entities
 {
-    public interface IEntity : INotifyPropertyChanged, IVisible
+    public interface IEntity : IVisible
     {
         #region Data_Members
         public Item_Collection Inventory { get; set; }

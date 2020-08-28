@@ -29,15 +29,6 @@ namespace Character_Manager.Model.Entities
         }
         #endregion
 
-        #region Property_Handelers
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-            //DM.IsDirty = true;
-        }
-        #endregion
-
         //#region Functions
         //public Job AddJob() //not my responsability, outsource to datamodel
         //{

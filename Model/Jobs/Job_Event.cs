@@ -23,33 +23,17 @@ namespace Character_Manager.Model.Jobs
         }
         #endregion
 
-        #region Property_Handelers
-        public static event EventHandler JobEventChanged;
-        public void NotifyJobEventChanged()
-        {
-            JobEventChanged?.Invoke(this, new EventArgs());
+        //#region Functions
 
-            NotifyFieldIsDirty();
-        }
+        //#endregion
 
-        public static event EventHandler FieldIsDirty;
-        public void NotifyFieldIsDirty()
-        {
-            FieldIsDirty?.Invoke(this, new EventArgs());
-        }
-        #endregion
+        //#region Tree_Members
 
-        #region Functions
+        //#endregion
 
-        #endregion
+        //#region Utility_Members
 
-        #region Tree_Members
-
-        #endregion
-
-        #region Utility_Members
-
-        #endregion
+        //#endregion
 
         #region Data_Members
         [DataMember(Name = "event_type")]
