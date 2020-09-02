@@ -40,7 +40,7 @@ namespace Character_Manager.Model.Entities
                 if (this.alias != value)
                 {
                     this.alias = value;
-                    this.NotifyPropertyChanged("Alias");
+                    //this.NotifyPropertyChanged("Alias");
                 }
             }
         }
@@ -58,7 +58,7 @@ namespace Character_Manager.Model.Entities
                 if (this.occupation != value)
                 {
                     this.occupation = value;
-                    this.NotifyPropertyChanged("Occupation");
+                    //this.NotifyPropertyChanged("Occupation");
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace Character_Manager.Model.Entities
                 if (this.birthplace != value)
                 {
                     this.birthplace = value;
-                    this.NotifyPropertyChanged("BirthPlace");
+                    //this.NotifyPropertyChanged("BirthPlace");
                 }
             }
         }

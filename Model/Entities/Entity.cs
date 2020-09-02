@@ -179,7 +179,7 @@ namespace Character_Manager.Model.Entities
                 if (this.visible != value)
                 {
                     this.visible = value;
-                    this.NotifyPropertyChanged("Visible");
+                    //this.NotifyPropertyChanged("Visible");
                 }
             }
         }
@@ -196,7 +196,7 @@ namespace Character_Manager.Model.Entities
                 if (this.isselected != value)
                 {
                     this.isselected = value;
-                    this.NotifyPropertyChanged("IsSelected");
+                    //this.NotifyPropertyChanged("IsSelected");
                 }
             }
         }
@@ -214,7 +214,7 @@ namespace Character_Manager.Model.Entities
                 if (this.isexpanded != value)
                 {
                     this.isexpanded = value;
-                    this.NotifyPropertyChanged("IsExpanded");
+                    //this.NotifyPropertyChanged("IsExpanded");
                 }
             }
         }
@@ -234,7 +234,7 @@ namespace Character_Manager.Model.Entities
                 if (this.inventory != value)
                 {
                     this.inventory = value;
-                    this.NotifyPropertyChanged("Inventory");
+                    //this.NotifyPropertyChanged("Inventory");
                 }
             }
         }
@@ -252,8 +252,8 @@ namespace Character_Manager.Model.Entities
                 if (this.name != value)
                 {
                     this.name = value;
-                    this.NotifyPropertyChanged("Name");
-                    this.NotifyPropertyChanged("Member_List");
+                    //this.NotifyPropertyChanged("Name");
+                    //this.NotifyPropertyChanged("Member_List");
                 }
             }
         }
@@ -271,7 +271,7 @@ namespace Character_Manager.Model.Entities
                 if (this.description != value)
                 {
                     this.description = value;
-                    this.NotifyPropertyChanged("Description");
+                    //this.NotifyPropertyChanged("Description");
                 }
             }
         }
@@ -289,7 +289,7 @@ namespace Character_Manager.Model.Entities
                 if (this.quirks != value)
                 {
                     this.quirks = value;
-                    this.NotifyPropertyChanged("Quirks");
+                    //this.NotifyPropertyChanged("Quirks");
                 }
             }
         }
@@ -311,7 +311,7 @@ namespace Character_Manager.Model.Entities
                     //{
                     //    Locations.Add(value);
                     //}
-                    this.NotifyPropertyChanged("Location");
+                    //this.NotifyPropertyChanged("Location");
                 }
             }
         }
@@ -329,7 +329,7 @@ namespace Character_Manager.Model.Entities
                 if (this.race != value)
                 {
                     this.race = value;
-                    this.NotifyPropertyChanged("Race");
+                    //this.NotifyPropertyChanged("Race");
                 }
             }
         }

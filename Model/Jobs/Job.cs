@@ -31,13 +31,6 @@ namespace Character_Manager.Model.Jobs
             successchance = 20;
             Recurring = 0;
 
-            owner_entity = Guid.Empty;
-            owner_job = Guid.Empty;
-
-            gid = Guid.NewGuid();
-
-            Job_Event.JobEventChanged += HandleJobEventChanged;
-
             required_items = new Item_Collection();
         }
         #endregion
@@ -66,26 +59,26 @@ namespace Character_Manager.Model.Jobs
         //        return false;
         //    }
         //}
-        public void MarkJobAsComplete()
-        {
-            if (recurring == 1)
-            {
-                MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
-                Job_Event JE = new Job_Event("Repeatable Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
-                ec.Add(JE);
-                progress = 0;
-                this.NotifyPropertyChanged("DaysRemaining");
-            }
-            else
-            {
-                MainWindow.Display_Message_Box($"{Parent_Name} has completed work on {summary}", "Job Done.");
-                Job_Event JE = new Job_Event("Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
-                ec.Add(JE);
+        //public void MarkJobAsComplete()
+        //{
+        //    if (recurring == 1)
+        //    {
+        //        MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
+        //        Job_Event JE = new Job_Event("Repeatable Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
+        //        ec.Add(JE);
+        //        progress = 0;
+        //        this.NotifyPropertyChanged("DaysRemaining");
+        //    }
+        //    else
+        //    {
+        //        MainWindow.Display_Message_Box($"{Parent_Name} has completed work on {summary}", "Job Done.");
+        //        Job_Event JE = new Job_Event("Job Completed", "Completed", startdate + days_since_creation, Parent_Name, summary, 0);
+        //        ec.Add(JE);
 
-                complete = true;
-            }
-            NotifyPropertyChanged("Events_Collection");
-        }
+        //        complete = true;
+        //    }
+        //    NotifyPropertyChanged("Events_Collection");
+        //}
 
         private bool Progressing()
         {
@@ -103,34 +96,34 @@ namespace Character_Manager.Model.Jobs
             }
             return false;
         }
-        public void AdvanceDay()
-        {
-            days_since_creation += 1;
-            int RE = Random_Event();
-            if (Progressing())
-            {
-                if (RE != 1)
-                {
-                    if (MainWindow.CreateJobEventWindow(Parent_Name, Summary, RE) is Job_Event_Window J)
-                    {
-                        AddJobEvent(J.Get_EventType(), J.Get_EventNotes(), J.Get_ProgressImpact());
-                        RE = J.Get_ProgressImpact();
-                    }
-                }
-                if (RE + progress > duration)
-                {
-                    Progress = duration;
-                }
-                else
-                {
-                    Progress += RE;
-                }
-                if (this.duration - this.progress <= 0)
-                {
-                    MarkJobAsComplete();
-                }
-            }
-        }
+        //public void AdvanceDay()
+        //{
+        //    days_since_creation += 1;
+        //    int RE = Random_Event();
+        //    if (Progressing())
+        //    {
+        //        if (RE != 1)
+        //        {
+        //            if (MainWindow.CreateJobEventWindow(Parent_Name, Summary, RE) is Job_Event_Window J)
+        //            {
+        //                AddJobEvent(J.Get_EventType(), J.Get_EventNotes(), J.Get_ProgressImpact());
+        //                RE = J.Get_ProgressImpact();
+        //            }
+        //        }
+        //        if (RE + progress > duration)
+        //        {
+        //            Progress = duration;
+        //        }
+        //        else
+        //        {
+        //            Progress += RE;
+        //        }
+        //        if (this.duration - this.progress <= 0)
+        //        {
+        //            MarkJobAsComplete();
+        //        }
+        //    }
+        //}
         //can technicly produce a value between -7 and 7 and be accepted, will confine to smaller increments for now
         public void AddSubtask()
         {

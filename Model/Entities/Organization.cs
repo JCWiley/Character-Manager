@@ -52,7 +52,7 @@ namespace Character_Manager.Model.Entities
                 if (this.leader != value)
                 {
                     this.leader = value;
-                    this.NotifyPropertyChanged("Leader");
+                    //this.NotifyPropertyChanged("Leader");
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace Character_Manager.Model.Entities
                 if (this.goals != value)
                 {
                     this.goals = value;
-                    this.NotifyPropertyChanged("Goals");
+                    //this.NotifyPropertyChanged("Goals");
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace Character_Manager.Model.Entities
                 if (this.selected_size != value)
                 {
                     this.selected_size = value;
-                    this.NotifyPropertyChanged("Selected_Size");
+                    //this.NotifyPropertyChanged("Selected_Size");
                 }
             }
         }
