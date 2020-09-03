@@ -7,6 +7,6 @@ namespace CharacterManager.Core.Interfaces
     public interface IDayModel
     {
         int Day { get; set; }
-        void IncrementDay()
+        void IncrementDay();
     }
 }
