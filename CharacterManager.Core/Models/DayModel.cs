@@ -19,5 +19,10 @@ namespace CharacterManager.Core.Models
                 day = value;
             }
         }
+
+        public void IncrementDay()
+        {
+            Day = Day + 1;
+        }
     }
 }

@@ -8,19 +8,35 @@ namespace CharacterManager.Core.ViewModels
 {
     public class DayViewModel : MvxViewModel
     {
+        #region Constructors
+        public DayViewModel(IDayModel I_Day_Model)
+        {
+            DayModel = I_Day_Model;
+        }
+        #endregion
+
+        #region Properties
         private IDayModel daymodel;
 
         public IDayModel DayModel
         {
             get { return daymodel; }
-            set { daymodel = value; }
+            set { SetProperty(ref daymodel,value); }
         }
 
-
-        public DayViewModel(IDayModel I_Day_Model)
+        public int Day
         {
-            DayModel = I_Day_Model;
+            get
+            {
+                return DayModel.Day;
+            }
         }
-
+        #endregion
+        #region functions
+        public void IncrementDay()
+        {
+            DayModel.IncrementDay();
+        }
+        #endregion
     }
 }
