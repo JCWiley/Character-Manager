@@ -11,7 +11,7 @@ namespace CharacterManager.Wpf
     {
         protected override void RegisterSetup()
         {
-            this.RegisterSetupType<MvxWpfSetup<CharacterManager.Core.App>>();
+            this.RegisterSetupType<MvxWpfSetup<Core.App>>();
         }
     }
 }

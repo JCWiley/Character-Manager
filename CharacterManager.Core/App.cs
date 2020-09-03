@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Core.ViewModels;
+using MvvmCross;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace CharacterManager.Core
     {
         public override void Initialize()
         {
+            Mvx.IoCProvider.RegisterSingleton<CharacterManager.Core.Interfaces.IDayModel>(new CharacterManager.Core.Models.DayModel());
+
             RegisterAppStart<DayViewModel>();
         }
     }

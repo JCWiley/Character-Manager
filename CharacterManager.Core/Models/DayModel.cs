@@ -7,6 +7,11 @@ namespace CharacterManager.Core.Models
 {
     public class DayModel : IDayModel
     {
+        public DayModel()
+        {
+            day = 0;
+        }
+
         private int day;
         public int Day
         {

@@ -1,7 +1,10 @@
 ﻿using CharacterManager.Core.Interfaces;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace CharacterManager.Core.ViewModels
@@ -12,6 +15,9 @@ namespace CharacterManager.Core.ViewModels
         public DayViewModel(IDayModel I_Day_Model)
         {
             DayModel = I_Day_Model;
+            //DayModel = new CharacterManager.Core.Models.DayModel();
+            IncrementDayCommand = new MvxCommand(IncrementDay);
+
         }
         #endregion
 
@@ -21,7 +27,12 @@ namespace CharacterManager.Core.ViewModels
         public IDayModel DayModel
         {
             get { return daymodel; }
-            set { SetProperty(ref daymodel,value); }
+            set 
+            {
+                SetProperty(ref daymodel,value);
+                RaisePropertyChanged(() => Day);
+            }
+
         }
 
         public int Day
@@ -33,9 +44,11 @@ namespace CharacterManager.Core.ViewModels
         }
         #endregion
         #region functions
+        public IMvxCommand IncrementDayCommand { get; set; }
         public void IncrementDay()
         {
             DayModel.IncrementDay();
+            RaisePropertyChanged(() => Day);
         }
         #endregion
     }

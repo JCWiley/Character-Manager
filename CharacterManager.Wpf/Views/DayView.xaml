@@ -9,6 +9,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Label x:Name="CurrentDayTextBlock" 
+                   HorizontalAlignment="Right" 
+                   Margin="0,0,58,0" 
+                   Content="{Binding Day, Mode=OneWay}" 
+                   VerticalAlignment="Top" 
+                   Height="35" Width="64" 
+                   HorizontalContentAlignment="Right" 
+                   FontSize="22" 
+                   Background="#FFF9F9F9" 
+                   BorderThickness="1,0,0,1" 
+                   BorderBrush="Black" 
+                   Grid.Column="1"/>
+        <Button x:Name="AdvanceDayButton" 
+                    mvx:Bi.nd="Command IncrementDayCommand"
+                    Content="+" 
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Top" 
+                    FontSize="20" 
+                    Height="35" 
+                    VerticalContentAlignment="Top" 
+                    FontWeight="Bold"
+                    ToolTip="Advance to next day." Grid.Column="1" HorizontalAlignment="Right" Width="48"/>
     </Grid>
 </views:MvxWpfView>
