@@ -43,6 +43,7 @@ namespace CharacterManager.Core.ViewModels
             }
         }
         #endregion
+
         #region functions
         public IMvxCommand IncrementDayCommand { get; set; }
         public void IncrementDay()
