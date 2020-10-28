@@ -12,6 +12,7 @@ namespace CharacterManager.Core.Utilities
         public static void RegisterModels()
         {
             Mvx.IoCProvider.RegisterSingleton<IDayModel>(new DayModel());
+            Mvx.IoCProvider.RegisterSingleton<IEntityListModel>(new EntityListModel());
         }
     }
 }

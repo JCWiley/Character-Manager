@@ -10,6 +10,7 @@ namespace CharacterManager.Core.ViewModels
     class MainWindowViewModel : MvxViewModel
     {
         public DayViewModel DVM;
+        public EntityListViewModel ELVM;
 
         public MainWindowViewModel()
         {
@@ -24,7 +25,7 @@ namespace CharacterManager.Core.ViewModels
         {
             //async setup
             DVM = Mvx.IoCProvider.IoCConstruct<DayViewModel>();
-
+            ELVM = Mvx.IoCProvider.IoCConstruct<EntityListViewModel>();
 
             return base.Initialize();
         }
