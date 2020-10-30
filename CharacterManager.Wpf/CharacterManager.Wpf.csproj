@@ -19,12 +19,18 @@
       <SubType>Code</SubType>
       <DependentUpon>DayView.xaml.cs</DependentUpon>
     </Compile>
+    <Compile Update="Views\RootView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\EntityListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Views\RootView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\EntityListView.xaml">
       <SubType>Designer</SubType>
     </Page>

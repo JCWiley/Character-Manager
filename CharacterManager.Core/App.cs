@@ -1,6 +1,7 @@
 ﻿using CharacterManager.Core.Utilities;
 using CharacterManager.Core.ViewModels;
 using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace CharacterManager.Core
         {
             InjectionUtilities.RegisterModels();
 
-            Mvx.IoCProvider.RegisterSingleton<MainWindowViewModel>(Mvx.IoCProvider.IoCConstruct <MainWindowViewModel>());
+            CreatableTypes()
+                .EndingWith("Service")
+                .AsInterfaces()
+                .RegisterAsLazySingleton();
 
-            RegisterAppStart<DayViewModel>();
+            //Mvx.IoCProvider.RegisterSingleton<RootViewModel>(Mvx.IoCProvider.IoCConstruct <RootViewModel>());
+
+            RegisterAppStart<RootViewModel>();
         }
     }
 }
