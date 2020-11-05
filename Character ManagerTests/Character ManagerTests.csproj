@@ -67,9 +67,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Character Manager.csproj">
+    <ProjectReference Include="..\Character ManagerLegacy.csproj">
       <Project>{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}</Project>
-      <Name>Character Manager</Name>
+      <Name>Character ManagerLegacy</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
