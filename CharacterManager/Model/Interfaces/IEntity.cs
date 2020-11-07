@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CharacterManager.ViewModels
+namespace CharacterManager.Model.Interfaces
 {
-    public class ShellViewModel
+    class IEntity
     {
     }
 }

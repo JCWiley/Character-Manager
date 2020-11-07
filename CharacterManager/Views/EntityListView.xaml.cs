@@ -1,9 +1,7 @@
 ﻿using Prism.Regions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,20 +15,19 @@ using System.Windows.Shapes;
 namespace CharacterManager.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EntityListView.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class EntityListView : UserControl
     {
+
         IRegionManager RM;
-        public ShellView(IRegionManager regionManager)
+        public EntityListView(IRegionManager regionManager)
         {
             InitializeComponent();
 
             RM = regionManager;
 
-            //RM.RegisterViewWithRegion("MENU_REGION", typeof());
-            RM.RegisterViewWithRegion("OVERVIEW_REGION", typeof(EntityListView));
-            //RM.RegisterViewWithRegion("DETAIL_REGION", typeof());
+            //RM.RegisterViewWithRegion("FILTER_REGION", typeof());
         }
     }
 }
