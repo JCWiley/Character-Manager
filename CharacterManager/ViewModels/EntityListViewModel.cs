@@ -1,4 +1,5 @@
-﻿using CharacterManager.Events;
+﻿using Character_Manager.Model.RedundantTree;
+using CharacterManager.Events;
 using CharacterManager.Model.Interfaces;
 using Prism.Commands;
 using Prism.Events;
@@ -26,6 +27,13 @@ namespace CharacterManager.ViewModels
         }
         #endregion
         #region Variables
+        private RTree<IEntity> entitytree;
+
+        public RTree<IEntity> EntityTree
+        {
+            get { return entitytree; }
+            set { SetProperty(ref entitytree,value); }
+        }
 
 
 

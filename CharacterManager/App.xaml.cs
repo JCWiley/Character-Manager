@@ -1,4 +1,6 @@
-﻿using CharacterManager.Views;
+﻿using Character_Manager.Model.RedundantTree;
+using CharacterManager.Model.Interfaces;
+using CharacterManager.Views;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
@@ -27,6 +29,10 @@ namespace CharacterManager
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //https://prismlibrary.com/docs/wpf/getting-started.html#registertypes
+            //https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff660936(v=pandp.20)?redirectedfrom=MSDN
+            containerRegistry.Register(typeof(IRTreeMember<>), typeof(RTreeMember<>));
+            containerRegistry.RegisterSingleton(typeof(RTree<>),typeof(RTree<IEntity>));
+            containerRegistry.Register(typeof(Guid));
         }
     }
 }

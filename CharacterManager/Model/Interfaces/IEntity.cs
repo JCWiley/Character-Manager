@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CharacterManager.Model.Interfaces
 {
-    class IEntity
+    public class IEntity
     {
     }
 }
