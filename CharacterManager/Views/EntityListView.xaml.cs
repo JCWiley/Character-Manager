@@ -1,4 +1,7 @@
-﻿using Prism.Regions;
+﻿using CharacterManager.Events;
+using CharacterManager.Model.Interfaces;
+using Prism.Events;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,15 +22,21 @@ namespace CharacterManager.Views
     /// </summary>
     public partial class EntityListView : UserControl
     {
-
+        private IEventAggregator EA;
         IRegionManager RM;
-        public EntityListView(IRegionManager regionManager)
+        public EntityListView(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             InitializeComponent();
 
+            EA = eventAggregator;
             RM = regionManager;
 
             //RM.RegisterViewWithRegion("FILTER_REGION", typeof());
+        }
+
+        private void EnityTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            EA.GetEvent<SelectedEntityChangedEvent>().Publish(EnityTree.SelectedItem as IEntity);
         }
     }
 }

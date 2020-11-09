@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Model.Interfaces;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -15,14 +16,19 @@ namespace CharacterManager.ViewModels
         public EntityListViewModel(IEventAggregator eventAggregator)
         {
             EA = eventAggregator;
+            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedItemChangedExecute);
         }
 
-        private DelegateCommand selecteditemchangedcommand;
-        public DelegateCommand SelectedItemChangedCommand => selecteditemchangedcommand ??= new DelegateCommand(SelectedItemChangedExecute);
-
-        private void SelectedItemChangedExecute()
+        #region Event Handlers
+        void SelectedItemChangedExecute(IEntity Selected_Item)
         {
             //EA.GetEvent<SelectedEntityChangedEvent>().Publish(//selected entity);
         }
+        #endregion
+        #region Variables
+
+
+
+        #endregion
     }
 }

@@ -14,7 +14,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TreeView x:Name="EnityTree"
-                  SelectedItemChanged="{Binding SelectedItemChangedCommand}"
+                  ItemsSource="{Binding EntityTree}"
+                  SelectedItemChanged="EnityTree_SelectedItemChanged"
                   Padding="0,1,1,1"
                   BorderThickness="1"
                   Grid.Row="0">
