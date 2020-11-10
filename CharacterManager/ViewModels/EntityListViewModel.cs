@@ -1,6 +1,7 @@
 ﻿using Character_Manager.Model.RedundantTree;
 using CharacterManager.Events;
 using CharacterManager.Model.Interfaces;
+using CharacterManager.Model.Entities;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;

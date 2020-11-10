@@ -336,28 +336,28 @@ namespace Character_Manager
         //Selection Changed handlers
         private void Character_Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (Character_Tree.SelectedItem is Character)
-            {
-                //if valid character is selected, enable Character Display control
-                CD.Enable();
-                OD.Disable();
-                CD.Visibility = Visibility.Visible;
-                OD.Visibility = Visibility.Hidden;
-            }
-            else if(Character_Tree.SelectedItem is Organization)
-            {
-                //if valid organization is selected, enable the organization control
-                OD.Enable();
-                CD.Disable();
-                OD.Visibility = Visibility.Visible;
-                CD.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                //if nothing is selected, display the last used item, disabled
-                CD.Disable();
-                OD.Disable();
-            }
+            //if (Character_Tree.SelectedItem is Character)
+            //{
+            //    //if valid character is selected, enable Character Display control
+            //    CD.Enable();
+            //    OD.Disable();
+            //    CD.Visibility = Visibility.Visible;
+            //    OD.Visibility = Visibility.Hidden;
+            //}
+            //else if(Character_Tree.SelectedItem is Organization)
+            //{
+            //    //if valid organization is selected, enable the organization control
+            //    OD.Enable();
+            //    CD.Disable();
+            //    OD.Visibility = Visibility.Visible;
+            //    CD.Visibility = Visibility.Hidden;
+            //}
+            //else
+            //{
+            //    //if nothing is selected, display the last used item, disabled
+            //    CD.Disable();
+            //    OD.Disable();
+            //}
         }
         private void Character_List_Datasource_Changed(object sender, EventArgs e)
         {

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CharacterManager.Views"
+             xmlns:models="clr-namespace:CharacterManager.Model.Entities"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
@@ -19,7 +20,72 @@
                   Padding="0,1,1,1"
                   BorderThickness="1"
                   Grid.Row="0">
-            
+            <TreeView.Resources>
+                <BooleanToVisibilityConverter x:Key="BoolToVis" />
+                <HierarchicalDataTemplate DataType="{x:Type models:Organization}" ItemsSource="{Binding Entities}">
+                    <StackPanel x:Name="TreeElementStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" >
+                        <Button Command="{Binding CommandNewOrganization}" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Center">
+                            <Image Source="/Resources/Organization_Icon2.bmp" />
+                        </Button>
+                        <Button Command="{Binding CommandNewCharacter}" HorizontalAlignment="Left"  Width="20" Height="20" VerticalAlignment="Center">
+                            <Image Source="/Resources/Character_Icon.bmp" />
+                        </Button>
+                        <TextBlock x:Name="TreeViewOrgNameTextBlock" 
+                                           Text="{Binding Name}" 
+                                           VerticalAlignment="Center" 
+                                           Foreground="{Binding Visible, Converter={StaticResource BoolToVis}}" 
+                                           HorizontalAlignment="Left">
+
+                        </TextBlock>
+                        <StackPanel.ContextMenu>
+                            <ContextMenu x:Name="TreeElementStackPanelContextMenu" >
+                                <MenuItem Header="Add Character" Command="{Binding CommandNewCharacter}"/>
+                                <MenuItem Header="Add Organization" Command="{Binding CommandNewOrganization}"/>
+                                <Separator/>
+                                <MenuItem Header="Cut" Command="{Binding CommandCut}"/>
+                                <MenuItem Header="Copy" Command="{Binding CommandCopy}"/>
+                                <MenuItem Header="Paste" Command="{Binding CommandPaste}"/>
+                                <Separator/>
+                                <MenuItem Header="Delete" Command="{Binding CommandDelete}"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type models:Character}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock x:Name="TreeViewCharNameTextBlock" 
+                                           Text="{Binding Name}"
+                                           Foreground="{Binding Visible, Converter={StaticResource BoolToVis}}" />
+                        <StackPanel.ContextMenu>
+                            <ContextMenu x:Name="TreeElementStackPanelContextMenu">
+                                <MenuItem Header="Cut" Command="{Binding CommandCut}"/>
+                                <MenuItem Header="Copy" Command="{Binding CommandCopy}"/>
+                                <Separator/>
+                                <MenuItem Header="Delete" Command="{Binding CommandDelete}"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                    </StackPanel>
+                </DataTemplate>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+            </TreeView.Resources>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                    <Setter Property="Visibility">
+                        <Setter.Value>
+                            <Binding Path="Visible">
+                                <Binding.Converter>
+                                    <BooleanToVisibilityConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TreeView.ItemContainerStyle>
         </TreeView>
         <ContentControl Grid.Row="1" prism:RegionManager.RegionName="FILTER_REGION"/>
 
