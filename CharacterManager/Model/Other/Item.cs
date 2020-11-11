@@ -25,7 +25,6 @@ namespace Character_Manager.Model.Other
                 if (this.aquired != value)
                 {
                     this.aquired = value;
-                    this.NotifyPropertyChanged("Aquired");
                 }
             }
         }
@@ -43,7 +42,6 @@ namespace Character_Manager.Model.Other
                 if (this.name != value)
                 {
                     this.name = value;
-                    this.NotifyPropertyChanged("Name");
                 }
             }
         }
@@ -61,7 +59,6 @@ namespace Character_Manager.Model.Other
                 if (this.location != value)
                 {
                     this.location = value;
-                    this.NotifyPropertyChanged("Location");
                 }
             }
         }
@@ -79,7 +76,6 @@ namespace Character_Manager.Model.Other
                 if (this.description != value)
                 {
                     this.description = value;
-                    this.NotifyPropertyChanged("Description");
                 }
             }
         }
@@ -97,7 +93,6 @@ namespace Character_Manager.Model.Other
                 if (this.weight != value)
                 {
                     this.weight = value;
-                    this.NotifyPropertyChanged("Weight");
                 }
             }
         }
