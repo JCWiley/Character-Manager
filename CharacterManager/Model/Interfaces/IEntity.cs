@@ -1,8 +1,9 @@
-﻿using Character_Manager.Model.Other;
+﻿using CharacterManager.Model.Other;
 using System.Collections.ObjectModel;
+
 namespace CharacterManager.Model.Interfaces
 {
-    public interface IEntity
+    public interface IEntity : IVisible
     {
         #region Data_Members
         public ObservableCollection<Item> Inventory { get; set; }

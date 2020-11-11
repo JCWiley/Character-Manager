@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Character_Manager.Model.RedundantTree
+namespace CharacterManager.Model.RedundantTree
 {
     public class RTreeMember<T> : IRTreeMember<T>
     {

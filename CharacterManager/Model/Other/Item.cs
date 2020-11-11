@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace Character_Manager.Model.Other
+namespace CharacterManager.Model.Other
 {
     [DataContract(Name = "Item", Namespace = "Character_Manager")]
     public class Item

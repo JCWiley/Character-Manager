@@ -1,4 +1,4 @@
-﻿using Character_Manager.Model.Other;
+﻿using CharacterManager.Model.Other;
 using CharacterManager.Model.Interfaces;
 using System;
 using System.Collections.Generic;
