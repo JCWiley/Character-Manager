@@ -65,6 +65,7 @@ namespace CharacterManager.ViewModels
         private void CommandDeleteExecute()
         {
         }
+        #endregion
         #region Variables
         private RTree<IEntity> entitytree;
 
