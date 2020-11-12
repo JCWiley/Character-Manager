@@ -1,4 +1,4 @@
-﻿using Character_Manager.Model.RedundantTree;
+﻿using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Interfaces;
 using CharacterManager.Views;
 using Prism.Ioc;
