@@ -8,18 +8,30 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Prism.Ioc;
+using Prism.Unity;
+using CharacterManager.Model.Factories;
 
 namespace CharacterManager.ViewModels
 {
     public class EntityListViewModel : BindableBase
     {
         private IEventAggregator EA;
+        
+        private EntityFactory EF;
         IEntity SelectedEntity;
 
-        public EntityListViewModel(IEventAggregator eventAggregator)
+        public EntityListViewModel(IEventAggregator eventAggregator, RTree<IEntity> tree, EntityFactory ef)
         {
             EA = eventAggregator;
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedItemChangedExecute);
+
+            EF = ef;
+
+            entitytree = tree;
+
+            EntityTree.AddItem(EF.CreateOrganization, true);
+
         }
 
         #region Event Handlers
