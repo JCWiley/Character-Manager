@@ -1,13 +1,16 @@
-﻿using System;
+﻿using CharacterManager.Model.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace CharacterManager.Model.RedundantTree
 {
     public class RTree<T>
     {
+        private readonly IRTreeFactory<T> factory;
         private readonly IDictionary<Guid, IRTreeMember<T>> dict;
 
         public List<IRTreeMember<T>> Heads
@@ -17,9 +20,10 @@ namespace CharacterManager.Model.RedundantTree
                 return (List<IRTreeMember<T>>)dict.Values.Where(x => x.IsHead == true);
             }
         }
-        public RTree(IDictionary<Guid, IRTreeMember<T>> i_dict)
+        public RTree(IDictionary<Guid, IRTreeMember<T>> i_dict, IRTreeFactory<T> i_factory)
         {
             dict = i_dict;
+            factory = i_factory;
         }
 
         public int Count
@@ -30,9 +34,9 @@ namespace CharacterManager.Model.RedundantTree
             }
         }
 
-        public IRTreeMember<T> AddItem(T i_item, bool is_head,RTreeMember<T> tree_member)
+        public IRTreeMember<T> AddItem(T i_item, bool is_head)
         {
-            IRTreeMember<T> member = tree_member;
+            IRTreeMember<T> member = factory.CreateRTreeMember();
             member.Item = i_item;
             member.IsHead = is_head;
             dict.Add(member.Gid, member);

@@ -10,6 +10,23 @@ namespace CharacterManager.Model.Entities
 {
     public class Organization : IEntity
     {
+        public Organization()
+        {
+            Inventory = new ObservableCollection<Item>();
+            Name = "";
+            Description = "";
+            Quirks = "";
+            Location = "";
+            Race = "";
+            //Leader = "";
+            Goals = "";
+            Selected_Size = 0;
+
+            Visible = true;
+            IsSelected = false;
+            IsExpanded = false;
+        }
+
         [DataMember(Name = "inventory")]
         private ObservableCollection<Item> inventory;
         public ObservableCollection<Item> Inventory

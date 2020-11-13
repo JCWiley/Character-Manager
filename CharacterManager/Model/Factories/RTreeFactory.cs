@@ -1,12 +1,12 @@
-﻿using Character_Manager.Model.Factory;
-using Character_Manager.Model.RedundantTree;
+﻿using CharacterManager.Model.Factories;
+using CharacterManager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterManager.Model.Factories
+namespace Character_Manager.Model.Factory
 {
     public class RTreeFactory<T> : IRTreeFactory<T>
     {
@@ -35,7 +35,7 @@ namespace CharacterManager.Model.Factories
 
         public IRTreeMember<T> CreateRTreeMember()
         {
-            return new RTreeMember<T>(CreateGuidList(), CreateGuidList(),this);
+            return new RTreeMember<T>(CreateGuidList(), CreateGuidList(), CreateGuid());
         }
 
         public RTree<T> CreateRTree()

@@ -30,7 +30,7 @@ namespace CharacterManager.ViewModels
 
             entitytree = tree;
 
-            EntityTree.AddItem(EF.CreateOrganization, true);
+            EntityTree.AddItem(EF.CreateOrganization(), true);
 
         }
 
