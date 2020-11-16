@@ -1,5 +1,6 @@
 ﻿using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Interfaces;
+using CharacterManager.Model.Factories;
 using CharacterManager.Views;
 using Prism.Ioc;
 using Prism.Unity;
@@ -10,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+
 
 namespace CharacterManager
 {
@@ -33,6 +35,7 @@ namespace CharacterManager
             containerRegistry.Register(typeof(IRTreeMember<>), typeof(RTreeMember<>));
             containerRegistry.RegisterSingleton(typeof(RTree<>),typeof(RTree<IEntity>));
             containerRegistry.Register(typeof(Guid));
+            containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
             

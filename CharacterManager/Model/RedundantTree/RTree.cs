@@ -20,10 +20,10 @@ namespace CharacterManager.Model.RedundantTree
                 return (List<IRTreeMember<T>>)dict.Values.Where(x => x.IsHead == true);
             }
         }
-        public RTree(IDictionary<Guid, IRTreeMember<T>> i_dict, IRTreeFactory<T> i_factory)
+        public RTree(IRTreeFactory<T> i_factory)
         {
-            dict = i_dict;
             factory = i_factory;
+            dict = factory.CreateGuidDictionary();
         }
 
         public int Count

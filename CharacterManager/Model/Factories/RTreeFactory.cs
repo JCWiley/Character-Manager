@@ -6,11 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Character_Manager.Model.Factory
+namespace CharacterManager.Model.Factories
 {
     public class RTreeFactory<T> : IRTreeFactory<T>
     {
-        public Guid CreateGuid()
+        public RTreeFactory()
+        {
+
+        }
+
+        public  Guid CreateGuid()
         {
             return Guid.NewGuid();
         }
@@ -40,7 +45,7 @@ namespace Character_Manager.Model.Factory
 
         public RTree<T> CreateRTree()
         {
-            return new RTree<T>(CreateGuidDictionary(),this);
+            return new RTree<T>(this);
         }
     }
 }
