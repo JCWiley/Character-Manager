@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CharacterManager.Model.Interfaces
 {
-    public interface IEntity : IVisible
+    public interface IEntity
     {
         #region Data_Members
         public ObservableCollection<Item> Inventory { get; set; }

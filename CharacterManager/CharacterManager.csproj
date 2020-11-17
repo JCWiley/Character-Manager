@@ -7,7 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Character_Icon.bmp" />
+    <None Remove="Resources\Gov_icon_characterManager.png" />
+    <None Remove="Resources\Gov_icon_characterManager2.png" />
+    <None Remove="Resources\Organization_Icon.bmp" />
+    <None Remove="Resources\Organization_Icon2.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Character_Icon.bmp" />
+    <Resource Include="Resources\Gov_icon_characterManager.png" />
+    <Resource Include="Resources\Gov_icon_characterManager2.png" />
+    <Resource Include="Resources\Organization_Icon.bmp" />
+    <Resource Include="Resources\Organization_Icon2.bmp" />
   </ItemGroup>
 
 </Project>

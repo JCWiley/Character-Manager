@@ -21,10 +21,6 @@ namespace CharacterManager.Model.Entities
             Alias = "";
             Occupation = "";
             BirthPlace = "";
-
-            Visible = true;
-            IsSelected = false;
-            IsExpanded = false;
         }
 
         [DataMember(Name = "inventory")]
@@ -180,54 +176,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        #region List State Paramaters
-        private bool visible;
-        public bool Visible
-        {
-            get
-            {
-                return this.visible;
-            }
-            set
-            {
-                if (this.visible != value)
-                {
-                    this.visible = value;
-                }
-            }
-        }
 
-        private bool isselected;
-        public bool IsSelected
-        {
-            get
-            {
-                return this.isselected;
-            }
-            set
-            {
-                if (this.isselected != value)
-                {
-                    this.isselected = value;
-                }
-            }
-        }
-
-        private bool isexpanded;
-        public bool IsExpanded
-        {
-            get
-            {
-                return this.isexpanded;
-            }
-            set
-            {
-                if (this.isexpanded != value)
-                {
-                    this.isexpanded = value;
-                }
-            }
-        }
-        #endregion
     }
 }

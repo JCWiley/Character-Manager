@@ -11,8 +11,9 @@ using System.Text;
 using Prism.Ioc;
 using Prism.Unity;
 using CharacterManager.Model.Factories;
+using System.Collections.ObjectModel;
 
-namespace CharacterManager.ViewModels
+namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class EntityListViewModel : BindableBase
     {
@@ -32,6 +33,8 @@ namespace CharacterManager.ViewModels
 
             EntityTree.AddItem(EF.CreateOrganization(), true);
 
+            TreeHead = new OrganizationTreeItemViewModel((IRTreeMember<Organization>)EntityTree.Heads[0],EntityTree);
+
         }
 
         #region Event Handlers
@@ -41,6 +44,33 @@ namespace CharacterManager.ViewModels
             //EA.GetEvent<SelectedEntityChangedEvent>().Publish(//selected entity);
         }
         #endregion
+
+        #region Variables
+        private OrganizationTreeItemViewModel treehead;
+        public OrganizationTreeItemViewModel TreeHead
+        {
+            get { return treehead; }
+            set
+            {
+                SetProperty(ref treehead, value);
+            }
+
+        }
+
+
+        private RTree<IEntity> entitytree;
+
+        public RTree<IEntity> EntityTree
+        {
+            get { return entitytree; }
+            set { SetProperty(ref entitytree, value); }
+        }
+
+
+
+        #endregion
+
+
         #region Commands
 
         private DelegateCommand _commandnewcharacter;
@@ -77,18 +107,6 @@ namespace CharacterManager.ViewModels
         private void CommandDeleteExecute()
         {
         }
-        #endregion
-        #region Variables
-        private RTree<IEntity> entitytree;
-
-        public RTree<IEntity> EntityTree
-        {
-            get { return entitytree; }
-            set { SetProperty(ref entitytree, value); }
-        }
-
-
-
         #endregion
     }
 }

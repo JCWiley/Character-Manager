@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CharacterManager.Views
+namespace CharacterManager.Views.ListViews
 {
     /// <summary>
     /// Interaction logic for EntityListView.xaml
@@ -36,7 +36,7 @@ namespace CharacterManager.Views
 
         private void EnityTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            EA.GetEvent<SelectedEntityChangedEvent>().Publish(EnityTree.SelectedItem as IEntity);
+            //EA.GetEvent<SelectedEntityChangedEvent>().Publish(EntityTreeControl.SelectedItem as IEntity);
         }
     }
 }
