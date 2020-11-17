@@ -11,7 +11,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using Prism.Mvvm;
+using System.Reflection;
 
 namespace CharacterManager
 {
@@ -40,6 +41,19 @@ namespace CharacterManager
 
             
 
+        }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+
+            ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
+            {
+                var viewName = viewType.FullName.Replace("Views.", "ViewModels.").Replace("View.","ViewModel.");
+                var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+                var viewModelName = $"{viewName}Model, {viewAssemblyName}";
+                return Type.GetType(viewModelName);
+            });
         }
     }
 }

@@ -13,6 +13,8 @@ using Prism.Unity;
 using CharacterManager.Model.Factories;
 using System.Collections.ObjectModel;
 
+using System.Linq;
+
 namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class EntityListViewModel : BindableBase
@@ -33,9 +35,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EntityTree.AddItem(EF.CreateOrganization(), true);
 
-            TreeHead = new OrganizationTreeItemViewModel((IRTreeMember<Organization>)EntityTree.Heads[0],EntityTree);
+            var test = EntityTree.Heads[0];
 
+            TreeHead = new OrganizationTreeItemViewModel(test, EntityTree);
         }
+
 
         #region Event Handlers
         void SelectedItemChangedExecute(IEntity Selected_Item)

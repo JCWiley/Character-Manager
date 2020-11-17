@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CharacterManager.Views.ListViews
+namespace CharacterManager.Views.TreeViews
 {
     /// <summary>
     /// Interaction logic for EntityListView.xaml

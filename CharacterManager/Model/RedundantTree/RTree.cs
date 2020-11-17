@@ -17,7 +17,7 @@ namespace CharacterManager.Model.RedundantTree
         {
             get
             {
-                return (List<IRTreeMember<T>>)dict.Values.Where(x => x.IsHead == true);
+                return dict.Values.Where(x => x.IsHead == true).ToList();
             }
         }
         public RTree(IRTreeFactory<T> i_factory)
