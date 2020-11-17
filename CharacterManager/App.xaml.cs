@@ -52,7 +52,12 @@ namespace CharacterManager
                 var viewName = viewType.FullName.Replace("Views.", "ViewModels.").Replace("View.","ViewModel.");
                 var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
                 var viewModelName = $"{viewName}Model, {viewAssemblyName}";
-                return Type.GetType(viewModelName);
+                var type = Type.GetType(viewModelName);
+                if(type == null)
+                {
+                    throw new Exception($"{viewModelName} Was not found");
+                }
+                return type;
             });
         }
     }
