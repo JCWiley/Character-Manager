@@ -33,11 +33,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             entitytree = tree;
 
-            EntityTree.AddItem(EF.CreateOrganization(), true);
+            IRTreeMember<IEntity> Head = EntityTree.AddItem(EF.CreateOrganization(), true);
+            IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter(), true);
+            EntityTree.AddChild(Head, DemoChild);
 
-            var test = EntityTree.Heads[0];
-
-            TreeHead = new OrganizationTreeItemViewModel(test, EntityTree);
+            TreeHead = new OrganizationTreeItemViewModel(Head, EntityTree);
         }
 
 

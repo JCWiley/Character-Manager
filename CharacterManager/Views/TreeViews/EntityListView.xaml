@@ -15,6 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <TreeView x:Name="EnityTreeControl"
                   ItemsSource="{Binding TreeHead}"
                   SelectedItemChanged="EnityTree_SelectedItemChanged"

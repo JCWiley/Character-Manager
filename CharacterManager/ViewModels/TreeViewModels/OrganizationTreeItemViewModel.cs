@@ -22,20 +22,22 @@ namespace CharacterManager.ViewModels.TreeViewModels
             IsSelected = false;
             IsExpanded = false;
 
+            Children = new ObservableCollection<object>();
+
             Org = (Organization)Target.Item;
 
-            IEntity Temp;
+            IRTreeMember<IEntity> Temp;
 
             foreach (Guid guid in Target.Children)
             {
-                Temp = rTree.Get_Item(guid).Item;
-                if(Temp is Organization)
+                Temp = rTree.Get_Item(guid);
+                if(Temp.Item is Organization)
                 {
-                    Children.Add(new OrganizationTreeItemViewModel((IRTreeMember<IEntity>)Temp, RTree));
+                    Children.Add(new OrganizationTreeItemViewModel(Temp, RTree));
                 }
-                else if (Temp is Character)
+                else if (Temp.Item is Character)
                 {
-                    Children.Add(new CharacterTreeItemViewModel((IRTreeMember<IEntity>)Temp, RTree));
+                    Children.Add(new CharacterTreeItemViewModel(Temp, RTree));
                 }
                 else
                 {
