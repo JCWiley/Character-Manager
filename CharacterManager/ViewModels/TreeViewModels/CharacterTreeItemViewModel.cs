@@ -11,7 +11,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class CharacterTreeItemViewModel : BindableBase
     {
-        public CharacterTreeItemViewModel(IRTreeMember<Character> target, RTree<IEntity> rTree)
+        public CharacterTreeItemViewModel(IRTreeMember<IEntity> target, RTree<IEntity> rTree)
         {
             RTree = rTree;
             Target = target;
@@ -20,12 +20,12 @@ namespace CharacterManager.ViewModels.TreeViewModels
             IsSelected = false;
             IsExpanded = false;
 
-            Char = Target.Item;
+            Char = (Character)Target.Item;
         }
 
         #region Variables
         private RTree<IEntity> RTree;
-        private IRTreeMember<Character> Target;
+        private IRTreeMember<IEntity> Target;
 
         private Character character;
 

@@ -12,7 +12,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class OrganizationTreeItemViewModel : BindableBase
     {
-        public OrganizationTreeItemViewModel(IRTreeMember<Organization> target,RTree<IEntity> rTree)
+        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> target,RTree<IEntity> rTree)
         {
             RTree = rTree;
             Target = target;
@@ -22,20 +22,20 @@ namespace CharacterManager.ViewModels.TreeViewModels
             IsSelected = false;
             IsExpanded = false;
 
-            Org = Target.Item;
+            Org = (Organization)Target.Item;
 
-            IRTreeMember<IEntity> Temp;
+            IEntity Temp;
 
             foreach (Guid guid in Target.Children)
             {
-                Temp = rTree.Get_Item(guid);
-                if(Temp is IRTreeMember<Organization>)
+                Temp = rTree.Get_Item(guid).Item;
+                if(Temp is Organization)
                 {
-                    Children.Add(new OrganizationTreeItemViewModel((IRTreeMember<Organization>)Temp, RTree));
+                    Children.Add(new OrganizationTreeItemViewModel((IRTreeMember<IEntity>)Temp, RTree));
                 }
-                else if (Temp is IRTreeMember<Character>)
+                else if (Temp is Character)
                 {
-                    Children.Add(new CharacterTreeItemViewModel((IRTreeMember<Character>)Temp, RTree));
+                    Children.Add(new CharacterTreeItemViewModel((IRTreeMember<IEntity>)Temp, RTree));
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
         #region Variables
         private RTree<IEntity> RTree;
-        private IRTreeMember<Organization> Target;
+        private IRTreeMember<IEntity> Target;
 
         private Organization org;
 
