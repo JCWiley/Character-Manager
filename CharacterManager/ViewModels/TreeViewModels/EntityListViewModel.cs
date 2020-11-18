@@ -37,7 +37,10 @@ namespace CharacterManager.ViewModels.TreeViewModels
             IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter(), true);
             EntityTree.AddChild(Head, DemoChild);
 
-            TreeHead = new OrganizationTreeItemViewModel(Head, EntityTree);
+            TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
+
+            TreeHeads.Add(new OrganizationTreeItemViewModel(Head, EntityTree));
+            RaisePropertyChanged(nameof(TreeHeads));
         }
 
 
@@ -50,13 +53,13 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #endregion
 
         #region Variables
-        private OrganizationTreeItemViewModel treehead;
-        public OrganizationTreeItemViewModel TreeHead
+        private ObservableCollection<OrganizationTreeItemViewModel> treeheads;
+        public ObservableCollection<OrganizationTreeItemViewModel> TreeHeads
         {
-            get { return treehead; }
+            get { return treeheads; }
             set
             {
-                SetProperty(ref treehead, value);
+                SetProperty(ref treeheads, value);
             }
 
         }

@@ -44,6 +44,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                     throw new Exception("IEntity is not Character or Organization");
                 }
             }
+            RaisePropertyChanged(nameof(Children));
         }
 
         #region Variables
