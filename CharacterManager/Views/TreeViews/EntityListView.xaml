@@ -27,10 +27,20 @@
                 <BooleanToVisibilityConverter x:Key="BoolToVis" />
                 <HierarchicalDataTemplate DataType="{x:Type TreeViewModels:OrganizationTreeItemViewModel}" ItemsSource="{Binding Children}">
                     <StackPanel x:Name="TreeElementStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" >
-                        <Button Command="{Binding CommandNewOrganization}" HorizontalAlignment="Left" Width="20" Height="20" VerticalAlignment="Center">
+                        <Button Command="{Binding CommandNewOrganization}" 
+                                CommandParameter="{Binding}"
+                                HorizontalAlignment="Left" 
+                                Width="20" 
+                                Height="20" 
+                                VerticalAlignment="Center">
                             <Image Source="/Resources/Organization_Icon2.bmp" />
                         </Button>
-                        <Button Command="{Binding CommandNewCharacter}" HorizontalAlignment="Left"  Width="20" Height="20" VerticalAlignment="Center">
+                        <Button Command="{Binding CommandNewCharacter}"
+                                CommandParameter="{Binding}"
+                                HorizontalAlignment="Left"  
+                                Width="20" 
+                                Height="20" 
+                                VerticalAlignment="Center">
                             <Image Source="/Resources/Character_Icon.bmp" />
                         </Button>
                         <TextBlock x:Name="TreeViewOrgNameTextBlock" 

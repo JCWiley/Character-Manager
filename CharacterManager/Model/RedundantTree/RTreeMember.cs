@@ -35,7 +35,7 @@ namespace CharacterManager.Model.RedundantTree
         }
 
         private List<Guid> children;
-        public List<Guid> Children
+        public List<Guid> Child_Guids
         {
             get
             {
@@ -73,20 +73,36 @@ namespace CharacterManager.Model.RedundantTree
             }
         }
 
-        public RTreeMember(List<Guid> i_parents, List<Guid> i_children,Guid gid)
+        private RTree<T> ParentRTree;
+
+        public List<IRTreeMember<T>> Child_Items
+        {
+            get
+            {
+                List<IRTreeMember<T>> Items = new List<IRTreeMember<T>>();
+                foreach (Guid G in Child_Guids)
+                {
+                    Items.Add(ParentRTree.Get_Item(G));
+                }
+                return Items;
+            }
+        }
+
+        public RTreeMember(List<Guid> i_parents, List<Guid> i_children,Guid gid,RTree<T> rTree)
         {
             Parents = i_parents;
-            Children = i_children;
+            Child_Guids = i_children;
             Gid = gid;
+            ParentRTree = rTree;
         }
 
         public void AddChild(Guid i_gid)
         {
-            Children.Add(i_gid);
+            Child_Guids.Add(i_gid);
         }
         public void RemoveChild(Guid i_gid)
         {
-            Children.Remove(i_gid);
+            Child_Guids.Remove(i_gid);
         }
 
         public void AddParent(Guid i_gid)

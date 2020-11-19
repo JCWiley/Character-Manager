@@ -38,9 +38,9 @@ namespace CharacterManager.Model.Factories
             return new Dictionary<Guid, IRTreeMember<T>>();
         }
 
-        public IRTreeMember<T> CreateRTreeMember()
+        public IRTreeMember<T> CreateRTreeMember(RTree<T> rTree)
         {
-            return new RTreeMember<T>(CreateGuidList(), CreateGuidList(), CreateGuid());
+            return new RTreeMember<T>(CreateGuidList(), CreateGuidList(), CreateGuid(),rTree);
         }
 
         public RTree<T> CreateRTree()

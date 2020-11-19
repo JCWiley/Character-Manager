@@ -2,6 +2,7 @@
 using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.RedundantTree;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class CharacterTreeItemViewModel : BindableBase
     {
-        public CharacterTreeItemViewModel(IRTreeMember<IEntity> target, RTree<IEntity> rTree)
+        public CharacterTreeItemViewModel(IRTreeMember<IEntity> target, IEventAggregator eventAggregator)
         {
-            RTree = rTree;
             Target = target;
 
             Visible = true;
@@ -24,7 +24,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
         }
 
         #region Variables
-        private RTree<IEntity> RTree;
         private IRTreeMember<IEntity> Target;
 
         private Character character;
@@ -33,33 +32,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get { return character; }
             set { SetProperty(ref character, value); }
-        }
-        #endregion
-
-        #region Commands
-        private DelegateCommand _commandcut;
-        private DelegateCommand _commandcopy;
-        private DelegateCommand _commandpaste;
-        private DelegateCommand _commanddelete;
-
-        public DelegateCommand CommandCut => _commandcut ?? (_commandcut = new DelegateCommand(CommandCutExecute));
-        public DelegateCommand CommandCopy => _commandcopy ?? (_commandcopy = new DelegateCommand(CommandCopyExecute));
-        public DelegateCommand CommandPaste => _commandpaste ?? (_commandpaste = new DelegateCommand(CommandPasteExecute));
-        public DelegateCommand CommandDelete => _commanddelete ?? (_commanddelete = new DelegateCommand(CommandDeleteExecute));
-        #endregion
-
-        #region Command Handlers
-        private void CommandCutExecute()
-        {
-        }
-        private void CommandCopyExecute()
-        {
-        }
-        private void CommandPasteExecute()
-        {
-        }
-        private void CommandDeleteExecute()
-        {
         }
         #endregion
 

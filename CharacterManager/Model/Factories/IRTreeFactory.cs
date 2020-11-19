@@ -12,7 +12,7 @@ namespace CharacterManager.Model.Factories
         IDictionary<Guid, IRTreeMember<T>> CreateGuidDictionary();
         List<Guid> CreateGuidList();
         RTree<T> CreateRTree();
-        IRTreeMember<T> CreateRTreeMember();
+        IRTreeMember<T> CreateRTreeMember(RTree<T> rTree);
         List<IRTreeMember<T>> CreateMemberList();
     }
 }

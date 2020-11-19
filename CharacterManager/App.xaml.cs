@@ -37,9 +37,10 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(RTree<>),typeof(RTree<IEntity>));
             containerRegistry.Register(typeof(Guid));
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
+            containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
-            
+
 
         }
 

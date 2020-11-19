@@ -1,55 +1,48 @@
-﻿using CharacterManager.Model.Entities;
+﻿using CharacterManager.Events;
+using CharacterManager.Model.Entities;
+using CharacterManager.Model.Factories;
 using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.RedundantTree;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Unity;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class OrganizationTreeItemViewModel : BindableBase
     {
-        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> target,RTree<IEntity> rTree)
+        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> target,ITreeItemViewModelFactory treeItemViewModelFactory, IEventAggregator eventAggregator)
         {
-            RTree = rTree;
             Target = target;
-
+            TreeItemViewModelFactory = treeItemViewModelFactory;
 
             Visible = true;
             IsSelected = false;
             IsExpanded = false;
 
-            Children = new ObservableCollection<object>();
+            EA = eventAggregator;
 
             Org = (Organization)Target.Item;
 
-            IRTreeMember<IEntity> Temp;
-
-            foreach (Guid guid in Target.Children)
-            {
-                Temp = rTree.Get_Item(guid);
-                if(Temp.Item is Organization)
-                {
-                    Children.Add(new OrganizationTreeItemViewModel(Temp, RTree));
-                }
-                else if (Temp.Item is Character)
-                {
-                    Children.Add(new CharacterTreeItemViewModel(Temp, RTree));
-                }
-                else
-                {
-                    throw new Exception("IEntity is not Character or Organization");
-                }
-            }
             RaisePropertyChanged(nameof(Children));
         }
 
+
         #region Variables
-        private RTree<IEntity> RTree;
-        private IRTreeMember<IEntity> Target;
+        private IEventAggregator EA;
+        private ITreeItemViewModelFactory TreeItemViewModelFactory;
+
+        private IRTreeMember<IEntity> target;
+        public IRTreeMember<IEntity> Target
+        {
+            get { return target; }
+            set { SetProperty(ref target, value); }
+        }
 
         private Organization org;
 
@@ -59,53 +52,29 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set { SetProperty(ref org, value); }
         }
 
-
-        private ObservableCollection<object> children;
-        public ObservableCollection<object> Children
+        public List<object> Children
         {
-            get { return children; }
-            set
+            get
             {
-                SetProperty(ref children, value);
+                List<object> Child_List = new List<object>();
+
+                foreach (IRTreeMember<IEntity> E in Target.Child_Items)
+                {
+                    if (E.Item is Organization)
+                    {
+                        Child_List.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(E));
+                    }
+                    else if (E.Item is Character)
+                    {
+                        Child_List.Add(TreeItemViewModelFactory.CreateCharacterViewModel(E));
+                    }
+                    else
+                    {
+                        throw new Exception("IEntity is not Character or Organization");
+                    }
+                }
+                return Child_List;
             }
-        }
-        #endregion
-
-        #region Commands
-
-        private DelegateCommand _commandnewcharacter;
-        private DelegateCommand _commandneworganization;
-        private DelegateCommand _commandcut;
-        private DelegateCommand _commandcopy;
-        private DelegateCommand _commandpaste;
-        private DelegateCommand _commanddelete;
-
-        public DelegateCommand CommandNewCharacter => _commandnewcharacter ?? (_commandnewcharacter = new DelegateCommand(CommandNewCharacterExecute));
-        public DelegateCommand CommandNewOrganization => _commandneworganization ?? (_commandneworganization = new DelegateCommand(CommandNewOrganizationExecute));
-        public DelegateCommand CommandCut => _commandcut ?? (_commandcut = new DelegateCommand(CommandCutExecute));
-        public DelegateCommand CommandCopy => _commandcopy ?? (_commandcopy = new DelegateCommand(CommandCopyExecute));
-        public DelegateCommand CommandPaste => _commandpaste ?? (_commandpaste = new DelegateCommand(CommandPasteExecute));
-        public DelegateCommand CommandDelete => _commanddelete ?? (_commanddelete = new DelegateCommand(CommandDeleteExecute));
-        #endregion
-
-        #region Command Handlers
-        private void CommandNewCharacterExecute()
-        {
-        }
-        private void CommandNewOrganizationExecute()
-        {
-        }
-        private void CommandCutExecute()
-        {
-        }
-        private void CommandCopyExecute()
-        {
-        }
-        private void CommandPasteExecute()
-        {
-        }
-        private void CommandDeleteExecute()
-        {
         }
         #endregion
 
@@ -147,6 +116,46 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 SetProperty(ref isexpanded, value);
             }
+        }
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand _commandnewcharacter;
+        private DelegateCommand _commandneworganization;
+        private DelegateCommand _commandcut;
+        private DelegateCommand _commandcopy;
+        private DelegateCommand _commandpaste;
+        private DelegateCommand _commanddelete;
+
+        public DelegateCommand CommandNewCharacter => _commandnewcharacter ??= new DelegateCommand(CommandNewCharacterExecute);
+        public DelegateCommand CommandNewOrganization => _commandneworganization ??= new DelegateCommand(CommandNewOrganizationExecute);
+        public DelegateCommand CommandCut => _commandcut ??= new DelegateCommand(CommandCutExecute);
+        public DelegateCommand CommandCopy => _commandcopy ??= new DelegateCommand(CommandCopyExecute);
+        public DelegateCommand CommandPaste => _commandpaste ??= new DelegateCommand(CommandPasteExecute);
+        public DelegateCommand CommandDelete => _commanddelete ??= new DelegateCommand(CommandDeleteExecute);
+        #endregion
+
+        #region Command Handlers
+        private void CommandNewCharacterExecute()
+        {
+            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(Target.Gid, "Character"));
+        }
+        private void CommandNewOrganizationExecute()
+        {
+            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(Target.Gid, "Organization"));
+        }
+        private void CommandCutExecute()
+        {
+        }
+        private void CommandCopyExecute()
+        {
+        }
+        private void CommandPasteExecute()
+        {
+        }
+        private void CommandDeleteExecute()
+        {
         }
         #endregion
     }

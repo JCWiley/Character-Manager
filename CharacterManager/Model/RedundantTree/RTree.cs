@@ -36,7 +36,7 @@ namespace CharacterManager.Model.RedundantTree
 
         public IRTreeMember<T> AddItem(T i_item, bool is_head)
         {
-            IRTreeMember<T> member = factory.CreateRTreeMember();
+            IRTreeMember<T> member = factory.CreateRTreeMember(this);
             member.Item = i_item;
             member.IsHead = is_head;
             dict.Add(member.Gid, member);
@@ -45,7 +45,7 @@ namespace CharacterManager.Model.RedundantTree
         public void RemoveItem(IRTreeMember<T> i_item)
         {
             List<Guid> P = new List<Guid>(i_item.Parents);
-            List<Guid> C = new List<Guid>(i_item.Children);
+            List<Guid> C = new List<Guid>(i_item.Child_Guids);
 
             foreach (Guid G in P)
             {
@@ -94,7 +94,7 @@ namespace CharacterManager.Model.RedundantTree
         public List<IRTreeMember<T>> Get_Immidiate_Children(IRTreeMember<T> i_item)
         {
             List<IRTreeMember<T>> Children = new List<IRTreeMember<T>>();
-            foreach (Guid G in i_item.Children)
+            foreach (Guid G in i_item.Child_Guids)
             {
                 Children.Add(dict[G]);
             }

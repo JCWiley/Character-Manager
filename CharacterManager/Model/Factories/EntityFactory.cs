@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CharacterManager.Model.Factories
 {
-    public class EntityFactory
+    public class EntityFactory:IEntityFactory
     {
         public IEntity CreateCharacter()
         {
