@@ -68,6 +68,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock x:Name="TreeViewCharNameTextBlock" 
                                            Text="{Binding Char.Name}"
+                                           Background="Green"
                                            Foreground="{Binding Visible, Converter={StaticResource BoolToVis}}" />
                         <StackPanel.ContextMenu>
                             <ContextMenu x:Name="TreeElementStackPanelContextMenu">

@@ -38,8 +38,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
             entitytree = tree;
 
             IRTreeMember<IEntity> Head = EntityTree.AddItem(EF.CreateOrganization(), true);
-            IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter());
-            EntityTree.AddChild(Head, DemoChild);
+            //IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter());
+            //EntityTree.AddChild(Head, DemoChild);
 
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
 
@@ -56,7 +56,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
         }
         void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
         {
-            IRTreeMember<IEntity> Source = entitytree.Get_Item(Paramaters.EventSource);
+            OrganizationTreeItemViewModel Source = Paramaters.EventSource;
             string Event_Type = Paramaters.RequestType;
             IRTreeMember<IEntity> NewItem;
 
@@ -73,9 +73,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 throw new Exception("Event Type is not Character or Organization");
             }
-            entitytree.AddChild(Source, NewItem);
+            entitytree.AddChild(Source.Target, NewItem);
 
-            RaisePropertyChanged(nameof(TreeHeads));
+            Source.RebuildChildren();
+
+            Source.IsExpanded = true;
         }
 
 

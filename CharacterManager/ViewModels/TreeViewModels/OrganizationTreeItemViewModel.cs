@@ -29,7 +29,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             Org = (Organization)Target.Item;
 
-            RaisePropertyChanged(nameof(Children));
+            RebuildChildren();
         }
 
 
@@ -52,30 +52,37 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set { SetProperty(ref org, value); }
         }
 
-        public List<object> Children
-        {
-            get
-            {
-                List<object> Child_List = new List<object>();
+        private ObservableCollection<object> children;
 
-                foreach (IRTreeMember<IEntity> E in Target.Child_Items)
-                {
-                    if (E.Item is Organization)
-                    {
-                        Child_List.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(E));
-                    }
-                    else if (E.Item is Character)
-                    {
-                        Child_List.Add(TreeItemViewModelFactory.CreateCharacterViewModel(E));
-                    }
-                    else
-                    {
-                        throw new Exception("IEntity is not Character or Organization");
-                    }
-                }
-                return Child_List;
-            }
+        public ObservableCollection<object> Children
+        {
+            get { return children; }
+            set { SetProperty(ref children, value); }
         }
+        #endregion
+        #region Functions
+        public void RebuildChildren()
+        {
+            children = new ObservableCollection<object>();
+
+            foreach (IRTreeMember<IEntity> E in Target.Child_Items)
+            {
+                if (E.Item is Organization)
+                {
+                    children.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(E));
+                }
+                else if (E.Item is Character)
+                {
+                    children.Add(TreeItemViewModelFactory.CreateCharacterViewModel(E));
+                }
+                else
+                {
+                    throw new Exception("IEntity is not Character or Organization");
+                }
+            }
+            RaisePropertyChanged(nameof(Children));
+        }
+
         #endregion
 
         #region List State Paramaters
@@ -139,11 +146,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #region Command Handlers
         private void CommandNewCharacterExecute()
         {
-            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(Target.Gid, "Character"));
+            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this, "Character"));
         }
         private void CommandNewOrganizationExecute()
         {
-            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(Target.Gid, "Organization"));
+            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this, "Organization"));
         }
         private void CommandCutExecute()
         {
