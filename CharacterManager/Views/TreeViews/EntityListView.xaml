@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TreeView x:Name="EnityTreeControl"
+        <TreeView x:Name="EntityTreeControl"
                   ItemsSource="{Binding TreeHeads}"
                   SelectedItemChanged="EnityTree_SelectedItemChanged"
                   Padding="0,1,1,1"

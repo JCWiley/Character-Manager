@@ -52,7 +52,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
         void SelectedItemChangedExecute(IEntity Selected_Item)
         {
             SelectedEntity = Selected_Item;
-            //EA.GetEvent<SelectedEntityChangedEvent>().Publish(//selected entity);
         }
         void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
         {
