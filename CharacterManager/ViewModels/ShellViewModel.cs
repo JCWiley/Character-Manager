@@ -6,5 +6,9 @@ namespace CharacterManager.ViewModels
 {
     public class ShellViewModel
     {
+        public ShellViewModel()
+        {
+
+        }
     }
 }

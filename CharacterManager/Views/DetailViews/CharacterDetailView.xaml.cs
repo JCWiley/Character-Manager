@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CharacterManager.Views.DetailViews.CharacterTabViews;
+using Prism.Regions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,9 +20,17 @@ namespace CharacterManager.Views.DetailViews
     /// </summary>
     public partial class CharacterDetailView : UserControl
     {
-        public CharacterDetailView()
+        IRegionManager RM;
+        public CharacterDetailView(IRegionManager regionManager)
         {
             InitializeComponent();
+
+            RM = regionManager;
+            RM.RegisterViewWithRegion("CHARACTER_REGION", typeof(CharacterTabView));
+            //RM.RegisterViewWithRegion("CHARACTER_JOB_REGION", typeof());
+            //RM.RegisterViewWithRegion("CHARACTER_JOB_HISTORY_REGION", typeof());
+            //RM.RegisterViewWithRegion("CHARACTER_INVENTORY_REGION", typeof());
+            //RM.RegisterViewWithRegion("CHARACTER_SOCIAL_REGION", typeof());
         }
     }
 }
