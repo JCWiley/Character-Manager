@@ -34,7 +34,7 @@ namespace CharacterManager.Model.RedundantTree
             }
         }
 
-        public IRTreeMember<T> AddItem(T i_item, bool is_head)
+        public IRTreeMember<T> AddItem(T i_item, bool is_head = false)
         {
             IRTreeMember<T> member = factory.CreateRTreeMember(this);
             member.Item = i_item;

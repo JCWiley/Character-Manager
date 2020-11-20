@@ -14,6 +14,7 @@ using CharacterManager.Model.Factories;
 using System.Collections.ObjectModel;
 
 using System.Linq;
+using CharacterManager.Events.EventContainers;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
@@ -28,15 +29,16 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             EA = eventAggregator;
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedItemChangedExecute);
-            ITreeItemViewModelFactory TreeItemViewModelFactory = new TreeItemViewModelFactory(eventAggregator);
+            EA.GetEvent<NewEntityRequestEvent>().Subscribe(NewEntityRequestEventExecute);
 
+            ITreeItemViewModelFactory TreeItemViewModelFactory = new TreeItemViewModelFactory(eventAggregator);
 
             EF = ef;
 
             entitytree = tree;
 
             IRTreeMember<IEntity> Head = EntityTree.AddItem(EF.CreateOrganization(), true);
-            IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter(), false);
+            IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter());
             EntityTree.AddChild(Head, DemoChild);
 
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
@@ -52,6 +54,31 @@ namespace CharacterManager.ViewModels.TreeViewModels
             SelectedEntity = Selected_Item;
             //EA.GetEvent<SelectedEntityChangedEvent>().Publish(//selected entity);
         }
+        void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
+        {
+            IRTreeMember<IEntity> Source = entitytree.Get_Item(Paramaters.EventSource);
+            string Event_Type = Paramaters.RequestType;
+            IRTreeMember<IEntity> NewItem;
+
+
+            if(Event_Type == "Character")
+            {
+                NewItem = entitytree.AddItem(EF.CreateCharacter());
+            }
+            else if(Event_Type == "Organization")
+            {
+                NewItem = entitytree.AddItem(EF.CreateOrganization());
+            }
+            else
+            {
+                throw new Exception("Event Type is not Character or Organization");
+            }
+            entitytree.AddChild(Source, NewItem);
+
+            RaisePropertyChanged(nameof(TreeHeads));
+        }
+
+
         #endregion
 
         #region Variables
@@ -77,49 +104,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
 
 
-        #endregion
-
-
-        #region Commands
-
-        private DelegateCommand<OrganizationTreeItemViewModel> _commandnewcharacter;
-        private DelegateCommand<OrganizationTreeItemViewModel> _commandneworganization;
-        private DelegateCommand _commandcut;
-        private DelegateCommand _commandcopy;
-        private DelegateCommand _commandpaste;
-        private DelegateCommand _commanddelete;
-
-        public DelegateCommand<OrganizationTreeItemViewModel> CommandNewCharacter => _commandnewcharacter ??= new DelegateCommand<OrganizationTreeItemViewModel>(CommandNewCharacterExecute);
-        public DelegateCommand<OrganizationTreeItemViewModel> CommandNewOrganization => _commandneworganization ??= new DelegateCommand<OrganizationTreeItemViewModel>(CommandNewOrganizationExecute);
-        public DelegateCommand CommandCut => _commandcut ??= new DelegateCommand(CommandCutExecute);
-        public DelegateCommand CommandCopy => _commandcopy ??= new DelegateCommand(CommandCopyExecute);
-        public DelegateCommand CommandPaste => _commandpaste ??= new DelegateCommand(CommandPasteExecute);
-        public DelegateCommand CommandDelete => _commanddelete ??= new DelegateCommand(CommandDeleteExecute);
-        #endregion
-
-        #region Command Handlers
-        private void CommandNewCharacterExecute(OrganizationTreeItemViewModel Context)
-        {
-            IRTreeMember<IEntity> NewCharacter = EntityTree.AddItem(EF.CreateCharacter(), false);
-            EntityTree.AddChild(Context.Target, NewCharacter);
-        }
-        private void CommandNewOrganizationExecute(OrganizationTreeItemViewModel Context)
-        {
-            IRTreeMember<IEntity> NewOrganization = EntityTree.AddItem(EF.CreateOrganization(), false);
-            EntityTree.AddChild(Context.Target, NewOrganization);
-        }
-        private void CommandCutExecute()
-        {
-        }
-        private void CommandCopyExecute()
-        {
-        }
-        private void CommandPasteExecute()
-        {
-        }
-        private void CommandDeleteExecute()
-        {
-        }
         #endregion
     }
 }
