@@ -109,6 +109,10 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set
             {
                 SetProperty(ref isselected, value);
+                if(isselected == true)
+                {
+                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Org);
+                }
             }
         }
 

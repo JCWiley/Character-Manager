@@ -1,4 +1,5 @@
-﻿using CharacterManager.Model.Entities;
+﻿using CharacterManager.Events;
+using CharacterManager.Model.Entities;
 using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.RedundantTree;
 using Prism.Commands;
@@ -16,6 +17,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             Target = target;
 
+            EA = eventAggregator;
+
             Visible = true;
             IsSelected = false;
             IsExpanded = false;
@@ -24,6 +27,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
         }
 
         #region Variables
+        private IEventAggregator EA;
         private IRTreeMember<IEntity> Target;
 
         private Character character;
@@ -59,6 +63,10 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set
             {
                 SetProperty(ref isselected, value);
+                if (isselected == true)
+                {
+                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Char);
+                }
             }
         }
 
