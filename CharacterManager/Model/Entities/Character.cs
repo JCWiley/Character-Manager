@@ -13,7 +13,7 @@ namespace CharacterManager.Model.Entities
         public Character()
         {
             Inventory = new ObservableCollection<Item>();
-            Name = "";
+            Name = "New Character";
             Description = "";
             Quirks = "";
             Location = "";
