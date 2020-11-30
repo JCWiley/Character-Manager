@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Prism.Mvvm;
 using System.Reflection;
+using CharacterManager.Views.DetailViews;
 
 namespace CharacterManager
 {
@@ -40,8 +41,8 @@ namespace CharacterManager
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
-
-
+            containerRegistry.RegisterForNavigation<CharacterDetailView>();
+            containerRegistry.RegisterForNavigation<OrganizationDetailView>();
         }
 
         protected override void ConfigureViewModelLocator()

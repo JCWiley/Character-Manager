@@ -26,11 +26,14 @@ namespace CharacterManager.Views.DetailViews
             InitializeComponent();
 
             RM = regionManager;
+            
             RM.RegisterViewWithRegion("CHARACTER_REGION", typeof(CharacterTabView));
             //RM.RegisterViewWithRegion("CHARACTER_JOB_REGION", typeof());
             //RM.RegisterViewWithRegion("CHARACTER_JOB_HISTORY_REGION", typeof());
             //RM.RegisterViewWithRegion("CHARACTER_INVENTORY_REGION", typeof());
             //RM.RegisterViewWithRegion("CHARACTER_SOCIAL_REGION", typeof());
+
+            
         }
     }
 }

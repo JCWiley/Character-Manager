@@ -28,7 +28,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
         public EntityListViewModel(IEventAggregator eventAggregator, RTree<IEntity> tree, IEntityFactory ef)
         {
             EA = eventAggregator;
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedItemChangedExecute);
+            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
             EA.GetEvent<NewEntityRequestEvent>().Subscribe(NewEntityRequestEventExecute);
 
             ITreeItemViewModelFactory TreeItemViewModelFactory = new TreeItemViewModelFactory(eventAggregator);
@@ -49,7 +49,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
 
         #region Event Handlers
-        void SelectedItemChangedExecute(IEntity Selected_Item)
+        void SelectedEntityChangedExecute(IEntity Selected_Item)
         {
             SelectedEntity = Selected_Item;
         }
