@@ -9,8 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" IsEnabled="True">
-            <TabItem Header="Character" prism:RegionManager.RegionName="ORGANIZATION_REGION"/>
+        <TabControl x:Name="Organization_Tab_Manager" Margin="0,0,0,0" IsEnabled="True">
+            <TabItem Header="Organization" prism:RegionManager.RegionName="ORGANIZATION_REGION"/>
             <TabItem Header="Jobs" prism:RegionManager.RegionName="ORGANIZATION_JOB_REGION"/>
             <TabItem Header="Job History" prism:RegionManager.RegionName="ORGANIZATION_JOB_HISTORY_REGION"/>
             <TabItem Header="Inventory" prism:RegionManager.RegionName="ORGANIZATION_INVENTORY_REGION"/>

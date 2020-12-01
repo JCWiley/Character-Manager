@@ -10,9 +10,9 @@ using System.Text;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
-    public class CharacterTabViewModel : BindableBase
+    public class CharacterJobHistoryTabViewModel : BindableBase
     {
-        public CharacterTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
+        public CharacterJobHistoryTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
         {
             EA = eventAggregator;
             RM = regionManager;
