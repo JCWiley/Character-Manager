@@ -24,200 +24,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #region Variables
         private IEventAggregator EA;
         private IRegionManager RM;
-        private IDerivedDataProvider DDP;
+
+        private IDerivedDataProvider ddp;
+        public IDerivedDataProvider DDP
+        {
+            get { return ddp; }
+            set { SetProperty(ref ddp, value); }
+        }
+
 
         private Character target;
         public Character Target
         {
             get { return target; }
             set { SetProperty(ref target, value); }
-        }
-        #endregion
-
-        #region BindingTargets
-        //public string Occupation
-        //{
-        //    get 
-        //    {
-        //        if(target is null)
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return target.Occupation;
-        //        }
-        //    }
-        //    set 
-        //    {
-        //        if(target.Occupation != value)
-        //        {
-        //            target.Occupation = value;
-        //            RaisePropertyChanged("Occupation");
-        //        }
-        //    }
-        //}
-        //public string Race
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return target.Race;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.Race != value)
-        //        {
-        //            target.Race = value;
-        //            RaisePropertyChanged("Race");
-        //        }
-        //    }
-        //}
-        //public string Name
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return target.Name;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.Name != value)
-        //        {
-        //            target.Name = value;
-        //            RaisePropertyChanged("Name");
-        //        }
-        //    }
-        //}
-        //public string Alias
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return target.Alias;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.Alias != value)
-        //        {
-        //            target.Alias = value;
-        //            RaisePropertyChanged("Alias");
-        //        }
-        //    }
-        //}
-        //public string BirthPlace
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return target.BirthPlace;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.BirthPlace != value)
-        //        {
-        //            target.BirthPlace = value;
-        //            RaisePropertyChanged("BirthPlace");
-        //        }
-        //    }
-        //}
-        //public string Location
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "";
-        //        }
-        //        else
-        //        {
-        //            return target.Location;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.Location != value)
-        //        {
-        //            target.Location = value;
-        //            RaisePropertyChanged("Location");
-        //        }
-        //    }
-        //}
-        //public string Description
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "{}";
-        //        }
-        //        else
-        //        {
-        //            return target.Description;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.Description != value)
-        //        {
-        //            target.Description = value;
-        //            RaisePropertyChanged("Description");
-        //        }
-        //    }
-        //}
-        //public string Quirks
-        //{
-        //    get
-        //    {
-        //        if (target is null)
-        //        {
-        //            return "{}";
-        //        }
-        //        else
-        //        {
-        //            return target.Quirks;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        if (target.Quirks != value)
-        //        {
-        //            target.Quirks = value;
-        //            RaisePropertyChanged("Quirks");
-        //        }
-        //    }
-        //}
-
-        public List<String> Locations
-        {
-            get
-            {
-                return DDP.Locations;
-            }
         }
         #endregion
 

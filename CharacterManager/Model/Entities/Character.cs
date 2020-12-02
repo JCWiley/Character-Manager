@@ -38,7 +38,6 @@ namespace CharacterManager.Model.Entities
                 {
                     this.inventory = value;
                     RaisePropertyChanged("Inventory");
-                    RaisePropertyChanged("Locations");
                 }
             }
         }
@@ -111,6 +110,7 @@ namespace CharacterManager.Model.Entities
                 {
                     this.location = value;
                     RaisePropertyChanged("Location");
+                    RaisePropertyChanged("Locations");
                 }
             }
         }
