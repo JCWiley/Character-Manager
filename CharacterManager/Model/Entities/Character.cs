@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Text;
+using Prism.Mvvm;
 
 namespace CharacterManager.Model.Entities
 {
-    public class Character : IEntity
+    public class Character : BindableBase,IEntity
     {
         public Character()
         {
@@ -36,6 +37,8 @@ namespace CharacterManager.Model.Entities
                 if (this.inventory != value)
                 {
                     this.inventory = value;
+                    RaisePropertyChanged("Inventory");
+                    RaisePropertyChanged("Locations");
                 }
             }
         }
@@ -53,6 +56,7 @@ namespace CharacterManager.Model.Entities
                 if (this.name != value)
                 {
                     this.name = value;
+                    RaisePropertyChanged("Name");
                 }
             }
         }
@@ -70,6 +74,7 @@ namespace CharacterManager.Model.Entities
                 if (this.description != value)
                 {
                     this.description = value;
+                    RaisePropertyChanged("Description");
                 }
             }
         }
@@ -87,6 +92,7 @@ namespace CharacterManager.Model.Entities
                 if (this.quirks != value)
                 {
                     this.quirks = value;
+                    RaisePropertyChanged("Quirks");
                 }
             }
         }
@@ -104,6 +110,7 @@ namespace CharacterManager.Model.Entities
                 if (this.location != value)
                 {
                     this.location = value;
+                    RaisePropertyChanged("Location");
                 }
             }
         }
@@ -121,6 +128,7 @@ namespace CharacterManager.Model.Entities
                 if (this.race != value)
                 {
                     this.race = value;
+                    RaisePropertyChanged("Race");
                 }
             }
         }
@@ -138,6 +146,7 @@ namespace CharacterManager.Model.Entities
                 if (this.alias != value)
                 {
                     this.alias = value;
+                    RaisePropertyChanged("Alias");
                 }
             }
         }
@@ -155,6 +164,7 @@ namespace CharacterManager.Model.Entities
                 if (this.occupation != value)
                 {
                     this.occupation = value;
+                    RaisePropertyChanged("Occupation");
                 }
             }
         }
@@ -172,6 +182,7 @@ namespace CharacterManager.Model.Entities
                 if (this.birthplace != value)
                 {
                     this.birthplace = value;
+                    RaisePropertyChanged("BirthPlace");
                 }
             }
         }

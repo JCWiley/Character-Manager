@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Text;
+using Prism.Mvvm;
 
 namespace CharacterManager.Model.Entities
 {
-    public class Organization : IEntity
+    public class Organization : BindableBase, IEntity
     {
         public Organization()
         {
@@ -36,6 +37,7 @@ namespace CharacterManager.Model.Entities
                 if (this.inventory != value)
                 {
                     this.inventory = value;
+                    RaisePropertyChanged("Inventory");
                 }
             }
         }
@@ -53,6 +55,7 @@ namespace CharacterManager.Model.Entities
                 if (this.name != value)
                 {
                     this.name = value;
+                    RaisePropertyChanged("Name");
                 }
             }
         }
@@ -70,6 +73,7 @@ namespace CharacterManager.Model.Entities
                 if (this.description != value)
                 {
                     this.description = value;
+                    RaisePropertyChanged("Description");
                 }
             }
         }
@@ -87,6 +91,7 @@ namespace CharacterManager.Model.Entities
                 if (this.quirks != value)
                 {
                     this.quirks = value;
+                    RaisePropertyChanged("Quirks");
                 }
             }
         }
@@ -104,6 +109,8 @@ namespace CharacterManager.Model.Entities
                 if (this.location != value)
                 {
                     this.location = value;
+                    RaisePropertyChanged("Location");
+                    RaisePropertyChanged("Locations");
                 }
             }
         }
@@ -121,6 +128,7 @@ namespace CharacterManager.Model.Entities
                 if (this.race != value)
                 {
                     this.race = value;
+                    RaisePropertyChanged("Race");
                 }
             }
         }
@@ -138,6 +146,7 @@ namespace CharacterManager.Model.Entities
                 if (this.leader != value)
                 {
                     this.leader = value;
+                    RaisePropertyChanged("Leader");
                 }
             }
         }
@@ -155,6 +164,7 @@ namespace CharacterManager.Model.Entities
                 if (this.goals != value)
                 {
                     this.goals = value;
+                    RaisePropertyChanged("Goals");
                 }
             }
         }
@@ -172,6 +182,7 @@ namespace CharacterManager.Model.Entities
                 if (this.selected_size != value)
                 {
                     this.selected_size = value;
+                    RaisePropertyChanged("Selected_Size");
                 }
             }
         }

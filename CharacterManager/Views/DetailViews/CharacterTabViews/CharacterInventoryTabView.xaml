@@ -9,6 +9,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <DataGrid x:Name="Inventory_DataGrid"
+                                  CanUserAddRows="True"
+                                  VerticalScrollBarVisibility="Auto"
+                                  ItemsSource="{Binding Target.Inventory}"
+                                  CanUserDeleteRows="True"
+                                  CanUserResizeColumns="True"
+                                  CanUserReorderColumns="True"
+                                  CanUserSortColumns="True"
+                                  IsEnabled="False"
+                                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Item" Binding="{Binding Target.Inventory.Name}" Width="136"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Target.Inventory.Description}" Width="136*"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Target.Inventory.Location}" Width="136"/>
+                <DataGridTextColumn Header="Weight" Binding="{Binding Target.Inventory.Weight}" Width="51"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
