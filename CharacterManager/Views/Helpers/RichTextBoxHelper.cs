@@ -36,11 +36,17 @@ namespace CharacterManager.Views.Helpers
                         var doc = new FlowDocument();
                         var range = new TextRange(doc.ContentStart, doc.ContentEnd);
 
-                        range.Load(new MemoryStream(Encoding.UTF8.GetBytes(xaml)),
-                              DataFormats.Xaml);
+                        byte[] DescriptionbyteArray = Encoding.ASCII.GetBytes(xaml);
+                        using (MemoryStream ms = new MemoryStream(DescriptionbyteArray))
+                        {
+                            range.Load(ms, DataFormats.Rtf);
+                        }
 
-                    // Set the document
-                    richTextBox.Document = doc;
+                        //range.Load(new MemoryStream(Encoding.UTF8.GetBytes(xaml)),
+                        //      DataFormats.Xaml);
+
+                        // Set the document
+                        richTextBox.Document = doc;
 
                     // When the document changes update the source
                     range.Changed += (obj2, e2) =>

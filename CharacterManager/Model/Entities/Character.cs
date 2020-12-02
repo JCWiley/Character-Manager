@@ -14,8 +14,8 @@ namespace CharacterManager.Model.Entities
         {
             Inventory = new ObservableCollection<Item>();
             Name = "New Character";
-            Description = "3";
-            Quirks = "4";
+            Description = "{}";
+            Quirks = "{}";
             Location = "";
             Race = "";
             Alias = "";

@@ -173,7 +173,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             {
                 if (target is null)
                 {
-                    return "<?xml version=\"1.0\" encoding=\"UTF - 8\"?>";
+                    return "{}";
                 }
                 else
                 {
@@ -195,7 +195,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             {
                 if (target is null)
                 {
-                    return "2";
+                    return "{}";
                 }
                 else
                 {

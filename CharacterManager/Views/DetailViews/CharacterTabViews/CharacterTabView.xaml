@@ -68,13 +68,11 @@
                                      helpers:RichTextBoxHelper.DocumentXaml="{Binding Description}"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="0,121,5,0"
-                                     IsEnabled="False"
                                      TabIndex="7"/>
         <RichTextBox x:Name="Quirks_RTB"
                                      helpers:RichTextBoxHelper.DocumentXaml="{Binding Quirks}"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="5,121,0,0"
-                                     IsEnabled="False"
                                      TabIndex="8"
                                      Grid.Column="1"/>
         <ComboBox x:Name="CharacterLocationComboBox" 
@@ -86,7 +84,6 @@
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  IsEditable="True"
                                  IsReadOnly="False"
-                                 IsEnabled="False"
                                  TabIndex="4"
                                  Grid.Column="1"
                                  VerticalAlignment="Top"/>
@@ -105,7 +102,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding Race , UpdateSourceTrigger=PropertyChanged}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="5"
                                  VerticalAlignment="Top"/>
         <TextBox x:Name="NameTextBlock" 
@@ -114,7 +110,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding Name , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="1"
                                  VerticalAlignment="Top"/>
         <TextBox x:Name="AliasTextBlock" 
@@ -123,7 +118,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding Alias , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="3"
                                  VerticalAlignment="Top"/>
         <TextBox x:Name="BirthPlaceTextBlock" 
@@ -132,7 +126,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding BirthPlace , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="2"
                                  Grid.Column="1"
                                  VerticalAlignment="Top"/>
