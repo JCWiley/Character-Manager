@@ -16,6 +16,7 @@ namespace CharacterManager.ViewModels
             RM = regionManager;
             EA = eventAggregator;
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            RM.RequestNavigate("DETAIL_REGION", "OrganizationDetailView");
         }
 
         #region Variables

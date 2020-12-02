@@ -14,6 +14,7 @@ using System.Windows;
 using Prism.Mvvm;
 using System.Reflection;
 using CharacterManager.Views.DetailViews;
+using CharacterManager.Model.Other;
 
 namespace CharacterManager
 {
@@ -39,6 +40,7 @@ namespace CharacterManager
             containerRegistry.Register(typeof(Guid));
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
+            containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
             containerRegistry.RegisterForNavigation<CharacterDetailView>();

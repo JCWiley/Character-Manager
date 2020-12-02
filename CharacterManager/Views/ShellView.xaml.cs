@@ -38,9 +38,10 @@ namespace CharacterManager.Views
 
             //RM.RegisterViewWithRegion("MENU_REGION", typeof());
             RM.RegisterViewWithRegion("OVERVIEW_REGION", typeof(EntityListView));
-            //RM.RegisterViewWithRegion("DETAIL_REGION", typeof(CharacterDetailView));
-            //RM.RegisterViewWithRegion("DETAIL_REGION", typeof(OrganizationDetailView));
+            RM.RegisterViewWithRegion("DETAIL_REGION", typeof(OrganizationDetailView));
+            RM.RegisterViewWithRegion("DETAIL_REGION", typeof(CharacterDetailView));
             
+
         }
     }
 }

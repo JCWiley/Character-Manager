@@ -134,5 +134,15 @@ namespace CharacterManager.Model.RedundantTree
             }
             return Result;
         }
+
+        public List<T> Get_All_Items()
+        {
+            List<T> temp = new List<T>();
+            foreach (IRTreeMember<T> item in dict.Values)
+            {
+                temp.Add(item.Item);
+            }
+            return temp;
+        }
     }
 }
