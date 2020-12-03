@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="0,0,0,0">
         <DataGrid x:Name="Job_List" 
-                          ItemsSource="{Binding Target.Jobs}" 
+                          ItemsSource="{Binding Jobs}" 
                           HorizontalAlignment="Left" 
                           Width="216" 
                           AutoGenerateColumns="False" 

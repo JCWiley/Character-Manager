@@ -186,5 +186,15 @@ namespace CharacterManager.Model.Entities
                 }
             }
         }
+
+        [DataMember(Name = "selected_size")]
+        private int job_id;
+        public int Job_ID
+        {
+            get
+            {
+                return this.job_id;
+            }
+        }
     }
 }

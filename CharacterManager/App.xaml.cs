@@ -41,6 +41,7 @@ namespace CharacterManager
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
+            containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
             containerRegistry.RegisterForNavigation<CharacterDetailView>();
