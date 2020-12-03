@@ -1,4 +1,5 @@
-﻿using CharacterManager.Model.Interfaces;
+﻿using CharacterManager.Model.Factories;
+using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace CharacterManager.Model.Other
 
         public JobDirectoryProvider(IJobFactory jobFactory)
         {
-            
+            _jobFactory = jobFactory;
         }
 
         public void AddBlankJobToEntity(IEntity parent_entity)

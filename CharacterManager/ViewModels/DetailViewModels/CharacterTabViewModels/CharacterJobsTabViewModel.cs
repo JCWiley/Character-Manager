@@ -48,15 +48,23 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         private DelegateCommand _commandnewblankjob;
         public DelegateCommand CommandNewBlankJob => _commandnewblankjob ??= new DelegateCommand(CommandNewBlankJobExecute);
 
+        private DelegateCommand _commandaddcustomevent;
+
+        public DelegateCommand CommandAddCustomEvent => _commandaddcustomevent ??= new DelegateCommand(CommandAddCustomEventExecute);
+
         #endregion
 
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
             JDP.AddBlankJobToEntity(Target);
-
+            RaisePropertyChanged("Jobs");
         }
 
+        private void CommandAddCustomEventExecute()
+        {
+
+        }
 
         #endregion
 
@@ -66,6 +74,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             if (newTarget is Character C)
             {
                 Target = C;
+                RaisePropertyChanged("Jobs");
             }
             else if (newTarget is Organization O)
             {

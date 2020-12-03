@@ -22,6 +22,7 @@ namespace CharacterManager.Model.Entities
             //Leader = "";
             Goals = "";
             Selected_Size = 0;
+            job_id = new Guid();
         }
 
         [DataMember(Name = "inventory")]
@@ -187,7 +188,7 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "selected_size")]
+        [DataMember(Name = "job_id")]
         private Guid job_id;
         public Guid Job_ID
         {

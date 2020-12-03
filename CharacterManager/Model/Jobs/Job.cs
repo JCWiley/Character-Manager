@@ -15,6 +15,32 @@ namespace CharacterManager.Model.Jobs
             job_id = new Guid();
         }
 
+        #region Derived Variables
+        public int DaysRemaining
+        {
+            get
+            {
+                int val = this.duration - this.progress;
+                if (val > 0)
+                {
+                    return val;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        public int EndDate
+        {
+            get
+            {
+                return this.StartDate + Duration;
+            }
+        }
+        #endregion
+
+        #region Variables
         private ObservableCollection<Item> required_items;
         public ObservableCollection<Item> Required_Items
         {
@@ -252,6 +278,8 @@ namespace CharacterManager.Model.Jobs
                 }
             }
         }
+        #endregion
+
     }
 }
 
