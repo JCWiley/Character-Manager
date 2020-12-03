@@ -1,6 +1,7 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Interfaces;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -34,6 +35,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         }
         #endregion
 
+        #region Binding Targets
         public List<IJob> Jobs
         {
             get
@@ -41,6 +43,22 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 return JDP.GetEntitiesJobs(Target);
             }
         }
+        #endregion
+        #region Commands
+        private DelegateCommand _commandnewblankjob;
+        public DelegateCommand CommandNewBlankJob => _commandnewblankjob ??= new DelegateCommand(CommandNewBlankJobExecute);
+
+        #endregion
+
+        #region Command Handlers
+        private void CommandNewBlankJobExecute()
+        {
+            JDP.AddBlankJobToEntity(Target);
+
+        }
+
+
+        #endregion
 
         #region EventHandlers
         private void SelectedEntityChangedExecute(IEntity newTarget)

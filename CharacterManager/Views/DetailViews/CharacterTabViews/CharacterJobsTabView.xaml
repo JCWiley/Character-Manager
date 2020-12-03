@@ -16,8 +16,6 @@
                           AutoGenerateColumns="False" 
                           CanUserAddRows="False"
                           CanUserSortColumns="False"
-                          SelectionChanged="Job_List_SelectionChanged"
-                          InitializingNewItem="Job_List_InitializingNewItem" 
                           Margin="0,0,0,29">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="134"/>
@@ -27,12 +25,11 @@
         </DataGrid>
         <Button x:Name="Add_Blank_Job_Button"
                                     Content="Add Blank Job"  
-                                    Click="Add_Job_Button_Click" 
+                                    Command="{Binding CommandNewBlankJob}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom" Width="216" Margin="0,0,0,2"/>
         <Grid x:Name="JobControlsGrid" IsEnabled="False">
             <RichTextBox x:Name="Job_Details_RTB"
-                                         LostFocus="Job_Details_RTB_LostFocus"
                                          VerticalScrollBarVisibility="Auto"
                                          Height="106"
                                          Margin="221,26,0,0" 
@@ -128,7 +125,7 @@
             <Button x:Name="Add_Custom_Event_Button" 
                                     Content="Add Custom Event" 
                                     Margin="221,0,0,2" 
-                                    Click="Custom_Event_Button_Click" 
+                                    Command="{Binding CommandAddCustomEvent}"
                                     IsEnabled="True" 
                                     Height="22"
                                     VerticalAlignment="Bottom"/>

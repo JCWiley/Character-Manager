@@ -10,32 +10,29 @@ namespace CharacterManager.Model.Other
     public class JobDirectoryProvider : IJobDirectoryProvider
     {
         List<IJob> Job_Dict = new List<IJob>();
+        private IJobFactory _jobFactory;
 
-        public JobDirectoryProvider()
+        public JobDirectoryProvider(IJobFactory jobFactory)
         {
             
         }
 
-        public void AddEntityJob(IEntity parent_entity, IJob target_job)
+        public void AddBlankJobToEntity(IEntity parent_entity)
         {
-            if(!Job_Dict.Contains(target_job))
-            {
-                target_job.OwnerEntity = parent_entity.Job_ID;
-                Job_Dict.Add(target_job);
-            }
+            IJob J = _jobFactory.CreateJob();
+            J.OwnerEntity = parent_entity.Job_ID;
+            Job_Dict.Add(J);
         }
-        public void AddSubJob(IJob parent_job, IJob target_job)
+        public void AddBlankJobToJob(IJob parent_job)
         {
-            if (!Job_Dict.Contains(target_job))
-            {
-                target_job.OwnerJob = parent_job.Job_ID;
-                Job_Dict.Add(target_job);
-            }
+            IJob J = _jobFactory.CreateJob();
+            J.OwnerJob = parent_job.Job_ID;
+            Job_Dict.Add(J);
         }
 
         public List<IJob> GetEntitiesJobs(IEntity entity)
         {
-            return (List<IJob>)Job_Dict.Where(J => J.OwnerEntity == entity.Job_ID);
+            return Job_Dict.Where(J => J.OwnerEntity == entity.Job_ID).ToList() ;
         }
 
         public List<IJob> GetSubJobs(IJob job)

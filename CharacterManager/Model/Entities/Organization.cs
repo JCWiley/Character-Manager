@@ -188,8 +188,8 @@ namespace CharacterManager.Model.Entities
         }
 
         [DataMember(Name = "selected_size")]
-        private int job_id;
-        public int Job_ID
+        private Guid job_id;
+        public Guid Job_ID
         {
             get
             {

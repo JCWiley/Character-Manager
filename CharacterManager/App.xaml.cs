@@ -40,6 +40,7 @@ namespace CharacterManager
             containerRegistry.Register(typeof(Guid));
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
+            containerRegistry.Register(typeof(IJobFactory), typeof(JobFactory));
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));

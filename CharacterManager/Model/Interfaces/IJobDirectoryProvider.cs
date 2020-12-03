@@ -6,9 +6,9 @@ namespace CharacterManager.Model.Interfaces
 {
     public interface IJobDirectoryProvider
     {
-        public void AddEntityJob(IEntity parent_entity, IJob target_job);
+        public void AddBlankJobToEntity(IEntity parent_entity);
 
-        public void AddSubJob(IJob parent_job, IJob target_job);
+        public void AddBlankJobToJob(IJob parent_job);
 
         public List<IJob> GetEntitiesJobs(IEntity entity);
 
