@@ -8,7 +8,130 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Margin="0,0,0,0">
+        <DataGrid x:Name="Job_List" 
+                          ItemsSource="{Binding Target.Jobs}" 
+                          HorizontalAlignment="Left" 
+                          Width="216" 
+                          AutoGenerateColumns="False" 
+                          CanUserAddRows="False"
+                          CanUserSortColumns="False"
+                          SelectionChanged="Job_List_SelectionChanged"
+                          InitializingNewItem="Job_List_InitializingNewItem" 
+                          Margin="0,0,0,29">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Summary" Binding="{Binding Summary}" Width="134"/>
+                <DataGridTextColumn Header="Days" Binding="{Binding DaysRemaining}" Width="35" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Active" Binding="{Binding IsCurrentlyProgressing}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="Add_Blank_Job_Button"
+                                    Content="Add Blank Job"  
+                                    Click="Add_Job_Button_Click" 
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom" Width="216" Margin="0,0,0,2"/>
+        <Grid x:Name="JobControlsGrid" IsEnabled="False">
+            <RichTextBox x:Name="Job_Details_RTB"
+                                         LostFocus="Job_Details_RTB_LostFocus"
+                                         VerticalScrollBarVisibility="Auto"
+                                         Height="106"
+                                         Margin="221,26,0,0" 
+                                         VerticalAlignment="Top"
+                                         TabIndex="7"
+                                         IsEnabled="True"/>
+            <Grid Margin="221,0,0,29" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Label Content="Start Day:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Column="0" Height="26" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="StartDayTextBlock"
+                                       HorizontalAlignment="Right" 
+                                       TextWrapping="Wrap" 
+                                       Text="{Binding SelectedItem.StartDate, ElementName=Job_List}" 
+                                       VerticalAlignment="Top" Width="40" Height="26"
+                                       IsEnabled="True"
+                                       KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                       Grid.Column="0" Margin="0"/>
+                <Label Content="Duration:" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="135" Grid.Column="0" Height="26"/>
+                <TextBox x:Name="ExpectedDurationTextBox" 
+                                     HorizontalAlignment="Right" 
+                                     Margin="0,28,0,0" 
+                                     TextWrapping="Wrap" 
+                                     Text="{Binding SelectedItem.Duration, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
+                                     KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                     IsEnabled="True"
+                                     VerticalAlignment="Top" Width="40" Height="26"
+                                     Grid.Column="0"/>
+                <Label Content="Chance of Critical Success: 1/" Margin="0,56,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245"/>
+                <TextBox x:Name="SuccessChanceTextBox" 
+                                     HorizontalAlignment="Right" 
+                                     Margin="0,56,0,0" 
+                                     TextWrapping="Wrap" 
+                                     Text="{Binding SelectedItem.SuccessChance, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
+                                     KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                     IsEnabled="True"
+                                     VerticalAlignment="Top" Width="40" Height="26"
+                                     Grid.Column="0"/>
+                <Label Content="Current Progress:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Grid.Column="1" Height="26"/>
+                <Label Content="Repeating:" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" Width="134" Grid.Column="1" Height="26"/>
+                <TextBlock x:Name="ProgressTextBlock"
+                                        HorizontalAlignment="Right" 
+                                        Margin="0" 
+                                        TextWrapping="Wrap" 
+                                        VerticalAlignment="Top" Width="40" Height="26"
+                                       Grid.Column="1"/>
+                <ComboBox x:Name="Repeating_Combo_Box" 
+                                      HorizontalAlignment="Right"
+                                      Margin="0,28,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="150" 
+                                      IsEnabled="True"
+                                      SelectedIndex="{Binding SelectedItem.Recurring, ElementName=Job_List}" 
+                                      Grid.Column="1" 
+                                      Height="22">
+                    <ComboBoxItem Content="Does Not Repeat"/>
+                    <ComboBoxItem Content="Repeats Forever"/>
+                </ComboBox>
+                <Label Content="Chance of Critical Failure:   1/" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top" Width="244" Grid.Column="1" Height="26"/>
+                <TextBox x:Name="FailureChanceTextBox" 
+                                     HorizontalAlignment="Right" 
+                                     Margin="0,56,0,0" 
+                                     TextWrapping="Wrap" 
+                                     Text="{Binding SelectedItem.FailureChance, ElementName=Job_List, UpdateSourceTrigger=PropertyChanged}" 
+                                     KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
+                                     IsEnabled="True"
+                                     VerticalAlignment="Top" Width="40" Height="26" Grid.Column="1"/>
+            </Grid>
+            <Label Content="Job Information" Margin="221,0,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Label Content="Required Items:" HorizontalAlignment="Left" Margin="221,137,0,0" VerticalAlignment="Top" Width="111"/>
+            <DataGrid x:Name="Job_Items_Datagrid"
+                                      Margin="221,163,0,122"
+                                      ItemsSource="{Binding ElementName=Job_List, Path=SelectedItem.Required_Items}" 
+                                      CanUserAddRows="True"
+                                      CanUserDeleteRows="True"
+                                      IsEnabled="True"
+                                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Item"
+                                                        Binding="{Binding Name}"
+                                                        Width="100"/>
+                    <DataGridTextColumn Header="Location"
+                                                        Binding="{Binding Location}"
+                                                        Width="100*"/>
+                    <DataGridCheckBoxColumn Header="Aquired"
+                                                            Binding="{Binding Aquired}"
+                                                            Width="53"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="Add_Custom_Event_Button" 
+                                    Content="Add Custom Event" 
+                                    Margin="221,0,0,2" 
+                                    Click="Custom_Event_Button_Click" 
+                                    IsEnabled="True" 
+                                    Height="22"
+                                    VerticalAlignment="Bottom"/>
+        </Grid>
     </Grid>
 </UserControl>

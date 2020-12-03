@@ -165,7 +165,7 @@ namespace Character_Manager
         }
             #endregion
 
-            #region Tree_Members
+        #region Tree_Members
         private IRTreeFactory<IEntity> rfact_entity;
         
         private RTree<IEntity> entitytree;

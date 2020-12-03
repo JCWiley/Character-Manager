@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Model.Other;
+using System;
 using System.Collections.ObjectModel;
 
 namespace CharacterManager.Model.Interfaces
@@ -12,6 +13,7 @@ namespace CharacterManager.Model.Interfaces
         public string Quirks { get; set; }
         public string Location { get; set; }
         public string Race { get; set; }
+        public Guid Job_ID { get; }
         #endregion
     }
 }

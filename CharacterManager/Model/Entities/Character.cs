@@ -22,6 +22,7 @@ namespace CharacterManager.Model.Entities
             Alias = "";
             Occupation = "";
             BirthPlace = "";
+            job_id = new Guid();
         }
 
         [DataMember(Name = "inventory")]
@@ -187,6 +188,15 @@ namespace CharacterManager.Model.Entities
             }
         }
 
+        [DataMember(Name = "job_id")]
+        private Guid job_id;
+        public Guid Job_ID
+        {
+            get
+            {
+                return job_id;
+            }
+        }
 
     }
 }
