@@ -278,6 +278,23 @@ namespace CharacterManager.Model.Jobs
                 }
             }
         }
+
+        private List<IEvent> events;
+        public List<IEvent> Events
+        {
+            get
+            {
+                return this.events;
+            }
+            set
+            {
+                if (this.events != value)
+                {
+                    this.events = value;
+                    RaisePropertyChanged("Events");
+                }
+            }
+        }
         #endregion
 
     }

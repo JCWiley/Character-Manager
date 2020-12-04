@@ -76,7 +76,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 Target = C;
                 RaisePropertyChanged("Jobs");
             }
-            else if (newTarget is Organization O)
+            else if (newTarget is Organization)
             {
 
             }

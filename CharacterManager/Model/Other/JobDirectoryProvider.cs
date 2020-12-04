@@ -36,6 +36,21 @@ namespace CharacterManager.Model.Other
             return Job_Dict.Where(J => J.OwnerEntity == entity.Job_ID).ToList() ;
         }
 
+        public List<IEvent> GetEventSummaryForEntity(IEntity entity)
+        {
+            List<IJob> jobs = GetEntitiesJobs(entity);
+            List<IEvent> Summary = new List<IEvent>();
+
+            foreach (IJob job in jobs)
+            {
+                foreach (IEvent e in job.Events)
+                {
+                    Summary.Add(e);
+                }
+            }
+            return Summary;
+        }
+
         public List<IJob> GetSubJobs(IJob job)
         {
             return (List<IJob>)Job_Dict.Where(J => J.OwnerJob == job.Job_ID);

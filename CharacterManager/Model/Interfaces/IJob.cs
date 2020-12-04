@@ -36,6 +36,7 @@ namespace CharacterManager.Model.Interfaces
         public Guid OwnerJob { get; set; }
 
         public Guid Job_ID { get; set; }
+        List<IEvent> Events { get; set; }
         #endregion
     }
 }

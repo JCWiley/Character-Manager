@@ -12,10 +12,11 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
     public class CharacterJobHistoryTabViewModel : BindableBase
     {
-        public CharacterJobHistoryTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
+        public CharacterJobHistoryTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
+            JDP = jobDirectoryProvider;
 
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
         }
@@ -23,13 +24,29 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #region Variables
         private IEventAggregator EA;
         private IRegionManager RM;
+        private IJobDirectoryProvider JDP;
 
         private Character target;
         public Character Target
         {
             get { return target; }
-            set { SetProperty(ref target, value); }
+            set 
+            {
+                SetProperty(ref target, value);
+                RaisePropertyChanged("Events_Summary");
+            }
         }
+        #endregion
+
+        #region Binding Targets
+        public List<IEvent> Events_Summary
+        {
+            get
+            {
+                return JDP.GetEventSummaryForEntity(Target);
+            }
+        }
+
         #endregion
 
         #region EventHandlers

@@ -9,6 +9,37 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <DataGrid x:Name="Job_History_DataGrid"
+                                  CanUserAddRows="False"
+                                  VerticalScrollBarVisibility="Auto"
+                                  ItemsSource="{Binding Events_Summary}"
+                                  CanUserDeleteRows="True"
+                                  CanUserResizeColumns="True"
+                                  CanUserReorderColumns="True"
+                                  IsEnabled="False"
+                                  AutoGenerateColumns="False" 
+                                  Margin="0,0,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Character"
+                                                    Binding="{Binding Character}"
+                                                    Width="130"/>
+                <DataGridTextColumn Header="Job"
+                                                    Binding="{Binding Job}"
+                                                    Width="100"/>
+                <DataGridTextColumn Header="Comment"
+                                                    Binding="{Binding Comment}"
+                                                    Width="100*"/>
+                <DataGridTextColumn Header="Type"
+                                                    Binding="{Binding Event_Type}"
+                                                    Width="100"/>
+                <DataGridTextColumn Header="Day"
+                                                    Binding="{Binding Day}"
+                                                    Width="50"/>
+                <DataGridTextColumn Header="Effects"
+                                                    Binding="{Binding Progress_Effects}"
+                                                    Width="50"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </UserControl>

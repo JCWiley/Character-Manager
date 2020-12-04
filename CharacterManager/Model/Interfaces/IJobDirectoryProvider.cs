@@ -13,5 +13,7 @@ namespace CharacterManager.Model.Interfaces
         public List<IJob> GetEntitiesJobs(IEntity entity);
 
         public List<IJob> GetSubJobs(IJob job);
+
+        public List<IEvent> GetEventSummaryForEntity(IEntity entity);
     }
 }
