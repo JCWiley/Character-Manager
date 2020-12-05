@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace CharacterManager.Model.Other
+namespace CharacterManager.Model.Items
 {
     [DataContract(Name = "Item", Namespace = "Character_Manager")]
-    public class Item
+    public class Item : IItem
     {
         #region Data_Members
         [DataMember(Name = "aquired")]

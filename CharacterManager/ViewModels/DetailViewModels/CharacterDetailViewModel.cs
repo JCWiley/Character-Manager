@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Prism.Mvvm;
 using Prism.Events;
 using Prism.Regions;
 using CharacterManager.Events;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Interfaces;
 
 namespace CharacterManager.ViewModels.DetailViewModels
 {

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
+using CharacterManager.Model.Jobs;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CharacterManager.Model.Interfaces
+namespace CharacterManager.Model.Providers
 {
     public interface IJobDirectoryProvider
     {

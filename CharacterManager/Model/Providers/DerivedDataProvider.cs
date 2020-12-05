@@ -1,10 +1,10 @@
-﻿using CharacterManager.Model.Interfaces;
+﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CharacterManager.Model.Other
+namespace CharacterManager.Model.Providers
 {
     public class DerivedDataProvider : IDerivedDataProvider
     {

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Prism.Mvvm;
 using Prism.Events;
 using Prism.Regions;
-using CharacterManager.Events;
-using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.Entities;
 
 namespace CharacterManager.ViewModels.DetailViewModels

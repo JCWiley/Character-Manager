@@ -1,6 +1,7 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Interfaces;
+using CharacterManager.Model.Jobs;
+using CharacterManager.Model.Providers;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;

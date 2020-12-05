@@ -1,11 +1,8 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Interfaces;
 using Prism.Events;
 using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CharacterManager.ViewModels
 {

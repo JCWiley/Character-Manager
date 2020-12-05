@@ -1,12 +1,14 @@
-﻿using CharacterManager.Model.Factories;
-using CharacterManager.Model.Interfaces;
+﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
+using CharacterManager.Model.Factories;
+using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CharacterManager.Model.Other
+namespace CharacterManager.Model.Providers
 {
     public class JobDirectoryProvider : IJobDirectoryProvider
     {

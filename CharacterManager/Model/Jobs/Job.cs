@@ -1,10 +1,9 @@
-﻿using CharacterManager.Model.Interfaces;
-using CharacterManager.Model.Other;
+﻿using CharacterManager.Model.Events;
+using CharacterManager.Model.Items;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace CharacterManager.Model.Jobs
 {

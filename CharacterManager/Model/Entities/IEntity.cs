@@ -1,8 +1,8 @@
-﻿using CharacterManager.Model.Other;
+﻿using CharacterManager.Model.Items;
 using System;
 using System.Collections.ObjectModel;
 
-namespace CharacterManager.Model.Interfaces
+namespace CharacterManager.Model.Entities
 {
     public interface IEntity 
     {

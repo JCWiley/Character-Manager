@@ -1,13 +1,9 @@
-﻿using CharacterManager.Model.Interfaces;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
+﻿using Prism.Mvvm;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace CharacterManager.Model.Events
 {
-    public class Event :BindableBase,IEvent
+    public class Event : BindableBase, IEvent
     {
 
         #region Data_Members

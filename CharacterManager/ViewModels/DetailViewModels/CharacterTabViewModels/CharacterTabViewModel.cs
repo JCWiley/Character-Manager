@@ -1,12 +1,10 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Interfaces;
+using CharacterManager.Model.Providers;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {

@@ -1,10 +1,11 @@
-﻿using CharacterManager.Model.Other;
+﻿using CharacterManager.Model.Events;
+using CharacterManager.Model.Items;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace CharacterManager.Model.Interfaces
+namespace CharacterManager.Model.Jobs
 {
     public interface IJob
     {

@@ -1,5 +1,4 @@
-﻿using CharacterManager.Model.Other;
-using CharacterManager.Model.Interfaces;
+﻿using CharacterManager.Model.Items;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

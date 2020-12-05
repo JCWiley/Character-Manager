@@ -1,8 +1,4 @@
-﻿using CharacterManager.Model.Interfaces;
-using CharacterManager.Model.Jobs;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CharacterManager.Model.Jobs;
 
 namespace CharacterManager.Model.Factories
 {

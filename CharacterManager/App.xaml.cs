@@ -1,20 +1,15 @@
 ﻿using CharacterManager.Model.RedundantTree;
-using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.Factories;
 using CharacterManager.Views;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Prism.Mvvm;
 using System.Reflection;
 using CharacterManager.Views.DetailViews;
-using CharacterManager.Model.Other;
+using CharacterManager.Model.Entities;
+using CharacterManager.Model.Providers;
 
 namespace CharacterManager
 {

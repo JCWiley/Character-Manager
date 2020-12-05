@@ -1,4 +1,4 @@
-﻿using CharacterManager.Model.Interfaces;
+﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.ViewModels.TreeViewModels;
 using System;

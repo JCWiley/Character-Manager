@@ -1,13 +1,8 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Interfaces;
 using CharacterManager.Model.RedundantTree;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
