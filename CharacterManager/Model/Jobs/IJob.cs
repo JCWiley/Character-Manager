@@ -10,7 +10,7 @@ namespace CharacterManager.Model.Jobs
     public interface IJob
     {
         #region Data_Members
-        public ObservableCollection<IItem> Required_Items { get; set; }
+        public ItemCollection Required_Items { get; set; }
 
         public bool Complete { get; set; }
 

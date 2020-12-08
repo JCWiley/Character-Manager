@@ -67,13 +67,11 @@
                                      LostFocus="Character_Description_RTB_LostFocus"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="0,121,5,0"
-                                     IsEnabled="False"
                                      TabIndex="7"/>
         <RichTextBox x:Name="Quirks_RTB"
                                      LostFocus="Quirks_RTB_LostFocus"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="5,121,0,0"
-                                     IsEnabled="False"
                                      TabIndex="8"
                                      Grid.Column="1"/>
         <ComboBox x:Name="CharacterLocationComboBox" 
@@ -83,7 +81,6 @@
                                  ItemsSource="{Binding O.Locations}"
                                  Text="{Binding O.Location, UpdateSourceTrigger=LostFocus}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  IsEditable="True"
                                  IsReadOnly="False"
                                  TabIndex="4"
@@ -94,7 +91,6 @@
                                  Height="23" 
                                  Margin="90,59,0,0"
                                  IsEditable="False"
-                                 IsEnabled="False"
                               SelectedIndex="{Binding O.Selected_Size , UpdateSourceTrigger=PropertyChanged}"
                                  TabIndex="6"
                                  Grid.Column="1"
@@ -110,7 +106,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding O.Race , UpdateSourceTrigger=PropertyChanged}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="5"
                                  VerticalAlignment="Top"/>
         <TextBox x:Name="NameTextBlock" 
@@ -119,7 +114,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding O.Name , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="1"
                                  VerticalAlignment="Top"/>
         <TextBox x:Name="GoalsTextBlock" 
@@ -128,7 +122,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding O.Goals , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="3"
                                  VerticalAlignment="Top"/>
         <ComboBox x:Name="LeaderComboBox" 
@@ -139,7 +132,6 @@
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  DisplayMemberPath="Name"
                                  IsEditable="False"
-                                 IsEnabled="False"
                                  TabIndex="2"
                                  Grid.Column="1"
                                  VerticalAlignment="Top">

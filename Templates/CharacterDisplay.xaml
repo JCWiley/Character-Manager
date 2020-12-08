@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" SelectionChanged="Character_Tab_Manager_SelectionChanged" IsEnabled="True">
+        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0" SelectionChanged="Character_Tab_Manager_SelectionChanged">
             <TabItem Header="Character">
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
@@ -69,13 +69,11 @@
                                      LostFocus="Character_Description_RTB_LostFocus"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="0,121,5,0"
-                                     IsEnabled="False"
                                      TabIndex="7"/>
                     <RichTextBox x:Name="Quirks_RTB"
                                      LostFocus="Quirks_RTB_LostFocus"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="5,121,0,0"
-                                     IsEnabled="False"
                                      TabIndex="8"
                                      Grid.Column="1"/>
                     <ComboBox x:Name="CharacterLocationComboBox" 
@@ -87,7 +85,6 @@
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  IsEditable="True"
                                  IsReadOnly="False"
-                                 IsEnabled="False"
                                  TabIndex="4"
                                  Grid.Column="1"
                                  VerticalAlignment="Top"/>
@@ -97,7 +94,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding C.Occupation , UpdateSourceTrigger=PropertyChanged}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="6"
                                  Grid.Column="1"
                                  VerticalAlignment="Top"/>
@@ -107,7 +103,6 @@
                                  TextWrapping="Wrap" 
                                  Text="{Binding C.Race , UpdateSourceTrigger=PropertyChanged}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
-                                 IsEnabled="False"
                                  TabIndex="5"
                                  VerticalAlignment="Top"/>
                     <TextBox x:Name="NameTextBlock" 

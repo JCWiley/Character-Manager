@@ -32,7 +32,11 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         public Character Target
         {
             get { return target; }
-            set { SetProperty(ref target, value); }
+            set 
+            {
+                SetProperty(ref target, value);
+                RaisePropertyChanged("Jobs");
+            }
         }
         #endregion
 
@@ -77,13 +81,13 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 Target = C;
                 RaisePropertyChanged("Jobs");
             }
-            else if (newTarget is Organization)
+            else if(newTarget is Organization)
             {
 
             }
             else
             {
-                throw new Exception("CharacterTabViewModel newTarget is not Character or Organization");
+                throw new Exception("CharacterTabViewModel newTarget is not Character");
             }
         }
         #endregion

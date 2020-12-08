@@ -92,7 +92,6 @@
                                  Margin="90,59,0,0" 
                                  TextWrapping="Wrap" 
                                  Text="{Binding Target.Occupation , UpdateSourceTrigger=PropertyChanged}"
-                                 IsEnabled="True"
                                  TabIndex="6"
                                  Grid.Column="1"
                                  VerticalAlignment="Top"/>

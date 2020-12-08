@@ -19,7 +19,7 @@ namespace CharacterManager.Model.Entities
             Alias = "";
             Occupation = "";
             BirthPlace = "";
-            job_id = new Guid();
+            job_id = Guid.NewGuid();
         }
 
         [DataMember(Name = "inventory")]

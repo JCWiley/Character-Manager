@@ -98,7 +98,7 @@
             <Label Content="Required Items:" HorizontalAlignment="Left" Margin="221,137,0,0" VerticalAlignment="Top" Width="111"/>
             <DataGrid x:Name="Job_Items_Datagrid"
                                       Margin="221,163,0,122"
-                                      ItemsSource="{Binding ElementName=Job_List, Path=SelectedItem.Required_Items}" 
+                                      ItemsSource="{Binding SelectedItem.Required_Items, ElementName=Job_List}" 
                                       CanUserAddRows="True"
                                       CanUserDeleteRows="True"
                                       AutoGenerateColumns="False">

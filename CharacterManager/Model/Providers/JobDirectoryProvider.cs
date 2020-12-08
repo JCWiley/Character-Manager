@@ -7,12 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Data;
 
 namespace CharacterManager.Model.Providers
 {
     public class JobDirectoryProvider : IJobDirectoryProvider
     {
-        List<IJob> Job_Dict = new List<IJob>();
+        List<IJob> Job_List = new List<IJob>();
         private IJobFactory _jobFactory;
 
         public JobDirectoryProvider(IJobFactory jobFactory)
@@ -24,18 +25,25 @@ namespace CharacterManager.Model.Providers
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerEntity = parent_entity.Job_ID;
-            Job_Dict.Add(J);
+            Job_List.Add(J);
         }
         public void AddBlankJobToJob(IJob parent_job)
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerJob = parent_job.Job_ID;
-            Job_Dict.Add(J);
+            Job_List.Add(J);
         }
 
         public List<IJob> GetEntitiesJobs(IEntity entity)
         {
-            return Job_Dict.Where(J => J.OwnerEntity == entity.Job_ID).ToList() ;
+            //ListCollectionView VS = new ListCollectionView(Job_List)
+            //{
+            //    Filter = f => (f as Job).OwnerEntity == entity.Job_ID
+            //};
+            //return VS;
+
+
+            return Job_List.Where(J => J.OwnerEntity == entity.Job_ID).ToList();
         }
 
         public List<IEvent> GetEventSummaryForEntity(IEntity entity)
@@ -55,7 +63,7 @@ namespace CharacterManager.Model.Providers
 
         public List<IJob> GetSubJobs(IJob job)
         {
-            return (List<IJob>)Job_Dict.Where(J => J.OwnerJob == job.Job_ID);
+            return (List<IJob>)Job_List.Where(J => J.OwnerJob == job.Job_ID);
         }
     }
 }
