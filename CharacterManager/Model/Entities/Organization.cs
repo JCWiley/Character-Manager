@@ -12,7 +12,7 @@ namespace CharacterManager.Model.Entities
     {
         public Organization()
         {
-            Inventory = new ObservableCollection<IItem>();
+            Inventory = new ObservableCollection<Item>();
             Name = "New Organization";
             Description = "{}";
             Quirks = "{}";
@@ -25,8 +25,8 @@ namespace CharacterManager.Model.Entities
         }
 
         [DataMember(Name = "inventory")]
-        private ObservableCollection<IItem> inventory;
-        public ObservableCollection<IItem> Inventory
+        private ObservableCollection<Item> inventory;
+        public ObservableCollection<Item> Inventory
         {
             get
             {

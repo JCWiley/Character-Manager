@@ -17,6 +17,7 @@
                                   CanUserResizeColumns="True"
                                   CanUserReorderColumns="True"
                                   CanUserSortColumns="True"
+                                  IsReadOnly="False"
                                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item" Binding="{Binding Name}" Width="136"/>

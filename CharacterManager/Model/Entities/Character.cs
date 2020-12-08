@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Prism.Mvvm;
+using System.Collections.Generic;
 
 namespace CharacterManager.Model.Entities
 {
@@ -10,7 +11,7 @@ namespace CharacterManager.Model.Entities
     {
         public Character()
         {
-            Inventory = new ObservableCollection<IItem>();
+            Inventory = new ObservableCollection<Item>();
             Name = "New Character";
             Description = "{}";
             Quirks = "{}";
@@ -23,8 +24,8 @@ namespace CharacterManager.Model.Entities
         }
 
         [DataMember(Name = "inventory")]
-        private ObservableCollection<IItem> inventory;
-        public ObservableCollection<IItem> Inventory
+        private ObservableCollection<Item> inventory;
+        public ObservableCollection<Item> Inventory
         {
             get
             {

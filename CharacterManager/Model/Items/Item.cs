@@ -11,6 +11,14 @@ namespace CharacterManager.Model.Items
     [DataContract(Name = "Item", Namespace = "Character_Manager")]
     public class Item : IItem
     {
+        public Item()
+        {
+            aquired = false;
+            name = "";
+            location = "";
+            description = "";
+            weight = 0;
+        }
         #region Data_Members
         [DataMember(Name = "aquired")]
         private bool aquired;

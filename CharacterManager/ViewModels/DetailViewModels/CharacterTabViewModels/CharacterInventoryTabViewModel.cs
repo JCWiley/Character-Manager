@@ -5,6 +5,7 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
@@ -30,29 +31,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             set { SetProperty(ref target, value); }
         }
         #endregion
-
-        public ObservableCollection<IItem> Inventory
-        {
-            get
-            {
-                if (target is null)
-                {
-                    return new ObservableCollection<IItem>();
-                }
-                else
-                {
-                    return target.Inventory;
-                }
-            }
-            set
-            {
-                if (target.Inventory != value)
-                {
-                    target.Inventory = value;
-                    RaisePropertyChanged("Inventory");
-                }
-            }
-        }
 
         #region EventHandlers
         private void SelectedEntityChangedExecute(IEntity newTarget)
