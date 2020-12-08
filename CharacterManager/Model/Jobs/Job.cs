@@ -12,6 +12,8 @@ namespace CharacterManager.Model.Jobs
         public Job()
         {
             job_id = new Guid();
+            Events = new List<IEvent>();
+            Required_Items = new ObservableCollection<IItem>();
         }
 
         #region Derived Variables
@@ -40,8 +42,8 @@ namespace CharacterManager.Model.Jobs
         #endregion
 
         #region Variables
-        private ObservableCollection<Item> required_items;
-        public ObservableCollection<Item> Required_Items
+        private ObservableCollection<IItem> required_items;
+        public ObservableCollection<IItem> Required_Items
         {
             get
             {

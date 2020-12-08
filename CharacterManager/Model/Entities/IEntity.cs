@@ -7,7 +7,7 @@ namespace CharacterManager.Model.Entities
     public interface IEntity 
     {
         #region Data_Members
-        public ObservableCollection<Item> Inventory { get; set; }
+        public ObservableCollection<IItem> Inventory { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Quirks { get; set; }

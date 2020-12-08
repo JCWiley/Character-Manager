@@ -31,13 +31,13 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         }
         #endregion
 
-        public ObservableCollection<Item> Inventory
+        public ObservableCollection<IItem> Inventory
         {
             get
             {
                 if (target is null)
                 {
-                    return new ObservableCollection<Item>();
+                    return new ObservableCollection<IItem>();
                 }
                 else
                 {

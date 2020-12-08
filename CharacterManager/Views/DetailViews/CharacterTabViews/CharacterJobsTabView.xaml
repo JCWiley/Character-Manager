@@ -28,7 +28,7 @@
                                     Command="{Binding CommandNewBlankJob}"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom" Width="216" Margin="0,0,0,2"/>
-        <Grid x:Name="JobControlsGrid" IsEnabled="False">
+        <Grid x:Name="JobControlsGrid">
             <RichTextBox x:Name="Job_Details_RTB"
                                          VerticalScrollBarVisibility="Auto"
                                          Height="106"
