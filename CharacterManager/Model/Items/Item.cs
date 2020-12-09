@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace CharacterManager.Model.Items
 {
-    [DataContract(Name = "Item", Namespace = "Character_Manager")]
+    [DataContract(Name = "Item", Namespace = "CharacterManager.Model.Items")]
     public class Item : IItem
     {
         public Item()

@@ -6,6 +6,7 @@ using CharacterManager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Windows.Data;
 
@@ -13,12 +14,13 @@ namespace CharacterManager.Model.Providers
 {
     public class JobDirectoryProvider : IJobDirectoryProvider
     {
-        List<IJob> Job_List = new List<IJob>();
+        List<IJob> Job_List;
         private IJobFactory _jobFactory;
 
-        public JobDirectoryProvider(IJobFactory jobFactory)
+        public JobDirectoryProvider(IJobFactory jobFactory, List<IJob> jobs)
         {
             _jobFactory = jobFactory;
+            Job_List = jobs;
         }
 
         public void AddBlankJobToEntity(IEntity parent_entity)

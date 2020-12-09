@@ -26,4 +26,8 @@
     <Resource Include="Resources\Organization_Icon2.bmp" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\DataLoading\" />
+  </ItemGroup>
+
 </Project>

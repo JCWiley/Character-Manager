@@ -56,7 +56,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             {
                 Target = C;
             }
-            else if (newTarget is Organization O)
+            else if (newTarget is Organization)
             {
 
             }

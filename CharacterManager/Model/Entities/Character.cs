@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace CharacterManager.Model.Entities
 {
+    [DataContract(Name = "Character", Namespace = "CharacterManager.Model.Entities")]
     public class Character : BindableBase,IEntity
     {
         public Character()

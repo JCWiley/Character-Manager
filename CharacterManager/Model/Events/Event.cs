@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace CharacterManager.Model.Events
 {
+    [DataContract(Name = "Event", Namespace = "CharacterManager.Model.Events")]
     public class Event : BindableBase, IEvent
     {
 

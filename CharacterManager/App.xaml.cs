@@ -10,6 +10,8 @@ using System.Reflection;
 using CharacterManager.Views.DetailViews;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Providers;
+using System.Collections.Generic;
+using CharacterManager.Model.Jobs;
 
 namespace CharacterManager
 {
@@ -32,12 +34,13 @@ namespace CharacterManager
             //https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff660936(v=pandp.20)?redirectedfrom=MSDN
             containerRegistry.Register(typeof(IRTreeMember<>), typeof(RTreeMember<>));
             containerRegistry.RegisterSingleton(typeof(RTree<>),typeof(RTree<IEntity>));
-            containerRegistry.Register(typeof(Guid));
+            containerRegistry.RegisterSingleton(typeof(List<IJob>));
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
             containerRegistry.Register(typeof(IJobFactory), typeof(JobFactory));
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
+            
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
             containerRegistry.RegisterForNavigation<CharacterDetailView>();

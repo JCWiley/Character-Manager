@@ -8,6 +8,7 @@ using Prism.Mvvm;
 
 namespace CharacterManager.Model.Entities
 {
+    [DataContract(Name = "Organization", Namespace = "CharacterManager.Model.Entities")]
     public class Organization : BindableBase, IEntity
     {
         public Organization()
