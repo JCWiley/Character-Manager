@@ -6,9 +6,25 @@ namespace CharacterManager.Model.Providers
 {
     public class SettingsProvider : ISettingsProvider
     {
-        public string LastUsedPath()
+        public string LastUsedPath
         {
-            return Properties.Settings.Default.LastUsedPath;
+            get
+            {
+                return Properties.Settings.Default.LastUsedPath;
+            }
+            set
+            {
+                if(Properties.Settings.Default.LastUsedPath != value)
+                {
+                    Properties.Settings.Default.LastUsedPath = value;
+                }
+                
+            }
+        }
+
+        ~SettingsProvider()
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

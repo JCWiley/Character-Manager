@@ -60,10 +60,13 @@ namespace CharacterManager.Model.DataLoading
         public bool LoadLastFile()
         {
             bool Load_Success = false;
+            string path = PP.SP.LastUsedPath;
 
-            Load_Success = LoadFile(PP.SP.LastUsedPath());
-
-
+            if (!string.IsNullOrEmpty(path))
+            {
+                Load_Success = LoadFile(path);
+            }
+            
             return Load_Success;
         }
 

@@ -6,6 +6,6 @@ namespace CharacterManager.Model.Providers
 {
     public interface ISettingsProvider
     {
-        public string LastUsedPath();
+        public string LastUsedPath { get; set; }
     }
 }
