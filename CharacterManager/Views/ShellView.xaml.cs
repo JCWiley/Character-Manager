@@ -3,6 +3,7 @@ using System.Windows;
 using CharacterManager.Views.TreeViews;
 using CharacterManager.Views.DetailViews;
 using Prism.Events;
+using CharacterManager.Views.MenuViews;
 
 namespace CharacterManager.Views
 {
@@ -20,7 +21,7 @@ namespace CharacterManager.Views
             RM = regionManager;
             EA = eventAggregator;
 
-            //RM.RegisterViewWithRegion("MENU_REGION", typeof());
+            RM.RegisterViewWithRegion("MENU_REGION", typeof(MenuView));
             RM.RegisterViewWithRegion("OVERVIEW_REGION", typeof(EntityListView));
             RM.RegisterViewWithRegion("DETAIL_REGION", typeof(OrganizationDetailView));
             RM.RegisterViewWithRegion("DETAIL_REGION", typeof(CharacterDetailView));

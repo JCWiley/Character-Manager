@@ -5,13 +5,7 @@ using System.Text;
 
 namespace CharacterManager.Events
 {
-    class DataLoadRequestEvent : PubSubEvent<LoadRequestTypes>
+    class ProgramExitRequestEvent : PubSubEvent<string>
     {
-    }
-
-    enum LoadRequestTypes
-    {
-        LastFile,
-        Dialog
     }
 }

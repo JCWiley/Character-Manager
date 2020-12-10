@@ -5,13 +5,13 @@ using System.Text;
 
 namespace CharacterManager.Events
 {
-    class DataLoadRequestEvent : PubSubEvent<LoadRequestTypes>
+    class DataSaveRequestEvent : PubSubEvent<SaveRequestTypes>
     {
     }
 
-    enum LoadRequestTypes
+    enum SaveRequestTypes
     {
-        LastFile,
-        Dialog
+        Save,
+        SaveAs
     }
 }

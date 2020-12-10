@@ -36,15 +36,15 @@ namespace CharacterManager.Model.DataLoading
             PP = primaryProvider;
         }
 
-        private void DataLoadRequestEventExecute(string paramaters)
+        private void DataLoadRequestEventExecute(LoadRequestTypes paramaters)
         {
             bool LoadSuccessFlag = false;
             switch (paramaters)
             {
-                case "Last File":
+                case LoadRequestTypes.LastFile:
                     LoadSuccessFlag = LoadLastFile();
                     break;
-                case "Dialog":
+                case LoadRequestTypes.Dialog:
                     LoadSuccessFlag = LoadWithDialog();
                     break;
                 default:

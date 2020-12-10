@@ -20,9 +20,9 @@
                 <ColumnDefinition x:Name="SplitterColumn" Width="5" MinWidth="5" MaxWidth="5"/>
                 <ColumnDefinition x:Name="DetailColumn" Width="*" MinWidth="430"/>
             </Grid.ColumnDefinitions>
-            <ContentControl Grid.Column="0" prism:RegionManager.RegionName="OVERVIEW_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Red"/>
+            <ContentControl Grid.Column="0" prism:RegionManager.RegionName="OVERVIEW_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-            <ContentControl Grid.Column="2" prism:RegionManager.RegionName="DETAIL_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Blue"/>
+            <ContentControl Grid.Column="2" prism:RegionManager.RegionName="DETAIL_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Window>
