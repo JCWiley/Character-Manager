@@ -7,13 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character ManagerLegacy", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38E84C1A-9137-4776-B494-AB1F241F8B96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character ManagerTests", "Character ManagerTests\Character ManagerTests.csproj", "{3F4820E5-95B9-4173-9619-79B004AD066D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterManager.Core", "CharacterManager.Core\CharacterManager.Core.csproj", "{E110A735-3CAB-4D7C-ADD1-EC2F67E0946C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterManager.Wpf", "CharacterManager.Wpf\CharacterManager.Wpf.csproj", "{8E208914-0873-4E17-B3C0-C4003BDA94B5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterManager", "CharacterManager\CharacterManager.csproj", "{ED093DD4-92A0-4A21-A58A-A267E67C1900}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharacterManager", "CharacterManager\CharacterManager.csproj", "{ED093DD4-92A0-4A21-A58A-A267E67C1900}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,18 +19,6 @@ Global
 		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81675FEC-F502-4AA9-BA54-FC585BB5C5F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F4820E5-95B9-4173-9619-79B004AD066D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F4820E5-95B9-4173-9619-79B004AD066D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F4820E5-95B9-4173-9619-79B004AD066D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F4820E5-95B9-4173-9619-79B004AD066D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E110A735-3CAB-4D7C-ADD1-EC2F67E0946C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E110A735-3CAB-4D7C-ADD1-EC2F67E0946C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E110A735-3CAB-4D7C-ADD1-EC2F67E0946C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E110A735-3CAB-4D7C-ADD1-EC2F67E0946C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E208914-0873-4E17-B3C0-C4003BDA94B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E208914-0873-4E17-B3C0-C4003BDA94B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E208914-0873-4E17-B3C0-C4003BDA94B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E208914-0873-4E17-B3C0-C4003BDA94B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED093DD4-92A0-4A21-A58A-A267E67C1900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED093DD4-92A0-4A21-A58A-A267E67C1900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED093DD4-92A0-4A21-A58A-A267E67C1900}.Release|Any CPU.ActiveCfg = Release|Any CPU

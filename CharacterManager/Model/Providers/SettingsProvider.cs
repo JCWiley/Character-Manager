@@ -26,5 +26,10 @@ namespace CharacterManager.Model.Providers
         {
             Properties.Settings.Default.Save();
         }
+
+        public void SetEqual(object settingsProvider)
+        {
+            
+        }
     }
 }

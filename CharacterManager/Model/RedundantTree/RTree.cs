@@ -1,18 +1,31 @@
-﻿using CharacterManager.Model.Factories;
+﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Unity;
 
 namespace CharacterManager.Model.RedundantTree
 {
+    [DataContract(Name = "RTree", Namespace = "CharacterManager.Model.RedundantTree")]
+    [KnownType(typeof(Dictionary<Guid,IRTreeMember<IEntity>>))]
     public class RTree<T>
     {
         private readonly IRTreeFactory<T> factory;
-        private readonly IDictionary<Guid, IRTreeMember<T>> dict;
 
+        [DataMember(Name = "RTreeDict")]
+        private IDictionary<Guid,IRTreeMember<T>> dict;
+        public IDictionary<Guid,IRTreeMember<T>> Dict
+        {
+            get { return dict; }
+            set { dict = value; }
+        }
+
+        [JsonIgnore]
         public List<IRTreeMember<T>> Heads
         {
             get
@@ -20,12 +33,14 @@ namespace CharacterManager.Model.RedundantTree
                 return dict.Values.Where(x => x.IsHead == true).ToList();
             }
         }
+
         public RTree(IRTreeFactory<T> i_factory)
         {
             factory = i_factory;
             dict = factory.CreateGuidDictionary();
         }
 
+        [JsonIgnore]
         public int Count
         {
             get

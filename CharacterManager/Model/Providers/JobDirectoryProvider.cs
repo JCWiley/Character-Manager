@@ -14,7 +14,16 @@ namespace CharacterManager.Model.Providers
 {
     public class JobDirectoryProvider : IJobDirectoryProvider
     {
-        List<IJob> Job_List;
+        private List<IJob> job_list;
+
+        public List<IJob> Job_List
+        {
+            get { return job_list; }
+            set { job_list = value; }
+        }
+
+
+
         private IJobFactory _jobFactory;
 
         public JobDirectoryProvider(IJobFactory jobFactory, List<IJob> jobs)
@@ -66,6 +75,11 @@ namespace CharacterManager.Model.Providers
         public List<IJob> GetSubJobs(IJob job)
         {
             return (List<IJob>)Job_List.Where(J => J.OwnerJob == job.Job_ID);
+        }
+
+        public void SetEqual(object jobDirectoryProvider)
+        {
+            Job_List = ((IJobDirectoryProvider)jobDirectoryProvider).Job_List;
         }
     }
 }

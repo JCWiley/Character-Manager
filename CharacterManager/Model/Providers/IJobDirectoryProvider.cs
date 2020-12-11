@@ -7,6 +7,9 @@ namespace CharacterManager.Model.Providers
 {
     public interface IJobDirectoryProvider
     {
+        public List<IJob> Job_List { get; set; }
+        public void SetEqual(object jobDirectoryProvider);
+
         public void AddBlankJobToEntity(IEntity parent_entity);
 
         public void AddBlankJobToJob(IJob parent_job);

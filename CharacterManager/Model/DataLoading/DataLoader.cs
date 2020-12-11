@@ -60,11 +60,17 @@ namespace CharacterManager.Model.DataLoading
         public bool LoadLastFile()
         {
             bool Load_Success = false;
-            string path = PP.SP.LastUsedPath;
+            string path = ((ISettingsProvider)PP.SP).LastUsedPath;
 
+            //if a previous file exists
             if (!string.IsNullOrEmpty(path))
             {
                 Load_Success = LoadFile(path);
+            }
+            //if a previous file does not exist, do nothing, shouldnt break
+            else
+            {
+                Load_Success = true;
             }
             
             return Load_Success;
@@ -83,8 +89,10 @@ namespace CharacterManager.Model.DataLoading
             };
 
             if (openFileDialog.ShowDialog() == true)
+            {
                 filepath = openFileDialog.FileName;
-            Load_Success = LoadFile(filepath);
+                Load_Success = LoadFile(filepath);
+            }
 
             return Load_Success;
         }
@@ -92,23 +100,26 @@ namespace CharacterManager.Model.DataLoading
         private bool LoadFile(string path)
         {
             bool Load_Success = false;
-            try
-            {
-                FileStream fs = new FileStream(path, FileMode.Open);
-                XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+            //try
+            //{
+                //FileStream fs = new FileStream(path, FileMode.Open);
+                //XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
 
-                var serializer = new DataContractSerializer(PP.GetType());
+                //var serializer = new DataContractSerializer(PP.GetType());
 
-                PP = (IPrimaryProvider)serializer.ReadObject(reader, true);
-                reader.Close();
-                fs.Close();
+                //PP = (IPrimaryProvider)serializer.ReadObject(reader, true);
+                //reader.Close();
+                //fs.Close();
+
+                string jsonString = File.ReadAllText(path);
+                PP = JsonSerializer.Deserialize<PrimaryProvider>(jsonString);
 
                 Load_Success = true;
-            }
-            catch(Exception)
-            {
-
-            }
+            //}
+            //catch(Exception E)
+            //{
+            //    throw E;
+            //}
             return Load_Success;
         }
     }

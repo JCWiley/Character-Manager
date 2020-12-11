@@ -8,8 +8,14 @@ namespace CharacterManager.Model.Providers
     {
         public void Initialize(IDerivedDataProvider derivedDataProvider, IJobDirectoryProvider jobDirectoryProvider, ISettingsProvider settingsProvider);
 
-        public IDerivedDataProvider DDP { get; set; }
-        public IJobDirectoryProvider JDP { get; set; }
-        public ISettingsProvider SP { get; set; }
+        public void SetEqual(IPrimaryProvider primaryProvider);
+
+        //public IDerivedDataProvider DDP { get; set; }
+        //public IJobDirectoryProvider JDP { get; set; }
+        //public ISettingsProvider SP { get; set; }
+
+        public object DDP { get; set; }
+        public object JDP { get; set; }
+        public object SP { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace CharacterManager.Model.Providers
 {
     public interface ISettingsProvider
     {
+        public void SetEqual(object settingsProvider);
         public string LastUsedPath { get; set; }
     }
 }

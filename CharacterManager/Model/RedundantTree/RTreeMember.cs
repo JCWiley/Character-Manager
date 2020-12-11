@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CharacterManager.Model.RedundantTree
@@ -75,6 +76,7 @@ namespace CharacterManager.Model.RedundantTree
 
         private RTree<T> ParentRTree;
 
+        [JsonIgnore]
         public List<IRTreeMember<T>> Child_Items
         {
             get

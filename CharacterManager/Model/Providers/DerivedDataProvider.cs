@@ -4,18 +4,35 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace CharacterManager.Model.Providers
 {
+    [DataContract(Name = "DerivedDataProvider", Namespace = "CharacterManager.Model.Providers")]
+    [KnownType(typeof(RTree<IEntity>))]
+    [KnownType(typeof(Character))]
+    [KnownType(typeof(Organization))]
     public class DerivedDataProvider : IDerivedDataProvider
     {
+        public DerivedDataProvider()
+        {
+
+        }
         public DerivedDataProvider(RTree<IEntity> tree)
         {
             Tree = tree;
         }
 
-        private RTree<IEntity> Tree;
+        [DataMember(Name = "Tree")]
+        private RTree<IEntity> tree;
+        public RTree<IEntity> Tree
+        {
+            get { return tree; }
+            set { tree = value; }
+        }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public List<string> Locations
         {
             get
@@ -30,6 +47,11 @@ namespace CharacterManager.Model.Providers
                 }
                 return temp;
             }
+        }
+
+        public void SetEqual(object derivedDataProvider)
+        {
+            Tree = ((IDerivedDataProvider)derivedDataProvider).Tree;
         }
     }
 }
