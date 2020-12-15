@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace CharacterManager.Model.Providers
+namespace CharacterManager.Model.Services
 {
-    public class SettingsProvider : ISettingsProvider
+    public class SettingsService : ISettingsService
     {
         public string LastUsedPath
         {
@@ -14,22 +16,19 @@ namespace CharacterManager.Model.Providers
             }
             set
             {
-                if(Properties.Settings.Default.LastUsedPath != value)
+                if (Properties.Settings.Default.LastUsedPath != value)
                 {
                     Properties.Settings.Default.LastUsedPath = value;
                 }
-                
+
             }
         }
 
-        ~SettingsProvider()
+        ~SettingsService()
         {
             Properties.Settings.Default.Save();
         }
 
-        public void SetEqual(object settingsProvider)
-        {
-            
-        }
+
     }
 }

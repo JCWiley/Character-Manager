@@ -5,7 +5,7 @@ using Prism.Events;
 
 namespace CharacterManager.Model.Factories
 {
-    class TreeItemViewModelFactory : ITreeItemViewModelFactory
+    public class TreeItemViewModelFactory : ITreeItemViewModelFactory
     {
         private IEventAggregator EA;
         public TreeItemViewModelFactory(IEventAggregator eventAggregator)

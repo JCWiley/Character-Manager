@@ -7,72 +7,34 @@ using System;
 using CharacterManager.Model.Factories;
 using System.Collections.ObjectModel;
 using CharacterManager.Events.EventContainers;
+using CharacterManager.Model.Providers;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class EntityListViewModel : BindableBase
     {
         private IEventAggregator EA;
-        
-        private IEntityFactory EF;
+        private IEntityProvider EP;
+
         IEntity SelectedEntity;
 
-        public EntityListViewModel(IEventAggregator eventAggregator, RTree<IEntity> tree, IEntityFactory ef)
+        public EntityListViewModel(IEventAggregator eventAggregator,IEntityProvider ep,TreeItemViewModelFactory treeItemViewModelFactory)
         {
+            //assign event aggregator to local variable for later use
             EA = eventAggregator;
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
             EA.GetEvent<NewEntityRequestEvent>().Subscribe(NewEntityRequestEventExecute);
 
-            ITreeItemViewModelFactory TreeItemViewModelFactory = new TreeItemViewModelFactory(eventAggregator);
+            ITreeItemViewModelFactory TreeItemViewModelFactory = treeItemViewModelFactory;
 
-            EF = ef;
-
-            entitytree = tree;
-
-            IRTreeMember<IEntity> Head = EntityTree.AddItem(EF.CreateOrganization(), true);
-            //IRTreeMember<IEntity> DemoChild = EntityTree.AddItem(EF.CreateCharacter());
-            //EntityTree.AddChild(Head, DemoChild);
+            EP = ep;
 
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
-
-            TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(Head));
+            
+            //currently only uses the first head specified in the RTree, eventually plan to add multi head RTrees
+            TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(EP.HeadEntities()[0]));
             RaisePropertyChanged(nameof(TreeHeads));
         }
-
-
-        #region Event Handlers
-        void SelectedEntityChangedExecute(IEntity Selected_Item)
-        {
-            SelectedEntity = Selected_Item;
-        }
-        void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
-        {
-            OrganizationTreeItemViewModel Source = Paramaters.EventSource;
-            string Event_Type = Paramaters.RequestType;
-            IRTreeMember<IEntity> NewItem;
-
-
-            if(Event_Type == "Character")
-            {
-                NewItem = entitytree.AddItem(EF.CreateCharacter());
-            }
-            else if(Event_Type == "Organization")
-            {
-                NewItem = entitytree.AddItem(EF.CreateOrganization());
-            }
-            else
-            {
-                throw new Exception("Event Type is not Character or Organization");
-            }
-            entitytree.AddChild(Source.Target, NewItem);
-
-            Source.RebuildChildren();
-
-            Source.IsExpanded = true;
-        }
-
-
-        #endregion
 
         #region Variables
         private ObservableCollection<OrganizationTreeItemViewModel> treeheads;
@@ -85,16 +47,26 @@ namespace CharacterManager.ViewModels.TreeViewModels
             }
 
         }
+        #endregion
 
-
-        private RTree<IEntity> entitytree;
-
-        public RTree<IEntity> EntityTree
+        #region Event Handlers
+        void SelectedEntityChangedExecute(IEntity Selected_Item)
         {
-            get { return entitytree; }
-            set { SetProperty(ref entitytree, value); }
+            SelectedEntity = Selected_Item;
         }
+        void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
+        {
+            OrganizationTreeItemViewModel Source = Paramaters.EventSource;
+            IRTreeMember<IEntity> NewItem;
 
+            NewItem = EP.AddEntity(Paramaters.EntityType);
+
+            EP.AddChild(Source.Target, NewItem);
+
+            Source.RebuildChildren();
+
+            Source.IsExpanded = true;
+        }
 
 
         #endregion

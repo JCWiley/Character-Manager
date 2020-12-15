@@ -146,11 +146,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #region Command Handlers
         private void CommandNewCharacterExecute()
         {
-            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this, "Character"));
+            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this,EntityTypes.Character));
         }
         private void CommandNewOrganizationExecute()
         {
-            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this, "Organization"));
+            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this,EntityTypes.Organization));
         }
         private void CommandCutExecute()
         {

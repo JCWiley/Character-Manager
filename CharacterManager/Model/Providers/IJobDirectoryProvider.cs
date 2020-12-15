@@ -1,14 +1,17 @@
 ﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
+using CharacterManager.Model.Factories;
 using CharacterManager.Model.Jobs;
+using CharacterManager.Model.Services;
 using System.Collections.Generic;
 
 namespace CharacterManager.Model.Providers
 {
     public interface IJobDirectoryProvider
     {
-        public List<IJob> Job_List { get; set; }
-        public void SetEqual(object jobDirectoryProvider);
+        public IDataService DS { get; set; }
+
+        public IJobFactory _jobFactory { get; set; }
 
         public void AddBlankJobToEntity(IEntity parent_entity);
 

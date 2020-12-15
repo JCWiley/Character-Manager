@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using Prism.Events;
 using Prism.Regions;
 using CharacterManager.Model.Entities;
+using CharacterManager.Events;
 
 namespace CharacterManager.ViewModels.DetailViewModels
 {
@@ -12,6 +13,8 @@ namespace CharacterManager.ViewModels.DetailViewModels
         {
             EA = eventAggregator;
             RM = regionManager;
+
+            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
         }
 
         #region Variables

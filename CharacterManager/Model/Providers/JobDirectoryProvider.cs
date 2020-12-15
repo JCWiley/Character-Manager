@@ -3,46 +3,36 @@ using CharacterManager.Model.Events;
 using CharacterManager.Model.Factories;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
+using CharacterManager.Model.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Windows.Data;
+using Unity;
 
 namespace CharacterManager.Model.Providers
 {
     public class JobDirectoryProvider : IJobDirectoryProvider
     {
-        private List<IJob> job_list;
+        [Dependency]
+        public IDataService DS { get; set; }
 
-        public List<IJob> Job_List
-        {
-            get { return job_list; }
-            set { job_list = value; }
-        }
-
-
-
-        private IJobFactory _jobFactory;
-
-        public JobDirectoryProvider(IJobFactory jobFactory, List<IJob> jobs)
-        {
-            _jobFactory = jobFactory;
-            Job_List = jobs;
-        }
+        [Dependency]
+        public IJobFactory _jobFactory{ get; set; }
 
         public void AddBlankJobToEntity(IEntity parent_entity)
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerEntity = parent_entity.Job_ID;
-            Job_List.Add(J);
+            DS.Job_List.Add(J);
         }
         public void AddBlankJobToJob(IJob parent_job)
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerJob = parent_job.Job_ID;
-            Job_List.Add(J);
+            DS.Job_List.Add(J);
         }
 
         public List<IJob> GetEntitiesJobs(IEntity entity)
@@ -54,7 +44,7 @@ namespace CharacterManager.Model.Providers
             //return VS;
 
 
-            return Job_List.Where(J => J.OwnerEntity == entity.Job_ID).ToList();
+            return DS.Job_List.Where(J => J.OwnerEntity == entity.Job_ID).ToList();
         }
 
         public List<IEvent> GetEventSummaryForEntity(IEntity entity)
@@ -74,12 +64,7 @@ namespace CharacterManager.Model.Providers
 
         public List<IJob> GetSubJobs(IJob job)
         {
-            return (List<IJob>)Job_List.Where(J => J.OwnerJob == job.Job_ID);
-        }
-
-        public void SetEqual(object jobDirectoryProvider)
-        {
-            Job_List = ((IJobDirectoryProvider)jobDirectoryProvider).Job_List;
+            return (List<IJob>)DS.Job_List.Where(J => J.OwnerJob == job.Job_ID);
         }
     }
 }

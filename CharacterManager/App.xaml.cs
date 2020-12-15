@@ -12,7 +12,8 @@ using CharacterManager.Model.Entities;
 using CharacterManager.Model.Providers;
 using System.Collections.Generic;
 using CharacterManager.Model.Jobs;
-using CharacterManager.Model.DataLoading;
+using CharacterManager.Model.Services;
+//using CharacterManager.Model.DataLoading;
 
 namespace CharacterManager
 {
@@ -33,21 +34,21 @@ namespace CharacterManager
         {
             //https://prismlibrary.com/docs/wpf/getting-started.html#registertypes
             //https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff660936(v=pandp.20)?redirectedfrom=MSDN
-            containerRegistry.Register(typeof(IRTreeMember<>), typeof(RTreeMember<>));
-            containerRegistry.RegisterSingleton(typeof(RTree<>),typeof(RTree<IEntity>));
-            containerRegistry.RegisterSingleton(typeof(List<IJob>));
 
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
             containerRegistry.Register(typeof(IJobFactory), typeof(JobFactory));
 
+            containerRegistry.Register(typeof(IDataService), typeof(DataService));
+            containerRegistry.Register(typeof(IEntityProvider), typeof(EntityProvider));
+
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
-            containerRegistry.RegisterSingleton(typeof(ISettingsProvider), typeof(SettingsProvider));
-            containerRegistry.RegisterSingleton(typeof(IPrimaryProvider), typeof(PrimaryProvider));
+            //containerRegistry.RegisterSingleton(typeof(ISettingsProvider), typeof(SettingsProvider));
+            //containerRegistry.RegisterSingleton(typeof(IPrimaryProvider), typeof(PrimaryProvider));
 
-            containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(DataLoader));
-            containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(DataSaver));
+            //containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(DataLoader));
+            //containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(DataSaver));
 
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
