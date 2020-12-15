@@ -13,6 +13,7 @@ using CharacterManager.Model.Providers;
 using System.Collections.Generic;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.Services;
+using CharacterManager.Model.DataLoading;
 //using CharacterManager.Model.DataLoading;
 
 namespace CharacterManager
@@ -47,8 +48,8 @@ namespace CharacterManager
             //containerRegistry.RegisterSingleton(typeof(ISettingsProvider), typeof(SettingsProvider));
             //containerRegistry.RegisterSingleton(typeof(IPrimaryProvider), typeof(PrimaryProvider));
 
-            //containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(DataLoader));
-            //containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(DataSaver));
+            containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(JSONDataLoader));
+            containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(JSONDataSaver));
 
             //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
