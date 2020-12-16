@@ -19,7 +19,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             Visible = true;
             IsSelected = false;
-            IsExpanded = false;
+            IsExpanded = true;
 
             EA = eventAggregator;
 

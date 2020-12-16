@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Services
@@ -22,6 +23,22 @@ namespace CharacterManager.Model.Services
         private IEventAggregator EA;
 
         private List<IJob> job_list;
+        //public List<object> Job_List_JSON
+        //{
+        //    get
+        //    {
+        //        return job_list.Cast<object>().ToList();
+        //    }
+        //    set
+        //    {
+        //        job_list = new List<IJob>();
+        //        foreach (IJob job in value)
+        //        {
+        //            job_list.Add(job);
+        //        }
+        //    }
+        //}
+        //[JsonIgnore]
         public List<IJob> Job_List
         {
             get { return job_list; }
@@ -36,6 +53,11 @@ namespace CharacterManager.Model.Services
         }
 
         #endregion
+
+        public DataService()
+        {
+
+        }
 
         public DataService(IRTreeFactory<IEntity> iRTreeFactory,IDataLoader dataLoader, IDataSaver dataSaver, IEventAggregator eventAggregator)
         {
@@ -76,7 +98,7 @@ namespace CharacterManager.Model.Services
         }
         private void DataLoadRequestEventExecute(LoadRequestTypes loadRequestType)
         {
-            object LoadResult = false;
+            IDataService LoadResult = new InvalidDataService();
             switch (loadRequestType)
             {
                 case LoadRequestTypes.LastFile:
@@ -88,14 +110,18 @@ namespace CharacterManager.Model.Services
                 default:
                     break;
             }
-            SetEqual((IDataService)LoadResult);
+            if(LoadResult is not InvalidDataService)
+            {
+                SetEqual(LoadResult);
+                EA.GetEvent<DataLoadSuccessEvent>().Publish(EntityTree.Heads[0]);
+            }
+            
         }
 
         private void SetEqual(IDataService dataService)
         {
             Job_List = dataService.Job_List;
             EntityTree = dataService.EntityTree;
-            EA.GetEvent<SelectedEntityChangedEvent>().Publish(EntityTree.Heads[0].Item);
         }
         
 

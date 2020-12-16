@@ -9,7 +9,5 @@ namespace CharacterManager.Model.Providers
     public interface IDerivedDataProvider
     {
         public List<String> Locations { get;}
-        public RTree<IEntity> Tree { get; set; }
-        public void SetEqual(object derivedDataProvider);
     }
 }

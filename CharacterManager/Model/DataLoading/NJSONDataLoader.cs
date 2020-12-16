@@ -1,21 +1,21 @@
 ﻿using CharacterManager.Model.Services;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CharacterManager.Model.DataLoading
 {
-    public class JSONDataLoader : IDataLoader
+    public class NJSONDataLoader :IDataLoader
     {
         ISettingsService SS;
         private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-        public JSONDataLoader(ISettingsService settingsService)
+        public NJSONDataLoader(ISettingsService settingsService)
         {
             SS = settingsService;
         }
@@ -57,8 +57,23 @@ namespace CharacterManager.Model.DataLoading
 
         private IDataService LoadFile(string path)
         {
+            IDataService dataService = new InvalidDataService();
             string jsonString = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<DataService>(jsonString);
+            var settings = new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                PreserveReferencesHandling = PreserveReferencesHandling.All,
+                TypeNameHandling = TypeNameHandling.All
+            };
+            try
+            {
+                dataService = JsonConvert.DeserializeObject<DataService>(jsonString, settings);
+            }
+            catch
+            {
+                dataService = new InvalidDataService();
+            }
+            return dataService;
         }
     }
 }

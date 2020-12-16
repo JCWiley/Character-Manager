@@ -1,5 +1,6 @@
 ﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
+using CharacterManager.Model.Services;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -8,27 +9,13 @@ using System.Text.Json.Serialization;
 
 namespace CharacterManager.Model.Providers
 {
-    [DataContract(Name = "DerivedDataProvider", Namespace = "CharacterManager.Model.Providers")]
-    [KnownType(typeof(RTree<IEntity>))]
-    [KnownType(typeof(Character))]
-    [KnownType(typeof(Organization))]
     public class DerivedDataProvider : IDerivedDataProvider
     {
-        public DerivedDataProvider()
-        {
+        IDataService DS;
 
-        }
-        public DerivedDataProvider(RTree<IEntity> tree)
+        public DerivedDataProvider(IDataService dataService)
         {
-            Tree = tree;
-        }
-
-        [DataMember(Name = "Tree")]
-        private RTree<IEntity> tree;
-        public RTree<IEntity> Tree
-        {
-            get { return tree; }
-            set { tree = value; }
+            DS = dataService;
         }
 
         [JsonIgnore]
@@ -38,7 +25,7 @@ namespace CharacterManager.Model.Providers
             get
             {
                 List<String> temp = new List<string>();
-                foreach (IEntity entity in Tree.Get_All_Items())
+                foreach (IEntity entity in DS.EntityTree.Get_All_Items())
                 {
                     if(!temp.Contains(entity.Location))
                     {
@@ -47,11 +34,6 @@ namespace CharacterManager.Model.Providers
                 }
                 return temp;
             }
-        }
-
-        public void SetEqual(object derivedDataProvider)
-        {
-            Tree = ((IDerivedDataProvider)derivedDataProvider).Tree;
         }
     }
 }

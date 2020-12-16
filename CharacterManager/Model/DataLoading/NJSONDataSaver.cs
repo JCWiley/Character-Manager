@@ -1,21 +1,20 @@
 ﻿using CharacterManager.Model.Services;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CharacterManager.Model.DataLoading
 {
-    public class JSONDataSaver : IDataSaver
+    public class NJSONDataSaver : IDataSaver
     {
         ISettingsService SS;
         private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        public JSONDataSaver(ISettingsService settingsService)
+        public NJSONDataSaver(ISettingsService settingsService)
         {
             SS = settingsService;
 
@@ -31,7 +30,7 @@ namespace CharacterManager.Model.DataLoading
             string filepath = SS.LastUsedPath;
             if (!string.IsNullOrEmpty(filepath))
             {
-                SaveFile(filepath,Target);
+                SaveFile(filepath, Target);
             }
             else
             {
@@ -52,21 +51,22 @@ namespace CharacterManager.Model.DataLoading
                 string filepath = saveFileDialog.FileName;
                 SS.LastUsedPath = filepath;
                 TargetDirectory = Path.GetDirectoryName(filepath);
-                SaveFile(filepath,Target);
+                SaveFile(filepath, Target);
             }
         }
 
-        private void SaveFile(string path,object Target)
+        private void SaveFile(string path, object Target)
         {
-            JsonSerializerOptions options = new JsonSerializerOptions()
+            var indented = Formatting.Indented;
+            var settings = new JsonSerializerSettings()
             {
-                IgnoreReadOnlyProperties = true,
-                ReferenceHandler = ReferenceHandler.Preserve,
-
-                WriteIndented = true
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                PreserveReferencesHandling = PreserveReferencesHandling.All,
+                TypeNameHandling = TypeNameHandling.All
             };
-            string jsonstring = JsonSerializer.Serialize(Target, options);
-            File.WriteAllText(path, jsonstring);
+            string JSONString = JsonConvert.SerializeObject(Target,indented,settings);
+
+            File.WriteAllText(path,JSONString);
         }
     }
 }
