@@ -65,12 +65,12 @@
                                RenderTransformOrigin="0.974,0.615" 
                                Width="85" Margin="0,59,0,0"/>
         <RichTextBox x:Name="Character_Description_RTB"
-                                     helpers:RichTextBoxHelper.DocumentXaml="{Binding Target.Description}"
+                                     helpers:RichTextBoxHelper.DocumentXaml="{Binding Target.Description,UpdateSourceTrigger=LostFocus}"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="0,121,5,0"
                                      TabIndex="7"/>
         <RichTextBox x:Name="Quirks_RTB"
-                                     helpers:RichTextBoxHelper.DocumentXaml="{Binding Target.Quirks}"
+                                     helpers:RichTextBoxHelper.DocumentXaml="{Binding Target.Quirks,UpdateSourceTrigger=LostFocus}"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="5,121,0,0"
                                      TabIndex="8"

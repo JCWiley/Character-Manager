@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CharacterManager.Views.DetailViews.OrganizationTabViews"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:helpers ="clr-namespace:CharacterManager.Views.Helpers"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -63,23 +64,23 @@
                                VerticalAlignment="Top" 
                                RenderTransformOrigin="0.974,0.615" 
                                Width="85" Margin="0,59,0,0"/>
-        <!--<RichTextBox x:Name="Character_Description_RTB"
-                                     LostFocus="Character_Description_RTB_LostFocus"
+        <RichTextBox x:Name="Organization_Description_RTB"
+                                     helpers:RichTextBoxHelper.DocumentXaml="{Binding Target.Description ,UpdateSourceTrigger=LostFocus}"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="0,121,5,0"
                                      TabIndex="7"/>
         <RichTextBox x:Name="Quirks_RTB"
-                                     LostFocus="Quirks_RTB_LostFocus"
+                                     helpers:RichTextBoxHelper.DocumentXaml="{Binding Target.Quirks,UpdateSourceTrigger=LostFocus}"
                                      VerticalScrollBarVisibility="Auto"
                                      Margin="5,121,0,0"
                                      TabIndex="8"
                                      Grid.Column="1"/>
-        <ComboBox x:Name="CharacterLocationComboBox" 
+        <ComboBox x:Name="OrganizationLocationComboBox" 
                                  Height="23" 
                                  Margin="90,31,0,0" 
-                                 SelectedValue  ="{Binding O.Location , UpdateSourceTrigger=PropertyChanged}" 
-                                 ItemsSource="{Binding O.Locations}"
-                                 Text="{Binding O.Location, UpdateSourceTrigger=LostFocus}"
+                                 SelectedValue  ="{Binding Target.Location , UpdateSourceTrigger=PropertyChanged}" 
+                                 ItemsSource="{Binding DDP.Locations}"
+                                 Text="{Binding Target.Location, UpdateSourceTrigger=LostFocus}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  IsEditable="True"
                                  IsReadOnly="False"
@@ -91,7 +92,7 @@
                                  Height="23" 
                                  Margin="90,59,0,0"
                                  IsEditable="False"
-                              SelectedIndex="{Binding O.Selected_Size , UpdateSourceTrigger=PropertyChanged}"
+                                 SelectedIndex="{Binding Target.Selected_Size , UpdateSourceTrigger=PropertyChanged}"
                                  TabIndex="6"
                                  Grid.Column="1"
                                  VerticalAlignment="Top">
@@ -104,7 +105,7 @@
                                  Height="23" 
                                  Margin="90,59,5,0" 
                                  TextWrapping="Wrap" 
-                                 Text="{Binding O.Race , UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding Target.Race , UpdateSourceTrigger=PropertyChanged}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  TabIndex="5"
                                  VerticalAlignment="Top"/>
@@ -112,7 +113,7 @@
                                  Height="23" 
                                  Margin="90,3,5,0" 
                                  TextWrapping="Wrap" 
-                                 Text="{Binding O.Name , UpdateSourceTrigger=PropertyChanged}" 
+                                 Text="{Binding Target.Name , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  TabIndex="1"
                                  VerticalAlignment="Top"/>
@@ -120,21 +121,21 @@
                                  Height="23" 
                                  Margin="90,31,5,0" 
                                  TextWrapping="Wrap" 
-                                 Text="{Binding O.Goals , UpdateSourceTrigger=PropertyChanged}" 
+                                 Text="{Binding Target.Goals , UpdateSourceTrigger=PropertyChanged}" 
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  TabIndex="3"
                                  VerticalAlignment="Top"/>
         <ComboBox x:Name="LeaderComboBox" 
                                  Height="23" 
                                  Margin="90,3,0,0" 
-                                 ItemsSource ="{Binding O.Exclusive_Members_List, UpdateSourceTrigger=PropertyChanged}"
-                                 SelectedItem="{Binding O.Leader}"
+                                 ItemsSource ="{Binding Target.Exclusive_Members_List, UpdateSourceTrigger=PropertyChanged}"
+                                 SelectedItem="{Binding Target.Leader}"
                                  KeyDown="LoseFocusOnEnter_TextBlock_KeyDown"
                                  DisplayMemberPath="Name"
                                  IsEditable="False"
                                  TabIndex="2"
                                  Grid.Column="1"
                                  VerticalAlignment="Top">
-        </ComboBox>-->
+        </ComboBox>
     </Grid>
 </UserControl>
