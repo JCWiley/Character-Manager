@@ -34,6 +34,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
             
             //currently only uses the first head specified in the RTree, eventually plan to add multi head RTrees
+            //RTrees currently support multi heading, TreeHeads does not
             TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(EP.HeadEntities()[0]));
             RaisePropertyChanged(nameof(TreeHeads));
         }

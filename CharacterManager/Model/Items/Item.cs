@@ -8,7 +8,6 @@ using System.Runtime.Serialization;
 
 namespace CharacterManager.Model.Items
 {
-    [DataContract(Name = "Item", Namespace = "CharacterManager.Model.Items")]
     public class Item : IItem
     {
         public Item()
@@ -20,7 +19,6 @@ namespace CharacterManager.Model.Items
             weight = 0;
         }
         #region Data_Members
-        [DataMember(Name = "aquired")]
         private bool aquired;
         public bool Aquired
         {
@@ -37,7 +35,6 @@ namespace CharacterManager.Model.Items
             }
         }
 
-        [DataMember(Name = "name")]
         private string name;
         public string Name
         {
@@ -54,7 +51,6 @@ namespace CharacterManager.Model.Items
             }
         }
 
-        [DataMember(Name = "location")]
         private string location;
         public string Location
         {
@@ -71,7 +67,6 @@ namespace CharacterManager.Model.Items
             }
         }
 
-        [DataMember(Name = "description")]
         private string description;
         public string Description
         {
@@ -88,7 +83,6 @@ namespace CharacterManager.Model.Items
             }
         }
 
-        [DataMember(Name = "weight")]
         private float weight;
         public float Weight
         {

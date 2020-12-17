@@ -8,7 +8,6 @@ using Prism.Mvvm;
 
 namespace CharacterManager.Model.Entities
 {
-    [DataContract(Name = "Organization", Namespace = "CharacterManager.Model.Entities")]
     public class Organization : BindableBase, IEntity
     {
         public Organization()
@@ -25,7 +24,6 @@ namespace CharacterManager.Model.Entities
             job_id = Guid.NewGuid();
         }
 
-        [DataMember(Name = "inventory")]
         private ObservableCollection<Item> inventory;
         public ObservableCollection<Item> Inventory
         {
@@ -43,7 +41,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "name")]
         private string name;
         public string Name
         {
@@ -61,7 +58,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "description")]
         private string description;
         public string Description
         {
@@ -79,7 +75,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "quirks")]
         private string quirks;
         public string Quirks
         {
@@ -97,7 +92,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "location")]
         private string location;
         public string Location
         {
@@ -116,7 +110,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "race")]
         private string race;
         public string Race
         {
@@ -134,7 +127,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "leader")]
         private IEntity leader;
         public IEntity Leader
         {
@@ -152,7 +144,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "goals")]
         private string goals;
         public string Goals
         {
@@ -170,7 +161,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "selected_size")]
         private int selected_size;
         public int Selected_Size
         {
@@ -188,7 +178,6 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        [DataMember(Name = "job_id")]
         private Guid job_id;
         public Guid Job_ID
         {

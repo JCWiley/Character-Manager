@@ -1,14 +1,11 @@
 ﻿using Prism.Mvvm;
-using System.Runtime.Serialization;
 
 namespace CharacterManager.Model.Events
 {
-    [DataContract(Name = "Event", Namespace = "CharacterManager.Model.Events")]
     public class Event : BindableBase, IEvent
     {
 
         #region Data_Members
-        [DataMember(Name = "event_type")]
         private string event_type;
         public string Event_Type
         {
@@ -26,7 +23,6 @@ namespace CharacterManager.Model.Events
             }
         }
 
-        [DataMember(Name = "comment")]
         private string comment;
         public string Comment
         {
@@ -44,7 +40,6 @@ namespace CharacterManager.Model.Events
             }
         }
 
-        [DataMember(Name = "day")]
         private int day;
         public int Day
         {
@@ -62,7 +57,6 @@ namespace CharacterManager.Model.Events
             }
         }
 
-        [DataMember(Name = "character")]
         private string character;
         public string Character
         {
@@ -80,7 +74,6 @@ namespace CharacterManager.Model.Events
             }
         }
 
-        [DataMember(Name = "job")]
         private string job;
         public string Job
         {
@@ -98,7 +91,6 @@ namespace CharacterManager.Model.Events
             }
         }
 
-        [DataMember(Name = "progress_effects")]
         private int progress_effects;
         public int Progress_Effects
         {

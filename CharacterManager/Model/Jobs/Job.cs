@@ -8,7 +8,6 @@ using System.Runtime.Serialization;
 
 namespace CharacterManager.Model.Jobs
 {
-    [DataContract(Name = "Job", Namespace = "CharacterManager.Model.Jobs")]
     public class Job : BindableBase, IJob
     {
         public Job()
@@ -44,7 +43,6 @@ namespace CharacterManager.Model.Jobs
         #endregion
 
         #region Variables
-        [DataMember(Name = "required_items")]
         private ObservableCollection<Item> required_items;
         public ObservableCollection<Item> Required_Items
         {
@@ -62,7 +60,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "complete")]
         private bool complete;
         public bool Complete
         {
@@ -80,7 +77,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "summary")]
         private string summary;
         public string Summary
         {
@@ -98,7 +94,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "description")]
         private string description;
         public string Description
         {
@@ -116,7 +111,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "iscurrentlyprogressing")]
         private bool iscurrentlyprogressing;
         public bool IsCurrentlyProgressing
         {
@@ -134,7 +128,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "recurring")]
         private int recurring;
         public int Recurring
         {
@@ -152,7 +145,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "duration")]
         private int duration;
         public int Duration
         {
@@ -170,7 +162,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "progress")]
         private int progress;
         public int Progress
         {
@@ -188,7 +179,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "startdate")]
         private int startdate;
         public int StartDate
         {
@@ -206,7 +196,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "successchance")]
         private int successchance;
         public int SuccessChance
         {
@@ -224,7 +213,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "failurechance")]
         private int failurechance;
         public int FailureChance
         {
@@ -242,7 +230,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "ownerentity")]
         private Guid ownerentity;
         public Guid OwnerEntity
         {
@@ -260,7 +247,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "ownerjob")]
         private Guid ownerjob;
         public Guid OwnerJob
         {
@@ -278,7 +264,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "job_id")]
         private Guid job_id;
         public Guid Job_ID
         {
@@ -296,7 +281,6 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        [DataMember(Name = "events")]
         private List<IEvent> events;
         public List<IEvent> Events
         {
