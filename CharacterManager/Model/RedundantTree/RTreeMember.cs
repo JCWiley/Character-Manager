@@ -74,7 +74,6 @@ namespace CharacterManager.Model.RedundantTree
             }
         }
 
-
         private RTree<T> parentrtree;
         public RTree<T> ParentRTree
         {

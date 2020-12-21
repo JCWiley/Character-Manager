@@ -28,7 +28,7 @@ namespace CharacterManager.Views.DetailViews
             RM = regionManager;
 
             RM.RegisterViewWithRegion("ORGANIZATION_REGION", typeof(OrganizationTabView));
-            //RM.RegisterViewWithRegion("ORGANIZATION_JOB_REGION", typeof());
+            RM.RegisterViewWithRegion("ORGANIZATION_JOB_REGION", typeof(OrganizationJobsTabView));
             //RM.RegisterViewWithRegion("ORGANIZATION_JOB_HISTORY_REGION", typeof());
             //RM.RegisterViewWithRegion("ORGANIZATION_INVENTORY_REGION", typeof());
             //RM.RegisterViewWithRegion("ORGANIZATION_SOCIAL_REGION", typeof());
