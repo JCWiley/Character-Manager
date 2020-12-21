@@ -6,9 +6,11 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:helpers ="clr-namespace:CharacterManager.Views.Helpers">
     <Application.Resources>
-        <Style TargetType="TextBox">
+        <Style TargetType="{x:Type TextBox}">
             <Setter Property="helpers:LoseFocusOnEnter.CanLoseFocusOnEnter"
                     Value="true"/>
+            <Setter Property="Foreground"
+                    Value="Red"/>
         </Style>
     </Application.Resources>
 </prism:PrismApplication>

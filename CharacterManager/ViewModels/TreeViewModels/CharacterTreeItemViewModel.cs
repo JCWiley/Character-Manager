@@ -18,19 +18,23 @@ namespace CharacterManager.ViewModels.TreeViewModels
             IsSelected = false;
             IsExpanded = false;
 
-            Char = (Character)Target.Item;
         }
 
         #region Variables
         private IEventAggregator EA;
         private IRTreeMember<IEntity> Target;
 
-        private Character character;
-
         public Character Char
         {
-            get { return character; }
-            set { SetProperty(ref character, value); }
+            get 
+            {
+                return (Character)Target.Item; 
+            }
+            set
+            {
+                Target.Item = value;
+                RaisePropertyChanged("Char");
+            }
         }
         #endregion
 
@@ -60,7 +64,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 SetProperty(ref isselected, value);
                 if (isselected == true)
                 {
-                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Char);
+                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Target);
                 }
             }
         }

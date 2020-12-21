@@ -23,8 +23,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EA = eventAggregator;
 
-            Org = (Organization)Target.Item;
-
             RebuildChildren();
         }
 
@@ -40,12 +38,17 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set { SetProperty(ref target, value); }
         }
 
-        private Organization org;
-
         public Organization Org
         {
-            get { return org; }
-            set { SetProperty(ref org, value); }
+            get
+            {
+                return (Organization)Target.Item;
+            }
+            set
+            {
+                Target.Item = value;
+                RaisePropertyChanged("Org");
+            }
         }
 
         private ObservableCollection<object> children;
@@ -107,7 +110,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 SetProperty(ref isselected, value);
                 if(isselected == true)
                 {
-                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Org);
+                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Target);
                 }
             }
         }

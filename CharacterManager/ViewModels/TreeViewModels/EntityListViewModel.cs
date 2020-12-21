@@ -17,19 +17,16 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private IEntityProvider EP;
         private ITreeItemViewModelFactory TreeItemViewModelFactory;
 
-        IEntity SelectedEntity;
-
-        public EntityListViewModel(IEventAggregator eventAggregator,IEntityProvider ep,TreeItemViewModelFactory treeItemViewModelFactory)
+        public EntityListViewModel(IEventAggregator eventAggregator,IEntityProvider entityProvider,TreeItemViewModelFactory treeItemViewModelFactory)
         {
             //assign event aggregator to local variable for later use
             EA = eventAggregator;
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
             EA.GetEvent<NewEntityRequestEvent>().Subscribe(NewEntityRequestEventExecute);
             EA.GetEvent<DataLoadSuccessEvent>().Subscribe(DataLoadSuccessEventExecute);
 
             TreeItemViewModelFactory = treeItemViewModelFactory;
 
-            EP = ep;
+            EP = entityProvider;
 
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
             
@@ -55,13 +52,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #region Event Handlers
         void DataLoadSuccessEventExecute(IRTreeMember<IEntity> NewHead)
         {
-            SelectedEntityChangedExecute(NewHead.Item);
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
             TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(NewHead));
-        }
-        void SelectedEntityChangedExecute(IEntity Selected_Item)
-        {
-            SelectedEntity = Selected_Item;
         }
         void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
         {

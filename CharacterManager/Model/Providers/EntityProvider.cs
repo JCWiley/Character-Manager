@@ -1,7 +1,9 @@
-﻿using CharacterManager.Model.Entities;
+﻿using CharacterManager.Events;
+using CharacterManager.Model.Entities;
 using CharacterManager.Model.Factories;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,33 @@ namespace CharacterManager.Model.Providers
         [Dependency]
         public IEntityFactory EF{ get; set; }
 
-        [Dependency]
+        //[Dependency]
         public IDataService DS { get; set; }
+
+        private IRTreeMember<IEntity> currenttargetcharacter;
+        private IRTreeMember<IEntity> currenttargetorganization;
+        public IRTreeMember<IEntity> CurrentTargetAsCharacter
+        {
+            get
+            {
+                return currenttargetcharacter;
+            }
+        }
+        public IRTreeMember<IEntity> CurrentTargetAsOrganization
+        {
+            get
+            {
+                return currenttargetorganization;
+            }
+        }
+
+        public EntityProvider(IEventAggregator eventAggregator,IDataService dataService)
+        {
+            DS = dataService;
+            eventAggregator.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            currenttargetorganization = HeadEntities()[0];
+            currenttargetcharacter = currenttargetorganization.Child_Items[0];
+        }
 
         public IRTreeMember<IEntity> AddEntity(EntityTypes type,bool ishead = false)
         {
@@ -45,6 +72,33 @@ namespace CharacterManager.Model.Providers
         {
             return DS.EntityTree.Heads;
         }
+
+        public List<IRTreeMember<IEntity>> GetAllChildren(IRTreeMember<IEntity> rTreeMember)
+        {
+            return DS.EntityTree.Get_All_Children(rTreeMember);
+        }
+        public List<IRTreeMember<IEntity>> GetImmidiateChildren(IRTreeMember<IEntity> rTreeMember)
+        {
+            return DS.EntityTree.Get_Immidiate_Children(rTreeMember);
+        }
+
+        #region EventHandlers
+        private void SelectedEntityChangedExecute(IRTreeMember<IEntity> newTarget)
+        {
+            if (newTarget.Item is Character)
+            {
+                currenttargetcharacter = newTarget;
+            }
+            else if(newTarget.Item is Organization)
+            {
+                currenttargetorganization = newTarget;
+            }
+            else
+            {
+                throw new Exception("newtarget is not character or organization");
+            }
+        }
+        #endregion
     }
 
 

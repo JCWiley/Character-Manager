@@ -23,22 +23,7 @@ namespace CharacterManager.Model.Services
         private IEventAggregator EA;
 
         private List<IJob> job_list;
-        //public List<object> Job_List_JSON
-        //{
-        //    get
-        //    {
-        //        return job_list.Cast<object>().ToList();
-        //    }
-        //    set
-        //    {
-        //        job_list = new List<IJob>();
-        //        foreach (IJob job in value)
-        //        {
-        //            job_list.Add(job);
-        //        }
-        //    }
-        //}
-        //[JsonIgnore]
+
         public List<IJob> Job_List
         {
             get { return job_list; }
@@ -75,7 +60,8 @@ namespace CharacterManager.Model.Services
             else//if loading fails, initialize with default data
             {
                 EntityTree = new RTree<IEntity>(iRTreeFactory);
-                EntityTree.AddItem(new Organization(), true);
+
+                EntityTree.AddChild(EntityTree.AddItem(new Organization(), true), EntityTree.AddItem(new Character()));
 
                 Job_List = new List<IJob>();
             }

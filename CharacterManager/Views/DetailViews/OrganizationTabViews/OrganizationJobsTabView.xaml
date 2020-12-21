@@ -65,6 +65,7 @@
                                        TextWrapping="Wrap" 
                                        Text="{Binding SelectedItem.StartDate, ElementName=Job_List}" 
                                        VerticalAlignment="Top" Width="40" Height="26"
+                                       
                                        Grid.Column="0" Margin="0,24,0,0"/>
                 <Label Content="Duration:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="135" Grid.Column="0" Height="26"/>
                 <TextBox x:Name="ExpectedDurationTextBox" 
@@ -121,7 +122,7 @@
                                       CanUserDeleteRows="True"
                                       AutoGenerateColumns="False">
                 <DataGrid.Resources>
-                    <CollectionViewSource x:Key="Entities" Source="{Binding Target.Entities}"/>
+                    <CollectionViewSource x:Key="Entities" Source="{Binding Entities}"/>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Task"

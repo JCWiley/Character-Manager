@@ -4,6 +4,7 @@ using Prism.Events;
 using Prism.Regions;
 using CharacterManager.Model.Entities;
 using CharacterManager.Events;
+using CharacterManager.Model.RedundantTree;
 
 namespace CharacterManager.ViewModels.DetailViewModels
 {
@@ -13,38 +14,11 @@ namespace CharacterManager.ViewModels.DetailViewModels
         {
             EA = eventAggregator;
             RM = regionManager;
-
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
         }
 
         #region Variables
         private IEventAggregator EA;
         private IRegionManager RM;
-
-        private Organization target;
-        public Organization Target
-        {
-            get { return target; }
-            set { SetProperty(ref target, value); }
-        }
-        #endregion
-
-        #region EventHandlers
-        private void SelectedEntityChangedExecute(IEntity newTarget)
-        {
-            if (newTarget is Character C)
-            {
-                
-            }
-            else if (newTarget is Organization O)
-            {
-                Target = O;
-            }
-            else
-            {
-                throw new Exception("Organization Detail newTarget is not Character or Organization");
-            }
-        }
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Providers;
+using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -10,18 +11,18 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
     public class CharacterTabViewModel : BindableBase
     {
-        public CharacterTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IDerivedDataProvider derivedDataProvider)
+        public CharacterTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IRegionManager regionManager, IDerivedDataProvider derivedDataProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
+            EP = entityProvider;
             DDP = derivedDataProvider;
-
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
         }
 
         #region Variables
         private IEventAggregator EA;
         private IRegionManager RM;
+        private IEntityProvider EP;
 
         private IDerivedDataProvider ddp;
         public IDerivedDataProvider DDP
@@ -29,30 +30,23 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             get { return ddp; }
             set { SetProperty(ref ddp, value); }
         }
-
-
-        private Character target;
-        public Character Target
+        public Character Char
         {
-            get { return target; }
-            set { SetProperty(ref target, value); }
-        }
-        #endregion
-
-        #region EventHandlers
-        private void SelectedEntityChangedExecute(IEntity newTarget)
-        {
-            if (newTarget is Character C)
+            get
             {
-                Target = C;
+                if (EP.CurrentTargetAsCharacter != null)
+                {
+                    return (Character)EP.CurrentTargetAsCharacter.Item;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else if (newTarget is Organization O)
+            set
             {
-
-            }
-            else
-            {
-                throw new Exception("CharacterTabViewModel newTarget is not Character or Organization");
+                EP.CurrentTargetAsCharacter.Item = value;
+                RaisePropertyChanged("Char");
             }
         }
         #endregion

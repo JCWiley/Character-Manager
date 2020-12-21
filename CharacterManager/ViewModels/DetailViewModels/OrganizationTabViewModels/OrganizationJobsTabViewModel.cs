@@ -2,6 +2,7 @@
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.Providers;
+using CharacterManager.Model.RedundantTree;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -16,38 +17,56 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
     public class OrganizationJobsTabViewModel : BindableBase
     {
-        public OrganizationJobsTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider)
+        public OrganizationJobsTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
             JDP = jobDirectoryProvider;
-
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            EP = entityProvider;
         }
 
         #region Variables
         private IEventAggregator EA;
         private IRegionManager RM;
         private IJobDirectoryProvider JDP;
+        private IEntityProvider EP;
 
-        private Organization target;
-        public Organization Target
-        {
-            get { return target; }
-            set
-            {
-                SetProperty(ref target, value);
-                RaisePropertyChanged("Jobs");
-            }
-        }
+
         #endregion
 
         #region Binding Targets
+        public Organization Org
+        {
+            get
+            {
+                if (EP.CurrentTargetAsCharacter != null)
+                {
+                    return (Organization)EP.CurrentTargetAsOrganization.Item;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                EP.CurrentTargetAsOrganization.Item = value;
+                RaisePropertyChanged("Org");
+                RaisePropertyChanged("Jobs");
+            }
+        }
         public List<IJob> Jobs
         {
             get
             {
-                return JDP.GetEntitiesJobs(Target);
+                return JDP.GetEntitiesJobs(EP.CurrentTargetAsOrganization.Item);
+            }
+        }
+        public List<IRTreeMember<IEntity>> TargetChildren
+        {
+            get
+            {
+                return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
             }
         }
         #endregion
@@ -66,7 +85,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            JDP.AddBlankJobToEntity(Target);
+            JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization.Item);
             RaisePropertyChanged("Jobs");
         }
 
@@ -80,25 +99,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 
         }
 
-        #endregion
-
-        #region EventHandlers
-        private void SelectedEntityChangedExecute(IEntity newTarget)
-        {
-            if (newTarget is Character)
-            {
-
-            }
-            else if (newTarget is Organization O)
-            {
-                Target = O;
-                RaisePropertyChanged("Jobs");
-            }
-            else
-            {
-                throw new Exception("CharacterTabViewModel newTarget is not Character");
-            }
-        }
         #endregion
     }
 }

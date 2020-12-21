@@ -2,6 +2,7 @@
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Providers;
+using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -12,59 +13,50 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
     public class CharacterJobHistoryTabViewModel : BindableBase
     {
-        public CharacterJobHistoryTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider)
+        public CharacterJobHistoryTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
+            EP = entityProvider;
             JDP = jobDirectoryProvider;
-
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
         }
 
         #region Variables
         private IEventAggregator EA;
         private IRegionManager RM;
+        private IEntityProvider EP;
         private IJobDirectoryProvider JDP;
-
-        private Character target;
-        public Character Target
-        {
-            get { return target; }
-            set 
-            {
-                SetProperty(ref target, value);
-                RaisePropertyChanged("Events_Summary");
-            }
-        }
         #endregion
 
         #region Binding Targets
+        public Character Char
+        {
+            get
+            {
+                if (EP.CurrentTargetAsCharacter != null)
+                {
+                    return (Character)EP.CurrentTargetAsCharacter.Item;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                EP.CurrentTargetAsCharacter.Item = value;
+                RaisePropertyChanged("Char");
+                RaisePropertyChanged("Events_Summary");
+            }
+        }
         public List<IEvent> Events_Summary
         {
             get
             {
-                return JDP.GetEventSummaryForEntity(Target);
+                return JDP.GetEventSummaryForEntity(EP.CurrentTargetAsCharacter.Item);
             }
         }
 
-        #endregion
-
-        #region EventHandlers
-        private void SelectedEntityChangedExecute(IEntity newTarget)
-        {
-            if (newTarget is Character C)
-            {
-                Target = C;
-            }
-            else if (newTarget is Organization)
-            {
-
-            }
-            else
-            {
-                throw new Exception("CharacterTabViewModel newTarget is not Character or Organization");
-            }
-        }
         #endregion
     }
 }

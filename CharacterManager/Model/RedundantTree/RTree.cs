@@ -172,5 +172,16 @@ namespace CharacterManager.Model.RedundantTree
             }
             return temp;
         }
+        public IRTreeMember<T> GetMemberFromItem(T item)
+        {
+            foreach (IRTreeMember<T> target in Dict.Values)
+            {
+                if((object)target.Item == (object)item)
+                {
+                    return target;
+                }
+            }
+            return new InvalidIRTreeMember<T>();
+        }
     }
 }

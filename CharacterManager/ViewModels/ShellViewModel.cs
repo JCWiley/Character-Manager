@@ -1,5 +1,6 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
+using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Regions;
 using System;
@@ -25,13 +26,13 @@ namespace CharacterManager.ViewModels
         #endregion
 
         #region Event Handlers
-        void SelectedEntityChangedExecute(IEntity Selected_Item)
+        void SelectedEntityChangedExecute(IRTreeMember<IEntity> Selected_Item)
         {
-            if (Selected_Item is Character)
+            if (Selected_Item.Item is Character)
             {
                 RM.RequestNavigate("DETAIL_REGION", "CharacterDetailView");
             }
-            else if (Selected_Item is Organization)
+            else if (Selected_Item.Item is Organization)
             {
                 RM.RequestNavigate("DETAIL_REGION", "OrganizationDetailView");
             }

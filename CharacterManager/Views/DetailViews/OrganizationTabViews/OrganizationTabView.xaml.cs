@@ -22,22 +22,5 @@ namespace CharacterManager.Views.DetailViews.OrganizationTabViews
         {
             InitializeComponent();
         }
-        private void LoseFocusOnEnter_TextBlock_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                //Keyboard.ClearFocus();
-                TraversalRequest TR = new TraversalRequest(FocusNavigationDirection.Next);
-                if (Keyboard.FocusedElement is UIElement keyboardfocus)
-                {
-                    keyboardfocus.MoveFocus(TR);
-                }
-
-                if (sender is TextBox Sender)
-                {
-                    Sender.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-                }
-            }
-        }
     }
 }
