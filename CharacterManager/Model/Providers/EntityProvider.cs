@@ -21,6 +21,8 @@ namespace CharacterManager.Model.Providers
         //[Dependency]
         public IDataService DS { get; set; }
 
+        private IEventAggregator EA;
+
         private IRTreeMember<IEntity> currenttargetcharacter;
         private IRTreeMember<IEntity> currenttargetorganization;
         public IRTreeMember<IEntity> CurrentTargetAsCharacter
@@ -41,7 +43,10 @@ namespace CharacterManager.Model.Providers
         public EntityProvider(IEventAggregator eventAggregator,IDataService dataService)
         {
             DS = dataService;
-            eventAggregator.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            EA = eventAggregator;
+
+            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            
             currenttargetorganization = HeadEntities()[0];
             currenttargetcharacter = currenttargetorganization.Child_Items[0];
         }
@@ -88,10 +93,12 @@ namespace CharacterManager.Model.Providers
             if (newTarget.Item is Character)
             {
                 currenttargetcharacter = newTarget;
+                EA.GetEvent<SelectedEntityChangedPostEvent>().Publish(EntityTypes.Character);
             }
             else if(newTarget.Item is Organization)
             {
                 currenttargetorganization = newTarget;
+                EA.GetEvent<SelectedEntityChangedPostEvent>().Publish(EntityTypes.Organization);
             }
             else
             {

@@ -23,6 +23,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             RM = regionManager;
             JDP = jobDirectoryProvider;
             EP = entityProvider;
+
+            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
 
         #region Variables
@@ -53,6 +55,18 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 EP.CurrentTargetAsOrganization.Item = value;
                 RaisePropertyChanged("Org");
                 RaisePropertyChanged("Jobs");
+            }
+        }
+        public List<IEntity> Entities
+        {
+            get
+            {
+                List<IEntity> entities = new List<IEntity>();
+                foreach (var item in EP.CurrentTargetAsOrganization.Child_Items)
+                {
+                    entities.Add(item.Item);
+                }
+                return entities;
             }
         }
         public List<IJob> Jobs
@@ -99,6 +113,16 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 
         }
 
+        #endregion
+
+        #region Event Handlers
+        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        {
+            if (type == EntityTypes.Organization)
+            {
+                RaisePropertyChanged("Jobs");
+            }
+        }
         #endregion
     }
 }

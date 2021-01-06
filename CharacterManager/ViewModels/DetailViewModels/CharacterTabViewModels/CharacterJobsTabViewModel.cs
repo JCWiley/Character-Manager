@@ -21,6 +21,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             RM = regionManager;
             EP = entityProvider;
             JDP = jobDirectoryProvider;
+
+            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
 
         #region Variables
@@ -83,6 +85,16 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 
         }
 
+        #endregion
+
+        #region Event Handlers
+        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        {
+            if(type == EntityTypes.Character)
+            {
+                RaisePropertyChanged("Jobs");
+            }
+        }
         #endregion
     }
 }

@@ -43,7 +43,7 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(IDataService), typeof(DataService));
             containerRegistry.RegisterSingleton(typeof(ISettingsService), typeof(SettingsService));
 
-            containerRegistry.Register(typeof(IEntityProvider), typeof(EntityProvider));
+            containerRegistry.RegisterSingleton(typeof(IEntityProvider), typeof(EntityProvider));
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
 
