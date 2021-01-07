@@ -32,7 +32,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private IRegionManager RM;
         private IJobDirectoryProvider JDP;
         private IEntityProvider EP;
-
+        private IJob SelectedJob = null;
 
         #endregion
 
@@ -76,6 +76,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 return JDP.GetEntitiesJobs(EP.CurrentTargetAsOrganization.Item);
             }
         }
+        public List<IJob> ChildJobs
+        {
+            get
+            {
+                if(SelectedJob != null)
+                {
+                    return JDP.GetSubJobs(SelectedJob);
+                }
+                else
+                {
+                    return new List<IJob>();
+                }
+            }
+        }
         public List<IRTreeMember<IEntity>> TargetChildren
         {
             get
@@ -94,6 +108,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private DelegateCommand _commandaddsubtask;
         public DelegateCommand CommandAddSubtask => _commandaddsubtask ??= new DelegateCommand(CommandAddSubtaskExecute);
 
+        private DelegateCommand<object> _commandselectedjobchanged;
+        public DelegateCommand<object> CommandSelectedJobChanged => _commandselectedjobchanged ??= new DelegateCommand<object>(CommandSelectedJobChangedExecute);
+
         #endregion
 
         #region Command Handlers
@@ -111,6 +128,11 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private void CommandAddSubtaskExecute()
         {
 
+        }
+
+        private void CommandSelectedJobChangedExecute(object J)
+        {
+            SelectedJob = (IJob)J;
         }
 
         #endregion
