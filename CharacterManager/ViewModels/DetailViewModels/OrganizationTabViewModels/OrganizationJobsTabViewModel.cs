@@ -57,16 +57,18 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 RaisePropertyChanged("Jobs");
             }
         }
-        public List<IEntity> Entities
+        public List<IRTreeMember<IEntity>> Entities
         {
             get
             {
-                List<IEntity> entities = new List<IEntity>();
-                foreach (var item in EP.CurrentTargetAsOrganization.Child_Items)
-                {
-                    entities.Add(item.Item);
-                }
-                return entities;
+                return EP.CurrentTargetAsOrganization.Child_Items;
+
+                //List<IRTreeMember<IEntity>> entities = new List<IEntity>();
+                //foreach (var item in EP.CurrentTargetAsOrganization.Child_Items)
+                //{
+                //    entities.Add(item);
+                //}
+                //return entities;
             }
         }
         public List<IJob> Jobs
@@ -90,6 +92,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 }
             }
         }
+
+
         public List<IRTreeMember<IEntity>> TargetChildren
         {
             get
@@ -110,7 +114,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 
         private DelegateCommand<object> _commandselectedjobchanged;
         public DelegateCommand<object> CommandSelectedJobChanged => _commandselectedjobchanged ??= new DelegateCommand<object>(CommandSelectedJobChangedExecute);
-
         #endregion
 
         #region Command Handlers
@@ -127,7 +130,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 
         private void CommandAddSubtaskExecute()
         {
-
+            JDP.AddBlankJobToJob(SelectedJob);
+            RaisePropertyChanged("ChildJobs");
         }
 
         private void CommandSelectedJobChangedExecute(object J)

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Text;
 using Prism.Mvvm;
+using CharacterManager.Model.RedundantTree;
 
 namespace CharacterManager.Model.Entities
 {
@@ -127,8 +128,8 @@ namespace CharacterManager.Model.Entities
             }
         }
 
-        private IEntity leader;
-        public IEntity Leader
+        private IRTreeMember<IEntity> leader;
+        public IRTreeMember<IEntity> Leader
         {
             get
             {

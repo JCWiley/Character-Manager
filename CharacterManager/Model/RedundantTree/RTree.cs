@@ -108,7 +108,18 @@ namespace CharacterManager.Model.RedundantTree
 
         public IRTreeMember<T> Get_Item(Guid i_gid)
         {
-            return dict[i_gid];
+            if(dict.ContainsKey(i_gid))
+            {
+                return dict[i_gid];
+            }
+            else if (i_gid == Guid.Empty)
+            {
+                return factory.CreateRTreeMember(this);
+            }
+            else
+            {
+                throw new Exception("i_gid passed not valid");
+            }
         }
         public List<IRTreeMember<T>> Get_Immidiate_Parents(IRTreeMember<T> i_item)
         {

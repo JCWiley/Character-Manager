@@ -6,6 +6,7 @@ using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
+using System.Collections.Generic;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
@@ -30,6 +31,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             get { return ddp; }
             set { SetProperty(ref ddp, value); }
         }
+        #endregion
+        #region Binding Targets
         public Organization Org
         {
             get
@@ -47,6 +50,13 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             {
                 EP.CurrentTargetAsOrganization.Item = value;
                 RaisePropertyChanged("Org");
+            }
+        }
+        public List<IRTreeMember<IEntity>> ImmidiateChildren
+        {
+            get
+            {
+                return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
             }
         }
         #endregion

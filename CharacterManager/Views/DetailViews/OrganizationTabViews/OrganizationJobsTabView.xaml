@@ -11,6 +11,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="0,0,0,0">
+        <Grid.Resources>
+            <helpers:EntityToGuidConverter x:Key="EntityToGuidConverter"/>
+        </Grid.Resources>
         <DataGrid x:Name="Job_List" 
                           ItemsSource="{Binding Jobs}" 
                           HorizontalAlignment="Left" 
@@ -123,7 +126,7 @@
             <Label Content="Assigned Subtasks:" HorizontalAlignment="Left" Margin="221,137,0,0" VerticalAlignment="Top" Width="111"/>
             <DataGrid x:Name="Member_Job_Datagrid"
                                       Margin="221,163,0,122"
-                                      ItemsSource="{Binding ElementName=Job_List, Path=SelectedItem.Member_Jobs}" 
+                                      ItemsSource="{Binding ChildJobs}" 
                                       CanUserAddRows="False"
                                       CanUserSortColumns="False"
                                       CanUserDeleteRows="True"
@@ -148,8 +151,8 @@
                     <DataGridComboBoxColumn x:Name="OwnerComboBoxColumn"
                                                         Header="Owner"
                                                         ItemsSource ="{Binding Source={StaticResource Entities}, UpdateSourceTrigger=PropertyChanged}"
-                                                        SelectedItemBinding="{Binding Owner_Entity_Object}"
-                                                        DisplayMemberPath="Name"
+                                                        SelectedItemBinding="{Binding OwnerEntity, Converter={StaticResource EntityToGuidConverter}}"
+                                                        DisplayMemberPath="Item.Name"
                                                         Width="150">
                     </DataGridComboBoxColumn>
 

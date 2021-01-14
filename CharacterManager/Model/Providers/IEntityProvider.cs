@@ -21,7 +21,8 @@ namespace CharacterManager.Model.Providers
         public void AddChild(IRTreeMember<IEntity> Parent, IRTreeMember<IEntity> Child);
 
         public List<IRTreeMember<IEntity>> HeadEntities();
-
+        public IRTreeMember<IEntity> GetTreeMemberForEntity(IEntity entity);
+        public IRTreeMember<IEntity> GetTreeMemberForGuid(Guid G);
         public IRTreeMember<IEntity> CurrentTargetAsCharacter { get; }
         public IRTreeMember<IEntity> CurrentTargetAsOrganization { get; }
         public List<IRTreeMember<IEntity>> GetAllChildren(IRTreeMember<IEntity> rTreeMember);

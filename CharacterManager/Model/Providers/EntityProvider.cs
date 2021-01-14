@@ -86,6 +86,14 @@ namespace CharacterManager.Model.Providers
         {
             return DS.EntityTree.Get_Immidiate_Children(rTreeMember);
         }
+        public IRTreeMember<IEntity> GetTreeMemberForEntity(IEntity entity)
+        {
+            return DS.EntityTree.GetMemberFromItem(entity);
+        }
+        public IRTreeMember<IEntity> GetTreeMemberForGuid(Guid G)
+        {
+            return DS.EntityTree.Get_Item(G);
+        }
 
         #region EventHandlers
         private void SelectedEntityChangedExecute(IRTreeMember<IEntity> newTarget)

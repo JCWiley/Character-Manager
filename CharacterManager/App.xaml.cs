@@ -61,6 +61,8 @@ namespace CharacterManager
 
             containerRegistry.RegisterForNavigation<CharacterDetailView>();
             containerRegistry.RegisterForNavigation<OrganizationDetailView>();
+
+            Application.Current.Resources.Add("IoC", this.Container);
         }
 
         protected override void ConfigureViewModelLocator()
