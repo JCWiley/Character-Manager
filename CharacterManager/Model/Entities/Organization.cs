@@ -22,7 +22,6 @@ namespace CharacterManager.Model.Entities
             //Leader = "";
             Goals = "";
             Selected_Size = 0;
-            job_id = Guid.NewGuid();
         }
 
         private ObservableCollection<Item> inventory;
@@ -176,15 +175,6 @@ namespace CharacterManager.Model.Entities
                     this.selected_size = value;
                     RaisePropertyChanged("Selected_Size");
                 }
-            }
-        }
-
-        private Guid job_id;
-        public Guid Job_ID
-        {
-            get
-            {
-                return this.job_id;
             }
         }
     }

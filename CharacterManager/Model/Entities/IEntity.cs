@@ -14,7 +14,6 @@ namespace CharacterManager.Model.Entities
         public string Quirks { get; set; }
         public string Location { get; set; }
         public string Race { get; set; }
-        public Guid Job_ID { get; }
         #endregion
     }
 }

@@ -21,7 +21,6 @@ namespace CharacterManager.Model.Entities
             Alias = "";
             Occupation = "";
             BirthPlace = "";
-            job_id = Guid.NewGuid();
         }
 
         private ObservableCollection<Item> inventory;
@@ -177,15 +176,5 @@ namespace CharacterManager.Model.Entities
                 }
             }
         }
-
-        private Guid job_id;
-        public Guid Job_ID
-        {
-            get
-            {
-                return job_id;
-            }
-        }
-
     }
 }

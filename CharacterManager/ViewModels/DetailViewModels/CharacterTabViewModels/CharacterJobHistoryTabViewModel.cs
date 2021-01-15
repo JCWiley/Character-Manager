@@ -55,7 +55,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         {
             get
             {
-                return JDP.GetEventSummaryForEntity(EP.CurrentTargetAsCharacter.Item);
+                return JDP.GetEventSummaryForEntity(EP.CurrentTargetAsCharacter);
             }
         }
 

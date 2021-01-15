@@ -22,10 +22,10 @@ namespace CharacterManager.Model.Providers
         [Dependency]
         public IJobFactory _jobFactory{ get; set; }
 
-        public IJob AddBlankJobToEntity(IEntity parent_entity)
+        public IJob AddBlankJobToEntity(IRTreeMember<IEntity> parent_entity)
         {
             IJob J = _jobFactory.CreateJob();
-            J.OwnerEntity = parent_entity.Job_ID;
+            J.OwnerEntity = parent_entity.Gid;
             DS.Job_List.Add(J);
             return J;
         }
@@ -37,7 +37,7 @@ namespace CharacterManager.Model.Providers
             return J;
         }
 
-        public List<IJob> GetEntitiesJobs(IEntity entity)
+        public List<IJob> GetEntitiesJobs(IRTreeMember<IEntity> entity)
         {
             //ListCollectionView VS = new ListCollectionView(Job_List)
             //{
@@ -46,10 +46,10 @@ namespace CharacterManager.Model.Providers
             //return VS;
 
 
-            return DS.Job_List.Where(J => J.OwnerEntity == entity.Job_ID).ToList();
+            return DS.Job_List.Where(J => J.OwnerEntity == entity.Gid).ToList();
         }
 
-        public List<IEvent> GetEventSummaryForEntity(IEntity entity)
+        public List<IEvent> GetEventSummaryForEntity(IRTreeMember<IEntity> entity)
         {
             List<IJob> jobs = GetEntitiesJobs(entity);
             List<IEvent> Summary = new List<IEvent>();

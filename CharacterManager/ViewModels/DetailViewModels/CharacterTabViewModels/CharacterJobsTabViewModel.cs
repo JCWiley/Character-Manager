@@ -59,7 +59,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         {
             get
             {
-                return JDP.GetEntitiesJobs(EP.CurrentTargetAsCharacter.Item);
+                return JDP.GetEntitiesJobs(EP.CurrentTargetAsCharacter);
             }
         }
         #endregion
@@ -76,7 +76,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            JDP.AddBlankJobToEntity(EP.CurrentTargetAsCharacter.Item);
+            JDP.AddBlankJobToEntity(EP.CurrentTargetAsCharacter);
             RaisePropertyChanged("Jobs");
         }
 
@@ -93,6 +93,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             if(type == EntityTypes.Character)
             {
                 RaisePropertyChanged("Jobs");
+                RaisePropertyChanged("Char");
             }
         }
         #endregion

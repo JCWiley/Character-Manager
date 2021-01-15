@@ -62,20 +62,13 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             get
             {
                 return EP.CurrentTargetAsOrganization.Child_Items;
-
-                //List<IRTreeMember<IEntity>> entities = new List<IEntity>();
-                //foreach (var item in EP.CurrentTargetAsOrganization.Child_Items)
-                //{
-                //    entities.Add(item);
-                //}
-                //return entities;
             }
         }
         public List<IJob> Jobs
         {
             get
             {
-                return JDP.GetEntitiesJobs(EP.CurrentTargetAsOrganization.Item);
+                return JDP.GetEntitiesJobs(EP.CurrentTargetAsOrganization);
             }
         }
         public List<IJob> ChildJobs
@@ -119,7 +112,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization.Item);
+            SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization);
             RaisePropertyChanged("Jobs");
         }
 
@@ -137,6 +130,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private void CommandSelectedJobChangedExecute(object J)
         {
             SelectedJob = (IJob)J;
+            RaisePropertyChanged("ChildJobs");
         }
 
         #endregion
@@ -147,6 +141,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             if (type == EntityTypes.Organization)
             {
                 RaisePropertyChanged("Jobs");
+                RaisePropertyChanged("Entities");
+                RaisePropertyChanged("Org");
+                RaisePropertyChanged("TargetChildren");
             }
         }
         #endregion
