@@ -19,6 +19,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             EA = eventAggregator;
             RM = regionManager;
             EP = entityProvider;
+
+            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
 
         #region Variables
@@ -43,6 +45,16 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             set
             {
                 EP.CurrentTargetAsCharacter.Item = value;
+                RaisePropertyChanged("Char");
+            }
+        }
+        #endregion
+
+        #region Event Handlers
+        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        {
+            if (type == EntityTypes.Character)
+            {
                 RaisePropertyChanged("Char");
             }
         }

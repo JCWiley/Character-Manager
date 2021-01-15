@@ -18,6 +18,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             RM = regionManager;
             EP = entityProvider;
             DDP = derivedDataProvider;
+
+            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
 
         #region Variables
@@ -57,6 +59,17 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             get
             {
                 return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
+            }
+        }
+        #endregion
+
+        #region Event Handlers
+        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        {
+            if (type == EntityTypes.Organization)
+            {
+                RaisePropertyChanged("Org");
+                RaisePropertyChanged("ImmidiateChildren");
             }
         }
         #endregion
