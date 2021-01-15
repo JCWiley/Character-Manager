@@ -119,7 +119,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization.Item);
+            SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization.Item);
             RaisePropertyChanged("Jobs");
         }
 

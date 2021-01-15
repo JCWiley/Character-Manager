@@ -22,17 +22,19 @@ namespace CharacterManager.Model.Providers
         [Dependency]
         public IJobFactory _jobFactory{ get; set; }
 
-        public void AddBlankJobToEntity(IEntity parent_entity)
+        public IJob AddBlankJobToEntity(IEntity parent_entity)
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerEntity = parent_entity.Job_ID;
             DS.Job_List.Add(J);
+            return J;
         }
-        public void AddBlankJobToJob(IJob parent_job)
+        public IJob AddBlankJobToJob(IJob parent_job)
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerJob = parent_job.Job_ID;
             DS.Job_List.Add(J);
+            return J;
         }
 
         public List<IJob> GetEntitiesJobs(IEntity entity)

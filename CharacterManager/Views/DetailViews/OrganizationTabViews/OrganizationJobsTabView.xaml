@@ -151,7 +151,7 @@
                     <DataGridComboBoxColumn x:Name="OwnerComboBoxColumn"
                                                         Header="Owner"
                                                         ItemsSource ="{Binding Source={StaticResource Entities}, UpdateSourceTrigger=PropertyChanged}"
-                                                        SelectedItemBinding="{Binding OwnerEntity, Converter={StaticResource EntityToGuidConverter}}"
+                                                        SelectedValueBinding="{Binding OwnerEntity, Converter={StaticResource EntityToGuidConverter}}"
                                                         DisplayMemberPath="Item.Name"
                                                         Width="150">
                     </DataGridComboBoxColumn>

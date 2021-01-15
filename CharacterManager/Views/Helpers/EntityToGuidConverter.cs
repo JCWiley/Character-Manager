@@ -13,6 +13,7 @@ using System.Windows.Data;
 
 namespace CharacterManager.Views.Helpers
 {
+    [ValueConversion(typeof(IRTreeMember<IEntity>), typeof(Guid))]
     public class EntityToGuidConverter : IValueConverter
     {
         IEntityProvider EP;

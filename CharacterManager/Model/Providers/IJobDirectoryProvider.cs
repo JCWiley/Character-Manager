@@ -13,9 +13,9 @@ namespace CharacterManager.Model.Providers
 
         public IJobFactory _jobFactory { get; set; }
 
-        public void AddBlankJobToEntity(IEntity parent_entity);
+        public IJob AddBlankJobToEntity(IEntity parent_entity);
 
-        public void AddBlankJobToJob(IJob parent_job);
+        public IJob AddBlankJobToJob(IJob parent_job);
 
         public List<IJob> GetEntitiesJobs(IEntity entity);
 
