@@ -5,11 +5,11 @@ using System.Windows.Controls;
 namespace CharacterManager.Views.DetailViews.OrganizationTabViews
 {
     /// <summary>
-    /// Interaction logic for OrganizationJobsTabView.xaml
+    /// Interaction logic for OrganizationJobHistoryTabView.xaml
     /// </summary>
-    public partial class OrganizationJobsTabView : UserControl
+    public partial class OrganizationJobHistoryTabView : UserControl
     {
-        public OrganizationJobsTabView()
+        public OrganizationJobHistoryTabView()
         {
             InitializeComponent();
         }

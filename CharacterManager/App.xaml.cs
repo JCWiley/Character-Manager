@@ -39,6 +39,7 @@ namespace CharacterManager
             containerRegistry.Register(typeof(IRTreeFactory<>), typeof(RTreeFactory<>));
             containerRegistry.Register(typeof(IEntityFactory), typeof(EntityFactory));
             containerRegistry.Register(typeof(IJobFactory), typeof(JobFactory));
+            containerRegistry.Register(typeof(IJobEventFactory), typeof(JobEventFactory));
 
             containerRegistry.RegisterSingleton(typeof(IDataService), typeof(DataService));
             containerRegistry.RegisterSingleton(typeof(ISettingsService), typeof(SettingsService));
@@ -46,18 +47,10 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(IEntityProvider), typeof(EntityProvider));
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
+            containerRegistry.RegisterSingleton(typeof(IJobEventProvider), typeof(JobEventProvider));
 
-            //containerRegistry.RegisterSingleton(typeof(IPrimaryProvider), typeof(PrimaryProvider));
-
-            //containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(JSONDataLoader));
-            //containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(JSONDataSaver));
             containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(NJSONDataLoader));
             containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(NJSONDataSaver));
-            //containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(RAWDataLoader));
-            //containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(RAWDataSaver));
-
-
-            //containerRegistry.Register(typeof(IDictionary<Guid, IRTreeMember<>>),typeof(Dictionary<Guid,IRTreeMember<>>));
 
             containerRegistry.RegisterForNavigation<CharacterDetailView>();
             containerRegistry.RegisterForNavigation<OrganizationDetailView>();

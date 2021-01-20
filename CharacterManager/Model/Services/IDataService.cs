@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using System;
@@ -14,5 +15,6 @@ namespace CharacterManager.Model.Services
     {
         public List<IJob> Job_List { get; set; }
         public RTree<IEntity> EntityTree { get; set; }
+        public List<IEvent> JobEventList { get; set; }
     }
 }

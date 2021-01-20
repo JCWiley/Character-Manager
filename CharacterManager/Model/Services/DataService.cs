@@ -1,6 +1,7 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.DataLoading;
 using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
 using CharacterManager.Model.Factories;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
@@ -36,6 +37,14 @@ namespace CharacterManager.Model.Services
             get { return entitytree; }
             set { SetProperty(ref entitytree, value); }
         }
+
+        private List<IEvent> jobeventlist;
+        public  List<IEvent> JobEventList
+        {
+            get { return jobeventlist; }
+            set { SetProperty(ref jobeventlist, value); }
+        }
+
 
         #endregion
 
@@ -108,8 +117,7 @@ namespace CharacterManager.Model.Services
         {
             Job_List = dataService.Job_List;
             EntityTree = dataService.EntityTree;
+            JobEventList = dataService.JobEventList;
         }
-        
-
     }
 }
