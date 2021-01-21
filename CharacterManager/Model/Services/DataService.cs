@@ -38,11 +38,11 @@ namespace CharacterManager.Model.Services
             set { SetProperty(ref entitytree, value); }
         }
 
-        private List<IEvent> jobeventlist;
-        public  List<IEvent> JobEventList
+        private Dictionary<Guid, List<IEvent>> jobeventdict;
+        public Dictionary<Guid, List<IEvent>> JobEventDict
         {
-            get { return jobeventlist; }
-            set { SetProperty(ref jobeventlist, value); }
+            get { return jobeventdict; }
+            set { SetProperty(ref jobeventdict, value); }
         }
 
 

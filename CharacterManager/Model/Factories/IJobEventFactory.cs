@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Factories
 {
-    interface IJobEventFactory
+    public interface IJobEventFactory
     {
         public IEvent CreateJobEvent(string character, string comment, string event_type, string job, int progress_effects);
     }

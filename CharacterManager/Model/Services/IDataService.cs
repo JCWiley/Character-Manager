@@ -15,6 +15,6 @@ namespace CharacterManager.Model.Services
     {
         public List<IJob> Job_List { get; set; }
         public RTree<IEntity> EntityTree { get; set; }
-        public List<IEvent> JobEventList { get; set; }
+        public Dictionary<Guid, List<IEvent>> JobEventDict { get; set; }
     }
 }
