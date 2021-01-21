@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Providers
 {
-    interface IJobEventProvider
+    public interface IJobEventProvider
     {
         public List<IEvent> GetEventsForJob(IJob J);
         public List<IEvent> GetEventsForEntity(IRTreeMember<IEntity> E);

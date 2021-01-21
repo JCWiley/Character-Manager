@@ -12,7 +12,7 @@
         <DataGrid x:Name="Job_History_DataGrid"
                                   CanUserAddRows="False"
                                   VerticalScrollBarVisibility="Auto"
-                                  ItemsSource="{Binding O.Events_Summary}"
+                                  ItemsSource="{Binding JobEventSummary}"
                                   CanUserDeleteRows="True"
                                   CanUserResizeColumns="True"
                                   CanUserReorderColumns="True"
@@ -20,7 +20,7 @@
                                   AutoGenerateColumns="False" 
                                   Margin="0,0,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Character"
+                <DataGridTextColumn Header="Organization"
                                                     Binding="{Binding Character}"
                                                     Width="130"/>
                 <DataGridTextColumn Header="Job"

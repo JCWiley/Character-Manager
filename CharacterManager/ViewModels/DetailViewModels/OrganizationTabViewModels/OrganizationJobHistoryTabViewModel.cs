@@ -13,14 +13,15 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
-    public class OrganizationJobHistoryViewModel : BindableBase
+    public class OrganizationJobHistoryTabViewModel : BindableBase
     {
-        public OrganizationJobHistoryViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider)
+        public OrganizationJobHistoryTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider, IJobEventProvider jobEventProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
             JDP = jobDirectoryProvider;
             EP = entityProvider;
+            JEP = jobEventProvider;
 
             EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
@@ -30,14 +31,15 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private IRegionManager RM;
         private IJobDirectoryProvider JDP;
         private IEntityProvider EP;
+        private IJobEventProvider JEP;
         #endregion
 
         #region Binding targets
-        List<IEvent> JobEventSummary
+        public List<IEvent> JobEventSummary
         {
             get
             {
-
+                return JEP.GetEventsForEntity(EP.CurrentTargetAsOrganization);
             }
         }
         #endregion

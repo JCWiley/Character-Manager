@@ -117,7 +117,7 @@ namespace CharacterManager.Model.Services
         {
             Job_List = dataService.Job_List;
             EntityTree = dataService.EntityTree;
-            JobEventList = dataService.JobEventList;
+            JobEventDict = dataService.JobEventDict;
         }
     }
 }

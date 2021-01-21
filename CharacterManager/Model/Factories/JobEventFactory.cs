@@ -19,7 +19,7 @@ namespace CharacterManager.Model.Factories
                 Event_Type = event_type,
                 Job = job,
                 Progress_Effects = progress_effects
-            }
+            };
         }
     }
 }
