@@ -16,6 +16,6 @@ namespace CharacterManager.Model.Providers
         public List<IEvent> GetEventsForEntity(IRTreeMember<IEntity> E);
         public List<IEvent> GetAllEvents();
         public void AddEventToJob(IJob J, string Character, string Comment, string Event_Type, string Job, int Progress_Effects);
-        public void AddEventToEntity(IRTreeMember<IEntity> E, string Character, string Comment, string Event_Type, string Job, int Progress_Effects);
+        public void AddEventToJob(IJob J, IEvent E);
     }
 }

@@ -24,15 +24,9 @@ namespace CharacterManager.Model.Providers
         [Dependency]
         public IJobDirectoryProvider JDP { get; set; }
 
-        public void AddEventToEntity(IRTreeMember<IEntity> E, string Character, string Comment, string Event_Type, string Job, int Progress_Effects)
+        public void AddEventToJob(IJob J, IEvent E)
         {
-            throw new NotImplementedException();
-        }
-
-        public void AddEventToJob(IJob J, string Character, string Comment, string Event_Type, string Job, int Progress_Effects)
-        {
-            IEvent E = JEF.CreateJobEvent(Character, Comment, Event_Type, Job, Progress_Effects);
-            if(DS.JobEventDict.ContainsKey(J.Job_ID))
+            if (DS.JobEventDict.ContainsKey(J.Job_ID))
             {
                 DS.JobEventDict[J.Job_ID].Add(E);
             }
@@ -41,6 +35,12 @@ namespace CharacterManager.Model.Providers
                 DS.JobEventDict.Add(J.Job_ID, new List<IEvent>());
                 DS.JobEventDict[J.Job_ID].Add(E);
             }
+        }
+
+        public void AddEventToJob(IJob J, string Character, string Comment, string Event_Type, string Job, int Progress_Effects)
+        {
+            IEvent E = JEF.CreateJobEvent(Character, Comment, Event_Type, Job, Progress_Effects);
+            AddEventToJob(J, E);
         }
 
         public List<IEvent> GetAllEvents()

@@ -1,12 +1,16 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.Providers;
 using CharacterManager.Model.RedundantTree;
+using CharacterManager.ViewModels.Helpers;
+using CharacterManager.Views.PopupViews;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +21,14 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
     public class OrganizationJobsTabViewModel : BindableBase
     {
-        public OrganizationJobsTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider)
+        public OrganizationJobsTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider,IDialogServiceHelper dialogServiceHelper,IJobEventProvider jobEventProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
             JDP = jobDirectoryProvider;
             EP = entityProvider;
+            DSH = dialogServiceHelper;
+            JEP = jobEventProvider;
 
             EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
@@ -32,6 +38,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private IRegionManager RM;
         private IJobDirectoryProvider JDP;
         private IEntityProvider EP;
+        private IDialogServiceHelper DSH;
+        private IJobEventProvider JEP;
         private IJob SelectedJob = null;
 
         #endregion
@@ -118,7 +126,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 
         private void CommandAddCustomEventExecute()
         {
-
+            //trigger user prompt, pass selected job, prompt calls JEP to add new event.
+            DSH.ShowNewEventPopup(CustomEventCreated, new DialogParameters { {"Job",SelectedJob},{"Entity", EP.CurrentTargetAsOrganization } });
         }
 
         private void CommandAddSubtaskExecute()
@@ -145,6 +154,14 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 RaisePropertyChanged("Org");
                 RaisePropertyChanged("TargetChildren");
             }
+        }
+
+        private void CustomEventCreated(IDialogResult result)
+        {
+            IJob J = result.Parameters.GetValue<IJob>("Job");
+            IEvent E = result.Parameters.GetValue<IEvent>("Event");
+
+            JEP.AddEventToJob(J, E);
         }
         #endregion
     }

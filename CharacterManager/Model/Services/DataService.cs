@@ -73,6 +73,8 @@ namespace CharacterManager.Model.Services
                 EntityTree.AddChild(EntityTree.AddItem(new Organization(), true), EntityTree.AddItem(new Character()));
 
                 Job_List = new List<IJob>();
+
+                JobEventDict = new Dictionary<Guid, List<IEvent>>();
             }
 
         }

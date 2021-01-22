@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.Services;
 using CharacterManager.Model.DataLoading;
+using CharacterManager.Views.PopupViews;
+using CharacterManager.ViewModels.Helpers;
 //using CharacterManager.Model.DataLoading;
 
 namespace CharacterManager
@@ -52,8 +54,12 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(NJSONDataLoader));
             containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(NJSONDataSaver));
 
+            containerRegistry.RegisterSingleton(typeof(IDialogServiceHelper), typeof(DialogServiceHelper));
+
             containerRegistry.RegisterForNavigation<CharacterDetailView>();
             containerRegistry.RegisterForNavigation<OrganizationDetailView>();
+
+            containerRegistry.RegisterDialog<NewEventPopupView>();
 
             Application.Current.Resources.Add("IoC", this.Container);
         }
