@@ -13,12 +13,13 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
     public class CharacterJobHistoryTabViewModel : BindableBase
     {
-        public CharacterJobHistoryTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider)
+        public CharacterJobHistoryTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IJobEventProvider jobEventProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
             EP = entityProvider;
             JDP = jobDirectoryProvider;
+            JEP = jobEventProvider;
 
             EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
         }
@@ -28,6 +29,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         private IRegionManager RM;
         private IEntityProvider EP;
         private IJobDirectoryProvider JDP;
+        private IJobEventProvider JEP;
         #endregion
 
         #region Binding Targets
@@ -49,7 +51,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         {
             get
             {
-                return JDP.GetEventSummaryForEntity(EP.CurrentTargetAsCharacter);
+                return JEP.GetEventsForEntity(EP.CurrentTargetAsCharacter);
             }
         }
 
@@ -66,6 +68,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 case ChangeType.SelectedOrganizationChanged:
                     break;
                 case ChangeType.JobEventListChanged:
+                    RaisePropertyChanged("Events_Summary");
                     break;
                 case ChangeType.JobListChanged:
                     break;

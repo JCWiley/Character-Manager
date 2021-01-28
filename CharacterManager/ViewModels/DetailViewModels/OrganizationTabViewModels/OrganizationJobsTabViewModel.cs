@@ -160,16 +160,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             }
         }
 
-        //private void SelectedEntityChangedPostEventExecute(EntityTypes type)
-        //{
-        //    if (type == EntityTypes.Organization)
-        //    {
-        //        RaisePropertyChanged("Jobs");
-        //        RaisePropertyChanged("Entities");
-        //        RaisePropertyChanged("Org");
-        //        RaisePropertyChanged("TargetChildren");
-        //    }
-        //}
 
         private void CustomEventCreated(IDialogResult result)
         {

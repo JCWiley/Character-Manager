@@ -21,7 +21,5 @@ namespace CharacterManager.Model.Providers
         public List<IJob> GetEntitiesJobs(IRTreeMember<IEntity> entity);
 
         public List<IJob> GetSubJobs(IJob job);
-
-        public List<IEvent> GetEventSummaryForEntity(IRTreeMember<IEntity> entity);
     }
 }

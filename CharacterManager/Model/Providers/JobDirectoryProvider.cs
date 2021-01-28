@@ -59,21 +59,6 @@ namespace CharacterManager.Model.Providers
             return DS.Job_List.Where(J => J.OwnerEntity == entity.Gid).ToList();
         }
 
-        public List<IEvent> GetEventSummaryForEntity(IRTreeMember<IEntity> entity)
-        {
-            List<IJob> jobs = GetEntitiesJobs(entity);
-            List<IEvent> Summary = new List<IEvent>();
-
-            foreach (IJob job in jobs)
-            {
-                foreach (IEvent e in job.Events)
-                {
-                    Summary.Add(e);
-                }
-            }
-            return Summary;
-        }
-
         public List<IJob> GetSubJobs(IJob job)
         {
             return DS.Job_List.Where(J => J.OwnerJob == job.Job_ID).ToList();
