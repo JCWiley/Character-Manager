@@ -44,9 +44,9 @@ namespace CharacterManager.Model.Services
             get { return jobeventdict; }
             set { SetProperty(ref jobeventdict, value); }
         }
-
-
         #endregion
+
+
 
         public DataService()
         {

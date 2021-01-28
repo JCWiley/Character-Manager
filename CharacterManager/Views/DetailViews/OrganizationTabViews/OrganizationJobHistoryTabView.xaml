@@ -16,7 +16,6 @@
                                   CanUserDeleteRows="True"
                                   CanUserResizeColumns="True"
                                   CanUserReorderColumns="True"
-                                  IsEnabled="False"
                                   AutoGenerateColumns="False" 
                                   Margin="0,0,0,0">
             <DataGrid.Columns>

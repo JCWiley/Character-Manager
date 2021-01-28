@@ -22,7 +22,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             EP = entityProvider;
             JDP = jobDirectoryProvider;
 
-            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
         }
 
         #region Variables
@@ -88,12 +88,22 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #endregion
 
         #region Event Handlers
-        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        private void UIUpdateRequestExecute(ChangeType type)
         {
-            if(type == EntityTypes.Character)
+            switch (type)
             {
-                RaisePropertyChanged("Jobs");
-                RaisePropertyChanged("Char");
+                case ChangeType.SelectedCharacterChanged:
+                    RaisePropertyChanged("Char");
+                    RaisePropertyChanged("Jobs");
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    break;
+                case ChangeType.JobEventListChanged:
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                default:
+                    break;
             }
         }
         #endregion

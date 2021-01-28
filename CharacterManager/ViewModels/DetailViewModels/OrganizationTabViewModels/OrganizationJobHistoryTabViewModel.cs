@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Providers;
@@ -7,9 +8,11 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
@@ -23,7 +26,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             EP = entityProvider;
             JEP = jobEventProvider;
 
-            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
         }
 
         #region Variables
@@ -45,11 +48,22 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #endregion
 
         #region Event Handlers
-        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        private void UIUpdateRequestExecute(ChangeType type)
         {
-            if (type == EntityTypes.Organization)
+            switch (type)
             {
-                RaisePropertyChanged("JobEventSummary");
+                case ChangeType.SelectedCharacterChanged:
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    RaisePropertyChanged("JobEventSummary");
+                    break;
+                case ChangeType.JobEventListChanged:
+                    RaisePropertyChanged("JobEventSummary");
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                default:
+                    break;
             }
         }
         #endregion

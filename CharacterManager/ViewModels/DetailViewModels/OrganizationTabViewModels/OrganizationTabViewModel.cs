@@ -19,7 +19,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             EP = entityProvider;
             DDP = derivedDataProvider;
 
-            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
         }
 
         #region Variables
@@ -39,7 +39,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         {
             get
             {
-                if (EP.CurrentTargetAsCharacter != null)
+                if (EP.CurrentTargetAsOrganization != null)
                 {
                     return (Organization)EP.CurrentTargetAsOrganization.Item;
                 }
@@ -47,11 +47,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 {
                     return null;
                 }
-            }
-            set
-            {
-                EP.CurrentTargetAsOrganization.Item = value;
-                RaisePropertyChanged("Org");
             }
         }
         public List<IRTreeMember<IEntity>> ImmidiateChildren
@@ -64,12 +59,22 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #endregion
 
         #region Event Handlers
-        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        private void UIUpdateRequestExecute(ChangeType type)
         {
-            if (type == EntityTypes.Organization)
+            switch (type)
             {
-                RaisePropertyChanged("Org");
-                RaisePropertyChanged("ImmidiateChildren");
+                case ChangeType.SelectedCharacterChanged:
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    RaisePropertyChanged("Org");
+                    RaisePropertyChanged("ImmidiateChildren");
+                    break;
+                case ChangeType.JobEventListChanged:
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                default:
+                    break;
             }
         }
         #endregion

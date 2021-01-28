@@ -1,9 +1,12 @@
-﻿using CharacterManager.Model.Entities;
+﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
+using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Factories;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,19 @@ namespace CharacterManager.Model.Providers
         [Dependency]
         public IJobDirectoryProvider JDP { get; set; }
 
+        public IEventAggregator EA { get; set; }
+
+        public JobEventProvider(IEventAggregator eventAggregator)
+        {
+            EA = eventAggregator;
+            EA.GetEvent<JobEventOccuredEvent>().Subscribe(JobEventOccuredEventExecute);
+        }
+
+        private void NotifyJobEventDictChanged()
+        {
+            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.JobEventListChanged);
+        }
+
         public void AddEventToJob(IJob J, IEvent E)
         {
             if (DS.JobEventDict.ContainsKey(J.Job_ID))
@@ -35,6 +51,7 @@ namespace CharacterManager.Model.Providers
                 DS.JobEventDict.Add(J.Job_ID, new List<IEvent>());
                 DS.JobEventDict[J.Job_ID].Add(E);
             }
+            NotifyJobEventDictChanged();
         }
 
         public void AddEventToJob(IJob J, string Character, string Comment, string Event_Type, string Job, int Progress_Effects)
@@ -67,7 +84,22 @@ namespace CharacterManager.Model.Providers
 
         public List<IEvent> GetEventsForJob(IJob J)
         {
-            return DS.JobEventDict[J.Job_ID];
+            if(DS.JobEventDict.ContainsKey(J.Job_ID))
+            {
+                return DS.JobEventDict[J.Job_ID];
+            }
+            else
+            {
+                return new List<IEvent>();
+            }
+            
         }
+
+        #region Event Handlers
+        private void JobEventOccuredEventExecute(JobEventOccuredContainer paramaters)
+        {
+            AddEventToJob(paramaters.TargetJob, paramaters.NewEvent);
+        }
+        #endregion
     }
 }

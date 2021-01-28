@@ -1,9 +1,11 @@
-﻿using CharacterManager.Model.Entities;
+﻿using CharacterManager.Events;
+using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Factories;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +24,25 @@ namespace CharacterManager.Model.Providers
         [Dependency]
         public IJobFactory _jobFactory{ get; set; }
 
+
+        public IEventAggregator EA { get; set; }
+
+        public JobDirectoryProvider(IEventAggregator eventAggregator)
+        {
+            EA = eventAggregator;
+        }
+
+        private void NotifyJobListChanged()
+        {
+            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.JobListChanged);
+        }
+
         public IJob AddBlankJobToEntity(IRTreeMember<IEntity> parent_entity)
         {
             IJob J = _jobFactory.CreateJob();
             J.OwnerEntity = parent_entity.Gid;
             DS.Job_List.Add(J);
+            NotifyJobListChanged();
             return J;
         }
         public IJob AddBlankJobToJob(IJob parent_job)
@@ -34,18 +50,12 @@ namespace CharacterManager.Model.Providers
             IJob J = _jobFactory.CreateJob();
             J.OwnerJob = parent_job.Job_ID;
             DS.Job_List.Add(J);
+            NotifyJobListChanged();
             return J;
         }
 
         public List<IJob> GetEntitiesJobs(IRTreeMember<IEntity> entity)
         {
-            //ListCollectionView VS = new ListCollectionView(Job_List)
-            //{
-            //    Filter = f => (f as Job).OwnerEntity == entity.Job_ID
-            //};
-            //return VS;
-
-
             return DS.Job_List.Where(J => J.OwnerEntity == entity.Gid).ToList();
         }
 

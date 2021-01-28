@@ -18,7 +18,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             EP = entityProvider;
             DDP = derivedDataProvider;
 
-            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
         }
 
         #region Variables
@@ -45,20 +45,25 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                     return null;
                 }
             }
-            set
-            {
-                EP.CurrentTargetAsCharacter.Item = value;
-                RaisePropertyChanged("Char");
-            }
         }
         #endregion
 
         #region Event Handlers
-        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        private void UIUpdateRequestExecute(ChangeType type)
         {
-            if (type == EntityTypes.Character)
+            switch (type)
             {
-                RaisePropertyChanged("Char");
+                case ChangeType.SelectedCharacterChanged:
+                    RaisePropertyChanged("Char");
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    break;
+                case ChangeType.JobEventListChanged:
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                default:
+                    break;
             }
         }
         #endregion

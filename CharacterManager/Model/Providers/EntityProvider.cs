@@ -51,6 +51,15 @@ namespace CharacterManager.Model.Providers
             currenttargetcharacter = currenttargetorganization.Child_Items[0];
         }
 
+        public void NotifySelectedCharacterChanged()
+        {
+            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.SelectedCharacterChanged);
+        }
+        public void NotifySelectedOrganizationChanged()
+        {
+            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.SelectedOrganizationChanged);
+        }
+
         public IRTreeMember<IEntity> AddEntity(EntityTypes type,bool ishead = false)
         {
             IEntity NewEntity = EF.CreateCharacter();
@@ -101,12 +110,13 @@ namespace CharacterManager.Model.Providers
             if (newTarget.Item is Character)
             {
                 currenttargetcharacter = newTarget;
-                EA.GetEvent<SelectedEntityChangedPostEvent>().Publish(EntityTypes.Character);
+                NotifySelectedCharacterChanged();
             }
             else if(newTarget.Item is Organization)
             {
                 currenttargetorganization = newTarget;
-                EA.GetEvent<SelectedEntityChangedPostEvent>().Publish(EntityTypes.Organization);
+                NotifySelectedOrganizationChanged();
+                //EA.GetEvent<SelectedEntityChangedPostEvent>().Publish(EntityTypes.Organization);
             }
             else
             {

@@ -30,7 +30,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             DSH = dialogServiceHelper;
             JEP = jobEventProvider;
 
-            EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+
+            //EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
 
         #region Variables
@@ -57,12 +59,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 {
                     return null;
                 }
-            }
-            set
-            {
-                EP.CurrentTargetAsOrganization.Item = value;
-                RaisePropertyChanged("Org");
-                RaisePropertyChanged("Jobs");
             }
         }
         public List<IRTreeMember<IEntity>> Entities
@@ -93,8 +89,6 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 }
             }
         }
-
-
         public List<IRTreeMember<IEntity>> TargetChildren
         {
             get
@@ -145,23 +139,44 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #endregion
 
         #region Event Handlers
-        private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        private void UIUpdateRequestExecute(ChangeType type)
         {
-            if (type == EntityTypes.Organization)
+            switch (type)
             {
-                RaisePropertyChanged("Jobs");
-                RaisePropertyChanged("Entities");
-                RaisePropertyChanged("Org");
-                RaisePropertyChanged("TargetChildren");
+                case ChangeType.SelectedCharacterChanged:
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    RaisePropertyChanged("Jobs");
+                    RaisePropertyChanged("Entities");
+                    RaisePropertyChanged("Org");
+                    RaisePropertyChanged("TargetChildren");
+                    break;
+                case ChangeType.JobEventListChanged:
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                default:
+                    break;
             }
         }
+
+        //private void SelectedEntityChangedPostEventExecute(EntityTypes type)
+        //{
+        //    if (type == EntityTypes.Organization)
+        //    {
+        //        RaisePropertyChanged("Jobs");
+        //        RaisePropertyChanged("Entities");
+        //        RaisePropertyChanged("Org");
+        //        RaisePropertyChanged("TargetChildren");
+        //    }
+        //}
 
         private void CustomEventCreated(IDialogResult result)
         {
             IJob J = result.Parameters.GetValue<IJob>("Job");
             IEvent E = result.Parameters.GetValue<IEvent>("Event");
 
-            JEP.AddEventToJob(J, E);
+            EA.GetEvent<JobEventOccuredEvent>().Publish(new Events.EventContainers.JobEventOccuredContainer(J, E));
         }
         #endregion
     }
