@@ -44,6 +44,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 }
             }
         }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Org is Organization)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         #endregion
 
         #region Event Handlers
@@ -52,9 +66,11 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
-                    RaisePropertyChanged("Org");
                     break;
                 case ChangeType.SelectedOrganizationChanged:
+                    RaisePropertyChanged("IsEntityEnabled");
+
+                    RaisePropertyChanged("Org");
                     break;
                 case ChangeType.JobEventListChanged:
                     break;

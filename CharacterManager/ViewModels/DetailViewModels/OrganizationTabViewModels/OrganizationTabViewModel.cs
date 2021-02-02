@@ -56,6 +56,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
             }
         }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Org is Organization)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         #endregion
 
         #region Event Handlers
@@ -66,6 +80,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     break;
                 case ChangeType.SelectedOrganizationChanged:
+                    RaisePropertyChanged("IsEntityEnabled");
+
                     RaisePropertyChanged("Org");
                     RaisePropertyChanged("ImmidiateChildren");
                     break;

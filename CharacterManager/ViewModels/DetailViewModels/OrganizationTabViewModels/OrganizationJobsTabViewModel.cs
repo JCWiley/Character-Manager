@@ -96,6 +96,34 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
             }
         }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Org is Organization)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public bool IsJobEnabled
+        {
+            get
+            {
+                if (SelectedJob is IJob)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         #endregion
         #region Commands
         private DelegateCommand _commandnewblankjob;
@@ -115,6 +143,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private void CommandNewBlankJobExecute()
         {
             SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization);
+            RaisePropertyChanged("IsJobEnabled");
             RaisePropertyChanged("Jobs");
         }
 
@@ -133,6 +162,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private void CommandSelectedJobChangedExecute(object J)
         {
             SelectedJob = (IJob)J;
+            RaisePropertyChanged("IsJobEnabled");
             RaisePropertyChanged("ChildJobs");
         }
 
@@ -146,6 +176,11 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     break;
                 case ChangeType.SelectedOrganizationChanged:
+                    //SelectedJob = null;
+
+                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged("IsJobEnabled");
+
                     RaisePropertyChanged("Jobs");
                     RaisePropertyChanged("Entities");
                     RaisePropertyChanged("Org");

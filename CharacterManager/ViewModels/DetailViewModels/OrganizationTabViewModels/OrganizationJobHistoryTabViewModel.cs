@@ -38,11 +38,39 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #endregion
 
         #region Binding targets
+        public Organization Org
+        {
+            get
+            {
+                if (EP.CurrentTargetAsCharacter != null)
+                {
+                    return (Organization)EP.CurrentTargetAsOrganization.Item;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         public List<IEvent> JobEventSummary
         {
             get
             {
                 return JEP.GetEventsForEntity(EP.CurrentTargetAsOrganization);
+            }
+        }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Org is Organization)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         #endregion
@@ -55,6 +83,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     break;
                 case ChangeType.SelectedOrganizationChanged:
+                    RaisePropertyChanged("IsEntityEnabled");
+
                     RaisePropertyChanged("JobEventSummary");
                     break;
                 case ChangeType.JobEventListChanged:

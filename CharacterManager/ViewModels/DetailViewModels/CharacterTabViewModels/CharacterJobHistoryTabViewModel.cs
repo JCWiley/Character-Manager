@@ -47,6 +47,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 }
             }
         }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Char is Character)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         public List<IEvent> Events_Summary
         {
             get
@@ -62,6 +76,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
+                    RaisePropertyChanged("IsEntityEnabled");
+
                     RaisePropertyChanged("Char");
                     RaisePropertyChanged("Events_Summary");
                     break;

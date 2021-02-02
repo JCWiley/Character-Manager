@@ -32,6 +32,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             get { return ddp; }
             set { SetProperty(ref ddp, value); }
         }
+        #endregion
+        #region Binding Targets
         public Character Char
         {
             get
@@ -46,6 +48,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 }
             }
         }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Char is Character)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         #endregion
 
         #region Event Handlers
@@ -54,6 +70,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
+                    RaisePropertyChanged("IsEntityEnabled");
+
                     RaisePropertyChanged("Char");
                     break;
                 case ChangeType.SelectedOrganizationChanged:

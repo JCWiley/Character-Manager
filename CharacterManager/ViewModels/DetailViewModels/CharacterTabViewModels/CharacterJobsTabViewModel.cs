@@ -67,6 +67,34 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 return JDP.GetEntitiesJobs(EP.CurrentTargetAsCharacter);
             }
         }
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if (Char is Character)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public bool IsJobEnabled
+        {
+            get
+            {
+                if(SelectedJob is IJob)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         #endregion
         #region Commands
         private DelegateCommand _commandnewblankjob;
@@ -82,7 +110,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            JDP.AddBlankJobToEntity(EP.CurrentTargetAsCharacter);
+            SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsCharacter);
+            RaisePropertyChanged("IsJobEnabled");
             RaisePropertyChanged("Jobs");
         }
 
@@ -93,6 +122,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         private void CommandSelectedJobChangedExecute(object J)
         {
             SelectedJob = (IJob)J;
+            RaisePropertyChanged("IsJobEnabled");
         }
         #endregion
 
@@ -102,6 +132,11 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
+                    //SelectedJob = null;
+
+                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged("IsJobEnabled");
+
                     RaisePropertyChanged("Char");
                     RaisePropertyChanged("Jobs");
                     break;

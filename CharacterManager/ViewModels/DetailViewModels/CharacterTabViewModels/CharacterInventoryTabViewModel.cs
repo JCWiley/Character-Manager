@@ -45,12 +45,29 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         }
         #endregion
 
+        public bool IsEntityEnabled
+        {
+            get
+            {
+                if(Char is Character)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         #region Event Handlers
         private void UIUpdateRequestExecute(ChangeType type)
         {
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
+                    RaisePropertyChanged("IsEntityEnabled");
+
                     RaisePropertyChanged("Char");
                     break;
                 case ChangeType.SelectedOrganizationChanged:
