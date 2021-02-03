@@ -9,5 +9,9 @@ namespace CharacterManager.Model.Services
     public interface ISettingsService
     {
         public string LastUsedPath { get; set; }
+        public int OverviewColumnWidth { get; set; }
+        public int DetailColumnWidth { get; set; }
+
+        public void SaveProperties();
     }
 }

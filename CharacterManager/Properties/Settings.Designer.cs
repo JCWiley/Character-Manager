@@ -34,5 +34,29 @@ namespace CharacterManager.Properties {
                 this["LastUsedPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int OverviewColumnWidth {
+            get {
+                return ((int)(this["OverviewColumnWidth"]));
+            }
+            set {
+                this["OverviewColumnWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("750")]
+        public int DetailColumnWidth {
+            get {
+                return ((int)(this["DetailColumnWidth"]));
+            }
+            set {
+                this["DetailColumnWidth"] = value;
+            }
+        }
     }
 }

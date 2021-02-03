@@ -1,18 +1,21 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
+using CharacterManager.Model.Services;
 using Prism.Events;
+using Prism.Mvvm;
 using Prism.Regions;
 using System;
 
 namespace CharacterManager.ViewModels
 {
-    public class ShellViewModel
+    public class ShellViewModel : BindableBase
     {
-        public ShellViewModel (IEventAggregator eventAggregator, IRegionManager regionManager)
+        public ShellViewModel (IEventAggregator eventAggregator, IRegionManager regionManager, ISettingsService settingsService)
         {
             RM = regionManager;
             EA = eventAggregator;
+            SS = settingsService;
 
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
             RM.RequestNavigate("DETAIL_REGION", "OrganizationDetailView");
@@ -22,7 +25,36 @@ namespace CharacterManager.ViewModels
         #region Variables
         private IEventAggregator EA;
         private readonly IRegionManager RM;
+        private ISettingsService SS;
+        #endregion
 
+        #region Binding Targets
+        public int OverviewColumnWidth
+        {
+            get
+            {
+                return SS.OverviewColumnWidth;
+            }
+            set
+            {
+                SS.OverviewColumnWidth = value;
+                RaisePropertyChanged("OverviewColumnWidth");
+                RaisePropertyChanged("DetailColumnWidth");
+            }
+        }
+        public int DetailColumnWidth
+        {
+            get
+            {
+                return SS.DetailColumnWidth;
+            }
+            set
+            {
+                SS.DetailColumnWidth = value;
+                RaisePropertyChanged("OverviewColumnWidth");
+                RaisePropertyChanged("DetailColumnWidth");
+            }
+        }
         #endregion
 
         #region Event Handlers

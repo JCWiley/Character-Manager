@@ -16,12 +16,12 @@
         <ContentControl Grid.Row="0" prism:RegionManager.RegionName="MENU_REGION"/>
         <Grid x:Name="ContentGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="OverviewColumn" Width="*" MinWidth="200"/>
-                <ColumnDefinition x:Name="SplitterColumn" Width="5" MinWidth="5" MaxWidth="5"/>
-                <ColumnDefinition x:Name="DetailColumn" Width="*" MinWidth="430"/>
+                <ColumnDefinition x:Name="OverviewColumn" Width="203*" MinWidth="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition x:Name="DetailColumn" Width="750*" MinWidth="430"/>
             </Grid.ColumnDefinitions>
             <ContentControl Grid.Column="0" prism:RegionManager.RegionName="OVERVIEW_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <GridSplitter Grid.Column ="1" Width="5" Background="White" HorizontalAlignment="Center" VerticalAlignment="Stretch" ShowsPreview="False"/>
             <ContentControl Grid.Column="2" prism:RegionManager.RegionName="DETAIL_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
     </Grid>

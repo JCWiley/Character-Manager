@@ -23,8 +23,36 @@ namespace CharacterManager.Model.Services
 
             }
         }
+        public int OverviewColumnWidth
+        {
+            get
+            {
+                return Properties.Settings.Default.OverviewColumnWidth;
+            }
+            set
+            {
+                if (Properties.Settings.Default.OverviewColumnWidth != value)
+                {
+                    Properties.Settings.Default.OverviewColumnWidth = value;
+                }
+            }
+        }
+        public int DetailColumnWidth
+        {
+            get
+            {
+                return Properties.Settings.Default.DetailColumnWidth;
+            }
+            set
+            {
+                if (Properties.Settings.Default.DetailColumnWidth != value)
+                {
+                    Properties.Settings.Default.DetailColumnWidth = value;
+                }
+            }
+        }
 
-        ~SettingsService()
+        public void SaveProperties()
         {
             Properties.Settings.Default.Save();
         }
