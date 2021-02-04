@@ -16,6 +16,9 @@ using CharacterManager.Model.Services;
 using CharacterManager.Model.DataLoading;
 using CharacterManager.Views.PopupViews;
 using CharacterManager.ViewModels.Helpers;
+using Prism.Events;
+using CharacterManager.Events;
+using Unity;
 //using CharacterManager.Model.DataLoading;
 
 namespace CharacterManager
@@ -28,6 +31,9 @@ namespace CharacterManager
         protected override Window CreateShell()
         {
             //https://prismlibrary.com/docs/wpf/getting-started.html#createshell
+
+            Container.Resolve<IEventAggregator>().GetEvent<ProgramExitRequestEvent>().Subscribe(ProgramExitRequestEventExecute);
+
 
             Window Root = Container.Resolve<ShellView>();
             return Root;
@@ -80,6 +86,19 @@ namespace CharacterManager
                 }
                 return type;
             });
+        }
+        
+
+        void App_Exit(Object sender, ExitEventArgs e)
+        {
+            IEventAggregator EA = Container.Resolve<IEventAggregator>();
+
+            EA.GetEvent<ProgramIsClosingEvent>().Publish("");
+        }
+
+        void ProgramExitRequestEventExecute(string paramaters)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

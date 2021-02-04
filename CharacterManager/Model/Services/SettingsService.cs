@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CharacterManager.Events;
+using Prism.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,11 @@ namespace CharacterManager.Model.Services
 {
     public class SettingsService : ISettingsService
     {
+        public SettingsService(IEventAggregator eventAggregator)
+        {
+            eventAggregator.GetEvent<ProgramIsClosingEvent>().Subscribe(ProgramIsClosingEventExecute);
+        }
+
         public string LastUsedPath
         {
             get
@@ -56,6 +63,13 @@ namespace CharacterManager.Model.Services
         {
             Properties.Settings.Default.Save();
         }
+
+        #region Event Handlers
+        private void ProgramIsClosingEventExecute(string paramaters)
+        {
+            SaveProperties();
+        }
+        #endregion
 
 
     }
