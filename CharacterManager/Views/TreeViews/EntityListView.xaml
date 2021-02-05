@@ -9,7 +9,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Red">
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -21,8 +21,7 @@
                   SelectedItemChanged="EnityTree_SelectedItemChanged"
                   Padding="0,1,1,1"
                   BorderThickness="1"
-                  Grid.Row="0"
-                  Background="Gray">
+                  Grid.Row="0">
             <TreeView.Resources>
                 <BooleanToVisibilityConverter x:Key="BoolToVis" />
                 <HierarchicalDataTemplate DataType="{x:Type TreeViewModels:OrganizationTreeItemViewModel}" ItemsSource="{Binding Children}">
