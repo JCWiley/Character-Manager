@@ -29,7 +29,7 @@ namespace CharacterManager.Model.DataLoading
             {
                 TargetDirectory = Path.GetDirectoryName(path);
 
-                LoadResult = LoadFile(path);
+                LoadResult = LoadFile(path,true);
             }
             return LoadResult;
         }
@@ -49,30 +49,38 @@ namespace CharacterManager.Model.DataLoading
             if (openFileDialog.ShowDialog() == true)
             {
                 filepath = openFileDialog.FileName;
-                Load_Success = LoadFile(filepath);
+                Load_Success = LoadFile(filepath,false);
             }
 
             return Load_Success;
         }
 
-        private IDataService LoadFile(string path)
+        private IDataService LoadFile(string path, bool IgnoreExceptions)
         {
-            IDataService dataService = new InvalidDataService();
-            string jsonString = File.ReadAllText(path);
+            string jsonString = "";
+
             var settings = new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
                 PreserveReferencesHandling = PreserveReferencesHandling.All,
                 TypeNameHandling = TypeNameHandling.All
             };
+
+            IDataService dataService = new InvalidDataService();
             try
             {
+                jsonString = File.ReadAllText(path);
                 dataService = JsonConvert.DeserializeObject<DataService>(jsonString, settings);
             }
             catch
             {
                 dataService = new InvalidDataService();
+                if(!IgnoreExceptions)
+                {
+                    throw;
+                }
             }
+
             return dataService;
         }
     }

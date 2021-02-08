@@ -18,11 +18,13 @@ namespace CharacterManager.Model.Services
 {
     public class DataService :BindableBase, IDataService
     {
-        #region variables
+        #region Services
         private IDataLoader DL;
         private IDataSaver DS;
         private IEventAggregator EA;
+        #endregion
 
+        #region Data Storage
         private List<IJob> job_list;
 
         public List<IJob> Job_List
@@ -46,8 +48,6 @@ namespace CharacterManager.Model.Services
         }
         #endregion
 
-
-
         public DataService()
         {
 
@@ -64,8 +64,10 @@ namespace CharacterManager.Model.Services
             EA.GetEvent<DataLoadRequestEvent>().Subscribe(DataLoadRequestEventExecute);
 
             //try to load an existing file
-            if (false)//no loading attempts yet
-            { }
+            if (DL.LoadLastFile() is DataService DSE)
+            {
+                SetEqual(DSE);
+            }
             else//if loading fails, initialize with default data
             {
                 EntityTree = new RTree<IEntity>(iRTreeFactory);
