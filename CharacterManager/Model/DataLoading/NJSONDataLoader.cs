@@ -74,6 +74,7 @@ namespace CharacterManager.Model.DataLoading
             }
             catch
             {
+                SS.LastUsedPath = "";
                 dataService = new InvalidDataService();
                 if(!IgnoreExceptions)
                 {

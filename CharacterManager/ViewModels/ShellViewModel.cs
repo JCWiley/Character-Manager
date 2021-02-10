@@ -55,6 +55,14 @@ namespace CharacterManager.ViewModels
                 RaisePropertyChanged("DetailColumnWidth");
             }
         }
+
+        public string Filename
+        {
+            get
+            {
+                return SS.Filename;
+            }
+        }
         #endregion
 
         #region Event Handlers

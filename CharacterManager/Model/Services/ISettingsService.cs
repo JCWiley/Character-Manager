@@ -12,6 +12,8 @@ namespace CharacterManager.Model.Services
         public int OverviewColumnWidth { get; set; }
         public int DetailColumnWidth { get; set; }
 
+        public string Filename { get; }
+
         public void SaveProperties();
     }
 }

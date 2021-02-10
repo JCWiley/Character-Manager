@@ -24,6 +24,10 @@ namespace CharacterManager.Model.Services
         private IEventAggregator EA;
         #endregion
 
+        #region Factories
+        IRTreeFactory<IEntity> IRTF;
+        #endregion
+
         #region Data Storage
         private List<IJob> job_list;
 
@@ -60,24 +64,13 @@ namespace CharacterManager.Model.Services
 
             EA = eventAggregator;
 
+            IRTF = iRTreeFactory;
+
             EA.GetEvent<DataSaveRequestEvent>().Subscribe(DataSaveRequestEventExecute);
             EA.GetEvent<DataLoadRequestEvent>().Subscribe(DataLoadRequestEventExecute);
 
             //try to load an existing file
-            if (DL.LoadLastFile() is DataService DSE)
-            {
-                SetEqual(DSE);
-            }
-            else//if loading fails, initialize with default data
-            {
-                EntityTree = new RTree<IEntity>(iRTreeFactory);
-
-                EntityTree.AddChild(EntityTree.AddItem(new Organization(), true), EntityTree.AddItem(new Character()));
-
-                Job_List = new List<IJob>();
-
-                JobEventDict = new Dictionary<Guid, List<IEvent>>();
-            }
+            DataLoadRequestEventExecute(LoadRequestTypes.LastFile);
 
         }
 
@@ -112,9 +105,13 @@ namespace CharacterManager.Model.Services
             if(LoadResult is not InvalidDataService)
             {
                 SetEqual(LoadResult);
-                EA.GetEvent<DataLoadSuccessEvent>().Publish(EntityTree.Heads[0]);
             }
-            
+            else
+            {
+                InitializeDefault();
+            }
+            EA.GetEvent<DataLoadSuccessEvent>().Publish(EntityTree.Heads[0]);
+
         }
 
         private void SetEqual(IDataService dataService)
@@ -122,6 +119,17 @@ namespace CharacterManager.Model.Services
             Job_List = dataService.Job_List;
             EntityTree = dataService.EntityTree;
             JobEventDict = dataService.JobEventDict;
+        }
+
+        private void InitializeDefault()
+        {
+            EntityTree = new RTree<IEntity>(IRTF);
+
+            EntityTree.AddChild(EntityTree.AddItem(new Organization(), true), EntityTree.AddItem(new Character()));
+
+            Job_List = new List<IJob>();
+
+            JobEventDict = new Dictionary<Guid, List<IEvent>>();
         }
     }
 }

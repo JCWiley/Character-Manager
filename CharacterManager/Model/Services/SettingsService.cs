@@ -2,6 +2,7 @@
 using Prism.Events;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace CharacterManager.Model.Services
             eventAggregator.GetEvent<ProgramIsClosingEvent>().Subscribe(ProgramIsClosingEventExecute);
         }
 
+        #region Settings
         public string LastUsedPath
         {
             get
@@ -30,6 +32,7 @@ namespace CharacterManager.Model.Services
 
             }
         }
+
         public int OverviewColumnWidth
         {
             get
@@ -58,11 +61,25 @@ namespace CharacterManager.Model.Services
                 }
             }
         }
+        #endregion
+
+        #region Convenience Operators
+        public string Filename
+        {
+            get
+            {
+                return Path.GetFileName(LastUsedPath);
+            }
+        }
+        #endregion
 
         public void SaveProperties()
         {
             Properties.Settings.Default.Save();
         }
+
+
+
 
         #region Event Handlers
         private void ProgramIsClosingEventExecute(string paramaters)
