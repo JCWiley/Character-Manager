@@ -18,6 +18,7 @@ namespace CharacterManager.ViewModels
             SS = settingsService;
 
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            EA.GetEvent<DataLoadSuccessEvent>().Subscribe(DataLoadSuccessEventExecute);
             RM.RequestNavigate("DETAIL_REGION", "OrganizationDetailView");
             EA.GetEvent<DataLoadRequestEvent>().Publish(LoadRequestTypes.LastFile);
         }
@@ -80,6 +81,11 @@ namespace CharacterManager.ViewModels
             {
                 throw new Exception("Selected_Item is not Character or Organization");
             }
+        }
+
+        void DataLoadSuccessEventExecute(IRTreeMember<IEntity> paramater)
+        {
+            RaisePropertyChanged("Filename");
         }
 
         #endregion

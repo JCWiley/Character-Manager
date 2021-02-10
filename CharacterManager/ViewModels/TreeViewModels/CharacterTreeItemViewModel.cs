@@ -1,8 +1,10 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Mvvm;
+using System;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
@@ -14,11 +16,16 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EA = eventAggregator;
 
+            EA.GetEvent<FilterRequestEvent>().Subscribe(FilterRequestEventExecute);
+            EA.GetEvent<FilterClearRequestEvent>().Subscribe(FilterClearRequestEventExecute);
+
             Visible = true;
             IsSelected = false;
             IsExpanded = false;
 
         }
+
+
 
         #region Variables
         private IEventAggregator EA;
@@ -80,6 +87,51 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 SetProperty(ref isexpanded, value);
             }
+        }
+        #endregion
+
+        #region Event Handlers
+        private void FilterRequestEventExecute(FilterRequestEventContainer Paramaters)
+        {
+            switch (Paramaters.FilterType)
+            {
+                case FilterType.Name:
+                    if(Target.Item.Name.Contains(Paramaters.FilterContent))
+                    {
+                        Visible = true;
+                    }
+                    else
+                    {
+                        Visible = false;
+                    }
+                    break;
+                case FilterType.Race:
+                    if (Target.Item.Race.Contains(Paramaters.FilterContent))
+                    {
+                        Visible = true;
+                    }
+                    else
+                    {
+                        Visible = false;
+                    }
+                    break;
+                case FilterType.Location:
+                    if (Target.Item.Location.Contains(Paramaters.FilterContent))
+                    {
+                        Visible = true;
+                    }
+                    else
+                    {
+                        Visible = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void FilterClearRequestEventExecute(string Unused)
+        {
+            Visible = true;
         }
         #endregion
     }

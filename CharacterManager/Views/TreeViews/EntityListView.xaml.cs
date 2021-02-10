@@ -19,7 +19,7 @@ namespace CharacterManager.Views.TreeViews
             EA = eventAggregator;
             RM = regionManager;
 
-            //RM.RegisterViewWithRegion("FILTER_REGION", typeof());
+            RM.RegisterViewWithRegion("FILTER_REGION", typeof(EntityFilterView));
         }
 
         private void EnityTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

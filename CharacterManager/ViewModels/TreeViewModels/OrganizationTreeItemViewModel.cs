@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Factories;
 using CharacterManager.Model.RedundantTree;
@@ -22,6 +23,9 @@ namespace CharacterManager.ViewModels.TreeViewModels
             IsExpanded = true;
 
             EA = eventAggregator;
+
+            EA.GetEvent<FilterRequestEvent>().Subscribe(FilterRequestEventExecute);
+            EA.GetEvent<FilterClearRequestEvent>().Subscribe(FilterClearRequestEventExecute);
 
             RebuildChildren();
         }
@@ -166,6 +170,52 @@ namespace CharacterManager.ViewModels.TreeViewModels
         }
         private void CommandDeleteExecute()
         {
+        }
+        #endregion
+
+        #region Event Handlers
+        private void FilterRequestEventExecute(FilterRequestEventContainer Paramaters)
+        {
+            Visible = true;
+            switch (Paramaters.FilterType)
+            {
+                case FilterType.Name:
+                    if (Target.Item.Name.Contains(Paramaters.FilterContent))
+                    {
+                        Visible = true;
+                    }
+                    else
+                    {
+                        Visible = false;
+                    }
+                    break;
+                case FilterType.Race:
+                    if (Target.Item.Race.Contains(Paramaters.FilterContent))
+                    {
+                        Visible = true;
+                    }
+                    else
+                    {
+                        Visible = false;
+                    }
+                    break;
+                case FilterType.Location:
+                    if (Target.Item.Location.Contains(Paramaters.FilterContent))
+                    {
+                        Visible = true;
+                    }
+                    else
+                    {
+                        Visible = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void FilterClearRequestEventExecute(string Unused)
+        {
+            Visible = true;
         }
         #endregion
     }
