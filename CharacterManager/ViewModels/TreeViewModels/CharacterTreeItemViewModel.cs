@@ -16,7 +16,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EA = eventAggregator;
 
-            EA.GetEvent<FilterRequestEvent>().Subscribe(FilterRequestEventExecute);
             EA.GetEvent<FilterClearRequestEvent>().Subscribe(FilterClearRequestEventExecute);
 
             Visible = true;
@@ -43,6 +42,52 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 RaisePropertyChanged("Char");
             }
         }
+        #endregion
+
+        #region Functions
+
+        public bool ApplyFilter(FilterRequestEventContainer filter)
+        {
+            bool Should_Be_Visible = true;
+            switch (filter.FilterType)
+            {
+                case FilterType.Name:
+                    if (Target.Item.Name.Contains(filter.FilterContent))
+                    {
+                        Should_Be_Visible = true;
+                    }
+                    else
+                    {
+                        Should_Be_Visible = false;
+                    }
+                    break;
+                case FilterType.Race:
+                    if (Target.Item.Race.Contains(filter.FilterContent))
+                    {
+                        Should_Be_Visible = true;
+                    }
+                    else
+                    {
+                        Should_Be_Visible = false;
+                    }
+                    break;
+                case FilterType.Location:
+                    if (Target.Item.Location.Contains(filter.FilterContent))
+                    {
+                        Should_Be_Visible = true;
+                    }
+                    else
+                    {
+                        Should_Be_Visible = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            Visible = Should_Be_Visible;
+            return Should_Be_Visible;
+        }
+
         #endregion
 
         #region List State Paramaters
@@ -91,44 +136,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #endregion
 
         #region Event Handlers
-        private void FilterRequestEventExecute(FilterRequestEventContainer Paramaters)
-        {
-            switch (Paramaters.FilterType)
-            {
-                case FilterType.Name:
-                    if(Target.Item.Name.Contains(Paramaters.FilterContent))
-                    {
-                        Visible = true;
-                    }
-                    else
-                    {
-                        Visible = false;
-                    }
-                    break;
-                case FilterType.Race:
-                    if (Target.Item.Race.Contains(Paramaters.FilterContent))
-                    {
-                        Visible = true;
-                    }
-                    else
-                    {
-                        Visible = false;
-                    }
-                    break;
-                case FilterType.Location:
-                    if (Target.Item.Location.Contains(Paramaters.FilterContent))
-                    {
-                        Visible = true;
-                    }
-                    else
-                    {
-                        Visible = false;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
         private void FilterClearRequestEventExecute(string Unused)
         {
             Visible = true;

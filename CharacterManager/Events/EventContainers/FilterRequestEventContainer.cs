@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Events.EventContainers
 {
-    struct FilterRequestEventContainer
+    public struct FilterRequestEventContainer
     {
         public FilterRequestEventContainer(FilterType filterType, string filtercontent)
         {

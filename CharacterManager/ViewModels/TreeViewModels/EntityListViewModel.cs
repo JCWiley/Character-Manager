@@ -24,6 +24,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
             EA.GetEvent<NewEntityRequestEvent>().Subscribe(NewEntityRequestEventExecute);
             EA.GetEvent<DataLoadSuccessEvent>().Subscribe(DataLoadSuccessEventExecute);
 
+            EA.GetEvent<FilterRequestEvent>().Subscribe(FilterRequestEventExecute);
+
             TreeItemViewModelFactory = treeItemViewModelFactory;
 
             EP = entityProvider;
@@ -35,6 +37,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
             TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(EP.HeadEntities()[0]));
             RaisePropertyChanged(nameof(TreeHeads));
         }
+
+
 
         #region Variables
         private ObservableCollection<OrganizationTreeItemViewModel> treeheads;
@@ -69,7 +73,13 @@ namespace CharacterManager.ViewModels.TreeViewModels
             Source.IsExpanded = true;
         }
 
-
+        private void FilterRequestEventExecute(FilterRequestEventContainer paramaters)
+        {
+            foreach (OrganizationTreeItemViewModel head in TreeHeads)
+            {
+                head.ApplyFilter(paramaters);
+            }
+        }
         #endregion
     }
 }
