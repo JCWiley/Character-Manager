@@ -27,8 +27,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
 
         #region Variables
-        private IEventAggregator EA;
-        private IRTreeMember<IEntity> Target;
+        private readonly IEventAggregator EA;
+        private readonly IRTreeMember<IEntity> Target;
 
         public Character Char
         {
@@ -39,7 +39,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set
             {
                 Target.Item = value;
-                RaisePropertyChanged("Char");
+                RaisePropertyChanged(nameof(Char));
             }
         }
         #endregion

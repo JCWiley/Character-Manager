@@ -31,8 +31,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
 
         #region Variables
-        private IEventAggregator EA;
-        private ITreeItemViewModelFactory TreeItemViewModelFactory;
+        private readonly IEventAggregator EA;
+        private readonly ITreeItemViewModelFactory TreeItemViewModelFactory;
 
         private IRTreeMember<IEntity> target;
         public IRTreeMember<IEntity> Target
@@ -50,7 +50,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set
             {
                 Target.Item = value;
-                RaisePropertyChanged("Org");
+                RaisePropertyChanged(nameof(Org));
             }
         }
 

@@ -34,10 +34,9 @@ namespace CharacterManager.Views.Helpers
 
         private static void LoseFocusOnEnterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as FrameworkElement;
-            if (element != null)
+            if (d is FrameworkElement element)
             {
-                if((bool)e.NewValue == true)
+                if ((bool)e.NewValue == true)
                 {
                     element.KeyDown += LoseFocusOnEnter_TextBlock_KeyDown;
                 }

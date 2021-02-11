@@ -13,7 +13,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class EntityFilterViewModel : BindableBase
     {
-        private IEventAggregator EA;
+        private readonly IEventAggregator EA;
         public EntityFilterViewModel(IEventAggregator eventAggregator)
         {
             EA = eventAggregator;
@@ -33,7 +33,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 if(filtercontent != value)
                 {
                     filtercontent = value;
-                    RaisePropertyChanged("FilterContent");
+                    RaisePropertyChanged(nameof(FilterContent));
                 }
             }
         }
@@ -51,14 +51,14 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 if (filterselection != value)
                 {
                     filterselection = value;
-                    RaisePropertyChanged("FilterSelection");
+                    RaisePropertyChanged(nameof(FilterSelection));
                 }
             }
         }
         #endregion
 
         #region BindingTargets
-        public IEnumerable<FilterType> FilterTypeList
+        public static IEnumerable<FilterType> FilterTypeList
         {
             get
             {

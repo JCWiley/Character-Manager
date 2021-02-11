@@ -13,9 +13,9 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class EntityListViewModel : BindableBase
     {
-        private IEventAggregator EA;
-        private IEntityProvider EP;
-        private ITreeItemViewModelFactory TreeItemViewModelFactory;
+        private readonly IEventAggregator EA;
+        private readonly IEntityProvider EP;
+        private readonly ITreeItemViewModelFactory TreeItemViewModelFactory;
 
         public EntityListViewModel(IEventAggregator eventAggregator,IEntityProvider entityProvider,TreeItemViewModelFactory treeItemViewModelFactory)
         {
@@ -30,11 +30,13 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EP = entityProvider;
 
-            TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
-            
-            //currently only uses the first head specified in the RTree, eventually plan to add multi head RTrees
-            //RTrees currently support multi heading, TreeHeads does not
-            TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(EP.HeadEntities()[0]));
+            TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>
+            {
+
+                //currently only uses the first head specified in the RTree, eventually plan to add multi head RTrees
+                //RTrees currently support multi heading, TreeHeads does not
+                TreeItemViewModelFactory.CreateOrganizationViewModel(EP.HeadEntities()[0])
+            };
             RaisePropertyChanged(nameof(TreeHeads));
         }
 
@@ -56,8 +58,10 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #region Event Handlers
         void DataLoadSuccessEventExecute(IRTreeMember<IEntity> NewHead)
         {
-            TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>();
-            TreeHeads.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(NewHead));
+            TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>
+            {
+                TreeItemViewModelFactory.CreateOrganizationViewModel(NewHead)
+            };
         }
         void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)
         {
