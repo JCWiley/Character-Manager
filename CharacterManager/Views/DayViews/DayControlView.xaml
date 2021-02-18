@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="CharacterManager.Views.DayViews.DayControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CharacterManager.Views.DayViews"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="750"
+             Height="AUTO" Width="Auto">
+    <Grid Margin="0,0,5,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="TextBlockColumn" Width="Auto"/>
+            <ColumnDefinition x:Name="ButtonColumn" Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="CurrentDayTextBlock" 
+                   Grid.Column="0"
+                   Content="{Binding CurrentDay}" 
+                   VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+                   VerticalAlignment="Top" 
+                   Height="21.96" 
+                   Width="64" 
+                   FontSize="12" 
+                   Background="#FFF9F9F9" 
+                   />
+        <Button x:Name="AdvanceDayButton" 
+                    Content="+" 
+                    Command="{Binding CommandAdvanceDay}"
+                    VerticalAlignment="Top" 
+                    VerticalContentAlignment="Center"
+                    FontSize="12" 
+                    Height="21.96" 
+                    FontWeight="Bold"
+                    ToolTip="Advance to next day." 
+                    Grid.Column="1" 
+                    Width="48"/>
+    </Grid>
+</UserControl>

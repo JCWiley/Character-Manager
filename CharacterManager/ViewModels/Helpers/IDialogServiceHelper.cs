@@ -10,5 +10,7 @@ namespace CharacterManager.ViewModels.Helpers
     public interface IDialogServiceHelper
     {
         public void ShowNewEventPopup(Action<IDialogResult> action,DialogParameters Paramaters);
+
+        public void ShowAdvanceDayPopup(Action<Prism.Services.Dialogs.IDialogResult> action, DialogParameters Paramaters);
     }
 }

@@ -56,6 +56,7 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(IDerivedDataProvider), typeof(DerivedDataProvider));
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
             containerRegistry.RegisterSingleton(typeof(IJobEventProvider), typeof(JobEventProvider));
+            containerRegistry.RegisterSingleton(typeof(IDayProvider), typeof(DayProvider));
 
             containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(NJSONDataLoader));
             containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(NJSONDataSaver));
@@ -66,6 +67,7 @@ namespace CharacterManager
             containerRegistry.RegisterForNavigation<OrganizationDetailView>();
 
             containerRegistry.RegisterDialog<NewEventPopupView>();
+            containerRegistry.RegisterDialog<AdvanceDayPopupView>();
 
             Application.Current.Resources.Add("IoC", this.Container);
         }

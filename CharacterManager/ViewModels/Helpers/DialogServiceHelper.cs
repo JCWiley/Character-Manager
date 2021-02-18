@@ -20,5 +20,10 @@ namespace CharacterManager.ViewModels.Helpers
         {
             DS.ShowDialog(nameof(NewEventPopupView),Paramaters, action);
         }
+
+        public void ShowAdvanceDayPopup(Action<Prism.Services.Dialogs.IDialogResult> action, DialogParameters Paramaters)
+        {
+            DS.ShowDialog(nameof(AdvanceDayPopupView), Paramaters, action);
+        }
     }
 }

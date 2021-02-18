@@ -103,11 +103,11 @@ namespace CharacterManager.ViewModels.PopupViewModels
         #endregion
 
         #region Command Handlers
-        public void CommandAcceptExecute()
+        private void CommandAcceptExecute()
         {
             RaiseRequestClose(new DialogResult(ButtonResult.OK,new DialogParameters { { "Event", EF.CreateJobEvent(Name, Notes, EventTypeSwitch(ImpactSelection - 7), JobSummary, ImpactSelection - 7) },{"Job",J},{"Entity",E } }));
         }
-        public void CommandIgnoreExecute()
+        private void CommandIgnoreExecute()
         {
             RaiseRequestClose(new DialogResult(ButtonResult.Ignore));
         }

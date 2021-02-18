@@ -16,6 +16,7 @@ namespace CharacterManager.Events
         SelectedCharacterChanged,
         SelectedOrganizationChanged,
         JobEventListChanged,
-        JobListChanged
+        JobListChanged,
+        DayAdvanced
     }
 }

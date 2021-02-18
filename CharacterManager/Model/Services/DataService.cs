@@ -50,6 +50,15 @@ namespace CharacterManager.Model.Services
             get { return jobeventdict; }
             set { SetProperty(ref jobeventdict, value); }
         }
+
+        private int currentday;
+
+        public int CurrentDay
+        {
+            get { return currentday; }
+            set { currentday = value; }
+        }
+
         #endregion
 
         public DataService()
@@ -119,6 +128,7 @@ namespace CharacterManager.Model.Services
             Job_List = dataService.Job_List;
             EntityTree = dataService.EntityTree;
             JobEventDict = dataService.JobEventDict;
+            CurrentDay = dataService.CurrentDay;
         }
 
         private void InitializeDefault()
@@ -130,6 +140,8 @@ namespace CharacterManager.Model.Services
             Job_List = new List<IJob>();
 
             JobEventDict = new Dictionary<Guid, List<IEvent>>();
+
+            CurrentDay = 0;
         }
     }
 }
