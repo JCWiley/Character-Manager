@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Views\DayViews\DayControlView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\CharacterDetailView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\CharacterTabViews\CharacterInventoryTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\CharacterTabViews\CharacterJobHistoryTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\CharacterTabViews\CharacterJobsTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\CharacterTabViews\CharacterTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\OrganizationDetailView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\OrganizationTabViews\OrganizationInventoryTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\OrganizationTabViews\OrganizationJobHistoryTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\OrganizationTabViews\OrganizationJobsTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailViews\OrganizationTabViews\OrganizationTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MenuViews\MenuView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PopupViews\AdvanceDayPopupView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PopupViews\NewEventPopupView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TreeViews\EntityFilterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TreeViews\EntityListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DayViews\DayControlView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\CharacterDetailView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\CharacterTabViews\CharacterInventoryTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\CharacterTabViews\CharacterJobHistoryTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\CharacterTabViews\CharacterJobsTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\CharacterTabViews\CharacterTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\OrganizationDetailView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\OrganizationTabViews\OrganizationInventoryTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\OrganizationTabViews\OrganizationJobHistoryTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\OrganizationTabViews\OrganizationJobsTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DetailViews\OrganizationTabViews\OrganizationTabView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MenuViews\MenuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PopupViews\AdvanceDayPopupView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PopupViews\NewEventPopupView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TreeViews\EntityFilterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TreeViews\EntityListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

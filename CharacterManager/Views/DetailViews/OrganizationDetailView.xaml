@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="CharacterManager.Views.DetailViews.OrganizationDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CharacterManager.Views.DetailViews"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TabControl x:Name="Organization_Tab_Manager" Margin="0,0,0,0">
+            <TabItem Header="Organization" prism:RegionManager.RegionName="ORGANIZATION_REGION"/>
+            <TabItem Header="Jobs" prism:RegionManager.RegionName="ORGANIZATION_JOB_REGION"/>
+            <TabItem Header="Job History" prism:RegionManager.RegionName="ORGANIZATION_JOB_HISTORY_REGION"/>
+            <TabItem Header="Inventory" prism:RegionManager.RegionName="ORGANIZATION_INVENTORY_REGION"/>
+            <TabItem Header="Social" prism:RegionManager.RegionName="ORGANIZATION_SOCIAL_REGION"/>
+        </TabControl>
+    </Grid>
+</UserControl>
