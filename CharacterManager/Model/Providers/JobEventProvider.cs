@@ -3,6 +3,7 @@ using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Factories;
+using CharacterManager.Model.Helpers;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
@@ -29,36 +30,24 @@ namespace CharacterManager.Model.Providers
 
         public IEventAggregator EA { get; set; }
 
-        public JobEventProvider(IEventAggregator eventAggregator)
+        IJobLogic JL;
+
+        public JobEventProvider(IEventAggregator eventAggregator, IJobLogic jobLogic)
         {
             EA = eventAggregator;
-            EA.GetEvent<JobEventOccuredEvent>().Subscribe(JobEventOccuredEventExecute);
+            JL = jobLogic;
         }
 
-        private void NotifyJobEventDictChanged()
-        {
-            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.JobEventListChanged);
-        }
+        //public void AddEventToJob(IJob J, string Character, string Comment, string Event_Type, string Job, int Progress_Effects)
+        //{
+        //    IEvent E = JEF.CreateJobEvent(Character, Comment, Event_Type, Job, Progress_Effects);
+        //    AddEventToJob(J, E);
+        //}
 
-        public void AddEventToJob(IJob J, IEvent E)
-        {
-            if (DS.JobEventDict.ContainsKey(J.Job_ID))
-            {
-                DS.JobEventDict[J.Job_ID].Add(E);
-            }
-            else
-            {
-                DS.JobEventDict.Add(J.Job_ID, new List<IEvent>());
-                DS.JobEventDict[J.Job_ID].Add(E);
-            }
-            NotifyJobEventDictChanged();
-        }
-
-        public void AddEventToJob(IJob J, string Character, string Comment, string Event_Type, string Job, int Progress_Effects)
-        {
-            IEvent E = JEF.CreateJobEvent(Character, Comment, Event_Type, Job, Progress_Effects);
-            AddEventToJob(J, E);
-        }
+        //public void AddEventToJob(IJob J, IEvent E)
+        //{
+        //    JL.ApplyEvent(J, E);
+        //}
 
         public List<IEvent> GetAllEvents()
         {
@@ -94,12 +83,5 @@ namespace CharacterManager.Model.Providers
             }
             
         }
-
-        #region Event Handlers
-        private void JobEventOccuredEventExecute(JobEventOccuredContainer paramaters)
-        {
-            AddEventToJob(paramaters.TargetJob, paramaters.NewEvent);
-        }
-        #endregion
     }
 }

@@ -23,6 +23,8 @@ namespace CharacterManager.ViewModels.DayViewModels
             EA = eventAggregator;
             DP = dayProvider;
             DSH = dialogServiceHelper;
+
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
         }
 
         #region Binding Targets
@@ -42,7 +44,7 @@ namespace CharacterManager.ViewModels.DayViewModels
         #region Command Handlers
         private void CommandAdvanceDayExecute()
         {
-            DSH.ShowAdvanceDayPopup(DayAdvanced, new Prism.Services.Dialogs.DialogParameters { });
+            DSH.ShowAdvanceDayPopup(DayAdvanced);
 
             
         }
@@ -52,5 +54,27 @@ namespace CharacterManager.ViewModels.DayViewModels
         {
             EA.GetEvent<AdvanceDayRequestEvent>().Publish(result.Parameters.GetValue<int>("Days"));
         }
+
+        #region Event Handlers
+        private void UIUpdateRequestExecute(ChangeType type)
+        {
+            switch (type)
+            {
+                case ChangeType.SelectedCharacterChanged:
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    break;
+                case ChangeType.JobEventListChanged:
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                case ChangeType.DayAdvanced:
+                    RaisePropertyChanged("CurrentDay");
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
     }
 }

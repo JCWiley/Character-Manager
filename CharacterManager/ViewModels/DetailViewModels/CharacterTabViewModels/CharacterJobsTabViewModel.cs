@@ -117,7 +117,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 
         private void CommandAddCustomEventExecute()
         {
-            DSH.ShowNewEventPopup(CustomEventCreated, new DialogParameters { { "Job", SelectedJob }, { "Entity", EP.CurrentTargetAsCharacter } });
+            DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob,EP.CurrentTargetAsCharacter);
         }
         private void CommandSelectedJobChangedExecute(object J)
         {
@@ -145,6 +145,12 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 case ChangeType.JobEventListChanged:
                     break;
                 case ChangeType.JobListChanged:
+                    RaisePropertyChanged("Jobs");
+                    RaisePropertyChanged("Char");
+                    break;
+                case ChangeType.DayAdvanced:
+                    RaisePropertyChanged("Jobs");
+                    RaisePropertyChanged("Char");
                     break;
                 default:
                     break;

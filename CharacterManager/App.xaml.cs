@@ -19,6 +19,7 @@ using CharacterManager.ViewModels.Helpers;
 using Prism.Events;
 using CharacterManager.Events;
 using Unity;
+using CharacterManager.Model.Helpers;
 //using CharacterManager.Model.DataLoading;
 
 namespace CharacterManager
@@ -57,6 +58,8 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
             containerRegistry.RegisterSingleton(typeof(IJobEventProvider), typeof(JobEventProvider));
             containerRegistry.RegisterSingleton(typeof(IDayProvider), typeof(DayProvider));
+
+            containerRegistry.RegisterSingleton(typeof(IJobLogic), typeof(JobLogic));
 
             containerRegistry.RegisterSingleton(typeof(IDataLoader), typeof(NJSONDataLoader));
             containerRegistry.RegisterSingleton(typeof(IDataSaver), typeof(NJSONDataSaver));

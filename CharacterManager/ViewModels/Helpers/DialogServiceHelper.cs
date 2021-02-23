@@ -1,4 +1,8 @@
-﻿using CharacterManager.Views.PopupViews;
+﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Helpers;
+using CharacterManager.Model.Jobs;
+using CharacterManager.Model.RedundantTree;
+using CharacterManager.Views.PopupViews;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -16,14 +20,22 @@ namespace CharacterManager.ViewModels.Helpers
         }
         private IDialogService DS;
 
-        public void ShowNewEventPopup(Action<Prism.Services.Dialogs.IDialogResult> action, DialogParameters Paramaters)
+        public void ShowNewEventPopup(Action<IDialogResult> action, IJob targetjob, IRTreeMember<IEntity> targetentity)
         {
-            DS.ShowDialog(nameof(NewEventPopupView),Paramaters, action);
+            DialogParameters Paramaters = new DialogParameters { { "Job", targetjob }, { "Entity", targetentity } };
+            DS.ShowDialog(nameof(NewEventPopupView), Paramaters, action);
         }
 
-        public void ShowAdvanceDayPopup(Action<Prism.Services.Dialogs.IDialogResult> action, DialogParameters Paramaters)
+        public void ShowAdvanceDayPopup(Action<IDialogResult> action)
         {
+            DialogParameters Paramaters = new DialogParameters {};
             DS.ShowDialog(nameof(AdvanceDayPopupView), Paramaters, action);
+        }
+
+        public void ShowNewEventPopup(Action<IDialogResult> action, IJob targetjob, IRTreeMember<IEntity> targetentity, int effects)
+        {
+            DialogParameters Paramaters = new DialogParameters { { "Job", targetjob }, { "Entity", targetentity },{"Effects", effects } };
+            DS.ShowDialog(nameof(NewEventPopupView), Paramaters, action);
         }
     }
 }

@@ -22,6 +22,8 @@ namespace CharacterManager.Model.Jobs
 
         public int Recurring { get; set; }
 
+        public int Days_Since_Creation { get; set; }
+
         public int Duration { get; set; }
 
         public int Progress { get; set; }
@@ -37,7 +39,6 @@ namespace CharacterManager.Model.Jobs
         public Guid OwnerJob { get; set; }
 
         public Guid Job_ID { get; set; }
-        List<IEvent> Events { get; set; }
         #endregion
     }
 }

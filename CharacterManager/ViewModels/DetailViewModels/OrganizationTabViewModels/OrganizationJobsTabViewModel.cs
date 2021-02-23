@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
@@ -125,6 +126,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             }
         }
         #endregion
+
         #region Commands
         private DelegateCommand _commandnewblankjob;
         public DelegateCommand CommandNewBlankJob => _commandnewblankjob ??= new DelegateCommand(CommandNewBlankJobExecute);
@@ -150,7 +152,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private void CommandAddCustomEventExecute()
         {
             //trigger user prompt, pass selected job, prompt calls JEP to add new event.
-            DSH.ShowNewEventPopup(CustomEventCreated, new DialogParameters { {"Job",SelectedJob},{"Entity", EP.CurrentTargetAsOrganization } });
+            DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob ,EP.CurrentTargetAsOrganization);
         }
 
         private void CommandAddSubtaskExecute()
@@ -189,6 +191,12 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.JobEventListChanged:
                     break;
                 case ChangeType.JobListChanged:
+                    RaisePropertyChanged("Jobs");
+                    RaisePropertyChanged("Org");
+                    break;
+                case ChangeType.DayAdvanced:
+                    RaisePropertyChanged("Jobs");
+                    RaisePropertyChanged("Org");
                     break;
                 default:
                     break;
@@ -201,7 +209,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             IJob J = result.Parameters.GetValue<IJob>("Job");
             IEvent E = result.Parameters.GetValue<IEvent>("Event");
 
-            EA.GetEvent<JobEventOccuredEvent>().Publish(new Events.EventContainers.JobEventOccuredContainer(J, E));
+            EA.GetEvent<JobEventOccuredEvent>().Publish(new JobEventOccuredContainer(J, E));
         }
         #endregion
     }

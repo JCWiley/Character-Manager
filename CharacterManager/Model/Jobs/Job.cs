@@ -10,13 +10,14 @@ namespace CharacterManager.Model.Jobs
 {
     public class Job : BindableBase, IJob
     {
-        public Job()
+        public Job(int CurrentDay)
         {
             job_id = Guid.NewGuid();
-            Events = new List<IEvent>();
             Required_Items = new ObservableCollection<Item>();
+            Days_Since_Creation = 0;
+            iscurrentlyprogressing = true;
+            startdate = CurrentDay;
         }
-
         #region Derived Variables
         public int DaysRemaining
         {
@@ -59,6 +60,8 @@ namespace CharacterManager.Model.Jobs
                 }
             }
         }
+
+
 
         private bool complete;
         public bool Complete
@@ -140,6 +143,23 @@ namespace CharacterManager.Model.Jobs
                 if (this.recurring != value)
                 {
                     this.recurring = value;
+                    RaisePropertyChanged("Recurring");
+                }
+            }
+        }
+
+        private int days_since_creation;
+        public int Days_Since_Creation
+        {
+            get
+            {
+                return this.days_since_creation;
+            }
+            set
+            {
+                if (this.days_since_creation != value)
+                {
+                    this.days_since_creation = value;
                     RaisePropertyChanged("Recurring");
                 }
             }
@@ -277,23 +297,6 @@ namespace CharacterManager.Model.Jobs
                 {
                     this.job_id = value;
                     RaisePropertyChanged("Job_ID");
-                }
-            }
-        }
-
-        private List<IEvent> events;
-        public List<IEvent> Events
-        {
-            get
-            {
-                return this.events;
-            }
-            set
-            {
-                if (this.events != value)
-                {
-                    this.events = value;
-                    RaisePropertyChanged("Events");
                 }
             }
         }

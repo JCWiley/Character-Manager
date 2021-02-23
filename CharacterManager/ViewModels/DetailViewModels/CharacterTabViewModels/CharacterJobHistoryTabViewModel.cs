@@ -88,6 +88,10 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                     break;
                 case ChangeType.JobListChanged:
                     break;
+                case ChangeType.DayAdvanced:
+                    RaisePropertyChanged("Events_Summary");
+                    RaisePropertyChanged("Char");
+                    break;
                 default:
                     break;
             }

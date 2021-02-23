@@ -76,6 +76,8 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                     break;
                 case ChangeType.JobListChanged:
                     break;
+                case ChangeType.DayAdvanced:
+                    break;
                 default:
                     break;
             }
