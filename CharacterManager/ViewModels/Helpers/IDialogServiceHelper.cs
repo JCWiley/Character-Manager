@@ -17,5 +17,6 @@ namespace CharacterManager.ViewModels.Helpers
         public void ShowNewEventPopup(Action<IDialogResult> action, IJob targetjob, IRTreeMember<IEntity> targetentity,int effects);
 
         public void ShowAdvanceDayPopup(Action<IDialogResult> action);
+        public void ShowWarning(string WarningText);
     }
 }

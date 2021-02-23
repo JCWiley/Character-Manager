@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CharacterManager.ViewModels.Helpers
 {
@@ -36,6 +37,11 @@ namespace CharacterManager.ViewModels.Helpers
         {
             DialogParameters Paramaters = new DialogParameters { { "Job", targetjob }, { "Entity", targetentity },{"Effects", effects } };
             DS.ShowDialog(nameof(NewEventPopupView), Paramaters, action);
+        }
+
+        public void ShowWarning(string WarningText)
+        {
+            MessageBox.Show(WarningText, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }
