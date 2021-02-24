@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "VeRWnVR4c7x30iTBtm+ATjOUoC3NJXidM32BBWu0fM0QRWbOr10hBzzmwan+fXH6TXZFKs/rbvjp9SkCFG+r3A==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\John\\source\\repos\\Character Manager Tree\\CharacterManagerTests\\CharacterManagerTests.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project CharacterManager is not compatible with net5.0 (.NETCoreApp,Version=v5.0). Project CharacterManager supports: net5.0-windows7.0 (.NETCoreApp,Version=v5.0)",
+      "libraryId": "CharacterManager",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}
