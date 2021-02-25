@@ -5,12 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityAutoMoq;
+using Prism.Events;
+using CharacterManager.Model.Services;
+using CharacterManager.Model.Entities;
+using CharacterManager.Model.RedundantTree;
 
 namespace CharacterManager.Model.Providers.Tests
 {
     [TestClass()]
     public class EntityProviderTests
     {
+        private UnityAutoMoqContainer MOQC = new UnityAutoMoqContainer();
         [TestMethod()]
         public void EntityProvider_()
         {
@@ -29,9 +35,30 @@ namespace CharacterManager.Model.Providers.Tests
             Assert.Fail();
         }
 
-        [TestMethod()]
-        public void AddEntity_()
+        [DataTestMethod]
+        [DataRow(EntityTypes.Organization,true)]
+        [DataRow(EntityTypes.Organization, false)]
+        [DataRow(EntityTypes.Character, false)]
+        public void AddEntity_Succeed(EntityTypes type,bool IsHead)
         {
+            IEntityProvider EP = new EntityProvider(MOQC.Resolve<IEventAggregator>(), MOQC.Resolve<IDataService>());
+            EP.AddEntity(type, IsHead);
+
+
+            //MOQC.Resolve<IRTreeMember<IEntity>())
+
+            Assert.Fail();
+        }
+        [DataTestMethod]
+        [DataRow(EntityTypes.Character, true)]
+        public void AddEntity_Fail(EntityTypes type, bool IsHead)
+        {
+            IEntityProvider EP = new EntityProvider(MOQC.Resolve<IEventAggregator>(), MOQC.Resolve<IDataService>());
+            EP.AddEntity(type, IsHead);
+
+
+            //MOQC.Resolve<IRTreeMember<IEntity>())
+
             Assert.Fail();
         }
 
