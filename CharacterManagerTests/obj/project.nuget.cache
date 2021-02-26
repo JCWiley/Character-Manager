@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UFlDfxoVS+IhRGurYcpTpYwzECuEDWSq9SoT/9VrqDzHw83a7Tt+GabfLO3IeAMih21JMPlfGItBx3FE87ePLw==",
+  "dgSpecHash": "rYm0DU9LNXqqsZmCrOSL+00uni3DHrTT6HqsGZVMIttJUq6n3xGrX4nYmgKnbxgjDshq57rJoBIN0emxewPzwg==",
   "success": true,
   "projectFilePath": "C:\\Users\\John\\source\\repos\\Character Manager Tree\\CharacterManagerTests\\CharacterManagerTests.csproj",
   "expectedPackageFiles": [
@@ -102,31 +102,8 @@
     "C:\\Users\\John\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\John\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\John\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\John\\.nuget\\packages\\unity\\2.0.0\\unity.2.0.0.nupkg.sha512",
     "C:\\Users\\John\\.nuget\\packages\\unity.abstractions\\5.11.6\\unity.abstractions.5.11.6.nupkg.sha512",
-    "C:\\Users\\John\\.nuget\\packages\\unity.container\\5.11.8\\unity.container.5.11.8.nupkg.sha512",
-    "C:\\Users\\John\\.nuget\\packages\\unityautomoq\\2.1.1\\unityautomoq.2.1.1.nupkg.sha512"
+    "C:\\Users\\John\\.nuget\\packages\\unity.container\\5.11.8\\unity.container.5.11.8.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Unity 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Unity",
-      "targetGraphs": [
-        "net5.0-windows7.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'UnityAutoMoq 2.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "UnityAutoMoq",
-      "targetGraphs": [
-        "net5.0-windows7.0"
-      ]
-    }
-  ]
+  "logs": []
 }

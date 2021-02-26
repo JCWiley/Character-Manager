@@ -5,97 +5,116 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityAutoMoq;
 using Prism.Events;
 using CharacterManager.Model.Services;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
+using Moq;
+using CharacterManager.Model.Factories;
 
 namespace CharacterManager.Model.Providers.Tests
 {
     [TestClass()]
     public class EntityProviderTests
     {
-        private UnityAutoMoqContainer MOQC = new UnityAutoMoqContainer();
-        [TestMethod()]
-        public void EntityProvider_()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void NotifySelectedCharacterChanged_()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void NotifySelectedOrganizationChanged_()
-        {
-            Assert.Fail();
-        }
-
         [DataTestMethod]
         [DataRow(EntityTypes.Organization,true)]
         [DataRow(EntityTypes.Organization, false)]
         [DataRow(EntityTypes.Character, false)]
         public void AddEntity_Succeed(EntityTypes type,bool IsHead)
         {
-            IEntityProvider EP = new EntityProvider(MOQC.Resolve<IEventAggregator>(), MOQC.Resolve<IDataService>());
-            EP.AddEntity(type, IsHead);
+            //arrange
+            var TargetTreeMember = CreateSampleTreeMember(type, IsHead);
 
+            Mock<IDataService> DSM = new Mock<IDataService>();
 
-            //MOQC.Resolve<IRTreeMember<IEntity>())
+            Mock<IRTree<IEntity>> RTM = new Mock<IRTree<IEntity>>();
+            RTM.Setup(x => x.AddItem(It.IsAny<IEntity>(), IsHead)).Returns(TargetTreeMember);
 
-            Assert.Fail();
+            DSM.Setup(x => x.EntityTree).Returns(RTM.Object);
+
+            Mock<IEntityFactory> EFM = new Mock<IEntityFactory>();
+            EFM.Setup(x => x.CreateOrganization()).Returns(CreateSampleOrganization());
+            EFM.Setup(x => x.CreateCharacter()).Returns(CreateSampleCharacter());
+
+            IEntityProvider EP = new EntityProvider(new EventAggregator(), DSM.Object,EFM.Object);
+            //act
+            var result = EP.AddEntity(type, IsHead);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result, TargetTreeMember);
+
+            RTM.Verify(x => x.AddItem(It.IsAny<IEntity>(), IsHead), Times.Exactly(1));
+            RTM.VerifyNoOtherCalls();
+
+            DSM.VerifyNoOtherCalls();
+
+            EFM.Verify(x => x.CreateOrganization(), Times.AtMostOnce());
+            EFM.Verify(x => x.CreateCharacter(), Times.AtMostOnce());
+
+            EFM.VerifyNoOtherCalls();
+
         }
+
         [DataTestMethod]
         [DataRow(EntityTypes.Character, true)]
         public void AddEntity_Fail(EntityTypes type, bool IsHead)
         {
-            IEntityProvider EP = new EntityProvider(MOQC.Resolve<IEventAggregator>(), MOQC.Resolve<IDataService>());
-            EP.AddEntity(type, IsHead);
+            //arrange
+            var TargetTreeMember = CreateSampleTreeMember(type, IsHead);
 
+            Mock<IDataService> DSM = new Mock<IDataService>();
 
-            //MOQC.Resolve<IRTreeMember<IEntity>())
+            Mock<IRTree<IEntity>> RTM = new Mock<IRTree<IEntity>>();
+            RTM.Setup(x => x.AddItem(It.IsAny<IEntity>(), IsHead)).Returns(TargetTreeMember);
 
-            Assert.Fail();
+            DSM.Setup(x => x.EntityTree).Returns(RTM.Object);
+
+            Mock<IEntityFactory> EFM = new Mock<IEntityFactory>();
+            EFM.Setup(x => x.CreateOrganization()).Returns(CreateSampleOrganization());
+            EFM.Setup(x => x.CreateCharacter()).Returns(CreateSampleCharacter());
+
+            IEntityProvider EP = new EntityProvider(new EventAggregator(), DSM.Object, EFM.Object);
+
+            //assert // act
+            Assert.ThrowsException<InvalidOperationException>(() => EP.AddEntity(type, IsHead));
         }
 
-        [TestMethod()]
-        public void AddChild_()
+        #region Helper Functions
+        private Organization CreateSampleOrganization()
         {
-            Assert.Fail();
+            return new Organization();
+        }
+        private Character CreateSampleCharacter()
+        {
+            return new Character();
         }
 
-        [TestMethod()]
-        public void HeadEntities_()
+        private IEntity CreateEntityFromType(EntityTypes type)
         {
-            Assert.Fail();
+            IEntity NewEntity = null;
+            switch (type)
+            {
+                case EntityTypes.Organization:
+                    NewEntity = CreateSampleOrganization();
+                    break;
+                case EntityTypes.Character:
+                    NewEntity = CreateSampleCharacter();
+                    break;
+                default:
+                    break;
+            }
+            return NewEntity;
         }
 
-        [TestMethod()]
-        public void GetAllChildren_()
+        private IRTreeMember<IEntity> CreateSampleTreeMember(EntityTypes type,bool isHead)
         {
-            Assert.Fail();
+            IRTreeMember<IEntity> sample = new RTreeMember<IEntity>(new List<Guid>(), new List<Guid>(),Guid.Empty, new RTree<IEntity>());
+            sample.Item = CreateEntityFromType(type);
+            sample.IsHead = isHead;
+            return sample;
         }
-
-        [TestMethod()]
-        public void GetImmidiateChildren_()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetTreeMemberForEntity_()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetTreeMemberForGuid_()
-        {
-            Assert.Fail();
-        }
+        #endregion
     }
 }

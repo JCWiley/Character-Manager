@@ -37,8 +37,8 @@ namespace CharacterManager.Model.Services
             set { SetProperty(ref job_list, value); }
         }
 
-        private RTree<IEntity> entitytree;
-        public RTree<IEntity> EntityTree
+        private IRTree<IEntity> entitytree;
+        public IRTree<IEntity> EntityTree
         {
             get { return entitytree; }
             set { SetProperty(ref entitytree, value); }

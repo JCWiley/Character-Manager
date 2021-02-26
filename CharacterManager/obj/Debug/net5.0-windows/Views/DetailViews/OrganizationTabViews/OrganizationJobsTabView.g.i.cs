@@ -178,8 +178,8 @@ namespace CharacterManager.Views.DetailViews.OrganizationTabViews {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CharacterManager;V1.0.0.0;component/views/detailviews/organizationtabviews/organ" +
-                    "izationjobstabview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CharacterManager;component/views/detailviews/organizationtabviews/organizationjo" +
+                    "bstabview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Views\DetailViews\OrganizationTabViews\OrganizationJobsTabView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

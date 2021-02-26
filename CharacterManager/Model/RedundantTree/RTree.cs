@@ -11,7 +11,7 @@ using Unity;
 namespace CharacterManager.Model.RedundantTree
 {
 
-    public class RTree<T>
+    public class RTree<T> : IRTree<T>
     {
         private IRTreeFactory<T> factory;
         public IRTreeFactory<T> Factory

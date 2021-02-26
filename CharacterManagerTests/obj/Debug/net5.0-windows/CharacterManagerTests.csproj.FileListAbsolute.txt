@@ -105,3 +105,5 @@ C:\Users\John\source\repos\Character Manager Tree\CharacterManagerTests\obj\Debu
 C:\Users\John\source\repos\Character Manager Tree\CharacterManagerTests\obj\Debug\net5.0-windows\ref\CharacterManagerTests.dll
 C:\Users\John\source\repos\Character Manager Tree\CharacterManagerTests\obj\Debug\net5.0-windows\CharacterManagerTests.pdb
 C:\Users\John\source\repos\Character Manager Tree\CharacterManagerTests\obj\Debug\net5.0-windows\CharacterManagerTests.genruntimeconfig.cache
+C:\Users\John\source\repos\Character Manager Tree\CharacterManagerTests\bin\Debug\net5.0-windows\Castle.Core.dll
+C:\Users\John\source\repos\Character Manager Tree\CharacterManagerTests\bin\Debug\net5.0-windows\Moq.dll
