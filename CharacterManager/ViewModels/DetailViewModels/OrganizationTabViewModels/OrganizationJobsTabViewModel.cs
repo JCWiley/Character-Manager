@@ -152,7 +152,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         private void CommandAddCustomEventExecute()
         {
             //trigger user prompt, pass selected job, prompt calls JEP to add new event.
-            DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob ,EP.CurrentTargetAsOrganization);
+            //DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob ,EP.CurrentTargetAsOrganization);
+            EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(SelectedJob, 0));
+            RaisePropertyChanged("Jobs");
         }
 
         private void CommandAddSubtaskExecute()
@@ -204,13 +206,15 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         }
 
 
-        private void CustomEventCreated(IDialogResult result)
-        {
-            IJob J = result.Parameters.GetValue<IJob>("Job");
-            IEvent E = result.Parameters.GetValue<IEvent>("Event");
+        //private void CustomEventCreated(IDialogResult result)
+        //{
+        //    IJob J = result.Parameters.GetValue<IJob>("Job");
+        //    IEvent E = result.Parameters.GetValue<IEvent>("Event");
 
-            EA.GetEvent<JobEventOccuredEvent>().Publish(new JobEventOccuredContainer(J, E));
-        }
+        //    EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(J, RandomNumber(2, 7)));
+
+        //    //EA.GetEvent<JobEventOccuredEvent>().Publish(new JobEventOccuredContainer(J, E));
+        //}
         #endregion
     }
 }

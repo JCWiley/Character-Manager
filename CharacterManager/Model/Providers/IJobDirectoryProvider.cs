@@ -4,6 +4,7 @@ using CharacterManager.Model.Factories;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
+using System;
 using System.Collections.Generic;
 
 namespace CharacterManager.Model.Providers
