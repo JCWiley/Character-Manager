@@ -21,14 +21,13 @@ namespace CharacterManager.Model.Helpers
         private static readonly Random random = new Random();
         private static readonly object syncLock = new object();
 
-        IJobEventFactory JEF;
+        IRandomProvider RP;
         IEntityProvider EP;
-        IDialogServiceHelper DSH;
         IEventAggregator EA;
 
-        public JobLogic(IJobEventFactory jobEventFactory, IEntityProvider entityProvider, IEventAggregator eventAggregator)
+        public JobLogic(IRandomProvider randomProvider, IEntityProvider entityProvider, IEventAggregator eventAggregator)
         {
-            JEF = jobEventFactory;
+            RP = randomProvider;
             EP = entityProvider;
             EA = eventAggregator;
 
@@ -100,12 +99,12 @@ namespace CharacterManager.Model.Helpers
 
             if (CritSuccess == true)
             {
-                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, RandomNumber(2, 7)));
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, RP.RandomNumber(2, 7)));
                 return true;
             }
             else if (CritFailure == true)
             {
-                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, -1*RandomNumber(2, 7)));
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, -1*RP.RandomNumber(2, 7)));
                 return true;
             }
             return false;
@@ -113,15 +112,7 @@ namespace CharacterManager.Model.Helpers
 
         private bool RollForEvent(int Chance)
         {
-            return RandomNumber(1, Chance + 1) == Chance;
-        }
-
-        private int RandomNumber(int min, int max)
-        {
-            lock (syncLock)
-            { // synchronize
-                return random.Next(min, max);
-            }
+            return RP.RandomNumber(1, Chance + 1) == Chance;
         }
     }
 }

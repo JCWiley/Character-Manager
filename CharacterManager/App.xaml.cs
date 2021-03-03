@@ -58,6 +58,7 @@ namespace CharacterManager
             containerRegistry.RegisterSingleton(typeof(IJobDirectoryProvider), typeof(JobDirectoryProvider));
             containerRegistry.RegisterSingleton(typeof(IJobEventProvider), typeof(JobEventProvider));
             containerRegistry.RegisterSingleton(typeof(IDayProvider), typeof(DayProvider));
+            containerRegistry.RegisterSingleton(typeof(IRandomProvider), typeof(RandomProvider));
 
             containerRegistry.RegisterSingleton(typeof(IJobLogic), typeof(JobLogic));
 
