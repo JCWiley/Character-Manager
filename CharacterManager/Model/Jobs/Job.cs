@@ -131,8 +131,8 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        private int recurring;
-        public int Recurring
+        private bool recurring;
+        public bool Recurring
         {
             get
             {

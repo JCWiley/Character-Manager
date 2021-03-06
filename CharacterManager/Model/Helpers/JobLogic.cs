@@ -22,13 +22,11 @@ namespace CharacterManager.Model.Helpers
         private static readonly object syncLock = new object();
 
         IRandomProvider RP;
-        IEntityProvider EP;
         IEventAggregator EA;
 
-        public JobLogic(IRandomProvider randomProvider, IEntityProvider entityProvider, IEventAggregator eventAggregator)
+        public JobLogic(IRandomProvider randomProvider, IEventAggregator eventAggregator)
         {
             RP = randomProvider;
-            EP = entityProvider;
             EA = eventAggregator;
 
             //EA.GetEvent<JobEventOccuredEvent>().Subscribe(JobEventOccuredEventExecute);
@@ -38,12 +36,15 @@ namespace CharacterManager.Model.Helpers
         //advance a job a number of days, increment days since creation and roll for events on each day
         public void AdvanceJob(IJob job, int days)
         {
-            job.Days_Since_Creation += days;
-            if (IsCurrentlyProgressing(job) == true)
+            if(days > 0)
             {
-                for (int i = 0; i < days; i++)
+                job.Days_Since_Creation += days;
+                if (IsCurrentlyProgressing(job) == true)
                 {
-                    AdvanceJobOneDay(job);
+                    for (int i = 0; i < days; i++)
+                    {
+                        AdvanceJobOneDay(job);
+                    }
                 }
             }
         }
@@ -81,7 +82,7 @@ namespace CharacterManager.Model.Helpers
 
         private void MarkAsComplete(IJob job)
         {
-            if (job.Recurring == 1)
+            if (job.Recurring == true)
             {
                 job.Progress = 0;
             }
@@ -89,6 +90,7 @@ namespace CharacterManager.Model.Helpers
             {
                 job.Complete = true;
                 job.Progress = job.Duration;
+                job.IsCurrentlyProgressing = false;
             }
         }
 

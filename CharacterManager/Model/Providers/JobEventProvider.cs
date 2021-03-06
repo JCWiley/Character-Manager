@@ -91,7 +91,7 @@ namespace CharacterManager.Model.Providers
             string OwnerName = EP.GetTreeMemberForGuid(job.OwnerEntity).Item.Name;
 
 
-            if (job.Recurring == 1)
+            if (job.Recurring == true)
             {
                 //MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Events
 {
-    class RequestJobEventEvent : PubSubEvent<JobEventRequestContainer>
+    public class RequestJobEventEvent : PubSubEvent<JobEventRequestContainer>
     {
     }
 }

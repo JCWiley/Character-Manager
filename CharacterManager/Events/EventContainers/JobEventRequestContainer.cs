@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Events.EventContainers
 {
-    struct JobEventRequestContainer
+    public struct JobEventRequestContainer
     {
         public JobEventRequestContainer(IJob job, int Effects,bool IsCompleteEvent = false)
         {

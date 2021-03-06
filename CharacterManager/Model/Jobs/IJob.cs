@@ -20,7 +20,7 @@ namespace CharacterManager.Model.Jobs
 
         public bool IsCurrentlyProgressing { get; set; }
 
-        public int Recurring { get; set; }
+        public bool Recurring { get; set; }
 
         public int Days_Since_Creation { get; set; }
 
