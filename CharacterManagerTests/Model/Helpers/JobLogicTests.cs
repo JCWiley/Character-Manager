@@ -59,10 +59,12 @@ namespace CharacterManager.Model.Helpers.Tests
         }
 
         [DataTestMethod]
-        [DataRow(0, 5, 0,false, 0, 0,false, 1)]
-        [DataRow(5, 5, 0, false, 0, 0, true, 1)]
-        [DataRow(0, 5, 0, false, 0, 0, false, 100)]
-        [DataRow(5, 5, 0, false, 0, 0, true, 100)]
+        [DataRow(0, 5, 0, false, 0, 0,false, 1)] //will not advance as iscurrentlyprogressing is false
+        [DataRow(5, 5, 0, false, 0, 0, true, 1)] //will not advance as start date is in the future
+        [DataRow(0, 5, 0, false, 0, 0, false, 100)] //will not advance as iscurrentlyprogressing is false
+        [DataRow(500, 5, 0, false, 0, 0, true, 100)] //will not advance as start date is in the future
+        [DataRow(7, 5, 0, false, 0, 0, true, 6)] //will not advance as start date is in the future
+        [DataRow(5, 5, 0, false, 0, 0, true, 4)] //will not advance as start date is in the future
         public void AdvanceJob_ShouldNotAdvance(int startdate, int duration, int CurrentDay,bool IsComplete, int progress, int dayssincecreation,bool iscurrentlyprogressing, int daysToAdvance)
         {
             //arrange
@@ -136,10 +138,10 @@ namespace CharacterManager.Model.Helpers.Tests
         }
 
         [DataTestMethod]
-        [DataRow(0, 5, 4, 4, 4, 1)]
-        [DataRow(0, 5, 4, 4, 4, 2)]
-        [DataRow(4, 5, 5, 1, 1, 4)]
-        [DataRow(4, 5, 5, 1, 1, 15)]
+        [DataRow(0, 5, 4, 4, 4, 1)] //has progressed 4/5, will advance 1, will complete with 0 extra days
+        [DataRow(0, 5, 4, 4, 4, 2)] //has progressed 4/5, will advance 2, will complete with 1 extra day
+        [DataRow(4, 5, 5, 1, 1, 4)] //has progressed 1/5, will advance 4, will complete with 0 extra days
+        [DataRow(4, 5, 5, 1, 1, 15)]//has progressed 1/5, will advance 15, will complete with 11 extra days, would complete 3 times if labled as recurring
         public void AdvanceJob_NotRecurringCompleted(int startdate, int duration, int CurrentDay, int progress, int dayssincecreation, int daysToAdvance)
         {
             //arrange
@@ -196,11 +198,51 @@ namespace CharacterManager.Model.Helpers.Tests
             Mock<RequestJobEventEvent> RJEM = new Mock<RequestJobEventEvent>();
             EAM.Setup(x => x.GetEvent<RequestJobEventEvent>()).Returns(RJEM.Object);
 
+
             JobLogic JL_Test = new JobLogic(new RandomProvider(), EAM.Object);
 
             //act // assert
             Assert.ThrowsException<InvalidOperationException>(() => JL_Test.AdvanceJob(J_Test, daysToAdvance));
         }
+
+        [DataTestMethod]
+        //        startdate, duration, CurrentDay, IsComplete, progress, dayssincecreation, iscurrentlyprogressing, daysToAdvance, isrecurring, targetprogress, shouldcomplete
+        [DataRow(         3,        5,          0,      false,        0,                 0,                   true,             6,       false,              4,          false)]//wait 3 days, then advance 4, do not complete, not recurring
+        [DataRow(         60,      50,         10,      false,        0,                 0,                   true,             100,     false,             50,           true)]
+        //[DataRow(         3,        5,          0,      false,        0,                 0,                   true,             6,       false,              4,          false)]
+        //[DataRow(         3,        5,          0,      false,        0,                 0,                   true,             6,       false,              4,          false)]
+        //[DataRow(         3,        5,          0,      false,        0,                 0,                   true,             6,       false,              4,          false)]
+        public void AdvanceJob_ShouldBeginToAdvance(int startdate, int duration, int CurrentDay, bool IsComplete, int progress, int dayssincecreation, bool iscurrentlyprogressing, int daysToAdvance, bool isrecurring,int targetprogress,bool shouldcomplete)
+        {
+            //arrange
+            Job J_Test = new Job(CurrentDay)
+            {
+                StartDate = startdate,
+                Duration = duration,
+                Progress = progress,
+                IsCurrentlyProgressing = iscurrentlyprogressing,
+                Days_Since_Creation = dayssincecreation,
+                Complete = IsComplete,
+                Recurring = isrecurring
+            };
+
+            Mock<IEventAggregator> EAM = new Mock<IEventAggregator>();
+            Mock<RequestJobEventEvent> RJEM = new Mock<RequestJobEventEvent>();
+            EAM.Setup(x => x.GetEvent<RequestJobEventEvent>()).Returns(RJEM.Object);
+
+            JobLogic JL_Test = new JobLogic(new RandomProvider(), EAM.Object);
+
+            //act
+            JL_Test.AdvanceJob(J_Test, daysToAdvance);
+
+            //assert
+            Assert.AreEqual(J_Test.Complete, shouldcomplete, "ISComplete improperly changed");
+            Assert.AreEqual(J_Test.StartDate, startdate, "StartDate improperly changed");
+            Assert.AreEqual(J_Test.Duration, duration, "Duration improperly changed");
+            Assert.AreEqual(J_Test.Progress, targetprogress, "Progress improperly advanced");
+            Assert.AreEqual(J_Test.Days_Since_Creation, dayssincecreation + daysToAdvance, "Days_Since_Creation improperly advanced");
+        }
+
         #endregion
 
         #region ProgressJob
@@ -241,7 +283,6 @@ namespace CharacterManager.Model.Helpers.Tests
             EAM.VerifyNoOtherCalls();
 
         }
-
 
 
         #endregion

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Helpers
 {
-    public class JobLogic :IJobLogic
+    public class JobLogic : IJobLogic
     {
         private static readonly Random random = new Random();
         private static readonly object syncLock = new object();
@@ -36,16 +36,20 @@ namespace CharacterManager.Model.Helpers
         //advance a job a number of days, increment days since creation and roll for events on each day
         public void AdvanceJob(IJob job, int days)
         {
-            if(days > 0)
+            if (days > 0)
             {
-                job.Days_Since_Creation += days;
-                if (IsCurrentlyProgressing(job) == true)
+                for (int i = 0; i < days; i++)
                 {
-                    for (int i = 0; i < days; i++)
+                    job.Days_Since_Creation++;
+                    if (ShouldProgress(job) == true)
                     {
                         AdvanceJobOneDay(job);
                     }
                 }
+            }
+            else
+            {
+                throw new InvalidOperationException("Days to progress <= 0");
             }
         }
         //advance a job a number of days, do not increment days since creation and do not roll for events
@@ -57,9 +61,20 @@ namespace CharacterManager.Model.Helpers
 
         #endregion
 
-        private bool IsCurrentlyProgressing(IJob job)
+        private bool ShouldProgress(IJob job)
         {
-            return job.IsCurrentlyProgressing;
+            if (job.Complete == true)
+            {
+                return false;
+            }
+            if (job.StartDate > job.Creation_Date + job.Days_Since_Creation)
+            {
+                return false;
+            }
+            else
+            {
+                return job.IsCurrentlyProgressing;
+            }
         }
 
         private void AdvanceJobOneDay(IJob job)
@@ -75,7 +90,7 @@ namespace CharacterManager.Model.Helpers
         {
             if (job.Duration - job.Progress <= 0)
             {
-                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, 0,true));
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, 0, true));
                 MarkAsComplete(job);
             }
         }
@@ -106,7 +121,7 @@ namespace CharacterManager.Model.Helpers
             }
             else if (CritFailure == true)
             {
-                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, -1*RP.RandomNumber(2, 7)));
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, -1 * RP.RandomNumber(2, 7)));
                 return true;
             }
             return false;

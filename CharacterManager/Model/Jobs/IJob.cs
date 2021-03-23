@@ -24,6 +24,8 @@ namespace CharacterManager.Model.Jobs
 
         public int Days_Since_Creation { get; set; }
 
+        public int Creation_Date { get; }
+
         public int Duration { get; set; }
 
         public int Progress { get; set; }
