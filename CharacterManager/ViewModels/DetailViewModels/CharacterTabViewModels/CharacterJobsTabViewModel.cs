@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
@@ -117,7 +118,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 
         private void CommandAddCustomEventExecute()
         {
-            DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob,EP.CurrentTargetAsCharacter);
+            //DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob,EP.CurrentTargetAsCharacter);
+            EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(SelectedJob, 0));
+            RaisePropertyChanged("Jobs");
         }
         private void CommandSelectedJobChangedExecute(object J)
         {
@@ -156,13 +159,13 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                     break;
             }
         }
-        private void CustomEventCreated(IDialogResult result)
-        {
-            IJob J = result.Parameters.GetValue<IJob>("Job");
-            IEvent E = result.Parameters.GetValue<IEvent>("Event");
+        //private void CustomEventCreated(IDialogResult result)
+        //{
+        //    IJob J = result.Parameters.GetValue<IJob>("Job");
+        //    IEvent E = result.Parameters.GetValue<IEvent>("Event");
 
-            EA.GetEvent<JobEventOccuredEvent>().Publish(new Events.EventContainers.JobEventOccuredContainer(J, E));
-        }
+        //    EA.GetEvent<JobEventOccuredEvent>().Publish(new Events.EventContainers.JobEventOccuredContainer(J, E));
+        //}
         #endregion
     }
 }

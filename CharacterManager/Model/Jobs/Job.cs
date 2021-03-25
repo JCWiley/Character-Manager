@@ -17,6 +17,7 @@ namespace CharacterManager.Model.Jobs
             Days_Since_Creation = 0;
             iscurrentlyprogressing = true;
             startdate = CurrentDay;
+            creation_date = CurrentDay;
         }
         #region Derived Variables
         public int DaysRemaining
@@ -131,8 +132,8 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        private int recurring;
-        public int Recurring
+        private bool recurring;
+        public bool Recurring
         {
             get
             {
@@ -160,8 +161,16 @@ namespace CharacterManager.Model.Jobs
                 if (this.days_since_creation != value)
                 {
                     this.days_since_creation = value;
-                    RaisePropertyChanged("Recurring");
+                    RaisePropertyChanged("Days_Since_Creation");
                 }
+            }
+        }
+        private int creation_date;
+        public int Creation_Date
+        {
+            get
+            {
+                return this.creation_date;
             }
         }
 

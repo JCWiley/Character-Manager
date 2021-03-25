@@ -16,79 +16,65 @@ using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Helpers
 {
-    public class JobLogic :IJobLogic
+    public class JobLogic : IJobLogic
     {
         private static readonly Random random = new Random();
         private static readonly object syncLock = new object();
 
-        IDataService DS;
-        IJobEventFactory JEF;
-        IEntityProvider EP;
-        IDialogServiceHelper DSH;
+        IRandomProvider RP;
         IEventAggregator EA;
 
-        public JobLogic(IDataService dataService,IJobEventFactory jobEventFactory, IEntityProvider entityProvider, IDialogServiceHelper dialogServiceHelper, IEventAggregator eventAggregator)
+        public JobLogic(IRandomProvider randomProvider, IEventAggregator eventAggregator)
         {
-            DS = dataService;
-            JEF = jobEventFactory;
-            EP = entityProvider;
-            DSH = dialogServiceHelper;
+            RP = randomProvider;
             EA = eventAggregator;
 
-            EA.GetEvent<JobEventOccuredEvent>().Subscribe(JobEventOccuredEventExecute);
+            //EA.GetEvent<JobEventOccuredEvent>().Subscribe(JobEventOccuredEventExecute);
         }
 
         #region Public Functions
+        //advance a job a number of days, increment days since creation and roll for events on each day
         public void AdvanceJob(IJob job, int days)
         {
-            job.Days_Since_Creation += days;
-            if (IsCurrentlyProgressing(job) == true)
+            if (days > 0)
             {
                 for (int i = 0; i < days; i++)
                 {
-                    AdvanceJobOneDay(job);
+                    job.Days_Since_Creation++;
+                    if (ShouldProgress(job) == true)
+                    {
+                        AdvanceJobOneDay(job);
+                    }
                 }
-            }
-        }
-
-        public void ApplyEvent(IJob job, IEvent proposedevent)
-        {
-            if (DS.JobEventDict.ContainsKey(job.Job_ID))
-            {
-                DS.JobEventDict[job.Job_ID].Add(proposedevent);
             }
             else
             {
-                DS.JobEventDict.Add(job.Job_ID, new List<IEvent>());
-                DS.JobEventDict[job.Job_ID].Add(proposedevent);
+                throw new InvalidOperationException("Days to progress <= 0");
             }
+        }
+        //advance a job a number of days, do not increment days since creation and do not roll for events
+        public void ProgressJob(IJob job, int progress)
+        {
+            job.Progress += progress;
+            CheckIfComplete(job);
+        }
 
-            if (proposedevent.Progress_Effects != 0)
+        #endregion
+
+        private bool ShouldProgress(IJob job)
+        {
+            if (job.Complete == true)
             {
-                job.Progress += proposedevent.Progress_Effects;
-                CheckIfComplete(job);
+                return false;
             }
-        }
-
-        #endregion
-        #region Handlers
-        private void EventCreated(IDialogResult result)
-        {
-            IJob J = result.Parameters.GetValue<IJob>("Job");
-            IEvent E = result.Parameters.GetValue<IEvent>("Event");
-
-            EA.GetEvent<JobEventOccuredEvent>().Publish(new JobEventOccuredContainer(J, E));
-        }
-
-        private void JobEventOccuredEventExecute(JobEventOccuredContainer container)
-        {
-            ApplyEvent(container.TargetJob, container.NewEvent);
-        }
-        #endregion
-
-        private bool IsCurrentlyProgressing(IJob job)
-        {
-            return job.IsCurrentlyProgressing;
+            if (job.StartDate > job.Creation_Date + job.Days_Since_Creation)
+            {
+                return false;
+            }
+            else
+            {
+                return job.IsCurrentlyProgressing;
+            }
         }
 
         private void AdvanceJobOneDay(IJob job)
@@ -104,32 +90,22 @@ namespace CharacterManager.Model.Helpers
         {
             if (job.Duration - job.Progress <= 0)
             {
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, 0, true));
                 MarkAsComplete(job);
             }
         }
+
         private void MarkAsComplete(IJob job)
         {
-            string OwnerName = EP.GetTreeMemberForGuid(job.OwnerEntity).Item.Name;
-
-
-            if (job.Recurring == 1)
+            if (job.Recurring == true)
             {
-                //MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
-
-                IEvent JE = JEF.CreateJobEvent(OwnerName, "Repeatable Job Completed", "Completed", job.Summary, 0);
-                ApplyEvent(job, JE);
-
                 job.Progress = 0;
             }
             else
             {
-                //MainWindow.Display_Message_Box($"{Parent_Name} has completed work on {summary}", "Job Done.");
-
-                IEvent JE = JEF.CreateJobEvent(OwnerName, "Job Completed", "Completed", job.Summary, 0);
-                ApplyEvent(job, JE);
-
                 job.Complete = true;
                 job.Progress = job.Duration;
+                job.IsCurrentlyProgressing = false;
             }
         }
 
@@ -140,32 +116,20 @@ namespace CharacterManager.Model.Helpers
 
             if (CritSuccess == true)
             {
-                CreateJobEvent(job, RandomNumber(2,7));
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, RP.RandomNumber(2, 7)));
                 return true;
             }
             else if (CritFailure == true)
             {
-                CreateJobEvent(job, -1 * RandomNumber(2, 7));
+                EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(job, -1 * RP.RandomNumber(2, 7)));
                 return true;
             }
             return false;
         }
-        private void CreateJobEvent(IJob job, int Effects)
-        {
-            DSH.ShowNewEventPopup(EventCreated, job, EP.GetTreeMemberForGuid(job.OwnerEntity),Effects);
-        }
 
         private bool RollForEvent(int Chance)
         {
-            return RandomNumber(1, Chance + 1) == Chance;
-        }
-
-        public int RandomNumber(int min, int max)
-        {
-            lock (syncLock)
-            { // synchronize
-                return random.Next(min, max);
-            }
+            return RP.RandomNumber(1, Chance + 1) == Chance;
         }
     }
 }

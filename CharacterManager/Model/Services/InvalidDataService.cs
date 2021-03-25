@@ -13,7 +13,7 @@ namespace CharacterManager.Model.Services
     public class InvalidDataService : IDataService
     {
         public List<IJob> Job_List { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public RTree<IEntity> EntityTree { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IRTree<IEntity> EntityTree { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int CurrentDay { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         Dictionary<Guid, List<IEvent>> IDataService.JobEventDict { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }

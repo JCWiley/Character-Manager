@@ -11,7 +11,6 @@ namespace CharacterManager.Model.Helpers
     public interface IJobLogic
     {
         public void AdvanceJob(IJob job, int days);
-
-        public void ApplyEvent(IJob job, IEvent proposedevent);
+        public void ProgressJob(IJob job, int progress);
     }
 }

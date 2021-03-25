@@ -15,20 +15,22 @@ namespace CharacterManager.Model.Providers
 {
     public class EntityProvider : IEntityProvider
     {
-        [Dependency]
         public IEntityFactory EF{ get; set; }
 
-        //[Dependency]
         public IDataService DS { get; set; }
 
         private IEventAggregator EA;
 
-        private IRTreeMember<IEntity> currenttargetcharacter;
-        private IRTreeMember<IEntity> currenttargetorganization;
+        private IRTreeMember<IEntity> currenttargetcharacter = null;
+        private IRTreeMember<IEntity> currenttargetorganization = null;
         public IRTreeMember<IEntity> CurrentTargetAsCharacter
         {
             get
             {
+                if(currenttargetcharacter == null)
+                {
+                    currenttargetcharacter = CurrentTargetAsOrganization.Child_Items[0];
+                }
                 return currenttargetcharacter;
             }
         }
@@ -36,19 +38,21 @@ namespace CharacterManager.Model.Providers
         {
             get
             {
+                if(currenttargetorganization == null)
+                {
+                    currenttargetorganization = HeadEntities()[0];
+                }
                 return currenttargetorganization;
             }
         }
 
-        public EntityProvider(IEventAggregator eventAggregator,IDataService dataService)
+        public EntityProvider(IEventAggregator eventAggregator,IDataService dataService, IEntityFactory entityFactory)
         {
             DS = dataService;
             EA = eventAggregator;
+            EF = entityFactory;
 
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
-            
-            currenttargetorganization = HeadEntities()[0];
-            currenttargetcharacter = currenttargetorganization.Child_Items[0];
         }
 
         public void NotifySelectedCharacterChanged()
@@ -62,7 +66,12 @@ namespace CharacterManager.Model.Providers
 
         public IRTreeMember<IEntity> AddEntity(EntityTypes type,bool ishead = false)
         {
-            IEntity NewEntity = EF.CreateCharacter();
+            if (type != EntityTypes.Organization && ishead == true)
+            {
+                throw new InvalidOperationException("Characters cannot be heads of trees");
+            }
+
+            IEntity NewEntity = null;
             switch (type)
             {
                 case EntityTypes.Organization:
