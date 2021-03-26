@@ -2,6 +2,7 @@
 using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -10,9 +11,10 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class CharacterTreeItemViewModel : BindableBase
     {
-        public CharacterTreeItemViewModel(IRTreeMember<IEntity> target, IEventAggregator eventAggregator)
+        public CharacterTreeItemViewModel(IRTreeMember<IEntity> Parent, IRTreeMember<IEntity> target, IEventAggregator eventAggregator)
         {
             Target = target;
+            parent = Parent;
 
             EA = eventAggregator;
 
@@ -21,7 +23,6 @@ namespace CharacterManager.ViewModels.TreeViewModels
             Visible = true;
             IsSelected = false;
             IsExpanded = false;
-
         }
 
 
@@ -30,6 +31,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private readonly IEventAggregator EA;
         private readonly IRTreeMember<IEntity> Target;
 
+        private IRTreeMember<IEntity> parent;
         public Character Char
         {
             get 
@@ -132,6 +134,31 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 SetProperty(ref isexpanded, value);
             }
+        }
+        #endregion
+
+        #region Commands
+        private DelegateCommand _commandcut;
+        private DelegateCommand _commandcopy;
+        private DelegateCommand _commanddelete;
+
+        public DelegateCommand CommandCut => _commandcut ??= new DelegateCommand(CommandCutExecute);
+        public DelegateCommand CommandCopy => _commandcopy ??= new DelegateCommand(CommandCopyExecute);
+        public DelegateCommand CommandDelete => _commanddelete ??= new DelegateCommand(CommandDeleteExecute);
+        #endregion
+
+        #region Command Handlers
+        private void CommandCutExecute()
+        {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Cut, parent, Target));
+        }
+        private void CommandCopyExecute()
+        {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Copy, parent, Target));
+        }
+        private void CommandDeleteExecute()
+        {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.DeleteLocal, parent, Target));
         }
         #endregion
 

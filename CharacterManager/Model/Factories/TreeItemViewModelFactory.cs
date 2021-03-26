@@ -13,14 +13,14 @@ namespace CharacterManager.Model.Factories
             EA = eventAggregator;
         }
 
-        public CharacterTreeItemViewModel CreateCharacterViewModel(IRTreeMember<IEntity> target)
+        public CharacterTreeItemViewModel CreateCharacterViewModel(IRTreeMember<IEntity> parent,IRTreeMember<IEntity> target)
         {
-            return new CharacterTreeItemViewModel(target, EA);
+            return new CharacterTreeItemViewModel(parent, target, EA);
         }
 
-        public OrganizationTreeItemViewModel CreateOrganizationViewModel(IRTreeMember<IEntity> target)
+        public OrganizationTreeItemViewModel CreateOrganizationViewModel(IRTreeMember<IEntity> parent,IRTreeMember<IEntity> target)
         {
-            return new OrganizationTreeItemViewModel(target, this, EA);
+            return new OrganizationTreeItemViewModel(parent,target, this, EA);
         }
     }
 }

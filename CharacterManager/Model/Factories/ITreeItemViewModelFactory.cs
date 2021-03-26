@@ -9,7 +9,7 @@ namespace CharacterManager.Model.Factories
 {
     public interface ITreeItemViewModelFactory
     {
-        public OrganizationTreeItemViewModel CreateOrganizationViewModel(IRTreeMember<IEntity> target);
-        public CharacterTreeItemViewModel CreateCharacterViewModel(IRTreeMember<IEntity> target);
+        public OrganizationTreeItemViewModel CreateOrganizationViewModel(IRTreeMember<IEntity> parent, IRTreeMember<IEntity> target);
+        public CharacterTreeItemViewModel CreateCharacterViewModel(IRTreeMember<IEntity> parent, IRTreeMember<IEntity> target);
     }
 }

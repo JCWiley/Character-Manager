@@ -46,6 +46,8 @@ namespace CharacterManager.Model.Providers
             }
         }
 
+        private IRTreeMember<IEntity> EntityCopyPasteBuffer;
+
         public EntityProvider(IEventAggregator eventAggregator,IDataService dataService, IEntityFactory entityFactory)
         {
             DS = dataService;
@@ -53,6 +55,7 @@ namespace CharacterManager.Model.Providers
             EF = entityFactory;
 
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Subscribe(AlterEntityRelationshipsExecute);
         }
 
         public void NotifySelectedCharacterChanged()
@@ -132,6 +135,43 @@ namespace CharacterManager.Model.Providers
                 throw new Exception("newtarget is not character or organization");
             }
         }
+        private void AlterEntityRelationshipsExecute(AlterEntityRelationshipContainer container)
+        {
+            IRTreeMember<IEntity> Parent = container.parent;
+            IRTreeMember<IEntity> Target = container.target;
+            switch (container.RCT)
+            {
+                case RelationshipChangeType.Cut:
+                    EntityCopyPasteBuffer = Target;
+                    Parent.RemoveChild(Target.Gid);
+                    break;
+                case RelationshipChangeType.Copy:
+                    EntityCopyPasteBuffer = Target;
+                    break;
+                case RelationshipChangeType.Paste:
+                    if(Target.Item is Organization)
+                    {
+                        if(EntityCopyPasteBuffer is IRTreeMember<IEntity>)
+                        {
+                            Target.AddChild(EntityCopyPasteBuffer.Gid);
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Paste operation is not permitted on non Organization entities.");
+                    }
+                    break;
+                case RelationshipChangeType.DeleteLocal:
+                    Parent.RemoveChild(Target.Gid);
+                    break;
+                case RelationshipChangeType.DeleteGlobal:
+                    //implement eventually
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #endregion
     }
 

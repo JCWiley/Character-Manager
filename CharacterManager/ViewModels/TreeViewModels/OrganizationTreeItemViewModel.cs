@@ -13,9 +13,10 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class OrganizationTreeItemViewModel : BindableBase
     {
-        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> target,ITreeItemViewModelFactory treeItemViewModelFactory, IEventAggregator eventAggregator)
+        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> Parent,IRTreeMember<IEntity> target,ITreeItemViewModelFactory treeItemViewModelFactory, IEventAggregator eventAggregator)
         {
             Target = target;
+            parent = Parent;
             TreeItemViewModelFactory = treeItemViewModelFactory;
 
             Visible = true;
@@ -33,6 +34,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #region Variables
         private readonly IEventAggregator EA;
         private readonly ITreeItemViewModelFactory TreeItemViewModelFactory;
+
+        private IRTreeMember<IEntity> parent;
 
         private IRTreeMember<IEntity> target;
         public IRTreeMember<IEntity> Target
@@ -71,11 +74,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 if (E.Item is Organization)
                 {
-                    children.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(E));
+                    children.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(Target,E));
                 }
                 else if (E.Item is Character)
                 {
-                    children.Add(TreeItemViewModelFactory.CreateCharacterViewModel(E));
+                    children.Add(TreeItemViewModelFactory.CreateCharacterViewModel(Target,E));
                 }
                 else
                 {
@@ -222,15 +225,19 @@ namespace CharacterManager.ViewModels.TreeViewModels
         }
         private void CommandCutExecute()
         {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Cut, parent, Target));
         }
         private void CommandCopyExecute()
         {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Copy, parent, Target));
         }
         private void CommandPasteExecute()
         {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Paste, parent, Target));
         }
         private void CommandDeleteExecute()
         {
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.DeleteLocal, parent, Target));
         }
         #endregion
 
