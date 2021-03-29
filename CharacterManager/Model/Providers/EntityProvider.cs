@@ -66,6 +66,10 @@ namespace CharacterManager.Model.Providers
         {
             EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.SelectedOrganizationChanged);
         }
+        public void NotifyEntityListChanged()
+        {
+            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.EntityListChanged);
+        }
 
         public IRTreeMember<IEntity> AddEntity(EntityTypes type,bool ishead = false)
         {
@@ -137,13 +141,14 @@ namespace CharacterManager.Model.Providers
         }
         private void AlterEntityRelationshipsExecute(AlterEntityRelationshipContainer container)
         {
-            IRTreeMember<IEntity> Parent = container.parent;
-            IRTreeMember<IEntity> Target = container.target;
+            IRTreeMember<IEntity> Parent = container.parent; //the parent of the target entity
+            IRTreeMember<IEntity> Target = container.target; //the Entity the event was initiated by
             switch (container.RCT)
             {
                 case RelationshipChangeType.Cut:
                     EntityCopyPasteBuffer = Target;
-                    Parent.RemoveChild(Target.Gid);
+                    DS.EntityTree.RemoveChild(Parent, Target);
+                    NotifyEntityListChanged();
                     break;
                 case RelationshipChangeType.Copy:
                     EntityCopyPasteBuffer = Target;
@@ -151,9 +156,13 @@ namespace CharacterManager.Model.Providers
                 case RelationshipChangeType.Paste:
                     if(Target.Item is Organization)
                     {
-                        if(EntityCopyPasteBuffer is IRTreeMember<IEntity>)
+                        if (EntityCopyPasteBuffer is IRTreeMember<IEntity>)
                         {
-                            Target.AddChild(EntityCopyPasteBuffer.Gid);
+                            if (EntityCopyPasteBuffer.IsHead == false)
+                            {
+                                DS.EntityTree.AddChild(Target, EntityCopyPasteBuffer);
+                                NotifyEntityListChanged();
+                            }
                         }
                     }
                     else
@@ -162,10 +171,12 @@ namespace CharacterManager.Model.Providers
                     }
                     break;
                 case RelationshipChangeType.DeleteLocal:
-                    Parent.RemoveChild(Target.Gid);
+                    DS.EntityTree.RemoveChild(Parent, Target);
+                    NotifyEntityListChanged();
                     break;
                 case RelationshipChangeType.DeleteGlobal:
-                    //implement eventually
+                    DS.EntityTree.RemoveItem(Target);
+                    NotifyEntityListChanged();
                     break;
                 default:
                     break;

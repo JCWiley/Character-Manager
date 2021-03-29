@@ -26,6 +26,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EA.GetEvent<FilterRequestEvent>().Subscribe(FilterRequestEventExecute);
 
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+
             TreeItemViewModelFactory = treeItemViewModelFactory;
 
             EP = entityProvider;
@@ -35,7 +37,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
                 //currently only uses the first head specified in the RTree, eventually plan to add multi head RTrees
                 //RTrees currently support multi heading, TreeHeads does not
-                TreeItemViewModelFactory.CreateOrganizationViewModel(EP.HeadEntities()[0])
+                TreeItemViewModelFactory.CreateOrganizationViewModel(null,EP.HeadEntities()[0])
             };
             RaisePropertyChanged(nameof(TreeHeads));
         }
@@ -56,11 +58,32 @@ namespace CharacterManager.ViewModels.TreeViewModels
         #endregion
 
         #region Event Handlers
+        void UIUpdateRequestExecute(ChangeType type)
+        {
+            switch (type)
+            {
+                case ChangeType.SelectedCharacterChanged:
+                    break;
+                case ChangeType.SelectedOrganizationChanged:
+                    break;
+                case ChangeType.EntityListChanged:
+                    TreeHeads[0].RebuildChildren();
+                    break;
+                case ChangeType.JobEventListChanged:
+                    break;
+                case ChangeType.JobListChanged:
+                    break;
+                case ChangeType.DayAdvanced:
+                    break;
+                default:
+                    break;
+            }
+        }
         void DataLoadSuccessEventExecute(IRTreeMember<IEntity> NewHead)
         {
             TreeHeads = new ObservableCollection<OrganizationTreeItemViewModel>
             {
-                TreeItemViewModelFactory.CreateOrganizationViewModel(NewHead)
+                TreeItemViewModelFactory.CreateOrganizationViewModel(null,NewHead)
             };
         }
         void NewEntityRequestEventExecute(NewEntityRequestContainer Paramaters)

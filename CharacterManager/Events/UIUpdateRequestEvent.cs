@@ -15,6 +15,7 @@ namespace CharacterManager.Events
     {
         SelectedCharacterChanged,
         SelectedOrganizationChanged,
+        EntityListChanged,
         JobEventListChanged,
         JobListChanged,
         DayAdvanced

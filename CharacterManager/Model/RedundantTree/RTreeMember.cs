@@ -111,7 +111,10 @@ namespace CharacterManager.Model.RedundantTree
 
         public void AddChild(Guid i_gid)
         {
-            Child_Guids.Add(i_gid);
+            if(!Child_Guids.Contains(i_gid))
+            {
+                Child_Guids.Add(i_gid);
+            }
         }
         public void RemoveChild(Guid i_gid)
         {
@@ -120,7 +123,10 @@ namespace CharacterManager.Model.RedundantTree
 
         public void AddParent(Guid i_gid)
         {
-            Parents.Add(i_gid);
+            if(!Parents.Contains(i_gid))
+            {
+                Parents.Add(i_gid);
+            }
         }
         public void RemoveParent(Guid i_gid)
         {
