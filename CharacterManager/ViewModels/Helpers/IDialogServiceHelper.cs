@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
 using Prism.Services.Dialogs;
@@ -18,5 +19,7 @@ namespace CharacterManager.ViewModels.Helpers
 
         public void ShowAdvanceDayPopup(Action<IDialogResult> action);
         public void ShowWarning(string WarningText);
+
+        public void ShowEventReportPopup(List<IEvent> allevents);
     }
 }

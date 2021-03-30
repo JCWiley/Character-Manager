@@ -1,4 +1,5 @@
 ﻿using CharacterManager.Model.Entities;
+using CharacterManager.Model.Events;
 using CharacterManager.Model.Helpers;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
@@ -37,6 +38,14 @@ namespace CharacterManager.ViewModels.Helpers
         {
             DialogParameters Paramaters = new DialogParameters { { "Job", targetjob }, { "Entity", targetentity },{"Effects", effects } };
             DS.ShowDialog(nameof(NewEventPopupView), Paramaters, action);
+        }
+
+        public void ShowEventReportPopup(List<IEvent> allevents)
+        {
+            Action<IDialogResult> action = null;
+
+            DialogParameters Paramaters = new DialogParameters { {"Events",allevents } };
+            DS.ShowDialog(nameof(EventReportPopupView), Paramaters,action);
         }
 
         public void ShowWarning(string WarningText)

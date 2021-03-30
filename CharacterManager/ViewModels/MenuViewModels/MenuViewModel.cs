@@ -1,4 +1,6 @@
 ﻿using CharacterManager.Events;
+using CharacterManager.Model.Providers;
+using CharacterManager.ViewModels.Helpers;
 using Prism.Commands;
 using Prism.Events;
 using System;
@@ -10,9 +12,13 @@ namespace CharacterManager.ViewModels.MenuViewModels
     public class MenuViewModel
     {
         IEventAggregator EA;
-        public MenuViewModel(IEventAggregator eventAggregator)
+        IJobEventProvider JEP;
+        IDialogServiceHelper DSH;
+        public MenuViewModel(IEventAggregator eventAggregator,IJobEventProvider jobEventProvider, IDialogServiceHelper dialogServiceHelper)
         {
             EA = eventAggregator;
+            JEP = jobEventProvider;
+            DSH = dialogServiceHelper;
         }
         #region Commands
         private DelegateCommand _new_menuitem_command;
@@ -59,7 +65,7 @@ namespace CharacterManager.ViewModels.MenuViewModels
         }
         private void Generate_Event_Report_MenuItem_Command_Execute()
         {
-
+            DSH.ShowEventReportPopup(JEP.GetAllEvents());
         }
 
 

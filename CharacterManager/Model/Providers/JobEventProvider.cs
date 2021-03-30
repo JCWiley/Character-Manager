@@ -165,6 +165,8 @@ namespace CharacterManager.Model.Providers
                 CreateJobEvent(paramaters.J, paramaters.E);
             }
         }
+
+
         #endregion
     }
 }
