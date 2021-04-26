@@ -73,6 +73,7 @@ namespace CharacterManager
             containerRegistry.RegisterDialog<NewEventPopupView>();
             containerRegistry.RegisterDialog<AdvanceDayPopupView>();
             containerRegistry.RegisterDialog<EventReportPopupView>();
+            containerRegistry.RegisterDialog<JobReportPopupView>();
 
             Application.Current.Resources.Add("IoC", this.Container);
         }

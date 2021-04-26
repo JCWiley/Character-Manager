@@ -8,19 +8,17 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Height="Auto" Width="Auto">
-    <Grid>
+    <Grid Margin="10,0,10,10" >
         <DataGrid x:Name="EventDisplayDataGrid" 
                   HorizontalAlignment="Left" 
                   Height="373" 
                   VerticalAlignment="Top" 
-                  Width="772" 
-                  Margin="10,10,0,0" 
+                  Width="772"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserResizeColumns="True"
                   CanUserReorderColumns="True"
                   ItemsSource = "{Binding Events}"/>
-        <Button x:Name="Close_Button" Content="Close" HorizontalAlignment="Left" Margin="669,388,0,0" VerticalAlignment="Top" Width="113" Command="{Binding CommandClose}" />
 
     </Grid>
 </UserControl>

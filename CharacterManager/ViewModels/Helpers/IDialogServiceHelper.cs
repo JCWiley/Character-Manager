@@ -1,6 +1,7 @@
 ﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
+using CharacterManager.Model.Providers;
 using CharacterManager.Model.RedundantTree;
 using Prism.Services.Dialogs;
 using System;
@@ -21,5 +22,7 @@ namespace CharacterManager.ViewModels.Helpers
         public void ShowWarning(string WarningText);
 
         public void ShowEventReportPopup(List<IEvent> allevents);
+
+        public void ShowJobReportPopup(IJobDirectoryProvider JDP);
     }
 }

@@ -14,11 +14,13 @@ namespace CharacterManager.ViewModels.MenuViewModels
         IEventAggregator EA;
         IJobEventProvider JEP;
         IDialogServiceHelper DSH;
-        public MenuViewModel(IEventAggregator eventAggregator,IJobEventProvider jobEventProvider, IDialogServiceHelper dialogServiceHelper)
+        IJobDirectoryProvider JDP;
+        public MenuViewModel(IEventAggregator eventAggregator,IJobEventProvider jobEventProvider, IDialogServiceHelper dialogServiceHelper,IJobDirectoryProvider jobDirectoryProvider)
         {
             EA = eventAggregator;
             JEP = jobEventProvider;
             DSH = dialogServiceHelper;
+            JDP = jobDirectoryProvider;
         }
         #region Commands
         private DelegateCommand _new_menuitem_command;
@@ -61,7 +63,7 @@ namespace CharacterManager.ViewModels.MenuViewModels
         }
         private void Generate_Job_Report_MenuItem_Command_Execute()
         {
-
+            DSH.ShowJobReportPopup(JDP);
         }
         private void Generate_Event_Report_MenuItem_Command_Execute()
         {

@@ -63,5 +63,10 @@ namespace CharacterManager.Model.Providers
         {
             return DS.Job_List.Where(J => J.OwnerJob == job.Job_ID).ToList();
         }
+
+        public List<IJob> GetAllJobs()
+        {
+            return DS.Job_List;
+        }
     }
 }

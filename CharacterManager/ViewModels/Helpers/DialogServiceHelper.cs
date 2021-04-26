@@ -2,6 +2,7 @@
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Helpers;
 using CharacterManager.Model.Jobs;
+using CharacterManager.Model.Providers;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Views.PopupViews;
 using Prism.Services.Dialogs;
@@ -46,6 +47,14 @@ namespace CharacterManager.ViewModels.Helpers
 
             DialogParameters Paramaters = new DialogParameters { {"Events",allevents } };
             DS.ShowDialog(nameof(EventReportPopupView), Paramaters,action);
+        }
+
+        public void ShowJobReportPopup(IJobDirectoryProvider JDP)
+        {
+            Action<IDialogResult> action = null;
+
+            DialogParameters Paramaters = new DialogParameters { {"JDP",JDP } };
+            DS.ShowDialog(nameof(JobReportPopupView), Paramaters, action);
         }
 
         public void ShowWarning(string WarningText)
