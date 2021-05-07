@@ -50,6 +50,7 @@ namespace CharacterManager.Model.DataLoading
             {
                 filepath = openFileDialog.FileName;
                 Load_Success = LoadFile(filepath,false);
+                SS.LastUsedPath = filepath;
             }
 
             return Load_Success;
@@ -71,6 +72,7 @@ namespace CharacterManager.Model.DataLoading
             {
                 jsonString = File.ReadAllText(path);
                 dataService = JsonConvert.DeserializeObject<DataService>(jsonString, settings);
+                SS.LastUsedPath = path;
             }
             catch
             {

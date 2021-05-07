@@ -32,7 +32,6 @@ namespace CharacterManager.Model.Services
 
             }
         }
-
         public int OverviewColumnWidth
         {
             get
@@ -68,7 +67,8 @@ namespace CharacterManager.Model.Services
         {
             get
             {
-                return Path.GetFileName(LastUsedPath);
+                string path = Path.GetFileName(LastUsedPath);
+                return path.Substring(0,path.Length-3);
             }
         }
         #endregion
@@ -77,9 +77,6 @@ namespace CharacterManager.Model.Services
         {
             Properties.Settings.Default.Save();
         }
-
-
-
 
         #region Event Handlers
         private void ProgramIsClosingEventExecute(string paramaters)
