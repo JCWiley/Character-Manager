@@ -7,9 +7,8 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="750"
-             Height="AUTO" Width="Auto">
-    <Grid Margin="0,0,5,0">
+             d:DesignHeight="21.96" d:DesignWidth="112">
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="TextBlockColumn" Width="Auto"/>
             <ColumnDefinition x:Name="ButtonColumn" Width="Auto"/>
@@ -18,11 +17,14 @@
                    Grid.Column="0"
                    Content="{Binding CurrentDay}" 
                    VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center"
+                   HorizontalContentAlignment="Center"
                    VerticalAlignment="Top" 
-                   Height="21.96" 
-                   Width="64" 
+                   Height="Auto"
+                   MinWidth="64"
+                   MinHeight="20"
                    FontSize="12" 
+                   BorderThickness="1"
+                   BorderBrush="Red"
                    Background="#FFF9F9F9" 
                    />
         <Button x:Name="AdvanceDayButton" 
@@ -31,7 +33,7 @@
                     VerticalAlignment="Top" 
                     VerticalContentAlignment="Center"
                     FontSize="12" 
-                    Height="21.96" 
+                    Height="{Binding ElementName=CurrentDayTextBlock,Path=ActualHeight,Mode=OneWay,NotifyOnSourceUpdated=True}" 
                     FontWeight="Bold"
                     ToolTip="Advance to next day." 
                     Grid.Column="1" 

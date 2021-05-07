@@ -27,7 +27,7 @@
             <ContentControl Grid.Column="0" prism:RegionManager.RegionName="OVERVIEW_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <GridSplitter Grid.Column ="1" Width="5" Background="White" HorizontalAlignment="Center" VerticalAlignment="Stretch" ShowsPreview="False"/>
             <ContentControl Grid.Column="2" prism:RegionManager.RegionName="DETAIL_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <ContentControl Grid.Column="2" prism:RegionManager.RegionName="DAY_REGION" HorizontalAlignment="Right" VerticalAlignment="Top" Height="AUTO" Width="AUTO"/>
+            <ContentControl Grid.Column="2" prism:RegionManager.RegionName="DAY_REGION" HorizontalAlignment="Right" VerticalAlignment="Top" Height="AUTO" Width="AUTO" />
         </Grid>
     </Grid>
 </Window>

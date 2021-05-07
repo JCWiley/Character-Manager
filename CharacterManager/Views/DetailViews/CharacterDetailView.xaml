@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl x:Name="Character_Tab_Manager" Margin="0,0,0,0">
+        <TabControl x:Name="Character_Tab_Manager" Margin="0,6,0,0">
             <TabItem Header="Character" prism:RegionManager.RegionName="CHARACTER_REGION"/>
             <TabItem Header="Jobs" prism:RegionManager.RegionName="CHARACTER_JOB_REGION"/>
             <TabItem Header="Job History" prism:RegionManager.RegionName="CHARACTER_JOB_HISTORY_REGION"/>
