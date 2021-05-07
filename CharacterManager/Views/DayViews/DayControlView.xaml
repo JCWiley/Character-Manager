@@ -22,9 +22,7 @@
                    Height="Auto"
                    MinWidth="64"
                    MinHeight="20"
-                   FontSize="12" 
-                   BorderThickness="1"
-                   BorderBrush="Red"
+                   FontSize="12"
                    Background="#FFF9F9F9" 
                    />
         <Button x:Name="AdvanceDayButton" 
