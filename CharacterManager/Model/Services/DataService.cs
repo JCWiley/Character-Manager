@@ -22,6 +22,7 @@ namespace CharacterManager.Model.Services
         private IDataLoader DL;
         private IDataSaver DS;
         private IEventAggregator EA;
+        private ISettingsService SS;
         #endregion
 
         #region Factories
@@ -66,17 +67,19 @@ namespace CharacterManager.Model.Services
 
         }
 
-        public DataService(IRTreeFactory<IEntity> iRTreeFactory,IDataLoader dataLoader, IDataSaver dataSaver, IEventAggregator eventAggregator)
+        public DataService(IRTreeFactory<IEntity> iRTreeFactory,IDataLoader dataLoader, IDataSaver dataSaver, IEventAggregator eventAggregator,ISettingsService settingsService)
         {
             DL = dataLoader;
             DS = dataSaver;
 
             EA = eventAggregator;
+            SS = settingsService;
 
             IRTF = iRTreeFactory;
 
             EA.GetEvent<DataSaveRequestEvent>().Subscribe(DataSaveRequestEventExecute);
             EA.GetEvent<DataLoadRequestEvent>().Subscribe(DataLoadRequestEventExecute);
+            EA.GetEvent<NewFileRequestEvent>().Subscribe(NewEntityRequestEventExecute);
 
             //try to load an existing file
             DataLoadRequestEventExecute(LoadRequestTypes.LastFile);
@@ -123,6 +126,13 @@ namespace CharacterManager.Model.Services
 
         }
 
+        private void NewEntityRequestEventExecute(string NoParam)
+        {
+            InitializeDefault();
+            EA.GetEvent<DataLoadSuccessEvent>().Publish(EntityTree.Heads[0]);
+        }
+
+
         private void SetEqual(IDataService dataService)
         {
             Job_List = dataService.Job_List;
@@ -142,6 +152,9 @@ namespace CharacterManager.Model.Services
             JobEventDict = new Dictionary<Guid, List<IEvent>>();
 
             CurrentDay = 0;
+
+            SS.LastUsedPath = "";
+            SS.SaveProperties();
         }
     }
 }

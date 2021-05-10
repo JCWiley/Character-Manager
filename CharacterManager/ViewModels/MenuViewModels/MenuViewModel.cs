@@ -43,7 +43,7 @@ namespace CharacterManager.ViewModels.MenuViewModels
         #region Command Handlers
         private void New_MenuItem_Command_Execute()
         {
-
+            EA.GetEvent<NewFileRequestEvent>().Publish("");
         }
         private void Open_MenuItem_Command_Execute()
         {

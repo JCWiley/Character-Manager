@@ -67,8 +67,12 @@ namespace CharacterManager.Model.Services
         {
             get
             {
-                string path = Path.GetFileName(LastUsedPath);
-                return path.Substring(0,path.Length-3);
+                if(LastUsedPath.Length>3)
+                {
+                    string path = Path.GetFileName(LastUsedPath);
+                    return path.Substring(0, path.Length - 3);
+                }
+                return "";
             }
         }
         #endregion
