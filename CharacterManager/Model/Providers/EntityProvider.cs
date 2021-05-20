@@ -54,6 +54,8 @@ namespace CharacterManager.Model.Providers
             EA = eventAggregator;
             EF = entityFactory;
 
+            currenttargetorganization = HeadEntities()[0];
+
             EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
             EA.GetEvent<AlterEntityRelationshipsEvent>().Subscribe(AlterEntityRelationshipsExecute);
         }
