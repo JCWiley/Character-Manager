@@ -27,10 +27,10 @@ namespace CharacterManager.Model.Providers
         {
             get
             {
-                if(currenttargetcharacter == null)
-                {
-                    currenttargetcharacter = CurrentTargetAsOrganization.Child_Items[0];
-                }
+                //if(currenttargetcharacter == null)
+                //{
+                //    currenttargetcharacter = CurrentTargetAsOrganization.Child_Items[0];
+                //}
                 return currenttargetcharacter;
             }
         }
@@ -38,10 +38,10 @@ namespace CharacterManager.Model.Providers
         {
             get
             {
-                if(currenttargetorganization == null)
-                {
-                    currenttargetorganization = HeadEntities()[0];
-                }
+                //if(currenttargetorganization == null)
+                //{
+                //    currenttargetorganization = HeadEntities()[0];
+                //}
                 return currenttargetorganization;
             }
         }
