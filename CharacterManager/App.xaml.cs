@@ -37,6 +37,7 @@ namespace CharacterManager
 
 
             Window Root = Container.Resolve<ShellView>();
+
             return Root;
         }
 

@@ -43,19 +43,6 @@ namespace CharacterManager.ViewModels
                 RaisePropertyChanged("DetailColumnWidth");
             }
         }
-        public int DetailColumnWidth
-        {
-            get
-            {
-                return SS.DetailColumnWidth;
-            }
-            set
-            {
-                SS.DetailColumnWidth = value;
-                RaisePropertyChanged("OverviewColumnWidth");
-                RaisePropertyChanged("DetailColumnWidth");
-            }
-        }
 
         public string Filename
         {

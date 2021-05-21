@@ -46,20 +46,6 @@ namespace CharacterManager.Model.Services
                 }
             }
         }
-        public int DetailColumnWidth
-        {
-            get
-            {
-                return Properties.Settings.Default.DetailColumnWidth;
-            }
-            set
-            {
-                if (Properties.Settings.Default.DetailColumnWidth != value)
-                {
-                    Properties.Settings.Default.DetailColumnWidth = value;
-                }
-            }
-        }
         #endregion
 
         #region Convenience Operators

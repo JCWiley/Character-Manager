@@ -7,7 +7,14 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="{Binding Filename}" Height="450" Width="900">
+        Title="{Binding Filename}"
+        xmlns:p="clr-namespace:CharacterManager.Properties"
+        Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
+        Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
+        Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
+        Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}"
+        WindowState="{Binding Source={x:Static p:Settings.Default}, Path=WindowState, Mode=TwoWay}"
+        MinWidth="660">
     <Grid x:Name="RootGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*"/>
@@ -20,7 +27,7 @@
         <ContentControl Grid.Row="0" prism:RegionManager.RegionName="MENU_REGION" Grid.ColumnSpan="2"/>
         <Grid x:Name="ContentGrid" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="OverviewColumn" Width="203*" MinWidth="200"/>
+                <ColumnDefinition x:Name="OverviewColumn" Width="{Binding }" MinWidth="200"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition x:Name="DetailColumn" Width="750*" MinWidth="430"/>
             </Grid.ColumnDefinitions>
