@@ -13,8 +13,9 @@
         Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
         Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}"
-        WindowState="{Binding Source={x:Static p:Settings.Default}, Path=WindowState, Mode=TwoWay}"
+        WindowState="{Binding Source={x:Static p:Settings.Default}, Path=WindowState, Mode=TwoWay, Converter={StaticResource WindowStateToStringConverter}}"
         MinWidth="660">
+
     <Grid x:Name="RootGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*"/>
@@ -27,9 +28,9 @@
         <ContentControl Grid.Row="0" prism:RegionManager.RegionName="MENU_REGION" Grid.ColumnSpan="2"/>
         <Grid x:Name="ContentGrid" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="OverviewColumn" Width="{Binding }" MinWidth="200"/>
+                <ColumnDefinition x:Name="OverviewColumn" Width="{Binding Source={x:Static p:Settings.Default}, Path=OverviewColumnWidth, Mode=TwoWay ,Converter={StaticResource GridUnitToWidthConverter}}" MinWidth="200"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition x:Name="DetailColumn" Width="750*" MinWidth="430"/>
+                <ColumnDefinition x:Name="DetailColumn" Width="{Binding Source={x:Static p:Settings.Default}, Path=DetailColumnWidth, Mode=TwoWay ,Converter={StaticResource GridUnitToWidthConverter}}" MinWidth="430"/>
             </Grid.ColumnDefinitions>
             <ContentControl Grid.Column="0" prism:RegionManager.RegionName="OVERVIEW_REGION" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <GridSplitter Grid.Column ="1" Width="5" Background="White" HorizontalAlignment="Center" VerticalAlignment="Stretch" ShowsPreview="False"/>

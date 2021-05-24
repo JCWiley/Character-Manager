@@ -30,19 +30,6 @@ namespace CharacterManager.ViewModels
         #endregion
 
         #region Binding Targets
-        public int OverviewColumnWidth
-        {
-            get
-            {
-                return SS.OverviewColumnWidth;
-            }
-            set
-            {
-                SS.OverviewColumnWidth = value;
-                RaisePropertyChanged("OverviewColumnWidth");
-                RaisePropertyChanged("DetailColumnWidth");
-            }
-        }
 
         public string Filename
         {

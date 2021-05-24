@@ -32,20 +32,6 @@ namespace CharacterManager.Model.Services
 
             }
         }
-        public int OverviewColumnWidth
-        {
-            get
-            {
-                return Properties.Settings.Default.OverviewColumnWidth;
-            }
-            set
-            {
-                if (Properties.Settings.Default.OverviewColumnWidth != value)
-                {
-                    Properties.Settings.Default.OverviewColumnWidth = value;
-                }
-            }
-        }
         #endregion
 
         #region Convenience Operators

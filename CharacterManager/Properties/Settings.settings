@@ -5,7 +5,7 @@
     <Setting Name="LastUsedPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="OverviewColumnWidth" Type="System.Int32" Scope="User">
+    <Setting Name="OverviewColumnWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">200</Value>
     </Setting>
     <Setting Name="Height" Type="System.Int32" Scope="User">
@@ -20,8 +20,11 @@
     <Setting Name="Top" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">200</Value>
     </Setting>
-    <Setting Name="WindowState" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="WindowState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DetailColumnWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">700</Value>
     </Setting>
   </Settings>
 </SettingsFile>

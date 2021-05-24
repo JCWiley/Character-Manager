@@ -38,9 +38,9 @@ namespace CharacterManager.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public int OverviewColumnWidth {
+        public double OverviewColumnWidth {
             get {
-                return ((int)(this["OverviewColumnWidth"]));
+                return ((double)(this["OverviewColumnWidth"]));
             }
             set {
                 this["OverviewColumnWidth"] = value;
@@ -97,13 +97,25 @@ namespace CharacterManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool WindowState {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string WindowState {
             get {
-                return ((bool)(this["WindowState"]));
+                return ((string)(this["WindowState"]));
             }
             set {
                 this["WindowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public double DetailColumnWidth {
+            get {
+                return ((double)(this["DetailColumnWidth"]));
+            }
+            set {
+                this["DetailColumnWidth"] = value;
             }
         }
     }

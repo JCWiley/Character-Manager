@@ -11,5 +11,7 @@
             <Setter Property="helpers:LoseFocusOnEnter.CanLoseFocusOnEnter"
                     Value="true"/>
         </Style>
+        <helpers:WindowStateToStringConverter x:Key="WindowStateToStringConverter"/>
+        <helpers:GridUnitToWidthConverter x:Key="GridUnitToWidthConverter"/>
     </Application.Resources>
 </prism:PrismApplication>
