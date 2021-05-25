@@ -1,15 +1,17 @@
 ﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace CharacterManager.Model.Providers
 {
-    public class DerivedDataProvider : IDerivedDataProvider
+    public class DerivedDataProvider : BindableBase,IDerivedDataProvider
     {
         IDataService DS;
 
@@ -20,20 +22,35 @@ namespace CharacterManager.Model.Providers
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public List<string> Locations
+        private ObservableCollection<String> locations = new ObservableCollection<string>();
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public ObservableCollection<string> Locations
         {
             get
             {
-                List<String> temp = new List<string>();
-                foreach (IEntity entity in DS.EntityTree.Get_All_Items())
+                if(locations.Count==0)
                 {
-                    if(!temp.Contains(entity.Location))
+                    UpdateLocationsList();
+                }
+                return locations;
+            }
+        }
+
+        public void UpdateLocationsList()
+        {
+            foreach (IEntity entity in DS.EntityTree.Get_All_Items())
+            {
+                if(!string.IsNullOrWhiteSpace(entity.Location))
+                {
+                    if (!locations.Contains(entity.Location))
                     {
-                        temp.Add(entity.Location);
+                        locations.Add(entity.Location);
                     }
                 }
-                return temp;
             }
+            RaisePropertyChanged("Locations");
         }
     }
 }

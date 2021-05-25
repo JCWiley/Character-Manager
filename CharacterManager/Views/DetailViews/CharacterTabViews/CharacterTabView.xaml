@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CharacterManager.Views.DetailViews.CharacterTabViews"
              xmlns:helpers ="clr-namespace:CharacterManager.Views.Helpers"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
@@ -85,7 +86,14 @@
                                  IsReadOnly="False"
                                  TabIndex="4"
                                  Grid.Column="1"
-                                 VerticalAlignment="Top"/>
+                                 VerticalAlignment="Top">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding CommandLocationSelectionChanged}" 
+                                           CommandParameter="{Binding ElementName=CharacterLocationComboBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
         <TextBox x:Name="OccupationTextBlock" 
                                  Height="23" 
                                  Margin="90,59,0,0" 

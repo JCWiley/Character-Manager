@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CharacterManager.Views.DetailViews.OrganizationTabViews"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:helpers ="clr-namespace:CharacterManager.Views.Helpers"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -85,8 +86,14 @@
                                  IsReadOnly="False"
                                  TabIndex="4"
                                  Grid.Column="1"
-                                 VerticalAlignment="Top"/>
-
+                                 VerticalAlignment="Top">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding CommandLocationSelectionChanged}" 
+                                           CommandParameter="{Binding ElementName=OrganizationLocationComboBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
         <ComboBox x:Name="SizeComboBox" 
                                  Height="23" 
                                  Margin="90,59,0,0"

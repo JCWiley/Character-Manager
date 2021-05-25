@@ -2,6 +2,7 @@
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Providers;
 using CharacterManager.Model.RedundantTree;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -69,6 +70,18 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                     return false;
                 }
             }
+        }
+        #endregion
+
+        #region Commands
+        private DelegateCommand _commandlocationselectionchanged;
+
+        public DelegateCommand CommandLocationSelectionChanged => _commandlocationselectionchanged ??= new DelegateCommand(CommandLocationSelectionChangedExecute);
+        #endregion
+        #region Command handlers
+        private void CommandLocationSelectionChangedExecute()
+        {
+            DDP.UpdateLocationsList();
         }
         #endregion
 
