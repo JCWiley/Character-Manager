@@ -102,13 +102,24 @@
                                  TabIndex="6"
                                  Grid.Column="1"
                                  VerticalAlignment="Top"/>
-        <TextBox x:Name="RaceTextBlock" 
+        <ComboBox x:Name="RaceComboBox" 
                                  Height="23" 
                                  Margin="85,59,5,0" 
-                                 TextWrapping="Wrap" 
-                                 Text="{Binding Char.Race , UpdateSourceTrigger=PropertyChanged}"
+                                 SelectedValue  ="{Binding Char.Race , UpdateSourceTrigger=PropertyChanged}" 
+                                 ItemsSource="{Binding DDP.Races}"
+                                 Text="{Binding Char.Race, UpdateSourceTrigger=LostFocus}"
+                                 IsEditable="True"
+                                 IsReadOnly="False"
                                  TabIndex="5"
-                                 VerticalAlignment="Top"/>
+                                 Grid.Column="0"
+                                 VerticalAlignment="Top">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding CommandRaceSelectionChanged}" 
+                                           CommandParameter="{Binding ElementName=RaceComboBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
         <TextBox x:Name="NameTextBlock" 
                                  Height="23" 
                                  Margin="85,3,5,0" 
@@ -123,13 +134,23 @@
                                  Text="{Binding Char.Alias , UpdateSourceTrigger=PropertyChanged}" 
                                  TabIndex="3"
                                  VerticalAlignment="Top"/>
-        <TextBox x:Name="BirthPlaceTextBlock" 
+        <ComboBox x:Name="BirthPlaceComboBox" 
                                  Height="23" 
                                  Margin="90,3,0,0" 
-                                 TextWrapping="Wrap" 
-                                 Text="{Binding Char.BirthPlace , UpdateSourceTrigger=PropertyChanged}" 
+                                 SelectedValue  ="{Binding Char.BirthPlace , UpdateSourceTrigger=PropertyChanged}" 
+                                 ItemsSource="{Binding DDP.Locations}"
+                                 Text="{Binding Char.BirthPlace, UpdateSourceTrigger=LostFocus}"
+                                 IsEditable="True"
+                                 IsReadOnly="False"
                                  TabIndex="2"
                                  Grid.Column="1"
-                                 VerticalAlignment="Top"/>
+                                 VerticalAlignment="Top">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding CommandLocationSelectionChanged}" 
+                                           CommandParameter="{Binding ElementName=BirthPlaceComboBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
     </Grid>
 </UserControl>

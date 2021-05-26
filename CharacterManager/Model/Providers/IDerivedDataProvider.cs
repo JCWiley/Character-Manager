@@ -9,7 +9,14 @@ namespace CharacterManager.Model.Providers
 {
     public interface IDerivedDataProvider
     {
+
+        public ObservableCollection<String> Races { get; }
+        public void UpdateRacesList();
+
+
         public ObservableCollection<String> Locations { get;}
         public void UpdateLocationsList();
+
+
     }
 }

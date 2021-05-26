@@ -69,11 +69,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         private DelegateCommand _commandlocationselectionchanged;
 
         public DelegateCommand CommandLocationSelectionChanged => _commandlocationselectionchanged ??= new DelegateCommand(CommandLocationSelectionChangedExecute);
+
+
+        private DelegateCommand _commandraceselectionchanged;
+
+        public DelegateCommand CommandRaceSelectionChanged => _commandraceselectionchanged ??= new DelegateCommand(CommandRaceSelectionChangedExecute);
         #endregion
         #region Command handlers
         private void CommandLocationSelectionChangedExecute()
         {
             DDP.UpdateLocationsList();
+        }
+        private void CommandRaceSelectionChangedExecute()
+        {
+            DDP.UpdateRacesList();
         }
         #endregion
 
