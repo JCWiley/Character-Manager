@@ -69,20 +69,23 @@ namespace CharacterManager.Model.Providers
 
         public void AddEventToJob(IJob job, IEvent proposedevent)
         {
-            //if the job already has an entry in the job dict
-            if (DS.JobEventDict.ContainsKey(job.Job_ID))
+            if(job is not null)
             {
-                DS.JobEventDict[job.Job_ID].Add(proposedevent);
-            }
-            //otherwise it must first be added to the dicitonary
-            else
-            {
-                DS.JobEventDict.Add(job.Job_ID, new List<IEvent>());
-                DS.JobEventDict[job.Job_ID].Add(proposedevent);
-            }
-            if (proposedevent.Progress_Effects != 0)
-            {
-                JL.ProgressJob(job, proposedevent.Progress_Effects);
+                //if the job already has an entry in the job dict
+                if (DS.JobEventDict.ContainsKey(job.Job_ID))
+                {
+                    DS.JobEventDict[job.Job_ID].Add(proposedevent);
+                }
+                //otherwise it must first be added to the dicitonary
+                else
+                {
+                    DS.JobEventDict.Add(job.Job_ID, new List<IEvent>());
+                    DS.JobEventDict[job.Job_ID].Add(proposedevent);
+                }
+                if (proposedevent.Progress_Effects != 0)
+                {
+                    JL.ProgressJob(job, proposedevent.Progress_Effects);
+                }
             }
         }
 
@@ -121,13 +124,22 @@ namespace CharacterManager.Model.Providers
         }
         public List<IEvent> GetEventsForEntity(IRTreeMember<IEntity> E)
         {
-            List<IJob> J_List = JDP.GetEntitiesJobs(E);
             List<IEvent> E_List = new List<IEvent>();
-            foreach (IJob job in J_List)
+            if(E is not null)
             {
-                E_List.AddRange(GetEventsForJob(job));
+                List<IJob> J_List = JDP.GetEntitiesJobs(E);
+
+                foreach (IJob job in J_List)
+                {
+                    E_List.AddRange(GetEventsForJob(job));
+                }
+                return E_List;
             }
-            return E_List;
+            else
+            {
+                return null;
+            }
+            
         }
         public List<IEvent> GetEventsForJob(IJob J)
         {

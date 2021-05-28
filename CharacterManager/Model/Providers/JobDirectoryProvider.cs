@@ -56,12 +56,20 @@ namespace CharacterManager.Model.Providers
 
         public List<IJob> GetEntitiesJobs(IRTreeMember<IEntity> entity)
         {
-            return DS.Job_List.Where(J => J.OwnerEntity == entity.Gid).ToList();
+            if(entity is not null)
+            {
+                return DS.Job_List.Where(J => J.OwnerEntity == entity.Gid)?.ToList();
+            }
+            else
+            {
+                return null;
+            }
+            
         }
 
         public List<IJob> GetSubJobs(IJob job)
         {
-            return DS.Job_List.Where(J => J.OwnerJob == job.Job_ID).ToList();
+            return DS.Job_List.Where(J => J.OwnerJob == job.Job_ID)?.ToList();
         }
 
         public List<IJob> GetAllJobs()

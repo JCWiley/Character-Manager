@@ -23,7 +23,7 @@ namespace CharacterManager.Model.Providers
         #region Races
         [JsonIgnore]
         [IgnoreDataMember]
-        private ObservableCollection<String> races = new ObservableCollection<string>();
+        private ObservableCollection<String> races = null;
 
         [JsonIgnore]
         [IgnoreDataMember]
@@ -31,7 +31,7 @@ namespace CharacterManager.Model.Providers
         {
             get
             {
-                if (races.Count == 0)
+                if (races is null)
                 {
                     UpdateRacesList();
                 }
@@ -40,6 +40,11 @@ namespace CharacterManager.Model.Providers
         }
         public void UpdateRacesList()
         {
+            if(races is null)
+            {
+                races = new ObservableCollection<string>();
+            }
+
             foreach (IEntity entity in DS.EntityTree.Get_All_Items())
             {
                 if (!string.IsNullOrWhiteSpace(entity.Race))
@@ -57,7 +62,7 @@ namespace CharacterManager.Model.Providers
         #region Locations
         [JsonIgnore]
         [IgnoreDataMember]
-        private ObservableCollection<String> locations = new ObservableCollection<string>();
+        private ObservableCollection<String> locations = null;
 
         [JsonIgnore]
         [IgnoreDataMember]
@@ -65,7 +70,7 @@ namespace CharacterManager.Model.Providers
         {
             get
             {
-                if(locations.Count==0)
+                if (locations is null)
                 {
                     UpdateLocationsList();
                 }
@@ -75,6 +80,11 @@ namespace CharacterManager.Model.Providers
 
         public void UpdateLocationsList()
         {
+            if(locations is null)
+            {
+                locations = new ObservableCollection<string>();
+            }
+
             foreach (IEntity entity in DS.EntityTree.Get_All_Items())
             {
                 if(!string.IsNullOrWhiteSpace(entity.Location))
