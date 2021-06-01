@@ -52,7 +52,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         {
             get
             {
-                if (EP.CurrentTargetAsCharacter != null)
+                if (EP.CurrentTargetAsOrganization != null)
                 {
                     return (Organization)EP.CurrentTargetAsOrganization.Item;
                 }
