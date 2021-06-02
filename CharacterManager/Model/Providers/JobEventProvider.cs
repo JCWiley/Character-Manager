@@ -163,6 +163,7 @@ namespace CharacterManager.Model.Providers
 
             AddEventToJob(J, E);
 
+            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.JobEventListChanged);
             //EA.GetEvent<JobEventOccuredEvent>().Publish(new JobEventOccuredContainer(J, E));
         }
 
