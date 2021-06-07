@@ -50,11 +50,16 @@ namespace CharacterManager.Model.Providers
         #region Event Handlers
         private void AdvanceDayRequestEventExecute(int days)
         {
-            CurrentDay += days;
-            foreach (IJob job in DS.Job_List)
+            //CurrentDay += days;
+            for(int i=0;i<days;i++)
             {
-                JL.AdvanceJob(job, days);
+                CurrentDay++;
+                foreach (IJob job in DS.Job_List)
+                {
+                    JL.AdvanceJob(job, 1);
+                }
             }
+
             EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.DayAdvanced);
         }
         #endregion

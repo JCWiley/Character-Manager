@@ -38,12 +38,16 @@ namespace CharacterManager.Model.Providers
 
         IEntityProvider EP;
 
-        public JobEventProvider(IEventAggregator eventAggregator, IJobLogic jobLogic, IDialogServiceHelper dialogServiceHelper, IEntityProvider entityProvider)
+        IDayProvider DP;
+
+        public JobEventProvider(IEventAggregator eventAggregator, IJobLogic jobLogic, IDialogServiceHelper dialogServiceHelper, IEntityProvider entityProvider, IDayProvider dayProvider)
         {
             EA = eventAggregator;
             JL = jobLogic;
             DSH = dialogServiceHelper;
             EP = entityProvider;
+            DP = dayProvider;
+
 
             EA.GetEvent<RequestJobEventEvent>().Subscribe(RequestJobEventEventExecute);
         }
@@ -64,7 +68,7 @@ namespace CharacterManager.Model.Providers
         #region Event Creation
         public void CreateJobEvent(IJob job, int Effects)
         {
-            DSH.ShowNewEventPopup(EventCreated, job, EP.GetTreeMemberForGuid(job.OwnerEntity), Effects);
+            DSH.ShowNewEventPopup(EventCreated, job, EP.GetTreeMemberForGuid(job.OwnerEntity), Effects,DP.CurrentDay);
         }
 
         public void AddEventToJob(IJob job, IEvent proposedevent)
@@ -93,19 +97,18 @@ namespace CharacterManager.Model.Providers
         {
             string OwnerName = EP.GetTreeMemberForGuid(job.OwnerEntity).Item.Name;
 
-
             if (job.Recurring == true)
             {
-                //MainWindow.Display_Message_Box($"{Parent_Name} has completed work on recurring job {summary}", "Job Done.");
 
-                IEvent JE = JEF.CreateJobEvent(OwnerName, "Repeatable Job Completed", "Completed", job.Summary, 0);
+                DSH.ShowMessage($"{OwnerName} has completed work on recurring job {job.Summary}", "Job Repeating.");
+                IEvent JE = JEF.CreateJobEvent(OwnerName, "Repeatable Job Completed", "Completed", job.Summary, 0,DP.CurrentDay);
                 AddEventToJob(job, JE);
             }
             else
             {
-                //MainWindow.Display_Message_Box($"{Parent_Name} has completed work on {summary}", "Job Done.");
+                DSH.ShowMessage($"{OwnerName} has completed work on {job.Summary}", "Job Done.");
 
-                IEvent JE = JEF.CreateJobEvent(OwnerName, "Job Completed", "Completed", job.Summary, 0);
+                IEvent JE = JEF.CreateJobEvent(OwnerName, "Job Completed", "Completed", job.Summary, 0,DP.CurrentDay);
                 AddEventToJob(job, JE);
             }
         }

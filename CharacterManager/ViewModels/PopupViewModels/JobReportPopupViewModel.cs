@@ -58,6 +58,8 @@ namespace CharacterManager.ViewModels.PopupViewModels
             set { SetProperty(ref jobs, value); }
         }
 
+
+
         #endregion
 
         #region Commands

@@ -23,32 +23,33 @@
                   CanUserReorderColumns="True"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Summary"
-                                                    Binding="{Binding Summary}"
-                                                    Width="100*"/>
-                <DataGridTextColumn Header="Start Date"
-                                                    Binding="{Binding StartDate}"
-                                                    Width="60"/>
-                <DataGridTextColumn Header="Progress"
-                                                    Binding="{Binding Progress}"
-                                                    Width="60"/>
-                <DataGridTextColumn Header="Duration"
-                                                    Binding="{Binding Duration}"
-                                                    Width="60"/>
-                <DataGridTextColumn Header="End Date"
-                                                    Binding="{Binding EndDate}"
-                                                    Width="60"
-                                                    IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Header="Being Worked On"
-                                                    Binding="{Binding IsCurrentlyProgressing}"
-                                                    Width="60"
-                                                    IsReadOnly="False"/>
                 <DataGridComboBoxColumn x:Name="OwnerComboBoxColumn"
                                                     Header="Owner"
                                                     ItemsSource ="{Binding Source={StaticResource Entities}}"
                                                     SelectedItemBinding="{Binding Owner_Entity_Object}"
                                                     DisplayMemberPath="Name"
-                                                    Width="150"/>
+                                                    Width="150*"/>
+                <DataGridTextColumn Header="Summary"
+                                                    Binding="{Binding Summary}"
+                                                    Width="100*"/>
+                <DataGridTextColumn Header="Start Date"
+                                                    Binding="{Binding StartDate}"
+                                                    Width="60*"/>
+                <DataGridTextColumn Header="Progress"
+                                                    Binding="{Binding Progress}"
+                                                    Width="60*"/>
+                <DataGridTextColumn Header="Duration"
+                                                    Binding="{Binding Duration}"
+                                                    Width="60*"/>
+                <DataGridTextColumn Header="End Date"
+                                                    Binding="{Binding EndDate}"
+                                                    Width="60*"
+                                                    IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Progressing"
+                                                    Binding="{Binding IsCurrentlyProgressing}"
+                                                    Width="60*"
+                                                    IsReadOnly="False"/>
+                
                 <!--Source={StaticResource Entities}}"-->
                 <!--, UpdateSourceTrigger=PropertyChanged}"-->
             </DataGrid.Columns>

@@ -35,9 +35,9 @@ namespace CharacterManager.ViewModels.Helpers
             DS.ShowDialog(nameof(AdvanceDayPopupView), Paramaters, action);
         }
 
-        public void ShowNewEventPopup(Action<IDialogResult> action, IJob targetjob, IRTreeMember<IEntity> targetentity, int effects)
+        public void ShowNewEventPopup(Action<IDialogResult> action, IJob targetjob, IRTreeMember<IEntity> targetentity, int effects,int Date)
         {
-            DialogParameters Paramaters = new DialogParameters { { "Job", targetjob }, { "Entity", targetentity },{"Effects", effects } };
+            DialogParameters Paramaters = new DialogParameters { { "Job", targetjob }, { "Entity", targetentity },{"Effects", effects },{"Date",Date} };
             DS.ShowDialog(nameof(NewEventPopupView), Paramaters, action);
         }
 
@@ -60,6 +60,11 @@ namespace CharacterManager.ViewModels.Helpers
         public void ShowWarning(string WarningText)
         {
             MessageBox.Show(WarningText, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        public void ShowMessage(string Message,string Header)
+        {
+            MessageBox.Show(Message, Header, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

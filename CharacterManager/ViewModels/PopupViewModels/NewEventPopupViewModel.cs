@@ -39,10 +39,10 @@ namespace CharacterManager.ViewModels.PopupViewModels
             Title = "An Event Occured";
             J = parameters.GetValue<IJob>("Job");
             E = parameters.GetValue<IRTreeMember<IEntity>>("Entity");
-
+            date = parameters.GetValue<int>("Date");
             Name = E.Item.Name;
             JobSummary = J.Summary;
-            proposedimpact = parameters.GetValue<int>("Impact");
+            proposedimpact = parameters.GetValue<int>("Effects");
             
             Notes = "";
             ImpactSelection = proposedimpact + 7;
@@ -93,6 +93,7 @@ namespace CharacterManager.ViewModels.PopupViewModels
         {
             get { return EventTypeSwitch(proposedimpact); }
         }
+        private int date;
         #endregion
 
         #region Commands
@@ -105,7 +106,7 @@ namespace CharacterManager.ViewModels.PopupViewModels
         #region Command Handlers
         private void CommandAcceptExecute()
         {
-            RaiseRequestClose(new DialogResult(ButtonResult.OK,new DialogParameters { { "Event", EF.CreateJobEvent(Name, Notes, EventTypeSwitch(ImpactSelection - 7), JobSummary, ImpactSelection - 7) },{"Job",J},{"Entity",E } }));
+            RaiseRequestClose(new DialogResult(ButtonResult.OK,new DialogParameters { { "Event", EF.CreateJobEvent(Name, Notes, EventTypeSwitch(ImpactSelection - 7), JobSummary, ImpactSelection - 7,date) },{"Job",J},{"Entity",E } }));
         }
         private void CommandIgnoreExecute()
         {
