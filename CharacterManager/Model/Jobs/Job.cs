@@ -187,6 +187,7 @@ namespace CharacterManager.Model.Jobs
                 {
                     this.duration = value;
                     RaisePropertyChanged("Duration");
+                    RaisePropertyChanged("DaysRemaining");
                 }
             }
         }

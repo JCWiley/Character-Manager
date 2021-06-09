@@ -96,7 +96,7 @@ namespace CharacterManager
                 return type;
             });
         }
-        
+
 
         void App_Exit(Object sender, ExitEventArgs e)
         {

@@ -6,10 +6,6 @@ using CharacterManager.Model.RedundantTree;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static CharacterManager.Model.Helpers.JobLogic;
 
 namespace CharacterManager.ViewModels.Helpers
 {
@@ -26,5 +22,7 @@ namespace CharacterManager.ViewModels.Helpers
         public void ShowJobReportPopup(IJobDirectoryProvider JDP);
 
         public void ShowMessage(string Message, string Header);
+
+        public System.Windows.MessageBoxResult ShowYesNoCancelMessage(string Message, string Header);
     }
 }

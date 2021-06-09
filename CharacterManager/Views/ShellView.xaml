@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CharacterManager"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
@@ -15,6 +16,12 @@
         Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}"
         WindowState="{Binding Source={x:Static p:Settings.Default}, Path=WindowState, Mode=TwoWay, Converter={StaticResource WindowStateToStringConverter}}"
         MinWidth="660">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <prism:InvokeCommandAction Command="{Binding CommandWindowClosing}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid x:Name="RootGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>

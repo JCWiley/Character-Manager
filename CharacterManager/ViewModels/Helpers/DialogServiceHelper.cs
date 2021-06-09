@@ -66,5 +66,11 @@ namespace CharacterManager.ViewModels.Helpers
         {
             MessageBox.Show(Message, Header, MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        public MessageBoxResult ShowYesNoCancelMessage(string Message,string Header)
+        {
+            return MessageBox.Show(Message, Header, MessageBoxButton.YesNoCancel, MessageBoxImage.Information);
+
+        }
     }
 }
