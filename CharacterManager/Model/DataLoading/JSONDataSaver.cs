@@ -43,7 +43,7 @@ namespace CharacterManager.Model.DataLoading
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                Filter = "Character Manager File (*.cm) |*.cm",
+                Filter = "Character Manager File (*.cmv1) |*.cmv1",
                 InitialDirectory = TargetDirectory
             };
 

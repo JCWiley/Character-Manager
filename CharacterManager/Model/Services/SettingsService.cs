@@ -42,7 +42,7 @@ namespace CharacterManager.Model.Services
                 if(LastUsedPath.Length>3)
                 {
                     string path = Path.GetFileName(LastUsedPath);
-                    return path.Substring(0, path.Length - 3);
+                    return path.Substring(0, path.Length - 5);
                 }
                 return "";
             }
