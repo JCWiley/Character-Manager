@@ -98,6 +98,8 @@ namespace CharacterManager.ViewModels.TreeViewModels
             Source.RebuildChildren();
 
             Source.IsExpanded = true;
+
+            EA.GetEvent<SelectedEntityChangedEvent>().Publish(NewItem);
         }
 
         private void FilterRequestEventExecute(FilterRequestEventContainer paramaters)
