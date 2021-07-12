@@ -1,11 +1,7 @@
 ﻿using CharacterManager.Model.Items;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
-using System.Text;
-using Prism.Mvvm;
 using CharacterManager.Model.RedundantTree;
+using Prism.Mvvm;
+using System.Collections.ObjectModel;
 
 namespace CharacterManager.Model.Entities
 {
@@ -29,14 +25,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.inventory;
+                return inventory;
             }
             set
             {
-                if (this.inventory != value)
+                if (inventory != value)
                 {
-                    this.inventory = value;
-                    RaisePropertyChanged("Inventory");
+                    inventory = value;
+                    RaisePropertyChanged( nameof( Inventory ) );
                 }
             }
         }
@@ -46,14 +42,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.name;
+                return name;
             }
             set
             {
-                if (this.name != value)
+                if (name != value)
                 {
-                    this.name = value;
-                    RaisePropertyChanged("Name");
+                    name = value;
+                    RaisePropertyChanged( nameof( Name ) );
                 }
             }
         }
@@ -63,14 +59,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.description;
+                return description;
             }
             set
             {
-                if (this.description != value)
+                if (description != value)
                 {
-                    this.description = value;
-                    RaisePropertyChanged("Description");
+                    description = value;
+                    RaisePropertyChanged( nameof( Description ) );
                 }
             }
         }
@@ -80,14 +76,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.quirks;
+                return quirks;
             }
             set
             {
-                if (this.quirks != value)
+                if (quirks != value)
                 {
-                    this.quirks = value;
-                    RaisePropertyChanged("Quirks");
+                    quirks = value;
+                    RaisePropertyChanged( nameof( Quirks ) );
                 }
             }
         }
@@ -97,15 +93,15 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.location;
+                return location;
             }
             set
             {
-                if (this.location != value)
+                if (location != value)
                 {
-                    this.location = value;
-                    RaisePropertyChanged("Location");
-                    RaisePropertyChanged("Locations");
+                    location = value;
+                    RaisePropertyChanged( nameof( Location ) );
+                    RaisePropertyChanged( "Locations" );
                 }
             }
         }
@@ -115,14 +111,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.race;
+                return race;
             }
             set
             {
-                if (this.race != value)
+                if (race != value)
                 {
-                    this.race = value;
-                    RaisePropertyChanged("Race");
+                    race = value;
+                    RaisePropertyChanged( nameof( Race ) );
                 }
             }
         }
@@ -132,14 +128,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.leader;
+                return leader;
             }
             set
             {
-                if (this.leader != value)
+                if (leader != value)
                 {
-                    this.leader = value;
-                    RaisePropertyChanged("Leader");
+                    leader = value;
+                    RaisePropertyChanged( nameof( Leader ) );
                 }
             }
         }
@@ -149,14 +145,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.goals;
+                return goals;
             }
             set
             {
-                if (this.goals != value)
+                if (goals != value)
                 {
-                    this.goals = value;
-                    RaisePropertyChanged("Goals");
+                    goals = value;
+                    RaisePropertyChanged( nameof( Goals ) );
                 }
             }
         }
@@ -166,14 +162,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.selected_size;
+                return selected_size;
             }
             set
             {
-                if (this.selected_size != value)
+                if (selected_size != value)
                 {
-                    this.selected_size = value;
-                    RaisePropertyChanged("Selected_Size");
+                    selected_size = value;
+                    RaisePropertyChanged( nameof( Selected_Size ) );
                 }
             }
         }

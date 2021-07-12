@@ -6,78 +6,64 @@ using CharacterManager.Model.Services;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity;
 
 namespace CharacterManager.Model.Providers
 {
     public class EntityProvider : IEntityProvider
     {
-        public IEntityFactory EF{ get; set; }
+        public IEntityFactory EF
+        {
+            get; set;
+        }
 
-        public IDataService DS { get; set; }
+        public IDataService DS
+        {
+            get; set;
+        }
 
-        private IEventAggregator EA;
+        private readonly IEventAggregator EA;
 
-        private IRTreeMember<IEntity> currenttargetcharacter = null;
-        private IRTreeMember<IEntity> currenttargetorganization = null;
         public IRTreeMember<IEntity> CurrentTargetAsCharacter
         {
-            get
-            {
-                //if(currenttargetcharacter == null)
-                //{
-                //    currenttargetcharacter = CurrentTargetAsOrganization.Child_Items[0];
-                //}
-                return currenttargetcharacter;
-            }
+            get; private set;
         }
         public IRTreeMember<IEntity> CurrentTargetAsOrganization
         {
-            get
-            {
-                //if(currenttargetorganization == null)
-                //{
-                //    currenttargetorganization = HeadEntities()[0];
-                //}
-                return currenttargetorganization;
-            }
+            get; private set;
         }
 
         private IRTreeMember<IEntity> EntityCopyPasteBuffer;
 
-        public EntityProvider(IEventAggregator eventAggregator,IDataService dataService, IEntityFactory entityFactory)
+        public EntityProvider(IEventAggregator eventAggregator, IDataService dataService, IEntityFactory entityFactory)
         {
             DS = dataService;
             EA = eventAggregator;
             EF = entityFactory;
 
-            currenttargetorganization = HeadEntities()[0];
+            CurrentTargetAsOrganization = HeadEntities()[0];
 
-            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe(SelectedEntityChangedExecute);
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Subscribe(AlterEntityRelationshipsExecute);
+            EA.GetEvent<SelectedEntityChangedEvent>().Subscribe( SelectedEntityChangedExecute );
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Subscribe( AlterEntityRelationshipsExecute );
         }
 
         public void NotifySelectedCharacterChanged()
         {
-            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.SelectedCharacterChanged);
+            EA.GetEvent<UIUpdateRequestEvent>().Publish( ChangeType.SelectedCharacterChanged );
         }
         public void NotifySelectedOrganizationChanged()
         {
-            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.SelectedOrganizationChanged);
+            EA.GetEvent<UIUpdateRequestEvent>().Publish( ChangeType.SelectedOrganizationChanged );
         }
         public void NotifyEntityListChanged()
         {
-            EA.GetEvent<UIUpdateRequestEvent>().Publish(ChangeType.EntityListChanged);
+            EA.GetEvent<UIUpdateRequestEvent>().Publish( ChangeType.EntityListChanged );
         }
 
-        public IRTreeMember<IEntity> AddEntity(EntityTypes type,bool ishead = false)
+        public IRTreeMember<IEntity> AddEntity(EntityTypes type, bool ishead = false)
         {
             if (type != EntityTypes.Organization && ishead == true)
             {
-                throw new InvalidOperationException("Characters cannot be heads of trees");
+                throw new InvalidOperationException( "Characters cannot be heads of trees" );
             }
 
             IEntity NewEntity = null;
@@ -92,12 +78,12 @@ namespace CharacterManager.Model.Providers
                 default:
                     break;
             }
-            return DS.EntityTree.AddItem(NewEntity, ishead);
+            return DS.EntityTree.AddItem( NewEntity, ishead );
         }
 
         public void AddChild(IRTreeMember<IEntity> Parent, IRTreeMember<IEntity> Child)
         {
-            DS.EntityTree.AddChild(Parent, Child);
+            DS.EntityTree.AddChild( Parent, Child );
         }
 
         public List<IRTreeMember<IEntity>> HeadEntities()
@@ -107,19 +93,19 @@ namespace CharacterManager.Model.Providers
 
         public List<IRTreeMember<IEntity>> GetAllChildren(IRTreeMember<IEntity> rTreeMember)
         {
-            return DS.EntityTree.Get_All_Children(rTreeMember);
+            return DS.EntityTree.Get_All_Children( rTreeMember );
         }
         public List<IRTreeMember<IEntity>> GetImmidiateChildren(IRTreeMember<IEntity> rTreeMember)
         {
-            return DS.EntityTree.Get_Immidiate_Children(rTreeMember);
+            return DS.EntityTree.Get_Immidiate_Children( rTreeMember );
         }
         public IRTreeMember<IEntity> GetTreeMemberForEntity(IEntity entity)
         {
-            return DS.EntityTree.GetMemberFromItem(entity);
+            return DS.EntityTree.GetMemberFromItem( entity );
         }
         public IRTreeMember<IEntity> GetTreeMemberForGuid(Guid G)
         {
-            return DS.EntityTree.Get_Item(G);
+            return DS.EntityTree.Get_Item( G );
         }
 
         #region EventHandlers
@@ -127,18 +113,18 @@ namespace CharacterManager.Model.Providers
         {
             if (newTarget.Item is Character)
             {
-                currenttargetcharacter = newTarget;
+                CurrentTargetAsCharacter = newTarget;
                 NotifySelectedCharacterChanged();
             }
-            else if(newTarget.Item is Organization)
+            else if (newTarget.Item is Organization)
             {
-                currenttargetorganization = newTarget;
+                CurrentTargetAsOrganization = newTarget;
                 NotifySelectedOrganizationChanged();
                 //EA.GetEvent<SelectedEntityChangedPostEvent>().Publish(EntityTypes.Organization);
             }
             else
             {
-                throw new Exception("newtarget is not character or organization");
+                throw new Exception( "Newtarget is not character or organization" );
             }
         }
         private void AlterEntityRelationshipsExecute(AlterEntityRelationshipContainer container)
@@ -149,35 +135,35 @@ namespace CharacterManager.Model.Providers
             {
                 case RelationshipChangeType.Cut:
                     EntityCopyPasteBuffer = Target;
-                    DS.EntityTree.RemoveChild(Parent, Target);
+                    DS.EntityTree.RemoveChild( Parent, Target );
                     NotifyEntityListChanged();
                     break;
                 case RelationshipChangeType.Copy:
                     EntityCopyPasteBuffer = Target;
                     break;
                 case RelationshipChangeType.Paste:
-                    if(Target.Item is Organization)
+                    if (Target.Item is Organization)
                     {
                         if (EntityCopyPasteBuffer is IRTreeMember<IEntity>)
                         {
                             if (EntityCopyPasteBuffer.IsHead == false)
                             {
-                                DS.EntityTree.AddChild(Target, EntityCopyPasteBuffer);
+                                DS.EntityTree.AddChild( Target, EntityCopyPasteBuffer );
                                 NotifyEntityListChanged();
                             }
                         }
                     }
                     else
                     {
-                        throw new InvalidOperationException("Paste operation is not permitted on non Organization entities.");
+                        throw new InvalidOperationException( "Paste operation is not permitted on non Organization entities." );
                     }
                     break;
                 case RelationshipChangeType.DeleteLocal:
-                    DS.EntityTree.RemoveChild(Parent, Target);
+                    DS.EntityTree.RemoveChild( Parent, Target );
                     NotifyEntityListChanged();
                     break;
                 case RelationshipChangeType.DeleteGlobal:
-                    DS.EntityTree.RemoveItem(Target);
+                    DS.EntityTree.RemoveItem( Target );
                     NotifyEntityListChanged();
                     break;
                 default:

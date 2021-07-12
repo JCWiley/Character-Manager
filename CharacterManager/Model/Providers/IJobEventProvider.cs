@@ -2,11 +2,7 @@
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.RedundantTree;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Providers
 {

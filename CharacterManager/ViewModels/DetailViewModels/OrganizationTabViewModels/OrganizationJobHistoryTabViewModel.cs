@@ -1,18 +1,11 @@
 ﻿using CharacterManager.Events;
-using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Providers;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
@@ -26,15 +19,15 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             EP = entityProvider;
             JEP = jobEventProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IJobDirectoryProvider JDP;
-        private IEntityProvider EP;
-        private IJobEventProvider JEP;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
+        private readonly IJobDirectoryProvider JDP;
+        private readonly IEntityProvider EP;
+        private readonly IJobEventProvider JEP;
         #endregion
 
         #region Binding targets
@@ -56,7 +49,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         {
             get
             {
-                return JEP.GetEventsForEntity(EP.CurrentTargetAsOrganization);
+                return JEP.GetEventsForEntity( EP.CurrentTargetAsOrganization );
             }
         }
         public bool IsEntityEnabled
@@ -83,17 +76,17 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     break;
                 case ChangeType.SelectedOrganizationChanged:
-                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
 
-                    RaisePropertyChanged("JobEventSummary");
+                    RaisePropertyChanged( nameof( JobEventSummary ) );
                     break;
                 case ChangeType.JobEventListChanged:
-                    RaisePropertyChanged("JobEventSummary");
+                    RaisePropertyChanged( nameof( JobEventSummary ) );
                     break;
                 case ChangeType.JobListChanged:
                     break;
                 case ChangeType.DayAdvanced:
-                    RaisePropertyChanged("JobEventSummary");
+                    RaisePropertyChanged( nameof( JobEventSummary ) );
                     break;
                 default:
                     break;

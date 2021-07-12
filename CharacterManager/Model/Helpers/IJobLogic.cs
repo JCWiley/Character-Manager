@@ -1,10 +1,4 @@
-﻿using CharacterManager.Model.Events;
-using CharacterManager.Model.Jobs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CharacterManager.Model.Jobs;
 
 namespace CharacterManager.Model.Helpers
 {

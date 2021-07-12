@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CharacterManager.Events.EventContainers
+﻿namespace CharacterManager.Events.EventContainers
 {
     public struct FilterRequestEventContainer
     {
@@ -14,7 +8,13 @@ namespace CharacterManager.Events.EventContainers
             FilterContent = filtercontent;
         }
 
-        public FilterType FilterType { get; set; }
-        public string FilterContent { get; set; }
+        public FilterType FilterType
+        {
+            get; set;
+        }
+        public string FilterContent
+        {
+            get; set;
+        }
     }
 }

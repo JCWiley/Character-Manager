@@ -1,12 +1,10 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Providers;
-using CharacterManager.Model.RedundantTree;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
@@ -19,19 +17,25 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             EP = entityProvider;
             DDP = derivedDataProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IEntityProvider EP;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
+        private readonly IEntityProvider EP;
 
         private IDerivedDataProvider ddp;
         public IDerivedDataProvider DDP
         {
-            get { return ddp; }
-            set { SetProperty(ref ddp, value); }
+            get
+            {
+                return ddp;
+            }
+            set
+            {
+                SetProperty( ref ddp, value );
+            }
         }
         #endregion
         #region Binding Targets
@@ -68,12 +72,23 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #region Commands
         private DelegateCommand _commandlocationselectionchanged;
 
-        public DelegateCommand CommandLocationSelectionChanged => _commandlocationselectionchanged ??= new DelegateCommand(CommandLocationSelectionChangedExecute);
-
+        public DelegateCommand CommandLocationSelectionChanged
+        {
+            get
+            {
+                return _commandlocationselectionchanged ??= new DelegateCommand( CommandLocationSelectionChangedExecute );
+            }
+        }
 
         private DelegateCommand _commandraceselectionchanged;
 
-        public DelegateCommand CommandRaceSelectionChanged => _commandraceselectionchanged ??= new DelegateCommand(CommandRaceSelectionChangedExecute);
+        public DelegateCommand CommandRaceSelectionChanged
+        {
+            get
+            {
+                return _commandraceselectionchanged ??= new DelegateCommand( CommandRaceSelectionChangedExecute );
+            }
+        }
         #endregion
         #region Command handlers
         private void CommandLocationSelectionChangedExecute()
@@ -93,9 +108,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
-                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
 
-                    RaisePropertyChanged("Char");
+                    RaisePropertyChanged( nameof( Char ) );
                     break;
                 case ChangeType.SelectedOrganizationChanged:
                     break;

@@ -2,7 +2,7 @@
 
 namespace CharacterManager.Model.Factories
 {
-    public class EntityFactory:IEntityFactory
+    public class EntityFactory : IEntityFactory
     {
         public IEntity CreateCharacter()
         {

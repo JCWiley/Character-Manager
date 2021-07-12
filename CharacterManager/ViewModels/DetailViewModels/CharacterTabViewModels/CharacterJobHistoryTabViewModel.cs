@@ -2,11 +2,9 @@
 using CharacterManager.Model.Entities;
 using CharacterManager.Model.Events;
 using CharacterManager.Model.Providers;
-using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
 using System.Collections.Generic;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
@@ -21,15 +19,15 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             JDP = jobDirectoryProvider;
             JEP = jobEventProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IEntityProvider EP;
-        private IJobDirectoryProvider JDP;
-        private IJobEventProvider JEP;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
+        private readonly IEntityProvider EP;
+        private readonly IJobDirectoryProvider JDP;
+        private readonly IJobEventProvider JEP;
         #endregion
 
         #region Binding Targets
@@ -65,7 +63,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         {
             get
             {
-                return JEP.GetEventsForEntity(EP.CurrentTargetAsCharacter);
+                return JEP.GetEventsForEntity( EP.CurrentTargetAsCharacter );
             }
         }
 
@@ -76,21 +74,21 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
-                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
 
-                    RaisePropertyChanged("Char");
-                    RaisePropertyChanged("Events_Summary");
+                    RaisePropertyChanged( nameof( Char ) );
+                    RaisePropertyChanged( nameof( Events_Summary ) );
                     break;
                 case ChangeType.SelectedOrganizationChanged:
                     break;
                 case ChangeType.JobEventListChanged:
-                    RaisePropertyChanged("Events_Summary");
+                    RaisePropertyChanged( nameof( Events_Summary ) );
                     break;
                 case ChangeType.JobListChanged:
                     break;
                 case ChangeType.DayAdvanced:
-                    RaisePropertyChanged("Events_Summary");
-                    RaisePropertyChanged("Char");
+                    RaisePropertyChanged( nameof( Events_Summary ) );
+                    RaisePropertyChanged( nameof( Char ) );
                     break;
                 default:
                     break;

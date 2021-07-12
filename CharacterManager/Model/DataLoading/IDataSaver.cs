@@ -1,9 +1,4 @@
-﻿using CharacterManager.Model.Providers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CharacterManager.Model.DataLoading
+﻿namespace CharacterManager.Model.DataLoading
 {
     public interface IDataSaver
     {

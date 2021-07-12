@@ -2,45 +2,41 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.DataLoading
 {
     public class NJSONDataSaver : IDataSaver
     {
-        ISettingsService SS;
-        private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        readonly ISettingsService SS;
+        private string TargetDirectory = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
         public NJSONDataSaver(ISettingsService settingsService)
         {
             SS = settingsService;
 
             string path = SS.LastUsedPath;
 
-            if (!string.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty( path ))
             {
-                TargetDirectory = Path.GetDirectoryName(path);
+                TargetDirectory = Path.GetDirectoryName( path );
             }
         }
         public void Save(object Target)
         {
             string filepath = SS.LastUsedPath;
-            if (!string.IsNullOrEmpty(filepath))
+            if (!string.IsNullOrEmpty( filepath ))
             {
-                SaveFile(filepath, Target);
+                SaveFile( filepath, Target );
             }
             else
             {
-                SaveWithDialog(Target);
+                SaveWithDialog( Target );
             }
         }
 
         public void SaveWithDialog(object Target)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            SaveFileDialog saveFileDialog = new()
             {
                 Filter = "Character Manager File (*.cmv1) |*.cmv1",
                 InitialDirectory = TargetDirectory
@@ -50,23 +46,23 @@ namespace CharacterManager.Model.DataLoading
             {
                 string filepath = saveFileDialog.FileName;
                 SS.LastUsedPath = filepath;
-                TargetDirectory = Path.GetDirectoryName(filepath);
-                SaveFile(filepath, Target);
+                TargetDirectory = Path.GetDirectoryName( filepath );
+                SaveFile( filepath, Target );
             }
         }
 
-        private void SaveFile(string path, object Target)
+        private static void SaveFile(string path, object Target)
         {
-            var indented = Formatting.Indented;
-            var settings = new JsonSerializerSettings()
+            Formatting indented = Formatting.Indented;
+            JsonSerializerSettings settings = new()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
                 PreserveReferencesHandling = PreserveReferencesHandling.All,
                 TypeNameHandling = TypeNameHandling.All
             };
-            string JSONString = JsonConvert.SerializeObject(Target,indented,settings);
+            string JSONString = JsonConvert.SerializeObject( Target, indented, settings );
 
-            File.WriteAllText(path,JSONString);
+            File.WriteAllText( path, JSONString );
         }
     }
 }

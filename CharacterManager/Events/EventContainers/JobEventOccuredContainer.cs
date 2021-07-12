@@ -1,10 +1,5 @@
 ﻿using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Events.EventContainers
 {
@@ -16,7 +11,13 @@ namespace CharacterManager.Events.EventContainers
             NewEvent = newevent;
         }
 
-        public IJob TargetJob { get; set; }
-        public IEvent NewEvent {get;set;}
+        public IJob TargetJob
+        {
+            get; set;
+        }
+        public IEvent NewEvent
+        {
+            get; set;
+        }
     }
 }

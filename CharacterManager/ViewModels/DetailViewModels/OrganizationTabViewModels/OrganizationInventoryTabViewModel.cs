@@ -3,30 +3,22 @@ using CharacterManager.Model.Entities;
 using CharacterManager.Model.Providers;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
     public class OrganizationInventoryTabViewModel : BindableBase
     {
-        public OrganizationInventoryTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IRegionManager regionManager)
+        public OrganizationInventoryTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator)
         {
             EA = eventAggregator;
-            RM = regionManager;
             EP = entityProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IEntityProvider EP;
+        private readonly IEventAggregator EA;
+        private readonly IEntityProvider EP;
         #endregion
 
         #region Binding Targets
@@ -68,15 +60,17 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     break;
                 case ChangeType.SelectedOrganizationChanged:
-                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
 
-                    RaisePropertyChanged("Org");
+                    RaisePropertyChanged( nameof( Org ) );
                     break;
                 case ChangeType.JobEventListChanged:
                     break;
                 case ChangeType.JobListChanged:
                     break;
                 case ChangeType.DayAdvanced:
+                    break;
+                case ChangeType.EntityListChanged:
                     break;
                 default:
                     break;

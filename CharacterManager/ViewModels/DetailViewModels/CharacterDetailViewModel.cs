@@ -1,11 +1,7 @@
-﻿using System;
-
-using Prism.Mvvm;
+﻿
 using Prism.Events;
+using Prism.Mvvm;
 using Prism.Regions;
-using CharacterManager.Events;
-using CharacterManager.Model.Entities;
-using CharacterManager.Model.RedundantTree;
 
 namespace CharacterManager.ViewModels.DetailViewModels
 {
@@ -19,8 +15,8 @@ namespace CharacterManager.ViewModels.DetailViewModels
 
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
         #endregion
 
 

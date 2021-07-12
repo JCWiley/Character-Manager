@@ -5,14 +5,14 @@ namespace CharacterManager.Model.Factories
 {
     public class JobFactory : IJobFactory
     {
-        IDayProvider DP;
+        readonly IDayProvider DP;
         public JobFactory(IDayProvider dayProvider)
         {
             DP = dayProvider;
         }
         public IJob CreateJob()
         {
-            return new Job(DP.CurrentDay);
+            return new Job( DP.CurrentDay );
         }
     }
 }

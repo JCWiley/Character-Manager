@@ -10,8 +10,8 @@ namespace CharacterManager.Views.TreeViews
     /// </summary>
     public partial class EntityListView : UserControl
     {
-        private IEventAggregator EA;
-        IRegionManager RM;
+        private readonly IEventAggregator EA;
+        readonly IRegionManager RM;
         public EntityListView(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             InitializeComponent();
@@ -19,7 +19,7 @@ namespace CharacterManager.Views.TreeViews
             EA = eventAggregator;
             RM = regionManager;
 
-            RM.RegisterViewWithRegion("FILTER_REGION", typeof(EntityFilterView));
+            RM.RegisterViewWithRegion( "FILTER_REGION", typeof( EntityFilterView ) );
         }
 
         private void EnityTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

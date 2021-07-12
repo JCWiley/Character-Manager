@@ -1,11 +1,6 @@
 ﻿using CharacterManager.Events;
 using Prism.Events;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Services
 {
@@ -13,7 +8,7 @@ namespace CharacterManager.Model.Services
     {
         public SettingsService(IEventAggregator eventAggregator)
         {
-            eventAggregator.GetEvent<ProgramIsClosingEvent>().Subscribe(ProgramIsClosingEventExecute);
+            eventAggregator.GetEvent<ProgramIsClosingEvent>().Subscribe( ProgramIsClosingEventExecute );
         }
 
         #region Settings
@@ -39,10 +34,10 @@ namespace CharacterManager.Model.Services
         {
             get
             {
-                if(LastUsedPath.Length>3)
+                if (LastUsedPath.Length > 3)
                 {
-                    string path = Path.GetFileName(LastUsedPath);
-                    return path.Substring(0, path.Length - 5);
+                    string path = Path.GetFileName( LastUsedPath );
+                    return path.Substring( 0, path.Length - 5 );
                 }
                 return "";
             }

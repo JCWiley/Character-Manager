@@ -1,14 +1,11 @@
 ﻿using CharacterManager.Model.Items;
-using System;
-using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
 using Prism.Mvvm;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CharacterManager.Model.Entities
 {
 
-    public class Character : BindableBase,IEntity
+    public class Character : BindableBase, IEntity
     {
         public Character()
         {
@@ -28,14 +25,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.inventory;
+                return inventory;
             }
             set
             {
-                if (this.inventory != value)
+                if (inventory != value)
                 {
-                    this.inventory = value;
-                    RaisePropertyChanged("Inventory");
+                    inventory = value;
+                    RaisePropertyChanged( nameof( Inventory ) );
                 }
             }
         }
@@ -45,14 +42,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.name;
+                return name;
             }
             set
             {
-                if (this.name != value)
+                if (name != value)
                 {
-                    this.name = value;
-                    RaisePropertyChanged("Name");
+                    name = value;
+                    RaisePropertyChanged( nameof( Name ) );
                 }
             }
         }
@@ -62,14 +59,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.description;
+                return description;
             }
             set
             {
-                if (this.description != value)
+                if (description != value)
                 {
-                    this.description = value;
-                    RaisePropertyChanged("Description");
+                    description = value;
+                    RaisePropertyChanged( nameof( Description ) );
                 }
             }
         }
@@ -79,14 +76,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.quirks;
+                return quirks;
             }
             set
             {
-                if (this.quirks != value)
+                if (quirks != value)
                 {
-                    this.quirks = value;
-                    RaisePropertyChanged("Quirks");
+                    quirks = value;
+                    RaisePropertyChanged( nameof( Quirks ) );
                 }
             }
         }
@@ -96,15 +93,15 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.location;
+                return location;
             }
             set
             {
-                if (this.location != value)
+                if (location != value)
                 {
-                    this.location = value;
-                    RaisePropertyChanged("Location");
-                    RaisePropertyChanged("Locations");
+                    location = value;
+                    RaisePropertyChanged( nameof( Location ) );
+                    RaisePropertyChanged( "Locations" );
                 }
             }
         }
@@ -114,14 +111,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.race;
+                return race;
             }
             set
             {
-                if (this.race != value)
+                if (race != value)
                 {
-                    this.race = value;
-                    RaisePropertyChanged("Race");
+                    race = value;
+                    RaisePropertyChanged( nameof( Race ) );
                 }
             }
         }
@@ -131,14 +128,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.alias;
+                return alias;
             }
             set
             {
-                if (this.alias != value)
+                if (alias != value)
                 {
-                    this.alias = value;
-                    RaisePropertyChanged("Alias");
+                    alias = value;
+                    RaisePropertyChanged( nameof( Alias ) );
                 }
             }
         }
@@ -148,14 +145,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.occupation;
+                return occupation;
             }
             set
             {
-                if (this.occupation != value)
+                if (occupation != value)
                 {
-                    this.occupation = value;
-                    RaisePropertyChanged("Occupation");
+                    occupation = value;
+                    RaisePropertyChanged( nameof( Occupation ) );
                 }
             }
         }
@@ -165,14 +162,14 @@ namespace CharacterManager.Model.Entities
         {
             get
             {
-                return this.birthplace;
+                return birthplace;
             }
             set
             {
-                if (this.birthplace != value)
+                if (birthplace != value)
                 {
-                    this.birthplace = value;
-                    RaisePropertyChanged("BirthPlace");
+                    birthplace = value;
+                    RaisePropertyChanged( nameof( BirthPlace ) );
                 }
             }
         }

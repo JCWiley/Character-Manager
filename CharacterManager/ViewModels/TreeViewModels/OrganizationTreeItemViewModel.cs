@@ -13,7 +13,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 {
     public class OrganizationTreeItemViewModel : BindableBase
     {
-        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> Parent,IRTreeMember<IEntity> target,ITreeItemViewModelFactory treeItemViewModelFactory, IEventAggregator eventAggregator)
+        public OrganizationTreeItemViewModel(IRTreeMember<IEntity> Parent, IRTreeMember<IEntity> target, ITreeItemViewModelFactory treeItemViewModelFactory, IEventAggregator eventAggregator)
         {
             Target = target;
             parent = Parent;
@@ -25,7 +25,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EA = eventAggregator;
 
-            EA.GetEvent<FilterClearRequestEvent>().Subscribe(FilterClearRequestEventExecute);
+            EA.GetEvent<FilterClearRequestEvent>().Subscribe( FilterClearRequestEventExecute );
 
             RebuildChildren();
         }
@@ -35,13 +35,19 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private readonly IEventAggregator EA;
         private readonly ITreeItemViewModelFactory TreeItemViewModelFactory;
 
-        private IRTreeMember<IEntity> parent;
+        private readonly IRTreeMember<IEntity> parent;
 
         private IRTreeMember<IEntity> target;
         public IRTreeMember<IEntity> Target
         {
-            get { return target; }
-            set { SetProperty(ref target, value); }
+            get
+            {
+                return target;
+            }
+            set
+            {
+                SetProperty( ref target, value );
+            }
         }
 
         public Organization Org
@@ -53,7 +59,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
             set
             {
                 Target.Item = value;
-                RaisePropertyChanged(nameof(Org));
+                RaisePropertyChanged( nameof( Org ) );
             }
         }
 
@@ -61,8 +67,14 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
         public ObservableCollection<object> Children
         {
-            get { return children; }
-            set { SetProperty(ref children, value); }
+            get
+            {
+                return children;
+            }
+            set
+            {
+                SetProperty( ref children, value );
+            }
         }
         #endregion
         #region Functions
@@ -74,18 +86,18 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 if (E.Item is Organization)
                 {
-                    children.Add(TreeItemViewModelFactory.CreateOrganizationViewModel(Target,E));
+                    children.Add( TreeItemViewModelFactory.CreateOrganizationViewModel( Target, E ) );
                 }
                 else if (E.Item is Character)
                 {
-                    children.Add(TreeItemViewModelFactory.CreateCharacterViewModel(Target,E));
+                    children.Add( TreeItemViewModelFactory.CreateCharacterViewModel( Target, E ) );
                 }
                 else
                 {
-                    throw new Exception("IEntity is not Character or Organization");
+                    throw new Exception( "IEntity is not Character or Organization" );
                 }
             }
-            RaisePropertyChanged(nameof(Children));
+            RaisePropertyChanged( nameof( Children ) );
         }
 
         public bool ApplyFilter(FilterRequestEventContainer filter)
@@ -94,7 +106,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
             switch (filter.FilterType)
             {
                 case FilterType.Name:
-                    if (Target.Item.Name.Contains(filter.FilterContent))
+                    if (Target.Item.Name.Contains( filter.FilterContent ))
                     {
                         Should_Be_Visible = true;
                     }
@@ -104,7 +116,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                     }
                     break;
                 case FilterType.Race:
-                    if (Target.Item.Race.Contains(filter.FilterContent))
+                    if (Target.Item.Race.Contains( filter.FilterContent ))
                     {
                         Should_Be_Visible = true;
                     }
@@ -114,7 +126,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                     }
                     break;
                 case FilterType.Location:
-                    if (Target.Item.Location.Contains(filter.FilterContent))
+                    if (Target.Item.Location.Contains( filter.FilterContent ))
                     {
                         Should_Be_Visible = true;
                     }
@@ -131,15 +143,15 @@ namespace CharacterManager.ViewModels.TreeViewModels
             {
                 if (child is OrganizationTreeItemViewModel O)
                 {
-                    if(O.ApplyFilter(filter) == true)
+                    if (O.ApplyFilter( filter ) == true)
                     {
                         Should_Be_Visible = true;
                         break;
                     }
                 }
-                if(child is CharacterTreeItemViewModel C)
+                if (child is CharacterTreeItemViewModel C)
                 {
-                    if(C.ApplyFilter(filter) == true)
+                    if (C.ApplyFilter( filter ) == true)
                     {
                         Should_Be_Visible = true;
                         break;
@@ -158,11 +170,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return this.visible;
+                return visible;
             }
             set
             {
-                SetProperty(ref visible, value);
+                SetProperty( ref visible, value );
             }
         }
 
@@ -171,14 +183,14 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return this.isselected;
+                return isselected;
             }
             set
             {
-                SetProperty(ref isselected, value);
-                if(isselected == true)
+                SetProperty( ref isselected, value );
+                if (isselected == true)
                 {
-                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Target);
+                    EA.GetEvent<SelectedEntityChangedEvent>().Publish( Target );
                 }
             }
         }
@@ -188,11 +200,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return this.isexpanded;
+                return isexpanded;
             }
             set
             {
-                SetProperty(ref isexpanded, value);
+                SetProperty( ref isexpanded, value );
             }
         }
         #endregion
@@ -206,38 +218,79 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private DelegateCommand _commandpaste;
         private DelegateCommand _commanddelete;
 
-        public DelegateCommand CommandNewCharacter => _commandnewcharacter ??= new DelegateCommand(CommandNewCharacterExecute);
-        public DelegateCommand CommandNewOrganization => _commandneworganization ??= new DelegateCommand(CommandNewOrganizationExecute);
-        public DelegateCommand CommandCut => _commandcut ??= new DelegateCommand(CommandCutExecute);
-        public DelegateCommand CommandCopy => _commandcopy ??= new DelegateCommand(CommandCopyExecute);
-        public DelegateCommand CommandPaste => _commandpaste ??= new DelegateCommand(CommandPasteExecute);
-        public DelegateCommand CommandDelete => _commanddelete ??= new DelegateCommand(CommandDeleteExecute);
+        public DelegateCommand CommandNewCharacter
+        {
+            get
+            {
+                return _commandnewcharacter ??= new DelegateCommand( CommandNewCharacterExecute );
+            }
+        }
+
+        public DelegateCommand CommandNewOrganization
+        {
+            get
+            {
+                return _commandneworganization ??= new DelegateCommand( CommandNewOrganizationExecute );
+            }
+        }
+
+        public DelegateCommand CommandCut
+        {
+            get
+            {
+                return _commandcut ??= new DelegateCommand( CommandCutExecute );
+            }
+        }
+
+        public DelegateCommand CommandCopy
+        {
+            get
+            {
+                return _commandcopy ??= new DelegateCommand( CommandCopyExecute );
+            }
+        }
+
+        public DelegateCommand CommandPaste
+        {
+            get
+            {
+                return _commandpaste ??= new DelegateCommand( CommandPasteExecute );
+            }
+        }
+
+        public DelegateCommand CommandDelete
+        {
+            get
+            {
+                return _commanddelete ??= new DelegateCommand( CommandDeleteExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandNewCharacterExecute()
         {
-            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this,EntityTypes.Character));
+            EA.GetEvent<NewEntityRequestEvent>().Publish( new NewEntityRequestContainer( this, EntityTypes.Character ) );
         }
         private void CommandNewOrganizationExecute()
         {
-            EA.GetEvent<NewEntityRequestEvent>().Publish(new Events.EventContainers.NewEntityRequestContainer(this,EntityTypes.Organization));
+            EA.GetEvent<NewEntityRequestEvent>().Publish( new NewEntityRequestContainer( this, EntityTypes.Organization ) );
         }
         private void CommandCutExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Cut, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.Cut, parent, Target ) );
         }
         private void CommandCopyExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Copy, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.Copy, parent, Target ) );
         }
         private void CommandPasteExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Paste, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.Paste, parent, Target ) );
         }
         private void CommandDeleteExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.DeleteLocal, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.DeleteLocal, parent, Target ) );
         }
         #endregion
 

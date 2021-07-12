@@ -1,21 +1,30 @@
 ﻿using CharacterManager.Model.Factories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.RedundantTree
 {
     public interface IRTree<T>
     {
-        public IRTreeFactory<T> Factory { get; set; }
+        public IRTreeFactory<T> Factory
+        {
+            get; set;
+        }
 
-        public IDictionary<Guid, IRTreeMember<T>> Dict { get; set; }
+        public IDictionary<Guid, IRTreeMember<T>> Dict
+        {
+            get; set;
+        }
 
-        public List<IRTreeMember<T>> Heads { get; }
+        public List<IRTreeMember<T>> Heads
+        {
+            get;
+        }
 
-        public int Count { get; }
+        public int Count
+        {
+            get;
+        }
 
         public IRTreeMember<T> AddItem(T i_item, bool is_head = false);
         public void RemoveItem(IRTreeMember<T> i_item);

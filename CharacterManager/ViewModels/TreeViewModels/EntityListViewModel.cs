@@ -1,13 +1,12 @@
-﻿using CharacterManager.Model.RedundantTree;
-using CharacterManager.Events;
+﻿using CharacterManager.Events;
+using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
+using CharacterManager.Model.Factories;
+using CharacterManager.Model.Providers;
+using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Mvvm;
-using System;
-using CharacterManager.Model.Factories;
 using System.Collections.ObjectModel;
-using CharacterManager.Events.EventContainers;
-using CharacterManager.Model.Providers;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
@@ -17,16 +16,16 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private readonly IEntityProvider EP;
         private readonly ITreeItemViewModelFactory TreeItemViewModelFactory;
 
-        public EntityListViewModel(IEventAggregator eventAggregator,IEntityProvider entityProvider,TreeItemViewModelFactory treeItemViewModelFactory)
+        public EntityListViewModel(IEventAggregator eventAggregator, IEntityProvider entityProvider, TreeItemViewModelFactory treeItemViewModelFactory)
         {
             //assign event aggregator to local variable for later use
             EA = eventAggregator;
-            EA.GetEvent<NewEntityRequestEvent>().Subscribe(NewEntityRequestEventExecute);
-            EA.GetEvent<DataLoadSuccessEvent>().Subscribe(DataLoadSuccessEventExecute);
+            EA.GetEvent<NewEntityRequestEvent>().Subscribe( NewEntityRequestEventExecute );
+            EA.GetEvent<DataLoadSuccessEvent>().Subscribe( DataLoadSuccessEventExecute );
 
-            EA.GetEvent<FilterRequestEvent>().Subscribe(FilterRequestEventExecute);
+            EA.GetEvent<FilterRequestEvent>().Subscribe( FilterRequestEventExecute );
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
 
             TreeItemViewModelFactory = treeItemViewModelFactory;
 
@@ -39,7 +38,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 //RTrees currently support multi heading, TreeHeads does not
                 TreeItemViewModelFactory.CreateOrganizationViewModel(null,EP.HeadEntities()[0])
             };
-            RaisePropertyChanged(nameof(TreeHeads));
+            RaisePropertyChanged( nameof( TreeHeads ) );
         }
 
 
@@ -48,10 +47,13 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private ObservableCollection<OrganizationTreeItemViewModel> treeheads;
         public ObservableCollection<OrganizationTreeItemViewModel> TreeHeads
         {
-            get { return treeheads; }
+            get
+            {
+                return treeheads;
+            }
             set
             {
-                SetProperty(ref treeheads, value);
+                SetProperty( ref treeheads, value );
             }
 
         }
@@ -91,22 +93,22 @@ namespace CharacterManager.ViewModels.TreeViewModels
             OrganizationTreeItemViewModel Source = Paramaters.EventSource;
             IRTreeMember<IEntity> NewItem;
 
-            NewItem = EP.AddEntity(Paramaters.EntityType);
+            NewItem = EP.AddEntity( Paramaters.EntityType );
 
-            EP.AddChild(Source.Target, NewItem);
+            EP.AddChild( Source.Target, NewItem );
 
             Source.RebuildChildren();
 
             Source.IsExpanded = true;
 
-            EA.GetEvent<SelectedEntityChangedEvent>().Publish(NewItem);
+            EA.GetEvent<SelectedEntityChangedEvent>().Publish( NewItem );
         }
 
         private void FilterRequestEventExecute(FilterRequestEventContainer paramaters)
         {
             foreach (OrganizationTreeItemViewModel head in TreeHeads)
             {
-                head.ApplyFilter(paramaters);
+                head.ApplyFilter( paramaters );
             }
         }
         #endregion

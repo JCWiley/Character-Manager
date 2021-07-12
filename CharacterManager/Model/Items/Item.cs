@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-
-namespace CharacterManager.Model.Items
+﻿namespace CharacterManager.Model.Items
 {
     public class Item : IItem
     {
@@ -28,9 +20,9 @@ namespace CharacterManager.Model.Items
             }
             set
             {
-                if (this.aquired != value)
+                if (aquired != value)
                 {
-                    this.aquired = value;
+                    aquired = value;
                 }
             }
         }
@@ -40,13 +32,13 @@ namespace CharacterManager.Model.Items
         {
             get
             {
-                return this.name;
+                return name;
             }
             set
             {
-                if (this.name != value)
+                if (name != value)
                 {
-                    this.name = value;
+                    name = value;
                 }
             }
         }
@@ -56,13 +48,13 @@ namespace CharacterManager.Model.Items
         {
             get
             {
-                return this.location;
+                return location;
             }
             set
             {
-                if (this.location != value)
+                if (location != value)
                 {
-                    this.location = value;
+                    location = value;
                 }
             }
         }
@@ -72,13 +64,13 @@ namespace CharacterManager.Model.Items
         {
             get
             {
-                return this.description;
+                return description;
             }
             set
             {
-                if (this.description != value)
+                if (description != value)
                 {
-                    this.description = value;
+                    description = value;
                 }
             }
         }
@@ -88,13 +80,13 @@ namespace CharacterManager.Model.Items
         {
             get
             {
-                return this.weight;
+                return weight;
             }
             set
             {
-                if (this.weight != value)
+                if (weight != value)
                 {
-                    this.weight = value;
+                    weight = value;
                 }
             }
         }

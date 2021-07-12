@@ -2,18 +2,14 @@
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.DataLoading
 {
-    public class NJSONDataLoader :IDataLoader
+    public class NJSONDataLoader : IDataLoader
     {
-        ISettingsService SS;
-        private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        readonly ISettingsService SS;
+        private string TargetDirectory = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
 
         public NJSONDataLoader(ISettingsService settingsService)
         {
@@ -25,11 +21,11 @@ namespace CharacterManager.Model.DataLoading
             string path = SS.LastUsedPath;
             IDataService LoadResult = new InvalidDataService();
             //if a previous file exists
-            if (!string.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty( path ))
             {
-                TargetDirectory = Path.GetDirectoryName(path);
+                TargetDirectory = Path.GetDirectoryName( path );
 
-                LoadResult = LoadFile(path,true);
+                LoadResult = LoadFile( path, true );
             }
             return LoadResult;
         }
@@ -38,9 +34,9 @@ namespace CharacterManager.Model.DataLoading
         {
             IDataService Load_Success = new InvalidDataService();
 
-            string filepath = "";
+            string filepath;
 
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Filter = "Character Manager File (*.cmv1) |*.cmv1",
                 InitialDirectory = TargetDirectory
@@ -49,7 +45,7 @@ namespace CharacterManager.Model.DataLoading
             if (openFileDialog.ShowDialog() == true)
             {
                 filepath = openFileDialog.FileName;
-                Load_Success = LoadFile(filepath,false);
+                Load_Success = LoadFile( filepath, false );
                 SS.LastUsedPath = filepath;
             }
 
@@ -58,27 +54,27 @@ namespace CharacterManager.Model.DataLoading
 
         private IDataService LoadFile(string path, bool IgnoreExceptions)
         {
-            string jsonString = "";
+            string jsonString;
 
-            var settings = new JsonSerializerSettings()
+            JsonSerializerSettings settings = new()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
                 PreserveReferencesHandling = PreserveReferencesHandling.All,
                 TypeNameHandling = TypeNameHandling.All
             };
 
-            IDataService dataService = new InvalidDataService();
+            IDataService dataService;
             try
             {
-                jsonString = File.ReadAllText(path);
-                dataService = JsonConvert.DeserializeObject<DataService>(jsonString, settings);
+                jsonString = File.ReadAllText( path );
+                dataService = JsonConvert.DeserializeObject<DataService>( jsonString, settings );
                 SS.LastUsedPath = path;
             }
             catch
             {
                 SS.LastUsedPath = "";
                 dataService = new InvalidDataService();
-                if(!IgnoreExceptions)
+                if (!IgnoreExceptions)
                 {
                     throw;
                 }

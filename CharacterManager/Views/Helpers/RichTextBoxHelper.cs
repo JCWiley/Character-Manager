@@ -11,35 +11,35 @@ namespace CharacterManager.Views.Helpers
     {
         public static string GetDocumentXaml(DependencyObject obj)
         {
-            return (string)obj.GetValue(DocumentXamlProperty);
+            return (string)obj.GetValue( DocumentXamlProperty );
         }
 
         public static void SetDocumentXaml(DependencyObject obj, string value)
         {
-            obj.SetValue(DocumentXamlProperty, value);
+            obj.SetValue( DocumentXamlProperty, value );
         }
 
-        public static readonly DependencyProperty DocumentXamlProperty =
+        public readonly static DependencyProperty DocumentXamlProperty =
             DependencyProperty.RegisterAttached(
                 "DocumentXaml",
-                typeof(string),
-                typeof(RichTextBoxHelper),
+                typeof( string ),
+                typeof( RichTextBoxHelper ),
                 new FrameworkPropertyMetadata
                 {
                     BindsTwoWayByDefault = true,
                     PropertyChangedCallback = (obj, e) =>
                     {
-                        var richTextBox = (RichTextBox)obj;
+                        RichTextBox richTextBox = (RichTextBox)obj;
 
-                    // Parse the XAML to a document (or use XamlReader.Parse())
-                    var xaml = GetDocumentXaml(richTextBox);
-                        var doc = new FlowDocument();
-                        var range = new TextRange(doc.ContentStart, doc.ContentEnd);
+                        // Parse the XAML to a document (or use XamlReader.Parse())
+                        string xaml = GetDocumentXaml( richTextBox );
+                        FlowDocument doc = new();
+                        TextRange range = new( doc.ContentStart, doc.ContentEnd );
 
-                        byte[] DescriptionbyteArray = Encoding.ASCII.GetBytes(xaml);
-                        using (MemoryStream ms = new MemoryStream(DescriptionbyteArray))
+                        byte[] DescriptionbyteArray = Encoding.ASCII.GetBytes( xaml );
+                        using (MemoryStream ms = new( DescriptionbyteArray ))
                         {
-                            range.Load(ms, DataFormats.Rtf);
+                            range.Load( ms, DataFormats.Rtf );
                         }
 
                         //range.Load(new MemoryStream(Encoding.UTF8.GetBytes(xaml)),
@@ -48,18 +48,19 @@ namespace CharacterManager.Views.Helpers
                         // Set the document
                         richTextBox.Document = doc;
 
-                    // When the document changes update the source
-                    range.Changed += (obj2, e2) =>
-                        {
-                            if (richTextBox.Document == doc)
+                        // When the document changes update the source
+                        range.Changed += (obj2, e2) =>
                             {
-                                MemoryStream buffer = new MemoryStream();
-                                range.Save(buffer, DataFormats.Xaml);
-                                SetDocumentXaml(richTextBox,
-                                    Encoding.UTF8.GetString(buffer.ToArray()));
-                            }
-                        };
+                                if (richTextBox.Document == doc)
+                                {
+                                    MemoryStream buffer = new();
+                                    range.Save( buffer, DataFormats.Xaml );
+                                    SetDocumentXaml( richTextBox,
+                                        Encoding.UTF8.GetString( buffer.ToArray() ) );
+                                }
+                            };
                     }
-                });
+                }
+          );
     }
 }

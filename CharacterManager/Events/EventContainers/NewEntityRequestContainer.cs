@@ -1,8 +1,5 @@
 ﻿using CharacterManager.Model.Entities;
 using CharacterManager.ViewModels.TreeViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CharacterManager.Events.EventContainers
 {
@@ -13,7 +10,13 @@ namespace CharacterManager.Events.EventContainers
             EventSource = Source;
             EntityType = Type;
         }
-        public OrganizationTreeItemViewModel EventSource { get; set; }
-        public EntityTypes EntityType { get; set; }
+        public OrganizationTreeItemViewModel EventSource
+        {
+            get; set;
+        }
+        public EntityTypes EntityType
+        {
+            get; set;
+        }
     }
 }

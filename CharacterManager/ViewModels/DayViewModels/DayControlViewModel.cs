@@ -5,26 +5,21 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.DayViewModels
 {
-    public class DayControlViewModel :BindableBase
+    public class DayControlViewModel : BindableBase
     {
-        private IEventAggregator EA;
-        private IDayProvider DP;
-        private IDialogServiceHelper DSH;
+        private readonly IEventAggregator EA;
+        private readonly IDayProvider DP;
+        private readonly IDialogServiceHelper DSH;
         public DayControlViewModel(IEventAggregator eventAggregator, IDayProvider dayProvider, IDialogServiceHelper dialogServiceHelper)
         {
             EA = eventAggregator;
             DP = dayProvider;
             DSH = dialogServiceHelper;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Binding Targets
@@ -38,21 +33,27 @@ namespace CharacterManager.ViewModels.DayViewModels
         #endregion
         #region Commands
         private DelegateCommand _commandadvanceday;
-        public DelegateCommand CommandAdvanceDay => _commandadvanceday ??= new DelegateCommand(CommandAdvanceDayExecute);
+        public DelegateCommand CommandAdvanceDay
+        {
+            get
+            {
+                return _commandadvanceday ??= new DelegateCommand( CommandAdvanceDayExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandAdvanceDayExecute()
         {
-            DSH.ShowAdvanceDayPopup(DayAdvanced);
+            DSH.ShowAdvanceDayPopup( DayAdvanced );
 
-            
+
         }
         #endregion
 
         private void DayAdvanced(IDialogResult result)
         {
-            EA.GetEvent<AdvanceDayRequestEvent>().Publish(result.Parameters.GetValue<int>("Days"));
+            EA.GetEvent<AdvanceDayRequestEvent>().Publish( result.Parameters.GetValue<int>( "Days" ) );
         }
 
         #region Event Handlers
@@ -69,7 +70,7 @@ namespace CharacterManager.ViewModels.DayViewModels
                 case ChangeType.JobListChanged:
                     break;
                 case ChangeType.DayAdvanced:
-                    RaisePropertyChanged("CurrentDay");
+                    RaisePropertyChanged( nameof( CurrentDay ) );
                     break;
                 default:
                     break;

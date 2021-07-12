@@ -6,7 +6,6 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
 using System.Collections.Generic;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
@@ -20,19 +19,25 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             EP = entityProvider;
             DDP = derivedDataProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
 
         private IDerivedDataProvider ddp;
-        private IEntityProvider EP;
+        private readonly IEntityProvider EP;
         public IDerivedDataProvider DDP
         {
-            get { return ddp; }
-            set { SetProperty(ref ddp, value); }
+            get
+            {
+                return ddp;
+            }
+            set
+            {
+                SetProperty( ref ddp, value );
+            }
         }
         #endregion
         #region Binding Targets
@@ -54,7 +59,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         {
             get
             {
-                return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
+                return EP.GetImmidiateChildren( EP.CurrentTargetAsOrganization );
             }
         }
         public bool IsEntityEnabled
@@ -76,12 +81,23 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         #region Commands
         private DelegateCommand _commandlocationselectionchanged;
 
-        public DelegateCommand CommandLocationSelectionChanged => _commandlocationselectionchanged ??= new DelegateCommand(CommandLocationSelectionChangedExecute);
-
+        public DelegateCommand CommandLocationSelectionChanged
+        {
+            get
+            {
+                return _commandlocationselectionchanged ??= new DelegateCommand( CommandLocationSelectionChangedExecute );
+            }
+        }
 
         private DelegateCommand _commandraceselectionchanged;
 
-        public DelegateCommand CommandRaceSelectionChanged => _commandraceselectionchanged ??= new DelegateCommand(CommandRaceSelectionChangedExecute);
+        public DelegateCommand CommandRaceSelectionChanged
+        {
+            get
+            {
+                return _commandraceselectionchanged ??= new DelegateCommand( CommandRaceSelectionChangedExecute );
+            }
+        }
         #endregion
         #region Command handlers
         private void CommandLocationSelectionChangedExecute()
@@ -102,10 +118,10 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     break;
                 case ChangeType.SelectedOrganizationChanged:
-                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
 
-                    RaisePropertyChanged("Org");
-                    RaisePropertyChanged("ImmidiateChildren");
+                    RaisePropertyChanged( nameof( Org ) );
+                    RaisePropertyChanged( nameof( ImmidiateChildren ) );
                     break;
                 case ChangeType.JobEventListChanged:
                     break;

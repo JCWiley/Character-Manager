@@ -1,8 +1,4 @@
-﻿using CharacterManager.Model.Providers;
-using CharacterManager.Model.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CharacterManager.Model.Services;
 
 namespace CharacterManager.Model.DataLoading
 {

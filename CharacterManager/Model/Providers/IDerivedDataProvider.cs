@@ -1,20 +1,21 @@
-﻿using CharacterManager.Model.Entities;
-using CharacterManager.Model.RedundantTree;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 
 namespace CharacterManager.Model.Providers
 {
     public interface IDerivedDataProvider
     {
 
-        public ObservableCollection<String> Races { get; }
+        public ObservableCollection<string> Races
+        {
+            get;
+        }
         public void UpdateRacesList();
 
 
-        public ObservableCollection<String> Locations { get;}
+        public ObservableCollection<string> Locations
+        {
+            get;
+        }
         public void UpdateLocationsList();
 
 

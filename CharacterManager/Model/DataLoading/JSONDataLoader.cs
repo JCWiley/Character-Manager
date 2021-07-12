@@ -1,19 +1,15 @@
 ﻿using CharacterManager.Model.Services;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.DataLoading
 {
     public class JSONDataLoader : IDataLoader
     {
-        ISettingsService SS;
-        private string TargetDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        readonly ISettingsService SS;
+        private string TargetDirectory = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
 
         public JSONDataLoader(ISettingsService settingsService)
         {
@@ -25,11 +21,11 @@ namespace CharacterManager.Model.DataLoading
             string path = SS.LastUsedPath;
             IDataService LoadResult = new InvalidDataService();
             //if a previous file exists
-            if (!string.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty( path ))
             {
-                TargetDirectory = Path.GetDirectoryName(path);
+                TargetDirectory = Path.GetDirectoryName( path );
 
-                LoadResult = LoadFile(path);
+                LoadResult = LoadFile( path );
             }
             return LoadResult;
         }
@@ -38,9 +34,9 @@ namespace CharacterManager.Model.DataLoading
         {
             IDataService Load_Success = new InvalidDataService();
 
-            string filepath = "";
+            string filepath;
 
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Filter = "Character Manager File (*.cmv1) |*.cmv1",
                 InitialDirectory = TargetDirectory
@@ -49,16 +45,16 @@ namespace CharacterManager.Model.DataLoading
             if (openFileDialog.ShowDialog() == true)
             {
                 filepath = openFileDialog.FileName;
-                Load_Success = LoadFile(filepath);
+                Load_Success = LoadFile( filepath );
             }
 
             return Load_Success;
         }
 
-        private IDataService LoadFile(string path)
+        private static IDataService LoadFile(string path)
         {
-            string jsonString = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<DataService>(jsonString);
+            string jsonString = File.ReadAllText( path );
+            return JsonSerializer.Deserialize<DataService>( jsonString );
         }
     }
 }

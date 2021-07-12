@@ -1,28 +1,21 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.Providers;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.ViewModels.Helpers;
-using CharacterManager.Views.PopupViews;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using Prism.Services.Dialogs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 {
     public class OrganizationJobsTabViewModel : BindableBase
     {
-        public OrganizationJobsTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider,IDialogServiceHelper dialogServiceHelper,IJobEventProvider jobEventProvider)
+        public OrganizationJobsTabViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IEntityProvider entityProvider, IDialogServiceHelper dialogServiceHelper, IJobEventProvider jobEventProvider)
         {
             EA = eventAggregator;
             RM = regionManager;
@@ -31,18 +24,18 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
             DSH = dialogServiceHelper;
             JEP = jobEventProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
 
             //EA.GetEvent<SelectedEntityChangedPostEvent>().Subscribe(SelectedEntityChangedPostEventExecute);
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IJobDirectoryProvider JDP;
-        private IEntityProvider EP;
-        private IDialogServiceHelper DSH;
-        private IJobEventProvider JEP;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
+        private readonly IJobDirectoryProvider JDP;
+        private readonly IEntityProvider EP;
+        private readonly IDialogServiceHelper DSH;
+        private readonly IJobEventProvider JEP;
         private IJob SelectedJob = null;
 
         #endregion
@@ -73,16 +66,16 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         {
             get
             {
-                return JDP.GetEntitiesJobs(EP.CurrentTargetAsOrganization);
+                return JDP.GetEntitiesJobs( EP.CurrentTargetAsOrganization );
             }
         }
         public List<IJob> ChildJobs
         {
             get
             {
-                if(SelectedJob != null)
+                if (SelectedJob != null)
                 {
-                    return JDP.GetSubJobs(SelectedJob);
+                    return JDP.GetSubJobs( SelectedJob );
                 }
                 else
                 {
@@ -94,7 +87,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
         {
             get
             {
-                return EP.GetImmidiateChildren(EP.CurrentTargetAsOrganization);
+                return EP.GetImmidiateChildren( EP.CurrentTargetAsOrganization );
             }
         }
         public bool IsEntityEnabled
@@ -129,45 +122,69 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
 
         #region Commands
         private DelegateCommand _commandnewblankjob;
-        public DelegateCommand CommandNewBlankJob => _commandnewblankjob ??= new DelegateCommand(CommandNewBlankJobExecute);
+        public DelegateCommand CommandNewBlankJob
+        {
+            get
+            {
+                return _commandnewblankjob ??= new DelegateCommand( CommandNewBlankJobExecute );
+            }
+        }
 
         private DelegateCommand _commandaddcustomevent;
-        public DelegateCommand CommandAddCustomEvent => _commandaddcustomevent ??= new DelegateCommand(CommandAddCustomEventExecute);
+        public DelegateCommand CommandAddCustomEvent
+        {
+            get
+            {
+                return _commandaddcustomevent ??= new DelegateCommand( CommandAddCustomEventExecute );
+            }
+        }
 
         private DelegateCommand _commandaddsubtask;
-        public DelegateCommand CommandAddSubtask => _commandaddsubtask ??= new DelegateCommand(CommandAddSubtaskExecute);
+        public DelegateCommand CommandAddSubtask
+        {
+            get
+            {
+                return _commandaddsubtask ??= new DelegateCommand( CommandAddSubtaskExecute );
+            }
+        }
 
         private DelegateCommand<object> _commandselectedjobchanged;
-        public DelegateCommand<object> CommandSelectedJobChanged => _commandselectedjobchanged ??= new DelegateCommand<object>(CommandSelectedJobChangedExecute);
+        public DelegateCommand<object> CommandSelectedJobChanged
+        {
+            get
+            {
+                return _commandselectedjobchanged ??= new DelegateCommand<object>( CommandSelectedJobChangedExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsOrganization);
-            RaisePropertyChanged("IsJobEnabled");
-            RaisePropertyChanged("Jobs");
+            SelectedJob = JDP.AddBlankJobToEntity( EP.CurrentTargetAsOrganization );
+            RaisePropertyChanged( nameof( IsJobEnabled ) );
+            RaisePropertyChanged( nameof( Jobs ) );
         }
 
         private void CommandAddCustomEventExecute()
         {
             //trigger user prompt, pass selected job, prompt calls JEP to add new event.
             //DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob ,EP.CurrentTargetAsOrganization);
-            EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(SelectedJob, 0));
-            RaisePropertyChanged("Jobs");
+            EA.GetEvent<RequestJobEventEvent>().Publish( new JobEventRequestContainer( SelectedJob, 0 ) );
+            RaisePropertyChanged( nameof( Jobs ) );
         }
 
         private void CommandAddSubtaskExecute()
         {
-            JDP.AddBlankJobToJob(SelectedJob);
-            RaisePropertyChanged("ChildJobs");
+            JDP.AddBlankJobToJob( SelectedJob );
+            RaisePropertyChanged( nameof( ChildJobs ) );
         }
 
         private void CommandSelectedJobChangedExecute(object J)
         {
             SelectedJob = (IJob)J;
-            RaisePropertyChanged("IsJobEnabled");
-            RaisePropertyChanged("ChildJobs");
+            RaisePropertyChanged( nameof( IsJobEnabled ) );
+            RaisePropertyChanged( nameof( ChildJobs ) );
         }
 
         #endregion
@@ -182,23 +199,23 @@ namespace CharacterManager.ViewModels.DetailViewModels.OrganizationTabViewModels
                 case ChangeType.SelectedOrganizationChanged:
                     //SelectedJob = null;
 
-                    RaisePropertyChanged("IsEntityEnabled");
-                    RaisePropertyChanged("IsJobEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
+                    RaisePropertyChanged( nameof( IsJobEnabled ) );
 
-                    RaisePropertyChanged("Jobs");
-                    RaisePropertyChanged("Entities");
-                    RaisePropertyChanged("Org");
-                    RaisePropertyChanged("TargetChildren");
+                    RaisePropertyChanged( nameof( Jobs ) );
+                    RaisePropertyChanged( nameof( Entities ) );
+                    RaisePropertyChanged( nameof( Org ) );
+                    RaisePropertyChanged( nameof( TargetChildren ) );
                     break;
                 case ChangeType.JobEventListChanged:
                     break;
                 case ChangeType.JobListChanged:
-                    RaisePropertyChanged("Jobs");
-                    RaisePropertyChanged("Org");
+                    RaisePropertyChanged( nameof( Jobs ) );
+                    RaisePropertyChanged( nameof( Org ) );
                     break;
                 case ChangeType.DayAdvanced:
-                    RaisePropertyChanged("Jobs");
-                    RaisePropertyChanged("Org");
+                    RaisePropertyChanged( nameof( Jobs ) );
+                    RaisePropertyChanged( nameof( Org ) );
                     break;
                 default:
                     break;

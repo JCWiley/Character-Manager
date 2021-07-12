@@ -3,20 +3,16 @@ using CharacterManager.Model.Providers;
 using CharacterManager.Model.RedundantTree;
 using Prism.Ioc;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
 namespace CharacterManager.Views.Helpers
 {
-    [ValueConversion(typeof(IRTreeMember<IEntity>), typeof(Guid))]
+    [ValueConversion( typeof( IRTreeMember<IEntity> ), typeof( Guid ) )]
     public class EntityToGuidConverter : IValueConverter
     {
-        IEntityProvider EP;
+        readonly IEntityProvider EP;
         public EntityToGuidConverter()
         {
             IContainerProvider CP = (IContainerProvider)Application.Current.Resources["IoC"];
@@ -26,25 +22,25 @@ namespace CharacterManager.Views.Helpers
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is IRTreeMember<IEntity> E)
+            if (value is IRTreeMember<IEntity> E)
             {
                 return E.Gid;
             }
             else
             {
-                throw new ArgumentException("EntityToGuidConverter Convert recived non IRTreeMember<IEntity> type");
+                throw new ArgumentException( "EntityToGuidConverter Convert recived non IRTreeMember<IEntity> type" );
             }
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is Guid G)
+            if (value is Guid G)
             {
-                return EP.GetTreeMemberForGuid(G);
+                return EP.GetTreeMemberForGuid( G );
             }
             else
             {
-                throw new ArgumentException("EntityToGuidConverter ConvertBack recived non Guid type");
+                throw new ArgumentException( "EntityToGuidConverter ConvertBack recived non Guid type" );
             }
         }
     }

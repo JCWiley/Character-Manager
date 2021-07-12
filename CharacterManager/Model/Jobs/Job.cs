@@ -1,10 +1,7 @@
-﻿using CharacterManager.Model.Events;
-using CharacterManager.Model.Items;
+﻿using CharacterManager.Model.Items;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
 
 namespace CharacterManager.Model.Jobs
 {
@@ -17,14 +14,14 @@ namespace CharacterManager.Model.Jobs
             Days_Since_Creation = 0;
             iscurrentlyprogressing = true;
             startdate = CurrentDay;
-            creation_date = CurrentDay;
+            Creation_Date = CurrentDay;
         }
         #region Derived Variables
         public int DaysRemaining
         {
             get
             {
-                int val = this.duration - this.progress;
+                int val = duration - progress;
                 if (val > 0)
                 {
                     return val;
@@ -39,7 +36,7 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.StartDate + Duration;
+                return StartDate + Duration;
             }
         }
         #endregion
@@ -50,14 +47,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.required_items;
+                return required_items;
             }
             set
             {
-                if (this.required_items != value)
+                if (required_items != value)
                 {
-                    this.required_items = value;
-                    RaisePropertyChanged("Required_Items");
+                    required_items = value;
+                    RaisePropertyChanged( nameof( Required_Items ) );
                 }
             }
         }
@@ -69,14 +66,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.complete;
+                return complete;
             }
             set
             {
-                if (this.complete != value)
+                if (complete != value)
                 {
-                    this.complete = value;
-                    RaisePropertyChanged("Complete");
+                    complete = value;
+                    RaisePropertyChanged( nameof( Complete ) );
                 }
             }
         }
@@ -86,14 +83,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.summary;
+                return summary;
             }
             set
             {
-                if (this.summary != value)
+                if (summary != value)
                 {
-                    this.summary = value;
-                    RaisePropertyChanged("Summary");
+                    summary = value;
+                    RaisePropertyChanged( nameof( Summary ) );
                 }
             }
         }
@@ -103,14 +100,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.description;
+                return description;
             }
             set
             {
-                if (this.description != value)
+                if (description != value)
                 {
-                    this.description = value;
-                    RaisePropertyChanged("Description");
+                    description = value;
+                    RaisePropertyChanged( nameof( Description ) );
                 }
             }
         }
@@ -120,14 +117,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.iscurrentlyprogressing;
+                return iscurrentlyprogressing;
             }
             set
             {
-                if (this.iscurrentlyprogressing != value)
+                if (iscurrentlyprogressing != value)
                 {
-                    this.iscurrentlyprogressing = value;
-                    RaisePropertyChanged("IsCurrentlyProgressing");
+                    iscurrentlyprogressing = value;
+                    RaisePropertyChanged( nameof( IsCurrentlyProgressing ) );
                 }
             }
         }
@@ -137,14 +134,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.recurring;
+                return recurring;
             }
             set
             {
-                if (this.recurring != value)
+                if (recurring != value)
                 {
-                    this.recurring = value;
-                    RaisePropertyChanged("Recurring");
+                    recurring = value;
+                    RaisePropertyChanged( nameof( Recurring ) );
                 }
             }
         }
@@ -154,24 +151,21 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.days_since_creation;
+                return days_since_creation;
             }
             set
             {
-                if (this.days_since_creation != value)
+                if (days_since_creation != value)
                 {
-                    this.days_since_creation = value;
-                    RaisePropertyChanged("Days_Since_Creation");
+                    days_since_creation = value;
+                    RaisePropertyChanged( nameof( Days_Since_Creation ) );
                 }
             }
         }
-        private int creation_date;
+
         public int Creation_Date
         {
-            get
-            {
-                return this.creation_date;
-            }
+            get;
         }
 
         private int duration;
@@ -179,15 +173,15 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.duration;
+                return duration;
             }
             set
             {
-                if (this.duration != value)
+                if (duration != value)
                 {
-                    this.duration = value;
-                    RaisePropertyChanged("Duration");
-                    RaisePropertyChanged("DaysRemaining");
+                    duration = value;
+                    RaisePropertyChanged( nameof( Duration ) );
+                    RaisePropertyChanged( nameof( DaysRemaining ) );
                 }
             }
         }
@@ -197,14 +191,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.progress;
+                return progress;
             }
             set
             {
-                if (this.progress != value)
+                if (progress != value)
                 {
-                    this.progress = value;
-                    RaisePropertyChanged("Progress");
+                    progress = value;
+                    RaisePropertyChanged( nameof( Progress ) );
                 }
             }
         }
@@ -214,14 +208,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.startdate;
+                return startdate;
             }
             set
             {
-                if (this.startdate != value)
+                if (startdate != value)
                 {
-                    this.startdate = value;
-                    RaisePropertyChanged("StartDate");
+                    startdate = value;
+                    RaisePropertyChanged( nameof( StartDate ) );
                 }
             }
         }
@@ -231,14 +225,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.successchance;
+                return successchance;
             }
             set
             {
-                if (this.successchance != value)
+                if (successchance != value)
                 {
-                    this.successchance = value;
-                    RaisePropertyChanged("SuccessChance");
+                    successchance = value;
+                    RaisePropertyChanged( nameof( SuccessChance ) );
                 }
             }
         }
@@ -248,14 +242,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.failurechance;
+                return failurechance;
             }
             set
             {
-                if (this.failurechance != value)
+                if (failurechance != value)
                 {
-                    this.failurechance = value;
-                    RaisePropertyChanged("FailureChance");
+                    failurechance = value;
+                    RaisePropertyChanged( nameof( FailureChance ) );
                 }
             }
         }
@@ -265,14 +259,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.ownerentity;
+                return ownerentity;
             }
             set
             {
-                if (this.ownerentity != value)
+                if (ownerentity != value)
                 {
-                    this.ownerentity = value;
-                    RaisePropertyChanged("OwnerEntity");
+                    ownerentity = value;
+                    RaisePropertyChanged( nameof( OwnerEntity ) );
                 }
             }
         }
@@ -282,14 +276,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.ownerjob;
+                return ownerjob;
             }
             set
             {
-                if (this.ownerjob != value)
+                if (ownerjob != value)
                 {
-                    this.ownerjob = value;
-                    RaisePropertyChanged("OwnerJob");
+                    ownerjob = value;
+                    RaisePropertyChanged( nameof( OwnerJob ) );
                 }
             }
         }
@@ -299,14 +293,14 @@ namespace CharacterManager.Model.Jobs
         {
             get
             {
-                return this.job_id;
+                return job_id;
             }
             set
             {
-                if (this.job_id != value)
+                if (job_id != value)
                 {
-                    this.job_id = value;
-                    RaisePropertyChanged("Job_ID");
+                    job_id = value;
+                    RaisePropertyChanged( nameof( Job_ID ) );
                 }
             }
         }

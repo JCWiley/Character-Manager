@@ -7,20 +7,20 @@ namespace CharacterManager.Model.Factories
 {
     public class TreeItemViewModelFactory : ITreeItemViewModelFactory
     {
-        private IEventAggregator EA;
+        private readonly IEventAggregator EA;
         public TreeItemViewModelFactory(IEventAggregator eventAggregator)
         {
             EA = eventAggregator;
         }
 
-        public CharacterTreeItemViewModel CreateCharacterViewModel(IRTreeMember<IEntity> parent,IRTreeMember<IEntity> target)
+        public CharacterTreeItemViewModel CreateCharacterViewModel(IRTreeMember<IEntity> parent, IRTreeMember<IEntity> target)
         {
-            return new CharacterTreeItemViewModel(parent, target, EA);
+            return new CharacterTreeItemViewModel( parent, target, EA );
         }
 
-        public OrganizationTreeItemViewModel CreateOrganizationViewModel(IRTreeMember<IEntity> parent,IRTreeMember<IEntity> target)
+        public OrganizationTreeItemViewModel CreateOrganizationViewModel(IRTreeMember<IEntity> parent, IRTreeMember<IEntity> target)
         {
-            return new OrganizationTreeItemViewModel(parent,target, this, EA);
+            return new OrganizationTreeItemViewModel( parent, target, this, EA );
         }
     }
 }

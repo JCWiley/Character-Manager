@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.RedundantTree
 {
@@ -92,16 +89,16 @@ namespace CharacterManager.Model.RedundantTree
         {
             get
             {
-                List<IRTreeMember<T>> Items = new List<IRTreeMember<T>>();
+                List<IRTreeMember<T>> Items = new();
                 foreach (Guid G in Child_Guids)
                 {
-                    Items.Add(ParentRTree.Get_Item(G));
+                    Items.Add( ParentRTree.Get_Item( G ) );
                 }
                 return Items;
             }
         }
 
-        public RTreeMember(List<Guid> i_parents, List<Guid> i_children,Guid gid,RTree<T> rTree)
+        public RTreeMember(List<Guid> i_parents, List<Guid> i_children, Guid gid, RTree<T> rTree)
         {
             Parents = i_parents;
             Child_Guids = i_children;
@@ -111,26 +108,26 @@ namespace CharacterManager.Model.RedundantTree
 
         public void AddChild(Guid i_gid)
         {
-            if(!Child_Guids.Contains(i_gid))
+            if (!Child_Guids.Contains( i_gid ))
             {
-                Child_Guids.Add(i_gid);
+                Child_Guids.Add( i_gid );
             }
         }
         public void RemoveChild(Guid i_gid)
         {
-            Child_Guids.Remove(i_gid);
+            Child_Guids.Remove( i_gid );
         }
 
         public void AddParent(Guid i_gid)
         {
-            if(!Parents.Contains(i_gid))
+            if (!Parents.Contains( i_gid ))
             {
-                Parents.Add(i_gid);
+                Parents.Add( i_gid );
             }
         }
         public void RemoveParent(Guid i_gid)
         {
-            Parents.Remove(i_gid);
+            Parents.Remove( i_gid );
         }
     }
 }

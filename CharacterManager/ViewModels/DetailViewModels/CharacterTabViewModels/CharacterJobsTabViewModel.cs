@@ -1,41 +1,30 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Events.EventContainers;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Events;
 using CharacterManager.Model.Jobs;
 using CharacterManager.Model.Providers;
-using CharacterManager.Model.RedundantTree;
-using CharacterManager.ViewModels.Helpers;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
-using Prism.Services.Dialogs;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
     public class CharacterJobsTabViewModel : BindableBase
     {
-        public CharacterJobsTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IRegionManager regionManager, IJobDirectoryProvider jobDirectoryProvider, IDialogServiceHelper dialogServiceHelper)
+        public CharacterJobsTabViewModel(IEntityProvider entityProvider, IEventAggregator eventAggregator, IJobDirectoryProvider jobDirectoryProvider)
         {
             EA = eventAggregator;
-            RM = regionManager;
             EP = entityProvider;
             JDP = jobDirectoryProvider;
-            DSH = dialogServiceHelper;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IEntityProvider EP;
-        private IDialogServiceHelper DSH;
-        private IJobDirectoryProvider JDP;
+        private readonly IEventAggregator EA;
+        private readonly IEntityProvider EP;
+        private readonly IJobDirectoryProvider JDP;
         private IJob SelectedJob = null;
 
         #endregion
@@ -57,15 +46,15 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             set
             {
                 EP.CurrentTargetAsCharacter.Item = value;
-                RaisePropertyChanged("Char");
-                RaisePropertyChanged("Jobs");
+                RaisePropertyChanged( nameof( Char ) );
+                RaisePropertyChanged( nameof( Jobs ) );
             }
         }
         public List<IJob> Jobs
         {
             get
             {
-                return JDP.GetEntitiesJobs(EP.CurrentTargetAsCharacter);
+                return JDP.GetEntitiesJobs( EP.CurrentTargetAsCharacter );
             }
         }
         public bool IsEntityEnabled
@@ -86,7 +75,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         {
             get
             {
-                if(SelectedJob is IJob)
+                if (SelectedJob is IJob)
                 {
                     return true;
                 }
@@ -99,33 +88,51 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         #endregion
         #region Commands
         private DelegateCommand _commandnewblankjob;
-        public DelegateCommand CommandNewBlankJob => _commandnewblankjob ??= new DelegateCommand(CommandNewBlankJobExecute);
+        public DelegateCommand CommandNewBlankJob
+        {
+            get
+            {
+                return _commandnewblankjob ??= new DelegateCommand( CommandNewBlankJobExecute );
+            }
+        }
 
         private DelegateCommand _commandaddcustomevent;
-        public DelegateCommand CommandAddCustomEvent => _commandaddcustomevent ??= new DelegateCommand(CommandAddCustomEventExecute);
+        public DelegateCommand CommandAddCustomEvent
+        {
+            get
+            {
+                return _commandaddcustomevent ??= new DelegateCommand( CommandAddCustomEventExecute );
+            }
+        }
 
         private DelegateCommand<object> _commandselectedjobchanged;
-        public DelegateCommand<object> CommandSelectedJobChanged => _commandselectedjobchanged ??= new DelegateCommand<object>(CommandSelectedJobChangedExecute);
+        public DelegateCommand<object> CommandSelectedJobChanged
+        {
+            get
+            {
+                return _commandselectedjobchanged ??= new DelegateCommand<object>( CommandSelectedJobChangedExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandNewBlankJobExecute()
         {
-            SelectedJob = JDP.AddBlankJobToEntity(EP.CurrentTargetAsCharacter);
-            RaisePropertyChanged("IsJobEnabled");
-            RaisePropertyChanged("Jobs");
+            SelectedJob = JDP.AddBlankJobToEntity( EP.CurrentTargetAsCharacter );
+            RaisePropertyChanged( nameof( IsJobEnabled ) );
+            RaisePropertyChanged( nameof( Jobs ) );
         }
 
         private void CommandAddCustomEventExecute()
         {
             //DSH.ShowNewEventPopup(CustomEventCreated, SelectedJob,EP.CurrentTargetAsCharacter);
-            EA.GetEvent<RequestJobEventEvent>().Publish(new JobEventRequestContainer(SelectedJob, 0));
-            RaisePropertyChanged("Jobs");
+            EA.GetEvent<RequestJobEventEvent>().Publish( new JobEventRequestContainer( SelectedJob, 0 ) );
+            RaisePropertyChanged( nameof( Jobs ) );
         }
         private void CommandSelectedJobChangedExecute(object J)
         {
             SelectedJob = (IJob)J;
-            RaisePropertyChanged("IsJobEnabled");
+            RaisePropertyChanged( nameof( IsJobEnabled ) );
         }
         #endregion
 
@@ -137,23 +144,23 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
                 case ChangeType.SelectedCharacterChanged:
                     //SelectedJob = null;
 
-                    RaisePropertyChanged("IsEntityEnabled");
-                    RaisePropertyChanged("IsJobEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
+                    RaisePropertyChanged( nameof( IsJobEnabled ) );
 
-                    RaisePropertyChanged("Char");
-                    RaisePropertyChanged("Jobs");
+                    RaisePropertyChanged( nameof( Char ) );
+                    RaisePropertyChanged( nameof( Jobs ) );
                     break;
                 case ChangeType.SelectedOrganizationChanged:
                     break;
                 case ChangeType.JobEventListChanged:
                     break;
                 case ChangeType.JobListChanged:
-                    RaisePropertyChanged("Jobs");
-                    RaisePropertyChanged("Char");
+                    RaisePropertyChanged( nameof( Jobs ) );
+                    RaisePropertyChanged( nameof( Char ) );
                     break;
                 case ChangeType.DayAdvanced:
-                    RaisePropertyChanged("Jobs");
-                    RaisePropertyChanged("Char");
+                    RaisePropertyChanged( nameof( Jobs ) );
+                    RaisePropertyChanged( nameof( Char ) );
                     break;
                 default:
                     break;

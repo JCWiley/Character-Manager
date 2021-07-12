@@ -5,7 +5,6 @@ using CharacterManager.Model.RedundantTree;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using System;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
@@ -18,7 +17,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
             EA = eventAggregator;
 
-            EA.GetEvent<FilterClearRequestEvent>().Subscribe(FilterClearRequestEventExecute);
+            EA.GetEvent<FilterClearRequestEvent>().Subscribe( FilterClearRequestEventExecute );
 
             Visible = true;
             IsSelected = false;
@@ -31,17 +30,17 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private readonly IEventAggregator EA;
         private readonly IRTreeMember<IEntity> Target;
 
-        private IRTreeMember<IEntity> parent;
+        private readonly IRTreeMember<IEntity> parent;
         public Character Char
         {
-            get 
+            get
             {
-                return (Character)Target.Item; 
+                return (Character)Target.Item;
             }
             set
             {
                 Target.Item = value;
-                RaisePropertyChanged(nameof(Char));
+                RaisePropertyChanged( nameof( Char ) );
             }
         }
         #endregion
@@ -54,7 +53,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
             switch (filter.FilterType)
             {
                 case FilterType.Name:
-                    if (Target.Item.Name.Contains(filter.FilterContent))
+                    if (Target.Item.Name.Contains( filter.FilterContent ))
                     {
                         Should_Be_Visible = true;
                     }
@@ -64,7 +63,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                     }
                     break;
                 case FilterType.Race:
-                    if (Target.Item.Race.Contains(filter.FilterContent))
+                    if (Target.Item.Race.Contains( filter.FilterContent ))
                     {
                         Should_Be_Visible = true;
                     }
@@ -74,7 +73,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                     }
                     break;
                 case FilterType.Location:
-                    if (Target.Item.Location.Contains(filter.FilterContent))
+                    if (Target.Item.Location.Contains( filter.FilterContent ))
                     {
                         Should_Be_Visible = true;
                     }
@@ -98,11 +97,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return this.visible;
+                return visible;
             }
             set
             {
-                SetProperty(ref visible, value);
+                SetProperty( ref visible, value );
             }
         }
 
@@ -111,14 +110,14 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return this.isselected;
+                return isselected;
             }
             set
             {
-                SetProperty(ref isselected, value);
+                SetProperty( ref isselected, value );
                 if (isselected == true)
                 {
-                    EA.GetEvent<SelectedEntityChangedEvent>().Publish(Target);
+                    EA.GetEvent<SelectedEntityChangedEvent>().Publish( Target );
                 }
             }
         }
@@ -128,11 +127,11 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return this.isexpanded;
+                return isexpanded;
             }
             set
             {
-                SetProperty(ref isexpanded, value);
+                SetProperty( ref isexpanded, value );
             }
         }
         #endregion
@@ -142,23 +141,43 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private DelegateCommand _commandcopy;
         private DelegateCommand _commanddelete;
 
-        public DelegateCommand CommandCut => _commandcut ??= new DelegateCommand(CommandCutExecute);
-        public DelegateCommand CommandCopy => _commandcopy ??= new DelegateCommand(CommandCopyExecute);
-        public DelegateCommand CommandDelete => _commanddelete ??= new DelegateCommand(CommandDeleteExecute);
+        public DelegateCommand CommandCut
+        {
+            get
+            {
+                return _commandcut ??= new DelegateCommand( CommandCutExecute );
+            }
+        }
+
+        public DelegateCommand CommandCopy
+        {
+            get
+            {
+                return _commandcopy ??= new DelegateCommand( CommandCopyExecute );
+            }
+        }
+
+        public DelegateCommand CommandDelete
+        {
+            get
+            {
+                return _commanddelete ??= new DelegateCommand( CommandDeleteExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandCutExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Cut, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.Cut, parent, Target ) );
         }
         private void CommandCopyExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.Copy, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.Copy, parent, Target ) );
         }
         private void CommandDeleteExecute()
         {
-            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish(new AlterEntityRelationshipContainer(RelationshipChangeType.DeleteLocal, parent, Target));
+            EA.GetEvent<AlterEntityRelationshipsEvent>().Publish( new AlterEntityRelationshipContainer( RelationshipChangeType.DeleteLocal, parent, Target ) );
         }
         #endregion
 

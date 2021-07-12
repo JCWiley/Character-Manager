@@ -1,16 +1,11 @@
 ﻿using CharacterManager.Model.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Factories
 {
     public class JobEventFactory : IJobEventFactory
     {
         //takes a DayProvider as dependancy
-        public IEvent CreateJobEvent(string character, string comment, string event_type, string job, int progress_effects,int event_date)
+        public IEvent CreateJobEvent(string character, string comment, string event_type, string job, int progress_effects, int event_date)
         {
             return new Event()
             {

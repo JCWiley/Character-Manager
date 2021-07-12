@@ -1,10 +1,10 @@
-﻿using Prism.Regions;
-using System.Windows;
-using CharacterManager.Views.TreeViews;
+﻿using CharacterManager.Views.DayViews;
 using CharacterManager.Views.DetailViews;
-using Prism.Events;
 using CharacterManager.Views.MenuViews;
-using CharacterManager.Views.DayViews;
+using CharacterManager.Views.TreeViews;
+using Prism.Events;
+using Prism.Regions;
+using System.Windows;
 
 namespace CharacterManager.Views
 {
@@ -13,8 +13,8 @@ namespace CharacterManager.Views
     /// </summary>
     public partial class ShellView : Window
     {
-        IRegionManager RM;
-        private IEventAggregator EA;
+        readonly IRegionManager RM;
+        private readonly IEventAggregator EA;
         public ShellView(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             InitializeComponent();
@@ -22,11 +22,11 @@ namespace CharacterManager.Views
             RM = regionManager;
             EA = eventAggregator;
 
-            RM.RegisterViewWithRegion("MENU_REGION", typeof(MenuView));
-            RM.RegisterViewWithRegion("OVERVIEW_REGION", typeof(EntityListView));
-            RM.RegisterViewWithRegion("DETAIL_REGION", typeof(OrganizationDetailView));
-            RM.RegisterViewWithRegion("DETAIL_REGION", typeof(CharacterDetailView));
-            RM.RegisterViewWithRegion("DAY_REGION", typeof(DayControlView));
+            RM.RegisterViewWithRegion( "MENU_REGION", typeof( MenuView ) );
+            RM.RegisterViewWithRegion( "OVERVIEW_REGION", typeof( EntityListView ) );
+            RM.RegisterViewWithRegion( "DETAIL_REGION", typeof( OrganizationDetailView ) );
+            RM.RegisterViewWithRegion( "DETAIL_REGION", typeof( CharacterDetailView ) );
+            RM.RegisterViewWithRegion( "DAY_REGION", typeof( DayControlView ) );
 
         }
     }

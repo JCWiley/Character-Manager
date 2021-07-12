@@ -11,14 +11,14 @@ namespace CharacterManager.Model.Events
         {
             get
             {
-                return this.event_type;
+                return event_type;
             }
             set
             {
-                if (this.event_type != value)
+                if (event_type != value)
                 {
-                    this.event_type = value;
-                    RaisePropertyChanged("Event_Type");
+                    event_type = value;
+                    RaisePropertyChanged( nameof( Event_Type ) );
                 }
             }
         }
@@ -28,14 +28,14 @@ namespace CharacterManager.Model.Events
         {
             get
             {
-                return this.comment;
+                return comment;
             }
             set
             {
-                if (this.comment != value)
+                if (comment != value)
                 {
-                    this.comment = value;
-                    RaisePropertyChanged("Comment");
+                    comment = value;
+                    RaisePropertyChanged( nameof( Comment ) );
                 }
             }
         }
@@ -49,10 +49,10 @@ namespace CharacterManager.Model.Events
             }
             set
             {
-                if (this.day != value)
+                if (day != value)
                 {
-                    this.day = value;
-                    RaisePropertyChanged("Day");
+                    day = value;
+                    RaisePropertyChanged( nameof( Day ) );
                 }
             }
         }
@@ -66,10 +66,10 @@ namespace CharacterManager.Model.Events
             }
             set
             {
-                if (this.character != value)
+                if (character != value)
                 {
-                    this.character = value;
-                    RaisePropertyChanged("Character");
+                    character = value;
+                    RaisePropertyChanged( nameof( Character ) );
                 }
             }
         }
@@ -83,10 +83,10 @@ namespace CharacterManager.Model.Events
             }
             set
             {
-                if (this.job != value)
+                if (job != value)
                 {
-                    this.job = value;
-                    RaisePropertyChanged("Job");
+                    job = value;
+                    RaisePropertyChanged( nameof( Job ) );
                 }
             }
         }
@@ -100,10 +100,10 @@ namespace CharacterManager.Model.Events
             }
             set
             {
-                if (this.progress_effects != value)
+                if (progress_effects != value)
                 {
-                    this.progress_effects = value;
-                    RaisePropertyChanged("Progress_Effects");
+                    progress_effects = value;
+                    RaisePropertyChanged( nameof( Progress_Effects ) );
                 }
             }
         }

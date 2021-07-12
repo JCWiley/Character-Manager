@@ -1,10 +1,6 @@
-﻿using CharacterManager.Model.Factories;
-using CharacterManager.Model.RedundantTree;
+﻿using CharacterManager.Model.RedundantTree;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Factories
 {
@@ -15,7 +11,7 @@ namespace CharacterManager.Model.Factories
 
         }
 
-        public  Guid CreateGuid()
+        public Guid CreateGuid()
         {
             return Guid.NewGuid();
         }
@@ -40,12 +36,12 @@ namespace CharacterManager.Model.Factories
 
         public IRTreeMember<T> CreateRTreeMember(RTree<T> rTree)
         {
-            return new RTreeMember<T>(CreateGuidList(), CreateGuidList(), CreateGuid(),rTree);
+            return new RTreeMember<T>( CreateGuidList(), CreateGuidList(), CreateGuid(), rTree );
         }
 
         public RTree<T> CreateRTree()
         {
-            return new RTree<T>(this);
+            return new RTree<T>( this );
         }
     }
 }

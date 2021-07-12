@@ -1,9 +1,6 @@
 ﻿using CharacterManager.Model.Entities;
 using CharacterManager.Model.RedundantTree;
 using CharacterManager.ViewModels.TreeViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CharacterManager.Model.Factories
 {

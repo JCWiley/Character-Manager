@@ -1,19 +1,15 @@
 ﻿using CharacterManager.Model.Entities;
-using CharacterManager.Model.RedundantTree;
 using CharacterManager.Model.Services;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace CharacterManager.Model.Providers
 {
-    public class DerivedDataProvider : BindableBase,IDerivedDataProvider
+    public class DerivedDataProvider : BindableBase, IDerivedDataProvider
     {
-        IDataService DS;
+        readonly IDataService DS;
 
         public DerivedDataProvider(IDataService dataService)
         {
@@ -23,7 +19,7 @@ namespace CharacterManager.Model.Providers
         #region Races
         [JsonIgnore]
         [IgnoreDataMember]
-        private ObservableCollection<String> races = null;
+        private ObservableCollection<string> races = null;
 
         [JsonIgnore]
         [IgnoreDataMember]
@@ -40,29 +36,29 @@ namespace CharacterManager.Model.Providers
         }
         public void UpdateRacesList()
         {
-            if(races is null)
+            if (races is null)
             {
                 races = new ObservableCollection<string>();
             }
 
             foreach (IEntity entity in DS.EntityTree.Get_All_Items())
             {
-                if (!string.IsNullOrWhiteSpace(entity.Race))
+                if (!string.IsNullOrWhiteSpace( entity.Race ))
                 {
-                    if (!races.Contains(entity.Race))
+                    if (!races.Contains( entity.Race ))
                     {
-                        races.Add(entity.Race);
+                        races.Add( entity.Race );
                     }
                 }
             }
-            RaisePropertyChanged("Races");
+            RaisePropertyChanged( nameof( Races ) );
         }
 
         #endregion
         #region Locations
         [JsonIgnore]
         [IgnoreDataMember]
-        private ObservableCollection<String> locations = null;
+        private ObservableCollection<string> locations = null;
 
         [JsonIgnore]
         [IgnoreDataMember]
@@ -80,32 +76,32 @@ namespace CharacterManager.Model.Providers
 
         public void UpdateLocationsList()
         {
-            if(locations is null)
+            if (locations is null)
             {
                 locations = new ObservableCollection<string>();
             }
 
             foreach (IEntity entity in DS.EntityTree.Get_All_Items())
             {
-                if(!string.IsNullOrWhiteSpace(entity.Location))
+                if (!string.IsNullOrWhiteSpace( entity.Location ))
                 {
-                    if (!locations.Contains(entity.Location))
+                    if (!locations.Contains( entity.Location ))
                     {
-                        locations.Add(entity.Location);
+                        locations.Add( entity.Location );
                     }
                 }
-                if(entity is Character c)
+                if (entity is Character c)
                 {
-                    if (!string.IsNullOrWhiteSpace(c.BirthPlace))
+                    if (!string.IsNullOrWhiteSpace( c.BirthPlace ))
                     {
-                        if (!locations.Contains(c.BirthPlace))
+                        if (!locations.Contains( c.BirthPlace ))
                         {
-                            locations.Add(c.BirthPlace);
+                            locations.Add( c.BirthPlace );
                         }
                     }
                 }
             }
-            RaisePropertyChanged("Locations");
+            RaisePropertyChanged( nameof( Locations ) );
         }
         #endregion
     }

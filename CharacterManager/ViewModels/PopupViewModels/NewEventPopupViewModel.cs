@@ -6,10 +6,6 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.PopupViewModels
 {
@@ -22,7 +18,7 @@ namespace CharacterManager.ViewModels.PopupViewModels
             EF = eventFactory;
         }
 
-        private IJobEventFactory EF;
+        private readonly IJobEventFactory EF;
 
         public bool CanCloseDialog()
         {
@@ -31,19 +27,19 @@ namespace CharacterManager.ViewModels.PopupViewModels
 
         public void OnDialogClosed()
         {
-            
+
         }
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
             Title = "An Event Occured";
-            J = parameters.GetValue<IJob>("Job");
-            E = parameters.GetValue<IRTreeMember<IEntity>>("Entity");
-            date = parameters.GetValue<int>("Date");
+            J = parameters.GetValue<IJob>( "Job" );
+            E = parameters.GetValue<IRTreeMember<IEntity>>( "Entity" );
+            date = parameters.GetValue<int>( "Date" );
             Name = E.Item.Name;
             JobSummary = J.Summary;
-            proposedimpact = parameters.GetValue<int>("Effects");
-            
+            proposedimpact = parameters.GetValue<int>( "Effects" );
+
             Notes = "";
             ImpactSelection = proposedimpact + 7;
         }
@@ -54,104 +50,131 @@ namespace CharacterManager.ViewModels.PopupViewModels
 
         public void RaiseRequestClose(IDialogResult dialogResult)
         {
-            RequestClose?.Invoke(dialogResult);
+            RequestClose?.Invoke( dialogResult );
         }
 
         #region Bindings
         private string title;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get
+            {
+                return title;
+            }
+            set
+            {
+                SetProperty( ref title, value );
+            }
         }
         private string name;
         public string Name
         {
-            get { return name; }
-            set { SetProperty(ref name, value); }
+            get
+            {
+                return name;
+            }
+            set
+            {
+                SetProperty( ref name, value );
+            }
         }
         private string jobsummary;
         public string JobSummary
         {
-            get { return jobsummary; }
-            set { SetProperty(ref jobsummary, value); }
+            get
+            {
+                return jobsummary;
+            }
+            set
+            {
+                SetProperty( ref jobsummary, value );
+            }
         }
         private string notes;
         public string Notes
         {
-            get { return notes; }
-            set { SetProperty(ref notes, value); }
+            get
+            {
+                return notes;
+            }
+            set
+            {
+                SetProperty( ref notes, value );
+            }
         }
         private int impactselection;
         public int ImpactSelection
         {
-            get { return impactselection; }
-            set { SetProperty(ref impactselection, value); }
+            get
+            {
+                return impactselection;
+            }
+            set
+            {
+                SetProperty( ref impactselection, value );
+            }
         }
         private int proposedimpact = 1;
         public string ImpactDescription
         {
-            get { return EventTypeSwitch(proposedimpact); }
+            get
+            {
+                return EventTypeSwitch( proposedimpact );
+            }
         }
         private int date;
         #endregion
 
         #region Commands
         private DelegateCommand _commandaccept;
-        public DelegateCommand CommandAccept => _commandaccept ??= new DelegateCommand(CommandAcceptExecute);
+
+        public DelegateCommand GetCommandAccept()
+        {
+            return _commandaccept ??= new DelegateCommand( CommandAcceptExecute );
+        }
+
         private DelegateCommand _commandignore;
-        public DelegateCommand CommandIgnore => _commandignore ??= new DelegateCommand(CommandIgnoreExecute);
+
+        public DelegateCommand GetCommandIgnore()
+        {
+            return _commandignore ??= new DelegateCommand( CommandIgnoreExecute );
+        }
         #endregion
 
         #region Command Handlers
         private void CommandAcceptExecute()
         {
-            RaiseRequestClose(new DialogResult(ButtonResult.OK,new DialogParameters { { "Event", EF.CreateJobEvent(Name, Notes, EventTypeSwitch(ImpactSelection - 7), JobSummary, ImpactSelection - 7,date) },{"Job",J},{"Entity",E } }));
+            RaiseRequestClose( new DialogResult( ButtonResult.OK, new DialogParameters { { "Event", EF.CreateJobEvent( Name, Notes, EventTypeSwitch( ImpactSelection - 7 ), JobSummary, ImpactSelection - 7, date ) }, { "Job", J }, { "Entity", E } } ) );
         }
         private void CommandIgnoreExecute()
         {
-            RaiseRequestClose(new DialogResult(ButtonResult.Ignore));
+            RaiseRequestClose( new DialogResult( ButtonResult.Ignore ) );
         }
 
         #endregion
 
         #region Utilities
-        private string EventTypeSwitch(int I_Progress_Impact)
+        private static string EventTypeSwitch(int I_Progress_Impact)
         {
-            switch (I_Progress_Impact)
+            return I_Progress_Impact switch
             {
-                case -7:
-                    return "Critical Failure";
-                case -6:
-                    return "Critical Failure";
-                case -5:
-                    return "Critical Failure";
-                case -4:
-                    return "Critical Failure";
-                case -3:
-                    return "Failure";
-                case -2:
-                    return "Failure";
-                case -1:
-                    return "Failure";
-                case 0:
-                    return "Failure";
-                case 1:
-                    return "Anomaly";
-                case 2:
-                    return "Success";
-                case 3:
-                    return "Success";
-                case 4:
-                    return "Critical Success";
-                case 5:
-                    return "Critical Success";
-                case 6:
-                    return "Critical Success";
-                case 7:
-                    return "Critical Success";
-            }
-            return "Anomaly";
+                -7 => "Critical Failure",
+                -6 => "Critical Failure",
+                -5 => "Critical Failure",
+                -4 => "Critical Failure",
+                -3 => "Failure",
+                -2 => "Failure",
+                -1 => "Failure",
+                0 => "Failure",
+                1 => "Anomaly",
+                2 => "Success",
+                3 => "Success",
+                4 => "Critical Success",
+                5 => "Critical Success",
+                6 => "Critical Success",
+                7 => "Critical Success",
+                _ => throw new InvalidOperationException(),
+            };
         }
         #endregion
     }

@@ -9,24 +9,20 @@ using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CharacterManager.Model.Services
 {
-    public class DataService :BindableBase, IDataService
+    public class DataService : BindableBase, IDataService
     {
         #region Services
-        private IDataLoader DL;
-        private IDataSaver DS;
-        private IEventAggregator EA;
-        private ISettingsService SS;
+        private readonly IDataLoader DL;
+        private readonly IDataSaver DS;
+        private readonly IEventAggregator EA;
+        private readonly ISettingsService SS;
         #endregion
 
         #region Factories
-        IRTreeFactory<IEntity> IRTF;
+        readonly IRTreeFactory<IEntity> IRTF;
         #endregion
 
         #region Data Storage
@@ -34,30 +30,45 @@ namespace CharacterManager.Model.Services
 
         public List<IJob> Job_List
         {
-            get { return job_list; }
-            set { SetProperty(ref job_list, value); }
+            get
+            {
+                return job_list;
+            }
+            set
+            {
+                SetProperty( ref job_list, value );
+            }
         }
 
         private IRTree<IEntity> entitytree;
         public IRTree<IEntity> EntityTree
         {
-            get { return entitytree; }
-            set { SetProperty(ref entitytree, value); }
+            get
+            {
+                return entitytree;
+            }
+            set
+            {
+                SetProperty( ref entitytree, value );
+            }
         }
 
         private Dictionary<Guid, List<IEvent>> jobeventdict;
         public Dictionary<Guid, List<IEvent>> JobEventDict
         {
-            get { return jobeventdict; }
-            set { SetProperty(ref jobeventdict, value); }
+            get
+            {
+                return jobeventdict;
+            }
+            set
+            {
+                SetProperty( ref jobeventdict, value );
+            }
         }
-
-        private int currentday;
 
         public int CurrentDay
         {
-            get { return currentday; }
-            set { currentday = value; }
+            get; set;
         }
 
         #endregion
@@ -67,7 +78,7 @@ namespace CharacterManager.Model.Services
 
         }
 
-        public DataService(IRTreeFactory<IEntity> iRTreeFactory,IDataLoader dataLoader, IDataSaver dataSaver, IEventAggregator eventAggregator,ISettingsService settingsService)
+        public DataService(IRTreeFactory<IEntity> iRTreeFactory, IDataLoader dataLoader, IDataSaver dataSaver, IEventAggregator eventAggregator, ISettingsService settingsService)
         {
             DL = dataLoader;
             DS = dataSaver;
@@ -77,12 +88,12 @@ namespace CharacterManager.Model.Services
 
             IRTF = iRTreeFactory;
 
-            EA.GetEvent<DataSaveRequestEvent>().Subscribe(DataSaveRequestEventExecute);
-            EA.GetEvent<DataLoadRequestEvent>().Subscribe(DataLoadRequestEventExecute);
-            EA.GetEvent<NewFileRequestEvent>().Subscribe(NewEntityRequestEventExecute);
+            EA.GetEvent<DataSaveRequestEvent>().Subscribe( DataSaveRequestEventExecute );
+            EA.GetEvent<DataLoadRequestEvent>().Subscribe( DataLoadRequestEventExecute );
+            EA.GetEvent<NewFileRequestEvent>().Subscribe( NewEntityRequestEventExecute );
 
             //try to load an existing file
-            DataLoadRequestEventExecute(LoadRequestTypes.LastFile);
+            DataLoadRequestEventExecute( LoadRequestTypes.LastFile );
 
         }
 
@@ -91,10 +102,10 @@ namespace CharacterManager.Model.Services
             switch (saveRequestType)
             {
                 case SaveRequestTypes.Save:
-                    DS.Save((object)this);
+                    DS.Save( this );
                     break;
                 case SaveRequestTypes.SaveAs:
-                    DS.SaveWithDialog((object)this);
+                    DS.SaveWithDialog( this );
                     break;
                 default:
                     break;
@@ -114,22 +125,22 @@ namespace CharacterManager.Model.Services
                 default:
                     break;
             }
-            if(LoadResult is not InvalidDataService)
+            if (LoadResult is not InvalidDataService)
             {
-                SetEqual(LoadResult);
+                SetEqual( LoadResult );
             }
             else
             {
                 InitializeDefault();
             }
-            EA.GetEvent<DataLoadSuccessEvent>().Publish(EntityTree.Heads[0]);
+            EA.GetEvent<DataLoadSuccessEvent>().Publish( EntityTree.Heads[0] );
 
         }
 
         private void NewEntityRequestEventExecute(string NoParam)
         {
             InitializeDefault();
-            EA.GetEvent<DataLoadSuccessEvent>().Publish(EntityTree.Heads[0]);
+            EA.GetEvent<DataLoadSuccessEvent>().Publish( EntityTree.Heads[0] );
         }
 
 
@@ -143,9 +154,9 @@ namespace CharacterManager.Model.Services
 
         private void InitializeDefault()
         {
-            EntityTree = new RTree<IEntity>(IRTF);
+            EntityTree = new RTree<IEntity>( IRTF );
 
-            EntityTree.AddChild(EntityTree.AddItem(new Organization(), true), EntityTree.AddItem(new Character()));
+            EntityTree.AddChild( EntityTree.AddItem( new Organization(), true ), EntityTree.AddItem( new Character() ) );
 
             Job_List = new List<IJob>();
 

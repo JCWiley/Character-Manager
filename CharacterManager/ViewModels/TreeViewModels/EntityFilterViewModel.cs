@@ -6,8 +6,6 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.TreeViewModels
 {
@@ -24,16 +22,16 @@ namespace CharacterManager.ViewModels.TreeViewModels
 
         public string FilterContent
         {
-            get 
+            get
             {
                 return filtercontent;
             }
             set
             {
-                if(filtercontent != value)
+                if (filtercontent != value)
                 {
                     filtercontent = value;
-                    RaisePropertyChanged(nameof(FilterContent));
+                    RaisePropertyChanged( nameof( FilterContent ) );
                 }
             }
         }
@@ -51,7 +49,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
                 if (filterselection != value)
                 {
                     filterselection = value;
-                    RaisePropertyChanged(nameof(FilterSelection));
+                    RaisePropertyChanged( nameof( FilterSelection ) );
                 }
             }
         }
@@ -62,7 +60,7 @@ namespace CharacterManager.ViewModels.TreeViewModels
         {
             get
             {
-                return Enum.GetValues(typeof(FilterType)).Cast<FilterType>();
+                return Enum.GetValues( typeof( FilterType ) ).Cast<FilterType>();
             }
         }
         #endregion
@@ -71,19 +69,32 @@ namespace CharacterManager.ViewModels.TreeViewModels
         private DelegateCommand _commandclearfilter;
         private DelegateCommand _commandapplyfilter;
 
-        public DelegateCommand CommandClearFilter => _commandclearfilter ??= new DelegateCommand(CommandClearFilterExecute);
-        public DelegateCommand CommandApplyFilter => _commandapplyfilter ??= new DelegateCommand(CommandApplyFilterExecute);
+        public DelegateCommand CommandClearFilter
+        {
+            get
+            {
+                return _commandclearfilter ??= new DelegateCommand( CommandClearFilterExecute );
+            }
+        }
+
+        public DelegateCommand CommandApplyFilter
+        {
+            get
+            {
+                return _commandapplyfilter ??= new DelegateCommand( CommandApplyFilterExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandClearFilterExecute()
         {
             FilterContent = "";
-            EA.GetEvent<FilterClearRequestEvent>().Publish("");
+            EA.GetEvent<FilterClearRequestEvent>().Publish( "" );
         }
         private void CommandApplyFilterExecute()
         {
-            EA.GetEvent<FilterRequestEvent>().Publish(new FilterRequestEventContainer(FilterSelection, FilterContent));
+            EA.GetEvent<FilterRequestEvent>().Publish( new FilterRequestEventContainer( FilterSelection, FilterContent ) );
         }
         #endregion
     }

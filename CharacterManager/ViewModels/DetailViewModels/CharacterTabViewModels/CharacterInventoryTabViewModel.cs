@@ -1,14 +1,9 @@
 ﻿using CharacterManager.Events;
 using CharacterManager.Model.Entities;
-using CharacterManager.Model.Items;
 using CharacterManager.Model.Providers;
-using CharacterManager.Model.RedundantTree;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
 {
@@ -20,20 +15,20 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             RM = regionManager;
             EP = entityProvider;
 
-            EA.GetEvent<UIUpdateRequestEvent>().Subscribe(UIUpdateRequestExecute);
+            EA.GetEvent<UIUpdateRequestEvent>().Subscribe( UIUpdateRequestExecute );
         }
 
         #region Variables
-        private IEventAggregator EA;
-        private IRegionManager RM;
-        private IEntityProvider EP;
+        private readonly IEventAggregator EA;
+        private readonly IRegionManager RM;
+        private readonly IEntityProvider EP;
         #endregion
         #region Binding Targets
         public Character Char
         {
             get
             {
-                if(EP.CurrentTargetAsCharacter != null)
+                if (EP.CurrentTargetAsCharacter != null)
                 {
                     return (Character)EP.CurrentTargetAsCharacter.Item;
                 }
@@ -49,7 +44,7 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
         {
             get
             {
-                if(Char is Character)
+                if (Char is Character)
                 {
                     return true;
                 }
@@ -66,9 +61,9 @@ namespace CharacterManager.ViewModels.DetailViewModels.CharacterTabViewModels
             switch (type)
             {
                 case ChangeType.SelectedCharacterChanged:
-                    RaisePropertyChanged("IsEntityEnabled");
+                    RaisePropertyChanged( nameof( IsEntityEnabled ) );
 
-                    RaisePropertyChanged("Char");
+                    RaisePropertyChanged( nameof( Char ) );
                     break;
                 case ChangeType.SelectedOrganizationChanged:
                     break;

@@ -2,10 +2,6 @@
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterManager.ViewModels.PopupViewModels
 {
@@ -13,7 +9,7 @@ namespace CharacterManager.ViewModels.PopupViewModels
     {
         public event Action<IDialogResult> RequestClose;
 
-        IDialogService DS;
+        readonly IDialogService DS;
 
         public AdvanceDayPopupViewModel(IDialogService dialogService)
         {
@@ -38,45 +34,69 @@ namespace CharacterManager.ViewModels.PopupViewModels
 
         public void RaiseRequestClose(IDialogResult dialogResult)
         {
-            RequestClose?.Invoke(dialogResult);
+            RequestClose?.Invoke( dialogResult );
         }
 
         #region Bindings
         private string title;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get
+            {
+                return title;
+            }
+            set
+            {
+                SetProperty( ref title, value );
+            }
         }
 
         private int days;
         public int Days
         {
-            get { return days; }
-            set { SetProperty(ref days, value); }
+            get
+            {
+                return days;
+            }
+            set
+            {
+                SetProperty( ref days, value );
+            }
         }
 
         #endregion
 
         #region Commands
         private DelegateCommand _commandadvance;
-        public DelegateCommand CommandAdvance => _commandadvance ??= new DelegateCommand(CommandAdvanceExecute);
+        public DelegateCommand CommandAdvance
+        {
+            get
+            {
+                return _commandadvance ??= new DelegateCommand( CommandAdvanceExecute );
+            }
+        }
 
         private DelegateCommand _commandcancel;
-        public DelegateCommand CommandCancel => _commandcancel ??= new DelegateCommand(CommandCancelExecute);
+        public DelegateCommand CommandCancel
+        {
+            get
+            {
+                return _commandcancel ??= new DelegateCommand( CommandCancelExecute );
+            }
+        }
         #endregion
 
         #region Command Handlers
         private void CommandAdvanceExecute()
         {
-            if(CheckDaysIsValid() == true)
+            if (CheckDaysIsValid() == true)
             {
-                RaiseRequestClose(new DialogResult(ButtonResult.OK, new DialogParameters { { "Days", Days } }));
+                RaiseRequestClose( new DialogResult( ButtonResult.OK, new DialogParameters { { "Days", Days } } ) );
             }
         }
         private void CommandCancelExecute()
         {
-            RaiseRequestClose(new DialogResult(ButtonResult.Ignore));
+            RaiseRequestClose( new DialogResult( ButtonResult.Ignore ) );
         }
 
         #endregion
