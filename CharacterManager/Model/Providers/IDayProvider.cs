@@ -2,10 +2,7 @@
 {
     public interface IDayProvider
     {
-        int CurrentDay
-        {
-            get;
-        }
+        int CurrentDay { get; }
 
     }
 }

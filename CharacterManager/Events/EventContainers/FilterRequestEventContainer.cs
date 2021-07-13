@@ -8,13 +8,7 @@
             FilterContent = filtercontent;
         }
 
-        public FilterType FilterType
-        {
-            get; set;
-        }
-        public string FilterContent
-        {
-            get; set;
-        }
+        public FilterType FilterType { get; set; }
+        public string FilterContent { get; set; }
     }
 }

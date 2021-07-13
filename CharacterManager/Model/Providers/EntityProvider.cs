@@ -11,26 +11,14 @@ namespace CharacterManager.Model.Providers
 {
     public class EntityProvider : IEntityProvider
     {
-        public IEntityFactory EF
-        {
-            get; set;
-        }
+        public IEntityFactory EF { get; set; }
 
-        public IDataService DS
-        {
-            get; set;
-        }
+        public IDataService DS { get; set; }
 
         private readonly IEventAggregator EA;
 
-        public IRTreeMember<IEntity> CurrentTargetAsCharacter
-        {
-            get; private set;
-        }
-        public IRTreeMember<IEntity> CurrentTargetAsOrganization
-        {
-            get; private set;
-        }
+        public IRTreeMember<IEntity> CurrentTargetAsCharacter { get; private set; }
+        public IRTreeMember<IEntity> CurrentTargetAsOrganization { get; private set; }
 
         private IRTreeMember<IEntity> EntityCopyPasteBuffer;
 

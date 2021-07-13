@@ -11,13 +11,7 @@ namespace CharacterManager.Events.EventContainers
             NewEvent = newevent;
         }
 
-        public IJob TargetJob
-        {
-            get; set;
-        }
-        public IEvent NewEvent
-        {
-            get; set;
-        }
+        public IJob TargetJob { get; set; }
+        public IEvent NewEvent { get; set; }
     }
 }

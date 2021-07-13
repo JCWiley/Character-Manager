@@ -66,10 +66,7 @@ namespace CharacterManager.Model.Services
             }
         }
 
-        public int CurrentDay
-        {
-            get; set;
-        }
+        public int CurrentDay { get; set; }
 
         #endregion
 

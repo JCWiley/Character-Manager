@@ -10,13 +10,7 @@ namespace CharacterManager.Events.EventContainers
             EventSource = Source;
             EntityType = Type;
         }
-        public OrganizationTreeItemViewModel EventSource
-        {
-            get; set;
-        }
-        public EntityTypes EntityType
-        {
-            get; set;
-        }
+        public OrganizationTreeItemViewModel EventSource { get; set; }
+        public EntityTypes EntityType { get; set; }
     }
 }

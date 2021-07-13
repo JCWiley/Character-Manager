@@ -11,17 +11,8 @@ namespace CharacterManager.Events.EventContainers
             Complete = IsCompleteEvent;
         }
 
-        public IJob J
-        {
-            get; set;
-        }
-        public int E
-        {
-            get; set;
-        }
-        public bool Complete
-        {
-            get; set;
-        }
+        public IJob J { get; set; }
+        public int E { get; set; }
+        public bool Complete { get; set; }
     }
 }

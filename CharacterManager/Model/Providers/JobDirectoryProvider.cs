@@ -14,22 +14,13 @@ namespace CharacterManager.Model.Providers
     public class JobDirectoryProvider : IJobDirectoryProvider
     {
         [Dependency]
-        public IDataService DS
-        {
-            get; set;
-        }
+        public IDataService DS { get; set; }
 
         [Dependency]
-        public IJobFactory _jobFactory
-        {
-            get; set;
-        }
+        public IJobFactory JobFactory { get; set; }
 
 
-        public IEventAggregator EA
-        {
-            get; set;
-        }
+        public IEventAggregator EA { get; set; }
 
         public JobDirectoryProvider(IEventAggregator eventAggregator)
         {
@@ -43,7 +34,7 @@ namespace CharacterManager.Model.Providers
 
         public IJob AddBlankJobToEntity(IRTreeMember<IEntity> parent_entity)
         {
-            IJob J = _jobFactory.CreateJob();
+            IJob J = JobFactory.CreateJob();
             J.OwnerEntity = parent_entity.Gid;
             DS.Job_List.Add( J );
             NotifyJobListChanged();
@@ -51,7 +42,7 @@ namespace CharacterManager.Model.Providers
         }
         public IJob AddBlankJobToJob(IJob parent_job)
         {
-            IJob J = _jobFactory.CreateJob();
+            IJob J = JobFactory.CreateJob();
             J.OwnerJob = parent_job.Job_ID;
             DS.Job_List.Add( J );
             NotifyJobListChanged();

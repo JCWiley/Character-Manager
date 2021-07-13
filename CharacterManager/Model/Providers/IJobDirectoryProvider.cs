@@ -9,15 +9,9 @@ namespace CharacterManager.Model.Providers
 {
     public interface IJobDirectoryProvider
     {
-        public IDataService DS
-        {
-            get; set;
-        }
+        public IDataService DS { get; set; }
 
-        public IJobFactory _jobFactory
-        {
-            get; set;
-        }
+        public IJobFactory JobFactory { get; set; }
 
         public IJob AddBlankJobToEntity(IRTreeMember<IEntity> parent_entity);
 

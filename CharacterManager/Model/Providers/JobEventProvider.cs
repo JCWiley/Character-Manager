@@ -18,27 +18,15 @@ namespace CharacterManager.Model.Providers
     public class JobEventProvider : IJobEventProvider
     {
         [Dependency]
-        public IDataService DS
-        {
-            get; set;
-        }
+        public IDataService DS { get; set; }
 
         [Dependency]
-        public IJobEventFactory JEF
-        {
-            get; set;
-        }
+        public IJobEventFactory JEF { get; set; }
 
         [Dependency]
-        public IJobDirectoryProvider JDP
-        {
-            get; set;
-        }
+        public IJobDirectoryProvider JDP { get; set; }
 
-        public IEventAggregator EA
-        {
-            get; set;
-        }
+        public IEventAggregator EA { get; set; }
 
         readonly IDialogServiceHelper DSH;
         readonly IJobLogic JL;

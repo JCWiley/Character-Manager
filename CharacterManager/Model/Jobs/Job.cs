@@ -163,10 +163,7 @@ namespace CharacterManager.Model.Jobs
             }
         }
 
-        public int Creation_Date
-        {
-            get;
-        }
+        public int Creation_Date { get; }
 
         private int duration;
         public int Duration

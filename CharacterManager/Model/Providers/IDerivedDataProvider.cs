@@ -5,17 +5,12 @@ namespace CharacterManager.Model.Providers
     public interface IDerivedDataProvider
     {
 
-        public ObservableCollection<string> Races
-        {
-            get;
-        }
+        public ObservableCollection<string> Races { get; }
+
         public void UpdateRacesList();
 
 
-        public ObservableCollection<string> Locations
-        {
-            get;
-        }
+        public ObservableCollection<string> Locations { get; }
         public void UpdateLocationsList();
 
 
